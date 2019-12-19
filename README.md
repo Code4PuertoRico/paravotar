@@ -1,3 +1,7 @@
+# papeleta-pr
+
+Una herramienta para practicar tu voto con la papeleta de Puerto Rico.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
