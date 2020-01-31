@@ -8,7 +8,7 @@ const legislativeBallot = new LegislativeBallot()
 
 const IndexPage = () => (
   <div className="App">
-    <h1>Pratica Tu Voto</h1>
+    <h1 className="text-9xl m-1 uppercase">Pratica Tu Voto</h1>
     <hr />
     <h2>State Ballot</h2>
     <hr />
