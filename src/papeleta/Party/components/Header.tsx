@@ -1,27 +1,28 @@
-import React from "react";
-import { useService } from "@xstate/react";
-import { PartyActor, Party } from "../types";
+import React from "react"
+import { useService } from "@xstate/react"
+import { PartyActor, Party } from "../types"
 
 interface PartyHeaderProps {
-  partiesRef: PartyActor;
+  partiesRef: PartyActor
 }
 
 export const PartyHeader: React.FunctionComponent<PartyHeaderProps> = ({
-  partiesRef
+  partiesRef,
 }) => {
-  const [current, send] = useService(partiesRef);
+  const [current, send] = useService(partiesRef)
 
-  const { parties, selectedParty } = current.context;
+  const { parties, selectedParty } = current.context
 
-  const isSelected = (party: Party) => selectedParty && selectedParty.id === party.id;
+  const isSelected = (party: Party) =>
+    selectedParty && selectedParty.id === party.id
 
   const handleChange = (party: Party) => () => {
     if (current.value === "selected") {
-      send("unselect", { selected: party });
+      send("unselect", { selected: party })
     } else {
-      send("selection", { selected: party });
+      send("selection", { selected: party })
     }
-  };
+  }
 
   return (
     <>
@@ -43,5 +44,5 @@ export const PartyHeader: React.FunctionComponent<PartyHeaderProps> = ({
         </tr>
       </thead>
     </>
-  );
-};
+  )
+}
