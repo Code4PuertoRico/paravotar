@@ -11,7 +11,6 @@ const IndexPage = () => (
     <h1 className="text-9xl m-1 uppercase font-body">Pratica Tu Voto</h1>
     <hr />
     <h2>State Ballot</h2>
-
     <hr />
     <Ballot ballotRef={stateBallot.getService()} />
     <h2>Legislative Ballot</h2>
