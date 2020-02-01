@@ -28,6 +28,15 @@ module.exports = {
       },
     },
     `gatsby-plugin-typescript`,
+    {
+      resolve: "gatsby-plugin-web-font-loader",
+      options: {
+        custom: {
+          families: ["Inter"],
+          urls: ["/fonts/inter.css"],
+        },
+      },
+    },
     `gatsby-plugin-postcss`,
     {
       resolve: `gatsby-plugin-purgecss`,

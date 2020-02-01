@@ -24,6 +24,10 @@ module.exports = {
       "5": "40px",
       "6": "48px",
     },
+    fontFamily: {
+        body: ['Inter', 'sans-serif'],
+        display: ['Inter', 'sans-serif']
+    },
     extend: {
       fontSize: {
         "9xl": "72px",
