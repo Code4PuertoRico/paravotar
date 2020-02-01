@@ -25,8 +25,8 @@ module.exports = {
       "6": "48px",
     },
     fontFamily: {
-        body: ['Inter', 'sans-serif'],
-        display: ['Inter', 'sans-serif']
+      body: ["Inter", "Helvetica"],
+      display: ["Inter", "Helvetica"],
     },
     extend: {
       fontSize: {
