@@ -5,7 +5,8 @@ module.exports = {
       'plugin:react/recommended',
       'plugin:@typescript-eslint/recommended',
       'prettier/@typescript-eslint',
-      'plugin:prettier/recommended'
+      'plugin:prettier/recommended',
+      'plugin:jest/recommended'
     ],
     settings: {
       react: {
@@ -13,11 +14,12 @@ module.exports = {
       }
     },
     env: {
-      browser: true,
       node: true,
-      es6: true
+      browser: true,
+      es6: true,
+      'jest/globals': true,
     },
-    plugins: ['@typescript-eslint', 'react'],
+    plugins: ['jest','@typescript-eslint', 'react'],
     parserOptions: {
       ecmaFeatures: {
         jsx: true
@@ -27,7 +29,7 @@ module.exports = {
     },
     rules: {
       'react/prop-types': 'off', // Disable prop-types as we use TypeScript for type checking
-      '@typescript-eslint/explicit-function-return-type': 'off'
+      '@typescript-eslint/explicit-function-return-type': 'off',
     },
     overrides: [
       // Override some TypeScript rules just for .js files

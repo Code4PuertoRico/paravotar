@@ -25,17 +25,26 @@
     "xstate": "^4.7.7"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.1.0",
+    "@testing-library/react": "^9.4.0",
+    "@types/jest": "^25.1.1",
     "@types/node": "^13.5.2",
     "@types/react": "^16.9.19",
     "@types/react-dom": "^16.9.5",
     "@typescript-eslint/eslint-plugin": "^2.18.0",
     "@typescript-eslint/parser": "^2.18.0",
+    "babel-jest": "^25.1.0",
+    "babel-preset-gatsby": "^0.2.27",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-jest": "^23.6.0",
     "eslint-plugin-prettier": "^3.1.2",
     "eslint-plugin-react": "^7.18.0",
     "gatsby-plugin-postcss": "^2.1.19",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^25.1.0",
     "prettier": "^1.19.1",
+    "react-test-renderer": "^16.12.0",
     "tailwindcss": "^1.1.4"
   },
   "keywords": [
@@ -50,7 +59,9 @@
     "serve": "gatsby serve",
     "clean": "gatsby clean",
     "lint": "eslint --ignore-path .gitignore ./src --ext ts --ext tsx --ext js --ext jsx",
-    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
+    "test": "jest",
+    "coverage": "jest --coverage",
+    "tsc": "tsc"
   },
   "repository": {
     "type": "git",
