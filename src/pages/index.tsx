@@ -3,8 +3,6 @@ import React from "react"
 import { Ballot } from "../papeleta/Form/components/Ballot"
 import { StateBallot, LegislativeBallot } from "../papeleta/ballots"
 
-import "../components/layout.css"
-
 const stateBallot = new StateBallot()
 const legislativeBallot = new LegislativeBallot()
 

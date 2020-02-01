@@ -28,15 +28,15 @@ module.exports = {
       },
     },
     `gatsby-plugin-typescript`,
-    {
-      resolve: "gatsby-plugin-web-font-loader",
-      options: {
-        custom: {
-          families: ["Inter"],
-          urls: ["/fonts/inter.css"],
-        },
-      },
-    },
+    // {
+    //   resolve: "gatsby-plugin-web-font-loader",
+    //   options: {
+    //     custom: {
+    //       families: ["Inter"],
+    //       urls: ["/fonts/inter.css"],
+    //     },
+    //   },
+    // },
     `gatsby-plugin-postcss`,
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
