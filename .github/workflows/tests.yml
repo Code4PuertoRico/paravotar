@@ -1,6 +1,6 @@
 name: Node.js CI
 
-on: [push]
+on: [push, pull_request]
 
 jobs:
   lint:
@@ -20,7 +20,7 @@ jobs:
     - run: npm install -g yarn 
     - name: yarn install and lint
     - run: |
-        yarn install
+        yarn
         yarn run lint
 
   tests:
@@ -40,5 +40,5 @@ jobs:
     - run: npm install -g yarn 
     - name: yarn install and test
     - run: |
-        yarn install
+        yarn
         yarn test
