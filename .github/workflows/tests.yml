@@ -1,0 +1,20 @@
+name: CI
+on: [push, pull_request]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+
+      - name: Install
+        run: yarn
+
+      - name: Lint
+        run: yarn run lint
+
+      - name: Tests
+        run: yarn run test
+
+      - name: Build
+        run: yarn run build
