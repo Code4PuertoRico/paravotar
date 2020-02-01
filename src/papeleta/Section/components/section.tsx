@@ -1,30 +1,30 @@
-import React from "react";
-import { useService } from "@xstate/react";
-import { SectionActor } from "../types";
-import { Candidate } from "../../types";
+import React from "react"
+import { useService } from "@xstate/react"
+import { SectionActor } from "../types"
+import { Candidate } from "../../types"
 
 interface SectionProps {
-  sectionRef: SectionActor;
+  sectionRef: SectionActor
 }
 
 export const Section: React.FunctionComponent<SectionProps> = ({
-  sectionRef
+  sectionRef,
 }) => {
-  const [current, send] = useService(sectionRef);
+  const [current, send] = useService(sectionRef)
 
-  const { section, selectedCandidates } = current.context;
-  const { name, rows } = section;
+  const { section, selectedCandidates } = current.context
+  const { name, rows } = section
 
   const isSelected = (candidate: Candidate) =>
-    selectedCandidates.some(c => c.id === candidate.id);
+    selectedCandidates.some(c => c.id === candidate.id)
 
   const handleChange = (candidate: Candidate) => () => {
     if (current.value === "complete") {
-      send("unselect", { selected: candidate });
+      send("unselect", { selected: candidate })
     } else {
-      send("selection", { selected: candidate });
+      send("selection", { selected: candidate })
     }
-  };
+  }
 
   return (
     <>
@@ -39,14 +39,14 @@ export const Section: React.FunctionComponent<SectionProps> = ({
         ))}
       </tr>
       {rows.map((items, idx) => {
-        const filledItems: any[] = [...items];
+        const filledItems: any[] = [...items]
 
         if (filledItems.length < section.maxColumns) {
-          let diff = section.maxColumns - filledItems.length;
+          let diff = section.maxColumns - filledItems.length
 
           while (diff > 0) {
-            filledItems.push(null);
-            diff -= 1;
+            filledItems.push(null)
+            diff -= 1
           }
         }
         return (
@@ -56,7 +56,7 @@ export const Section: React.FunctionComponent<SectionProps> = ({
                 <td
                   key={idx}
                   style={{
-                    backgroundColor: isSelected(i) ? "lightgreen" : undefined
+                    backgroundColor: isSelected(i) ? "lightgreen" : undefined,
                   }}
                 >
                   <input
@@ -71,8 +71,8 @@ export const Section: React.FunctionComponent<SectionProps> = ({
               )
             )}
           </tr>
-        );
+        )
       })}
     </>
-  );
-};
+  )
+}

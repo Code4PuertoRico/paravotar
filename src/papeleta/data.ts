@@ -1,5 +1,5 @@
-import { SectionData } from "./Section/types";
-import { Party } from "./Party/types";
+import { SectionData } from "./Section/types"
+import { Party } from "./Party/types"
 
 export const stateParties: Party[] = [
   { id: "PPD", description: "Partido Popular Democratico" },
@@ -7,8 +7,8 @@ export const stateParties: Party[] = [
   { id: "PIP", description: "Partido Independentista Puertorriqueño" },
   { id: "PPT", description: "Partido Pueblo Trabajador" },
   { id: "CIDP-1", description: "Candidato Independiente" },
-  { id: "CIDP-2", description: "Candidato Independiente" }
-];
+  { id: "CIDP-2", description: "Candidato Independiente" },
+]
 
 export const stateSections: SectionData[] = [
   {
@@ -23,9 +23,9 @@ export const stateSections: SectionData[] = [
         { id: "3", name: "Maria Lourdes", party: "PIP" },
         { id: "4", name: "Rafael Bernabe", party: "PPT" },
         { id: "5", name: "Manuel Cidre", party: "CIDP-1" },
-        { id: "6", name: "Alexandra Lugaro", party: "CIDP-2" }
-      ]
-    ]
+        { id: "6", name: "Alexandra Lugaro", party: "CIDP-2" },
+      ],
+    ],
   },
   {
     id: "124",
@@ -37,19 +37,19 @@ export const stateSections: SectionData[] = [
         { id: "7", name: "Hector Ferrer", party: "PPD" },
         { id: "8", name: "Jennifer Gonzalez", party: "PNP" },
         { id: "9", name: "Hugo Rodriguez", party: "PIP" },
-        { id: "10", name: "Maria Nogales", party: "PPT" }
-      ]
-    ]
-  }
-];
+        { id: "10", name: "Maria Nogales", party: "PPT" },
+      ],
+    ],
+  },
+]
 
 export const legislativeParties = [
   { id: "PPD", description: "Partido Popular Democratico" },
   { id: "PNP", description: "Partido Nuevo Progresista" },
   { id: "PIP", description: "Partido Independentista Puertorriqueño" },
   { id: "PPT", description: "Partido Pueblo Trabajador" },
-  { id: "CIDP-1", description: "Candidato Independiente" }
-];
+  { id: "CIDP-1", description: "Candidato Independiente" },
+]
 
 export const legislativeSections = [
   {
@@ -63,9 +63,9 @@ export const legislativeSections = [
         { id: "2", name: "Victor Pares", party: "PNP" },
         { id: "3", name: "Luis Piñero", party: "PIP" },
         { id: "4", name: "Melissa Repollet", party: "PPT" },
-        { id: "5", name: "Maria Lourdes", party: "CIDP-1" }
-      ]
-    ]
+        { id: "5", name: "Maria Lourdes", party: "CIDP-1" },
+      ],
+    ],
   },
   {
     id: "126",
@@ -77,15 +77,15 @@ export const legislativeSections = [
         { id: "6", name: "Ramon Luis Nieves", party: "PPD" },
         { id: "7", name: "Miguel Romero", party: "PNP" },
         { id: "8", name: "Edda Lopez", party: "PIP" },
-        { id: "9", name: "Maritza Stanchich", party: "PPT" }
+        { id: "9", name: "Maritza Stanchich", party: "PPT" },
       ],
       [
         { id: "10", name: "Ada Alvarez", party: "PPD" },
         { id: "11", name: "Henry Neumann", party: "PNP" },
         { id: "12", name: "Angel Alicea", party: "PIP" },
-        { id: "13", name: "Maria Rosado", party: "PPT" }
-      ]
-    ]
+        { id: "13", name: "Maria Rosado", party: "PPT" },
+      ],
+    ],
   },
   {
     id: "127",
@@ -97,13 +97,13 @@ export const legislativeSections = [
         { id: "14", name: "Luis Vega", party: "PPD" },
         { id: "15", name: "Nestor Alonso", party: "PNP" },
         { id: "16", name: "Denis Marquez", party: "PIP" },
-        { id: "17", name: "Felix Cordova", party: "PPT" }
+        { id: "17", name: "Felix Cordova", party: "PPT" },
       ],
       [
         { id: "18", name: "Jaime Perello", party: "PPD" },
-        { id: "19", name: "Jose Hernandez", party: "PNP" }
-      ]
-    ]
+        { id: "19", name: "Jose Hernandez", party: "PNP" },
+      ],
+    ],
   },
   {
     id: "128",
@@ -116,12 +116,12 @@ export const legislativeSections = [
         { id: "21", name: "Thomas Rivera", party: "PNP" },
         { id: "22", name: "Juan Dalmau", party: "PIP" },
         { id: "23", name: "Amarilis Pagan", party: "PPT" },
-        { id: "24", name: "Jose Vargas", party: "CIDP-1" }
+        { id: "24", name: "Jose Vargas", party: "CIDP-1" },
       ],
       [
         { id: "25", name: "Miguel Pereira", party: "PPD" },
-        { id: "26", name: "Lawrence Rodriguez", party: "PNP" }
-      ]
-    ]
-  }
-];
+        { id: "26", name: "Lawrence Rodriguez", party: "PNP" },
+      ],
+    ],
+  },
+]

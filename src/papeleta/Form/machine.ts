@@ -1,13 +1,13 @@
-import { Machine, assign, spawn } from "xstate";
-import { createSectionMachine } from "../Section/machine";
-import { createPartyMachine } from "../Party/machine";
-import { Party } from "../Party/types";
-import { SectionData } from "../Section/types";
+import { Machine, assign, spawn } from "xstate"
+import { createSectionMachine } from "../Section/machine"
+import { createPartyMachine } from "../Party/machine"
+import { Party } from "../Party/types"
+import { SectionData } from "../Section/types"
 import {
   BallotMachineContext,
   BallotMachineEvent,
-  AllowedActors
-} from "./types";
+  AllowedActors,
+} from "./types"
 
 export const createBallotMachine = (
   parties: Party[],
@@ -20,102 +20,102 @@ export const createBallotMachine = (
       context: {
         parties,
         sections: papeletaSections,
-        actors: {}
+        actors: {},
       },
       on: {
         partySelected: {
-          actions: "broadcastSelectedParty"
+          actions: "broadcastSelectedParty",
         },
         partyUnSelected: {
-          actions: "broadcastUnSelectedParty"
-        }
+          actions: "broadcastUnSelectedParty",
+        },
       },
       states: {
         init: {
           entry: "spawnActorPerSelectionRow",
           on: {
-            "": "notCompleted"
-          }
+            "": "notCompleted",
+          },
         },
         completed: {
           on: {
             selection: {
               target: "notCompleted",
-              cond: "isNotComplete"
-            }
-          }
+              cond: "isNotComplete",
+            },
+          },
         },
         notCompleted: {
           on: {
             selection: {
               target: "completed",
-              cond: "isComplete"
-            }
-          }
-        }
-      }
+              cond: "isComplete",
+            },
+          },
+        },
+      },
     },
     {
       actions: {
         spawnActorPerSelectionRow: assign(context => {
-          const { parties, sections } = context;
-          const actors: { [key: string]: AllowedActors } = {};
+          const { parties, sections } = context
+          const actors: { [key: string]: AllowedActors } = {}
 
           sections.forEach(s => {
             actors[`section-${s.id}`] = spawn(
               createSectionMachine(s),
               `section-${s.id}`
-            );
-          });
+            )
+          })
 
-          actors.parties = spawn(createPartyMachine(parties));
+          actors.parties = spawn(createPartyMachine(parties))
 
-          return { actors };
+          return { actors }
         }),
         broadcastSelectedParty: ({ actors }, { selectedParty }) => {
           const sections = Object.keys(actors).filter(k =>
             k.startsWith("section")
-          );
+          )
 
           sections.forEach(actor => {
             actors[actor].send("partySelected", {
               party: selectedParty,
-              partyOverride: true
-            });
-          });
+              partyOverride: true,
+            })
+          })
         },
         broadcastUnSelectedParty: ({ actors }, { selectedParty }) => {
           const sections = Object.keys(actors).filter(k =>
             k.startsWith("section")
-          );
+          )
 
           sections.forEach(actor => {
             actors[actor].send("partyUnSelected", {
               party: selectedParty,
-              partyOverride: true
-            });
-          });
-        }
+              partyOverride: true,
+            })
+          })
+        },
       },
       guards: {
         isComplete: ({ actors }) => {
           const sections = Object.keys(actors).filter(k =>
             k.startsWith("section")
-          );
+          )
 
           return sections.every(s => {
-            return actors[s].state.value === "complete";
-          });
+            return actors[s].state.value === "complete"
+          })
         },
         isNotComplete: ({ actors }) => {
           const sections = Object.keys(actors).filter(k =>
             k.startsWith("section")
-          );
+          )
 
           return !sections.every(s => {
-            return actors[s].state.value === "complete";
-          });
-        }
-      }
+            return actors[s].state.value === "complete"
+          })
+        },
+      },
     }
-  );
+  )
