@@ -1,44 +1,16 @@
-name: Node.js CI
-
+name: CI
 on: [push, pull_request]
-
 jobs:
-  lint:
-
+  build:
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [12.x]
-
     steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
-    - run: npm install -g yarn 
-    - name: yarn install and lint
-      run: |
-        yarn
-        yarn run lint
-
-  tests:
-
-    runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [12.x]
-
-    steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
-    - run: npm install -g yarn 
-    - name: yarn install and test
-      run: |
-        yarn
-        yarn test
+      - name: Checkout
+        uses: actions/checkout@master
+      - name: Install
+        run: yarn
+      - name: Lint
+        run: yarn run lint
+      - name: Tests
+        run: yarn run test
+      - name: Build
+        run: yarn run build
