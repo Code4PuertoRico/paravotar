@@ -28,10 +28,18 @@ export default function Footer() {
         </Link>
         .
       </p>
-      <p className="text-sm mt-10">Hecho con 🤎 desde PR y la diaspora.</p>
-      <div className="mt-4">
-        <img className="h-16 w-16 shadow-sm mx-auto" src={Code4PR} alt="" />
-      </div>
+      <p className="text-sm mt-10">
+        Hecho con{" "}
+        <span role="img" aria-label="heart">
+          🤎
+        </span>{" "}
+        desde PR y la diaspora.
+      </p>
+      <img
+        className="h-16 w-16 shadow-sm mx-auto mt-4"
+        src={Code4PR}
+        alt="Code 4 Puerto Rico"
+      />
     </footer>
   )
 }

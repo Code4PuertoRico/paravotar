@@ -1,16 +1,5 @@
 module.exports = {
   parser: "@typescript-eslint/parser", // Specifies the ESLint parser
-  extends: [
-    "eslint:recommended",
-    "plugin:react/recommended",
-    "plugin:@typescript-eslint/recommended",
-    "prettier/@typescript-eslint",
-    "plugin:prettier/recommended",
-    "plugin:jest/recommended",
-    "plugin:import/errors",
-    "plugin:import/warnings",
-    "plugin:import/typescript",
-  ],
   settings: {
     react: {
       version: "detect",
@@ -22,7 +11,26 @@ module.exports = {
     es6: true,
     "jest/globals": true,
   },
-  plugins: ["jest", "@typescript-eslint", "react", "react-hooks", "import"],
+  plugins: [
+    "jest",
+    "@typescript-eslint",
+    "react",
+    "react-hooks",
+    "import",
+    "jsx-a11y",
+  ],
+  extends: [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "prettier/@typescript-eslint",
+    "plugin:prettier/recommended",
+    "plugin:jest/recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:import/typescript",
+    "plugin:jsx-a11y/strict",
+  ],
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
