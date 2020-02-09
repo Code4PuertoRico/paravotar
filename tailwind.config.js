@@ -12,17 +12,10 @@ module.exports = {
         legislative: "#FCF1D9",
         municipal: "#FEF8B9",
       },
+      footer: "rgba(58,54,48, 0.24)",
     },
     borderRadius: {
       default: "6px",
-    },
-    spacing: {
-      "1": "8px",
-      "2": "16px",
-      "3": "24px",
-      "4": "32px",
-      "5": "40px",
-      "6": "48px",
     },
     fontFamily: {
       body: ["Inter", "Helvetica"],
