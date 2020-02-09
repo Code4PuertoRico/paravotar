@@ -24,9 +24,7 @@ export default function Footer() {
         </a>
         .
       </p>
-      <p className="font-light text-sm mt-10">
-        Hecho con 🤎 desde PR y la diaspora.
-      </p>
+      <p className="text-sm mt-10">Hecho con 🤎 desde PR y la diaspora.</p>
       <img className="h-16 w-16 mx-auto mt-4" src={Code4PR} alt="" />
     </footer>
   )
