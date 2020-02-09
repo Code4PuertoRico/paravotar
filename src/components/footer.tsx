@@ -1,13 +1,17 @@
 import React from "react"
 
 import Code4PR from "../assets/icons/code-4-pr.svg"
+import { Link } from "../components/index"
 
 export default function Footer() {
   return (
     <footer className="text-center py-4 border border-solid border-b-0 border-r-0 border-l-0 border-footer">
-      <a className="text-primary font-medium" href="">
+      <Link
+        to="https://github.com/Code4PuertoRico/papeleta-pr/blob/master/CONTRIBUTING.md"
+        target="_blank"
+      >
         ¿Cómo puedo contribuir al proyecto?
-      </a>
+      </Link>
       <p className="font-bold mt-4">
         NOMBRE DEL PROYECTO no esta afiliado al gobierno ni a ningún partido
         politico. NOMBRE DEL PROYECTO no guarda ningún tipo de información del
@@ -16,12 +20,12 @@ export default function Footer() {
       </p>
       <p className="mt-2">
         El código de este proyecto es totalmente público y puedes verlo{" "}
-        <a
-          className="text-primary font-medium"
-          href="https://github.com/Code4PuertoRico/papeleta-pr"
+        <Link
+          to="https://github.com/Code4PuertoRico/papeleta-pr"
+          target="_blank"
         >
           aquí
-        </a>
+        </Link>
         .
       </p>
       <p className="text-sm mt-10">Hecho con 🤎 desde PR y la diaspora.</p>
