@@ -38,6 +38,13 @@ module.exports = {
     //   },
     // },
     `gatsby-plugin-postcss`,
+    {
+      resolve: "gatsby-plugin-react-axe",
+      options: {
+        // Integrate react-axe in production. This defaults to false.
+        showInProduction: false,
+      },
+    },
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,
