@@ -1,11 +1,14 @@
 import React from "react"
 
 import Code4PR from "../assets/icons/code-4-pr.svg"
-import { Link } from "../components/index"
+import { Container, Link } from "../components/index"
 
 export default function Footer() {
   return (
-    <footer className="text-center py-4 border border-solid border-b-0 border-r-0 border-l-0 border-footer">
+    <Container
+      tag="footer"
+      className="text-center py-4 border border-solid border-b-0 border-r-0 border-l-0 border-footer"
+    >
       <Link
         to="https://github.com/Code4PuertoRico/papeleta-pr/blob/master/CONTRIBUTING.md"
         target="_blank"
@@ -40,6 +43,6 @@ export default function Footer() {
         src={Code4PR}
         alt="Code 4 Puerto Rico"
       />
-    </footer>
+    </Container>
   )
 }
