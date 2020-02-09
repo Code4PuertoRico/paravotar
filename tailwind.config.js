@@ -25,6 +25,9 @@ module.exports = {
       fontSize: {
         "9xl": "72px",
       },
+      spacing: {
+        "78": "25rem",
+      },
     },
   },
   variants: {},

@@ -2,15 +2,18 @@ import React from "react"
 
 import { Ballot } from "../papeleta/Form/components/Ballot"
 import { StateBallot, LegislativeBallot } from "../papeleta/ballots"
-import { Container, Layout } from "../components/index"
+import { Container, Highlight, Layout } from "../components/index"
 
 const stateBallot = new StateBallot()
 const legislativeBallot = new LegislativeBallot()
 
 const IndexPage = () => (
   <Layout>
-    <h1 className="text-9xl m-1 uppercase font-body">Pratica Tu Voto</h1>
-    <hr />
+    <Highlight>
+      <Container className="text-center">
+        <h1 className="text-9xl uppercase font-bold">Pratica Tu Voto</h1>
+      </Container>
+    </Highlight>
     <Container>
       <h2>State Ballot</h2>
       <hr />
