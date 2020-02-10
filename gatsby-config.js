@@ -1,8 +1,8 @@
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Default Starter`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
-    author: `@gatsbyjs`,
+    title: `Title`,
+    description: `Something that we need to add`,
+    author: `@Code4PuertoRico`,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
@@ -38,6 +38,13 @@ module.exports = {
     //   },
     // },
     `gatsby-plugin-postcss`,
+    {
+      resolve: "gatsby-plugin-react-axe",
+      options: {
+        // Integrate react-axe in production. This defaults to false.
+        showInProduction: false,
+      },
+    },
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,

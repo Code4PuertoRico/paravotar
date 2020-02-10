@@ -8,12 +8,14 @@
 /* purgecss start ignore */
 
 html {
+  @apply text-dark;
   font-size: 16px;
   font-family: "Inter", Helvetica;
+  background: linear-gradient(155deg, rgba(253,250,247,1) 0%, rgba(252,241,218,1) 100%);
 }
 
 body {
-  @apply bg-background;
+  background: linear-gradient(155deg, rgba(253,250,247,1) 0%, rgba(252,241,218,1) 100%);
 }
 
 svg {
