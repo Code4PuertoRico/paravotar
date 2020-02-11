@@ -59,8 +59,21 @@ export default function Inscribete() {
               <Typography variant="p" className="pt-4">
                 {voter.description}
               </Typography>
-              <Button className="w-full mt-4">Testing</Button>
-              <Button variant="inverse" className="w-full mt-3">
+              <Button
+                className="w-full mt-4"
+                onClick={() => {
+                  console.log("test")
+                }}
+              >
+                Testing
+              </Button>
+              <Button
+                variant="inverse"
+                className="w-full mt-3"
+                onClick={() => {
+                  console.log("test")
+                }}
+              >
                 Testing
               </Button>
             </li>

@@ -1,11 +1,15 @@
 module.exports = {
   theme: {
     colors: {
-      primary: "#917149",
+      primary: {
+        default: "#917149",
+        hover: "#7B603E",
+        active: "#745A3A",
+      },
       secondary: "#E3C094",
       background: "#FDFAF7",
       dark: "#3A3630",
-      white: { default: "#ffffff", hover: "#b2b2b2" },
+      white: { default: "#ffffff", hover: "#D2D0CD", active: "#C0BCB8" },
       black: "#000000",
       ballots: {
         governmental: "#CCCDCF",
@@ -27,6 +31,8 @@ module.exports = {
       },
     },
   },
-  variants: {},
+  variants: {
+    backgroundColor: ["responsive", "hover", "active", "disabled"],
+  },
   plugins: [],
 }
