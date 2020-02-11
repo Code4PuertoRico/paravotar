@@ -1,6 +1,6 @@
 import React from "react"
 import { render } from "@testing-library/react"
-import IndexPage from "../index"
+import IndexPage from "../practica-tu-voto"
 
 describe("Example test", () => {
   it("renders title", () => {

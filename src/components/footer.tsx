@@ -7,7 +7,7 @@ export default function Footer() {
   return (
     <Container
       tag="footer"
-      className="text-center py-4 border border-solid border-b-0 border-r-0 border-l-0 border-footer"
+      className="text-center p-4 border border-solid border-b-0 border-r-0 border-l-0 border-footer"
     >
       <Link
         to="https://github.com/Code4PuertoRico/papeleta-pr/blob/master/CONTRIBUTING.md"
