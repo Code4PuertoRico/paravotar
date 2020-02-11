@@ -14,9 +14,6 @@ module.exports = {
       },
       footer: "rgba(58,54,48, 0.24)",
     },
-    borderRadius: {
-      default: "6px",
-    },
     fontFamily: {
       body: ["Inter", "Helvetica"],
       display: ["Inter", "Helvetica"],
