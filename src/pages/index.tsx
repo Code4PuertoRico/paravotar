@@ -85,14 +85,14 @@ function VoterCard({ id, icon, description, docs }: Voter) {
       ) : null}
       <Button
         variant="inverse"
-        className="w-full mt-4 flex items-center"
+        className="w-full mt-4 flex justify-center items-center"
         onClick={() => {
           setIsOpen(!isOpen)
         }}
       >
         <span className="text-xs">{btnCopy}</span>{" "}
         <Arrows
-          className={`ml-2 transform duration-300 ease-linear ${arrowStyle}`}
+          className={`flex-shrink-0 ml-2 transform duration-300 ease-linear ${arrowStyle}`}
         />
       </Button>
     </li>
