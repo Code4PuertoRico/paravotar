@@ -85,7 +85,7 @@ function VoterCard({ id, icon, description, docs }: Voter) {
       ) : null}
       <Button
         variant="inverse"
-        className="w-full mt-4 flex justify-center items-center"
+        className="w-full mt-4 flex flex-wrap justify-center items-center"
         onClick={() => {
           setIsOpen(!isOpen)
         }}
