@@ -21,7 +21,7 @@ function getButtonStyle(variant: keyof VariantOptions) {
 type Props = {
   variant: keyof VariantOptions
   onClick: () => void
-  children: ReactChild
+  children: ReactChild | ReactChild[]
   className?: string
 }
 
