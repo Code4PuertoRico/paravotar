@@ -2,7 +2,14 @@ import React, { useState, useCallback } from "react"
 import { navigate } from "@reach/router"
 import { parse, stringify } from "query-string"
 
-import { Button, Highlight, Container, Layout, Typography } from "../components"
+import {
+  Button,
+  Highlight,
+  Container,
+  Layout,
+  SEO,
+  Typography,
+} from "../components"
 import EighteenPlus from "../assets/icons/eighteen-plus.svg"
 import TurnsEighteen from "../assets/icons/turns-eighteen.svg"
 import BornInTerritory from "../assets/icons/born-in-territory.svg"
@@ -65,7 +72,8 @@ const VoterDocs: Voter[] = [
 ]
 
 function VoterCard({ id, icon, description, docs }: Voter) {
-  const queryParams = parse(location.search)
+  const search = typeof window === "undefined" ? "" : location.search
+  const queryParams = parse(search)
   const params =
     typeof queryParams.voter === "string"
       ? [queryParams.voter]
@@ -135,6 +143,7 @@ function VoterCard({ id, icon, description, docs }: Voter) {
 export default function Inscribete() {
   return (
     <Layout>
+      <SEO title="Inscribete" />
       <Highlight>
         <Container className="w-11/12 text-center pt-32">
           <Typography variant="h3" className="uppercase">
