@@ -1,29 +1,166 @@
-import React from "react"
+import React, { useState, useCallback } from "react"
+import { navigate } from "@reach/router"
+import { parse, stringify } from "query-string"
 
-import { Ballot } from "../papeleta/Form/components/Ballot"
-import { StateBallot, LegislativeBallot } from "../papeleta/ballots"
-import { Container, Highlight, Layout, SEO } from "../components/index"
+import {
+  Button,
+  Highlight,
+  Container,
+  Layout,
+  SEO,
+  Typography,
+} from "../components"
+import EighteenPlus from "../assets/icons/eighteen-plus.svg"
+import TurnsEighteen from "../assets/icons/turns-eighteen.svg"
+import BornInTerritory from "../assets/icons/born-in-territory.svg"
+import BornInOtherCountries from "../assets/icons/born-in-other-countries.svg"
+import Arrows from "../assets/icons/arrows.inline.svg"
 
-const stateBallot = new StateBallot()
-const legislativeBallot = new LegislativeBallot()
+type Voter = {
+  id: string
+  icon: string
+  description: string
+  docs: string[]
+}
 
-const IndexPage = () => (
-  <Layout>
-    <SEO title="Practica tu voto" />
-    <Highlight>
-      <Container className="text-center">
-        <h1 className="text-9xl uppercase font-bold">Pratica Tu Voto</h1>
+const VoterDocs: Voter[] = [
+  {
+    id: "eighteen-plus",
+    icon: EighteenPlus,
+    description: "Nacido en Puerto Rico y es mayor de dieciocho años:",
+    docs: [
+      "Identificación con foto expedida por Gobierno Estatal, Municipal o Federal. Puede usar su Licencia de Conducir.",
+      "Factura de agua o luz del lugar donde reside. En el caso de que la factura no este a su nombre debe llevar una carta del dueño de la factura que certifique que reside en la dirección provista.",
+      "Puede necesitar su Certificado de Nacimiento y Seguro Social.",
+    ],
+  },
+  {
+    id: "turns-eighteen",
+    icon: TurnsEighteen,
+    description:
+      "Nacido en Puerto Rico y cumple los dieciocho años durante el cuatrienio:",
+    docs: [
+      "Visitar la Junta de Inscripción Permanente de su municipio o precinto electoral para cotejar que aparezca en la Base de Datos del Registro Demográfico. De no aparecer tendrá que presentar el Certificado de Nacimiento Original.",
+      "Identificación con foto expedida por Gobierno Estatal, Municipal o Federal. Puede usar su Licencia de Conducir.",
+      "Factura de agua o luz del lugar donde reside. En el caso de que la factura no este a su nombre debe llevar una carta del dueño de la factura que certifique que reside en la dirección provista.",
+      "Seguro Social.",
+    ],
+  },
+  {
+    id: "born-in-territory",
+    icon: BornInTerritory,
+    description:
+      "Nacido en los Estados Unidos, Continentales, Territorios o Posesiones:",
+    docs: [
+      "Pasaporte de Estados Unidos de América aunque no esté vigente.",
+      "Copia Certificada del Acta de Nacimiento.",
+      "Identificación con foto expedida por Gobierno Estatal, Municipal o Federal. Puede usar su Licencia de Conducir.",
+      "Factura de agua o luz del lugar donde reside. En el caso de que la factura no este a su nombre debe llevar una carta del dueño de la factura que certifique que reside en la dirección provista.",
+    ],
+  },
+  {
+    id: "born-in-other-countries",
+    icon: BornInOtherCountries,
+    description: "Nacido en países extranjeros:",
+    docs: [
+      "Pasaporte de Estados Unidos de América vigente.",
+      "Certificado de Naturalización.",
+      "Identificación con foto expedida por Gobierno Estatal, Municipal o Federal. Puede usar su Licencia de Conducir.",
+      "Factura de agua o luz del lugar donde reside. En el caso de que la factura no este a su nombre debe llevar una carta del dueño de la factura que certifique que reside en la dirección provista.",
+    ],
+  },
+]
+
+function VoterCard({ id, icon, description, docs }: Voter) {
+  const search = typeof window === "undefined" ? "" : location.search
+  const queryParams = parse(search)
+  const params =
+    typeof queryParams.voter === "string"
+      ? [queryParams.voter]
+      : queryParams.voter || []
+  const hasValue = params.includes(id)
+
+  const [isOpen, setIsOpen] = useState(hasValue)
+  const arrowStyle = isOpen ? "rotate-180" : "rotate-0"
+  const btnCopy = isOpen ? "Cerrar ventana" : "Ver documentos necesarios"
+
+  const handleClick = useCallback(() => {
+    if (isOpen) {
+      // Remove from queryParams
+      const filteredStrings = params.filter(val => val !== id)
+      const paramsUpdate =
+        filteredStrings.length === 0
+          ? "/"
+          : `?${stringify({
+              voter: filteredStrings,
+            })}`
+
+      navigate(paramsUpdate)
+    } else {
+      const paramsUpdate = stringify({
+        voter: [...params, id],
+      })
+
+      navigate(`?${paramsUpdate}`)
+    }
+
+    // Toggle
+    setIsOpen(!isOpen)
+  }, [id, isOpen, params])
+
+  return (
+    <li
+      className="flex flex-col flex-shrink-0 w-full rounded shadow-md p-6 bg-white mx-0 my-2 relative lg:flex-1 md:m-2"
+      style={{ minHeight: "14rem" }}
+    >
+      <img className="mr-auto" src={icon} alt="man" />
+      <Typography variant="p" className="pt-4">
+        {description}
+      </Typography>
+      {isOpen ? (
+        <ul className="pl-2 pb-4">
+          {docs.map((doc, index) => (
+            <li key={`${id}-${index}`} className="ml-4 pt-2 list-disc text-sm">
+              {doc}
+            </li>
+          ))}
+        </ul>
+      ) : null}
+      <Button
+        variant="inverse"
+        className="text-xs mt-auto"
+        onClick={handleClick}
+      >
+        {btnCopy}{" "}
+        <Arrows
+          className={`inline-block ml-1 transform duration-300 ease-linear ${arrowStyle}`}
+        />
+      </Button>
+    </li>
+  )
+}
+
+export default function Inscribete() {
+  return (
+    <Layout>
+      <SEO title="Inscribete" />
+      <Highlight>
+        <Container className="w-11/12 text-center pt-32">
+          <Typography variant="h3" className="uppercase">
+            Inscribete, conoce como obtener tu tarjeta electoral
+          </Typography>
+          <Typography variant="h2" weight="base" className="font-normal mt-4">
+            ¿Qué debo llevar para obtener mi tarjeta electoral?
+          </Typography>
+        </Container>
+      </Highlight>
+      <Container className="w-11/12 mt-4 mb-32 lg:-mt-32">
+        <ul className="flex flex-wrap lg:flex-no-wrap justify-around items-start">
+          {VoterDocs.map((voter: Voter) => (
+            <VoterCard key={voter.id} {...voter} />
+          ))}
+        </ul>
       </Container>
-    </Highlight>
-    <Container>
-      <h2>State Ballot</h2>
-      <hr />
-      <Ballot ballotRef={stateBallot.getService()} />
-      <h2>Legislative Ballot</h2>
-      <hr />
-      <Ballot ballotRef={legislativeBallot.getService()} />
-    </Container>
-  </Layout>
-)
-
-export default IndexPage
+    </Layout>
+  )
+}

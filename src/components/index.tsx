@@ -4,5 +4,7 @@ import Link from "./link"
 import Container from "./container"
 import Highlight from "./highlight"
 import SEO from "./seo"
+import Typography from "./typography"
+import Button from "./button"
 
-export { Container, Footer, Highlight, Layout, Link, SEO }
+export { Button, Container, Footer, Highlight, Layout, Link, SEO, Typography }
