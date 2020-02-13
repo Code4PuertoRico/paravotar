@@ -19,7 +19,7 @@ export default function Footer() {
         NOMBRE DEL PROYECTO no esta afiliado al gobierno ni a ningún partido
         politico. NOMBRE DEL PROYECTO no guarda ningún tipo de información del
         usuario. Todo voto practicado en esta plataforma es completamente
-        anónimo y privado
+        anónimo y privado.
       </p>
       <p className="mt-2">
         El código de este proyecto es totalmente público y puedes verlo{" "}
@@ -39,7 +39,7 @@ export default function Footer() {
         desde PR y la diaspora.
       </p>
       <img
-        className="h-16 w-16 shadow-sm mx-auto mt-4"
+        className="h-16 w-16 mx-auto mt-4"
         src={Code4PR}
         alt="Code 4 Puerto Rico"
       />
