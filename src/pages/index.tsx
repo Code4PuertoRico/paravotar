@@ -1,4 +1,6 @@
-import React, { useState } from "react"
+import React, { useState, useCallback } from "react"
+import { navigate } from "@reach/router"
+import { parse, stringify } from "query-string"
 
 import { Button, Highlight, Container, Layout, Typography } from "../components"
 import EighteenPlus from "../assets/icons/eighteen-plus.svg"
@@ -20,8 +22,9 @@ const VoterDocs: Voter[] = [
     icon: EighteenPlus,
     description: "Nacido en Puerto Rico y es mayor de dieciocho años:",
     docs: [
-      "Identificación con foto expedida por Gobierno Estatal, Municipal o Federal o sus últimos cuatro dígitos del Seguro Social.",
-      "Factura de AEE de la residencia donde vive.",
+      "Identificación con foto expedida por Gobierno Estatal, Municipal o Federal. Puede usar su Licencia de Conducir.",
+      "Factura de agua o luz del lugar donde reside. En el caso de que la factura no este a su nombre debe llevar una carta del dueño de la factura que certifique que reside en la dirección provista.",
+      "Puede necesitar su Certificado de Nacimiento y Seguro Social.",
     ],
   },
   {
@@ -30,9 +33,10 @@ const VoterDocs: Voter[] = [
     description:
       "Nacido en Puerto Rico y cumple los dieciocho años durante el cuatrienio:",
     docs: [
-      "Visitar la JIP de su municipio o precinto electoral para cotejar que aparezca en la Base de Datos de registro Demográfico. De no aparecer tendrá que presentar el Certificado de Nacimiento en Original (el nuevo formato emitido por la Oficina de Registro Demográfico).",
-      "Identificación con foto expedida por Gobierno Estatal, Municipal o Federal o sus últimos cuatro dígitos del Seguro Social.",
-      "Factura de AEE de la residencia donde vive.",
+      "Visitar la Junta de Inscripción Permanente de su municipio o precinto electoral para cotejar que aparezca en la Base de Datos del Registro Demográfico. De no aparecer tendrá que presentar el Certificado de Nacimiento Original.",
+      "Identificación con foto expedida por Gobierno Estatal, Municipal o Federal. Puede usar su Licencia de Conducir.",
+      "Factura de agua o luz del lugar donde reside. En el caso de que la factura no este a su nombre debe llevar una carta del dueño de la factura que certifique que reside en la dirección provista.",
+      "Seguro Social.",
     ],
   },
   {
@@ -43,8 +47,8 @@ const VoterDocs: Voter[] = [
     docs: [
       "Pasaporte de Estados Unidos de América aunque no esté vigente.",
       "Copia Certificada del Acta de Nacimiento.",
-      "Identificación con foto expedida por Gobierno Estatal, Municipal o Federal o sus últimos cuatro dígitos del Seguro Social.",
-      "Factura de AEE de la residencia donde vive.",
+      "Identificación con foto expedida por Gobierno Estatal, Municipal o Federal. Puede usar su Licencia de Conducir.",
+      "Factura de agua o luz del lugar donde reside. En el caso de que la factura no este a su nombre debe llevar una carta del dueño de la factura que certifique que reside en la dirección provista.",
     ],
   },
   {
@@ -53,29 +57,60 @@ const VoterDocs: Voter[] = [
     description: "Nacido en países extranjeros:",
     docs: [
       "Pasaporte de Estados Unidos de América vigente.",
-      "Certificado de Naturalización (Certificate of Naturalization).",
-      "Certification of Birth (Report of Birth)",
-      "Certificate of Citizenship.",
+      "Certificado de Naturalización.",
+      "Identificación con foto expedida por Gobierno Estatal, Municipal o Federal. Puede usar su Licencia de Conducir.",
+      "Factura de agua o luz del lugar donde reside. En el caso de que la factura no este a su nombre debe llevar una carta del dueño de la factura que certifique que reside en la dirección provista.",
     ],
   },
 ]
 
 function VoterCard({ id, icon, description, docs }: Voter) {
-  const [isOpen, setIsOpen] = useState(false)
+  const queryParams = parse(location.search)
+  const params =
+    typeof queryParams.voter === "string"
+      ? [queryParams.voter]
+      : queryParams.voter || []
+  const hasValue = params.includes(id)
+
+  const [isOpen, setIsOpen] = useState(hasValue)
   const arrowStyle = isOpen ? "rotate-180" : "rotate-0"
   const btnCopy = isOpen ? "Cerrar ventana" : "Ver documentos necesarios"
 
+  const handleClick = useCallback(() => {
+    if (isOpen) {
+      // Remove from queryParams
+      const filteredStrings = params.filter(val => val !== id)
+      const paramsUpdate =
+        filteredStrings.length === 0
+          ? "/"
+          : `?${stringify({
+              voter: filteredStrings,
+            })}`
+
+      navigate(paramsUpdate)
+    } else {
+      const paramsUpdate = stringify({
+        voter: [...params, id],
+      })
+
+      navigate(`?${paramsUpdate}`)
+    }
+
+    // Toggle
+    setIsOpen(!isOpen)
+  }, [id, isOpen, params])
+
   return (
     <li
-      className="flex-shrink-0 w-full rounded shadow-md p-6 bg-white mx-0 my-2 min-h-full lg:flex-1 md:m-2"
+      className="flex flex-col flex-shrink-0 w-full rounded shadow-md p-6 bg-white mx-0 my-2 relative lg:flex-1 md:m-2"
       style={{ minHeight: "14rem" }}
     >
-      <img src={icon} alt="man" />
+      <img className="mr-auto" src={icon} alt="man" />
       <Typography variant="p" className="pt-4">
         {description}
       </Typography>
       {isOpen ? (
-        <ul className="pl-2">
+        <ul className="pl-2 pb-4">
           {docs.map((doc, index) => (
             <li key={`${id}-${index}`} className="ml-4 pt-2 list-disc text-sm">
               {doc}
@@ -85,10 +120,8 @@ function VoterCard({ id, icon, description, docs }: Voter) {
       ) : null}
       <Button
         variant="inverse"
-        className="w-full mt-4 text-xs"
-        onClick={() => {
-          setIsOpen(!isOpen)
-        }}
+        className="text-xs mt-auto"
+        onClick={handleClick}
       >
         {btnCopy}{" "}
         <Arrows

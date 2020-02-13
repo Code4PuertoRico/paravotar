@@ -51,6 +51,7 @@
     "jest": "^25.1.0",
     "lint-staged": "^10.0.7",
     "prettier": "^1.19.1",
+    "query-string": "^6.10.1",
     "react-test-renderer": "^16.12.0",
     "tailwindcss": "^1.2.0"
   },
