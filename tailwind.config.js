@@ -9,6 +9,7 @@ module.exports = {
       secondary: "#E3C094",
       background: "#FDFAF7",
       dark: "#3A3630",
+      separator: "rgb(236, 236, 236)",
       white: { default: "#ffffff", hover: "#D2D0CD", active: "#C0BCB8" },
       black: "#000000",
       ballots: {
