@@ -4,3 +4,9 @@ export type Voter = {
   description: string
   docs: string[]
 }
+
+export type Town = {
+  pueblo: string
+  telefono: string
+  direccion: string
+}

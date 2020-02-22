@@ -6,6 +6,7 @@ const Variants = {
   h3: "h3",
   h4: "h4",
   p: "p",
+  span: "span",
 }
 type VariantsOptions = typeof Variants
 
