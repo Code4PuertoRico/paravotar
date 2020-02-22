@@ -29,7 +29,7 @@ export function LetterList({ onSelect, letter }: LetterListProps) {
   }
 
   return (
-    <ul className="flex overflow-x-auto lg:flex-no-wrap lg:justify-around items-start pl-4 pr-4 pt-4 pb-5 border-b border-separator">
+    <ul className="flex overflow-x-auto items-start mx-4 pt-4 pb-5 lg:flex-no-wrap lg:justify-around">
       {Object.keys(letterList).map(l => (
         <li key={l}>
           <button

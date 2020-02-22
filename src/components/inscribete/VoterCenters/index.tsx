@@ -22,8 +22,7 @@ export function VoterCenters() {
   return (
     <>
       <LetterList onSelect={setSelectedLetter} letter={selectedLetter} />
-      <div className="mt-10 w-1" />
-      <div className="lg:flex">
+      <div className="border-t border-separator lg:flex lg:p-10">
         <TownList
           townList={townList}
           onSelect={setSelectedTown}
@@ -31,7 +30,6 @@ export function VoterCenters() {
         />
         <CenterInfo town={selectedTown} />
       </div>
-      <div className="h-12" />
     </>
   )
 }
