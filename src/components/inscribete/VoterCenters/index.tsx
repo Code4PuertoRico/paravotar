@@ -20,10 +20,10 @@ export function VoterCenters() {
   }, [selectedLetter, townList])
 
   return (
-    <section>
+    <>
       <LetterList onSelect={setSelectedLetter} letter={selectedLetter} />
       <div className="mt-10 w-1" />
-      <div className="flex">
+      <div className="lg:flex">
         <TownList
           townList={townList}
           onSelect={setSelectedTown}
@@ -32,6 +32,6 @@ export function VoterCenters() {
         <CenterInfo town={selectedTown} />
       </div>
       <div className="h-12" />
-    </section>
+    </>
   )
 }

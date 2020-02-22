@@ -26,7 +26,7 @@ export default function Inscribete() {
       <Typography variant="h2" weight="base" className="text-center mt-3">
         Identifica tu pueblo, revisa horarios e información contacto.
       </Typography>
-      <Container className="w-11/12 mt-4 mb-32 bg-white shadow-md">
+      <Container className="w-11/12 mt-12 mb-32 bg-white shadow-md rounded">
         <VoterCenters />
       </Container>
     </Layout>
