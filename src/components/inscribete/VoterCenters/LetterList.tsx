@@ -29,18 +29,18 @@ export function LetterList({ onSelect, letter }: LetterListProps) {
   }
 
   return (
-    <ul className="flex flex-wrap lg:flex-no-wrap justify-around items-start pl-4 pr-4 pt-4 pb-5 border-b border-separator">
+    <ul className="flex overflow-x-auto lg:flex-no-wrap lg:justify-around items-start pl-4 pr-4 pt-4 pb-5 border-b border-separator">
       {Object.keys(letterList).map(l => (
         <li key={l}>
           <button
             onClick={handleSelect(l)}
-            className={`hover:bg-secondary hover:text-white hover:rounded-full pl-2 pr-2 focus:outline-none ${
+            className={`flex items-center justify-center text-2xl h-10 w-10 rounded-full border-2 hover:bg-primary hover:text-white focus:outline-none ${
               l === letter
-                ? "bg-secondary text-white rounded-full border-2 border-dark"
-                : null
+                ? "text-white font-bold bg-primary border-dark"
+                : "border-white"
             }`}
           >
-            <span className="text-2xl">{l}</span>
+            {l}
           </button>
         </li>
       ))}
