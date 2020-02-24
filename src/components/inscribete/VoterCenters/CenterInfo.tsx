@@ -1,5 +1,7 @@
 import React from "react"
+
 import { Town } from "../types"
+import { Link } from "../../../components/index"
 
 interface CenterInfoProps {
   town: Town
@@ -17,12 +19,9 @@ export function CenterInfo({ town }: CenterInfoProps) {
         <span>{town.telefono}</span>
       </div>
       <div className="mt-8">
-        <a
-          href={`tel:${town.telefono}`}
-          className="inline-block rounded border border-primary bg-transparent text-primary font-bold py-2 px-4 text-xs uppercase hover:bg-primary-hover hover:text-white active:text-white-active active:bg-primary-active"
-        >
+        <Link to={`tel:${town.telefono}`} variant="button">
           Llamar para mas información
-        </a>
+        </Link>
       </div>
     </div>
   )
