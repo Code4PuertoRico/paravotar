@@ -16,7 +16,8 @@ export default function Link({
   variant,
   className,
 }: Props) {
-  const isExternalLink = to.includes("https") || to.includes("tel")
+  const isExternalLink =
+    to.includes("https") || to.includes("tel") || to.includes("http")
   const style =
     variant === "link"
       ? "text-primary font-medium"
