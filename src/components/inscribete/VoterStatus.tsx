@@ -23,14 +23,15 @@ export function VoterStatus() {
         <div className="w-full lg:mt-3 lg:w-1/2">
           <Typography variant="h3">¿Por que es importante?</Typography>
           <Typography variant="p" className="mt-4">
-            Es de suma importancia verificar el estatus de tu tarjeta electoral
-            para que pueda ejercer su voto el día de las elecciones. Si su
-            tarjeta electoral no esta activa debe visitar la Junta de
+            Es de suma importancia que verifiques el estatus de tu tarjeta
+            electoral para que pueda ejercer tu voto el día de las elecciones.
+            Si tu tarjeta electoral no esta activa debes visitar la Junta de
             Inscripción Permanente más cercana para activarla.
           </Typography>
           <Typography variant="p" className="mt-4">
-            Si se ha mudado recientemente es importante renovar su tarjeta
-            electoral para ejercer su voto en la localización actual.
+            Si te has mudado recientemente es importante renovar tu tarjeta
+            electoral para ejercer tu voto en el municipio y Centro de Votación
+            correspondiente.
           </Typography>
           <Link
             className="mt-6"
