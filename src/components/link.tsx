@@ -2,7 +2,7 @@ import React, { ReactChildren } from "react"
 import { Link as GatsbyLink } from "gatsby"
 
 type Props = {
-  variant: "button" | "link"
+  variant: "primary" | "inverse" | "link"
   to: string
   children: ReactChildren | string
   target?: string
@@ -21,7 +21,9 @@ export default function Link({
   const style =
     variant === "link"
       ? "text-primary font-medium"
-      : "inline-block rounded border border-primary bg-transparent text-primary font-bold py-2 px-4 text-xs uppercase hover:bg-primary-hover hover:text-white active:text-white-active active:bg-primary-active"
+      : variant === "inverse"
+      ? "inline-block rounded border border-primary bg-transparent text-primary font-bold py-2 px-4 text-xs uppercase hover:bg-primary-hover hover:text-white active:text-white-active active:bg-primary-active"
+      : "inline-block rounded border border-primary bg-primary text-white py-1 font-bold px-4 hover:bg-primary-hover hover:text-white active:text-white-active active:bg-primary-active"
 
   if (isExternalLink) {
     return (
