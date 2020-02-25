@@ -10,7 +10,7 @@ export default function NotFoundPage() {
         <Typography variant="h2">
           No encontramos la página que esta buscando.
         </Typography>
-        <Link className="mt-4" variant="button" to="/">
+        <Link className="mt-4" variant="inverse" to="/">
           Ir a página principal
         </Link>
         <img

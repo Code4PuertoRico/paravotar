@@ -19,7 +19,7 @@ export function CenterInfo({ town }: CenterInfoProps) {
         <span>{town.telefono}</span>
       </div>
       <div className="mt-8">
-        <Link to={`tel:${town.telefono}`} variant="button">
+        <Link to={`tel:${town.telefono}`} variant="inverse">
           Llamar para mas información
         </Link>
       </div>
