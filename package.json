@@ -19,6 +19,8 @@
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-helmet": "^5.2.1",
+    "react-spring": "^8.0.27",
+    "react-use-measure": "^2.0.0",
     "typescript": "^3.7.5",
     "xstate": "^4.7.7"
   },
@@ -51,7 +53,6 @@
     "jest": "^25.1.0",
     "lint-staged": "^10.0.7",
     "prettier": "^1.19.1",
-    "query-string": "^6.10.1",
     "react-test-renderer": "^16.12.0",
     "tailwindcss": "^1.2.0"
   },
