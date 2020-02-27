@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import { useSpring, animated } from "react-spring"
 import useMeasure from "react-use-measure"
+import { ResizeObserver } from "@juggle/resize-observer"
 
 import { Button, Typography } from "../index"
 import Arrows from "../arrows"
@@ -11,7 +12,7 @@ export function VoterCard({ id, icon, description, docs }: Voter) {
   const btnCopy = isOpen ? "Cerrar ventana" : "Ver documentos necesarios"
 
   // Animation
-  const [ref, bounds] = useMeasure()
+  const [ref, bounds] = useMeasure({ polyfill: ResizeObserver })
   const props = useSpring({
     height: isOpen ? bounds.height || "auto" : 0,
     opacity: isOpen ? 1 : 0,

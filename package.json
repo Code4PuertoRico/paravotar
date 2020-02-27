@@ -5,6 +5,7 @@
   "version": "0.1.0",
   "author": "Kyle Mathews <mathews.kyle@gmail.com>",
   "dependencies": {
+    "@juggle/resize-observer": "^3.0.2",
     "@xstate/react": "^0.8.1",
     "gatsby": "^2.19.7",
     "gatsby-image": "^2.2.39",
