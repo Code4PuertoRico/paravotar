@@ -21,7 +21,7 @@ export function VoterCard({ id, icon, description, docs }: Voter) {
   return (
     <li
       className="flex flex-col flex-shrink-0 w-full rounded shadow-md p-6 bg-white mx-0 my-2 relative lg:flex-1 md:m-2"
-      style={{ minHeight: "14rem" }}
+      style={{ minHeight: "15rem" }}
     >
       <img className="mr-auto" src={icon} alt="man" />
       <Typography variant="p" className="pt-4 mb-2">
