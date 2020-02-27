@@ -18,7 +18,7 @@ export function VoterStatus() {
       </div>
       <div className="flex flex-wrap mt-12">
         <div className="w-full lg:w-1/2">
-          <img src={BrowserExample} alt="Website Example" />
+          <img className="mx-auto" src={BrowserExample} alt="Website Example" />
         </div>
         <div className="w-full lg:mt-3 lg:w-1/2">
           <Typography variant="h3">¿Por que es importante?</Typography>
