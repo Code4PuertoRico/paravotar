@@ -1,4 +1,5 @@
 import React from "react"
+import { animated, useSpring } from "react-spring"
 
 import { Town } from "../types"
 import { Link } from "../../../components/index"
@@ -8,8 +9,13 @@ interface CenterInfoProps {
 }
 
 export function CenterInfo({ town }: CenterInfoProps) {
+  const props = useSpring({ opacity: 1, from: { opacity: 0 } })
+
   return (
-    <div className="flex flex-col p-4 border-t border-separator justify-center w-full lg:ml-40 lg:m-0 lg:border-t-0">
+    <animated.div
+      className="flex flex-col p-4 border-t border-separator justify-center w-full lg:ml-40 lg:m-0 lg:border-t-0"
+      style={props}
+    >
       <div className="text-xl">
         <span className="font-bold mr-12">Dirección</span>
         <span>{town.direccion}</span>
@@ -23,6 +29,6 @@ export function CenterInfo({ town }: CenterInfoProps) {
           Llamar para mas información
         </Link>
       </div>
-    </div>
+    </animated.div>
   )
 }
