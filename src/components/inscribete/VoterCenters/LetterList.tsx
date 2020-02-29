@@ -1,6 +1,5 @@
-import React, { useMemo, useState } from "react"
+import React, { useMemo } from "react"
 import { voterCenters } from "./constants"
-import { Typography } from "../.."
 
 interface LetterListProps {
   onSelect: (letter: string) => void
