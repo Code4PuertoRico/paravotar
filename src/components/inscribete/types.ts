@@ -9,4 +9,5 @@ export type Town = {
   pueblo: string
   telefono: string
   direccion: string
+  googleMapsLink: string
 }
