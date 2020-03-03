@@ -16,22 +16,35 @@ export function CenterInfo({ town }: CenterInfoProps) {
       className="flex flex-col p-4 border-t border-separator justify-center w-full lg:ml-40 lg:m-0 lg:border-t-0"
       style={props}
     >
-      <div className="sm:text-base md:text-xl">
-        <span className="font-bold mr-12">Dirección</span>
-        <span>{town.direccion}</span>
-      </div>
-      <div className="sm:text-base md:text-xl mt-6">
-        <span className="font-bold mr-12">Teléfono</span>
-        <span>{town.telefono}</span>
-      </div>
+      <table>
+        <tbody>
+          <tr className="text-base md:text-xl">
+            <td className="font-bold pr-12 align-top">Dirección</td>
+            <td>{town.direccion}</td>
+          </tr>
+          <tr className="text-base md:text-xl">
+            <td className="font-bold pt-6 pr-12 align-top">Teléfono</td>
+            <td className="pt-6">{town.telefono}</td>
+          </tr>
+        </tbody>
+      </table>
       <div className="mt-8">
-        <Link to={`tel:${town.telefono}`} variant="inverse">
+        <Link
+          className="w-full text-center lg:w-1/2"
+          to={`tel:${town.telefono}`}
+          variant="inverse"
+        >
           Llamar para mas información
         </Link>
       </div>
       <div className="mt-4">
-        <Link to={town.googleMapsLink} target="_blank" variant="inverse">
-          Dirreciones
+        <Link
+          className="w-full text-center lg:w-1/2"
+          to={town.googleMapsLink}
+          target="_blank"
+          variant="primary"
+        >
+          Direcciones
         </Link>
       </div>
     </animated.div>

@@ -16,10 +16,9 @@ export default function Footer() {
         ¿Cómo puedo contribuir al proyecto?
       </Link>
       <p className="font-bold mt-4">
-        NOMBRE DEL PROYECTO no esta afiliado al gobierno ni a ningún partido
-        politico. NOMBRE DEL PROYECTO no guarda ningún tipo de información del
-        usuario. Todo voto practicado en esta plataforma es completamente
-        anónimo y privado.
+        Para Votar no esta afiliado al gobierno ni a ningún partido politico.
+        Para Votar no guarda ningún tipo de información del usuario. Todo voto
+        practicado en esta plataforma es completamente anónimo y privado.
       </p>
       <p className="mt-2">
         El código de este proyecto es totalmente público y puedes verlo{" "}
