@@ -9,6 +9,42 @@ import { TownList } from "./TownList"
 import { voterCenters } from "./constants"
 import { CenterInfo } from "./CenterInfo"
 
+const style: { [key: string]: any } = {
+  DropdownButton: (base: any, { open }: any) => ({
+    ...base,
+    backgroundColor: "white",
+    borderColor: open ? "#292936" : "#cacad9",
+    "&:hover": {
+      borderColor: open ? "#292936" : "#cacad9",
+    },
+
+    "&:focus": {
+      borderColor: open ? "#292936" : "#cacad9",
+    },
+  }),
+  OptionContainer: (base: any) => ({
+    ...base,
+    marginTop: 8,
+    backgroundColor: "white",
+    borderColor: "#cacad9",
+    borderWidth: 1,
+    borderRadius: 6,
+    boxShadow: "0px 3px 10px #cacad9",
+  }),
+  OptionItem: (base: any) => {
+    return {
+      ...base,
+      backgroundColor: "white",
+      color: "#292936",
+      paddingTop: 8,
+      paddingBottom: 8,
+      "&:hover": {
+        backgroundColor: "#ebebff",
+      },
+    }
+  },
+}
+
 const dropdownOptions = voterCenters.map(({ pueblo }) => ({ value: pueblo }))
 
 export function VoterCenters() {
@@ -45,6 +81,7 @@ export function VoterCenters() {
               voterCenters.filter(({ pueblo }) => pueblo === t)[0]
             )
           }}
+          style={style}
         />
         <CenterInfo key={selectedTown.pueblo} town={selectedTown} />
       </div>
