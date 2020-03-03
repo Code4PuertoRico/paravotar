@@ -44,6 +44,14 @@ module.exports = {
         },
       },
     },
-    `gatsby-plugin-offline`,
+    {
+      resolve: "gatsby-plugin-social-cards",
+      options: {
+        // image to use when no cover in frontmatter
+        backgroundImage: "./static/meta/banner.png",
+        // card design
+        design: "default", // 'default' or 'card'
+      },
+    }`gatsby-plugin-offline`,
   ],
 }

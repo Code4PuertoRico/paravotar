@@ -6195,6 +6195,11 @@ gatsby-plugin-sharp@^2.4.3:
     svgo "1.3.2"
     uuid "^3.3.3"
 
+gatsby-plugin-social-cards@^0.5.7:
+  version "0.5.7"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-social-cards/-/gatsby-plugin-social-cards-0.5.7.tgz#76cfc074812c878e57d043be0d3cbf42d666028c"
+  integrity sha512-MG7NEgKPhg2utLzQsroNgwB78KLWd80vIr1RdAycFPIEsV5no3Jd260wDHmK1xd1hZu8LCPsHspD5KvhlCvclw==
+
 gatsby-plugin-typescript@^2.1.26:
   version "2.1.26"
   resolved "https://registry.yarnpkg.com/gatsby-plugin-typescript/-/gatsby-plugin-typescript-2.1.26.tgz#19a715820f2303481814fa113c7e8beb8d073211"
