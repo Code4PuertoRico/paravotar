@@ -46,7 +46,7 @@ export default function SEO({ description, lang, title, meta }: Props) {
         },
         {
           name: "image",
-          content: "/static/meta/banner.png",
+          content: "/static/meta/banner.jpg",
         },
         {
           property: `og:title`,
@@ -58,7 +58,7 @@ export default function SEO({ description, lang, title, meta }: Props) {
         },
         {
           name: `og:image`,
-          content: "/static/meta/banner.png",
+          content: "/static/meta/banner.jpg",
         },
         {
           property: `og:type`,
@@ -82,7 +82,7 @@ export default function SEO({ description, lang, title, meta }: Props) {
         },
         {
           name: `twitter:image`,
-          content: "/static/meta/banner.png",
+          content: "/static/meta/banner.jpg",
         },
       ].concat(meta)}
     />
