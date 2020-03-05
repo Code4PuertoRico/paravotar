@@ -52,6 +52,7 @@ module.exports = {
         // card design
         design: "default", // 'default' or 'card'
       },
-    }`gatsby-plugin-offline`,
+    },
+    `gatsby-plugin-offline`,
   ],
 }
