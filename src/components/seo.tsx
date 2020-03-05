@@ -58,7 +58,7 @@ export default function SEO({ description, lang, title, meta }: Props) {
       <meta name="twitter:creator" content={site.siteMetadata.author} />
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={metaDescription} />
-      <meta name="twitter:image" content={Banner} />
+      <meta name="twitter:image" content={`${site.siteMetadata.siteUrl}${Banner}`} />
     </Helmet>
   )
 }
