@@ -4,13 +4,17 @@ import { Container, Highlight, Layout, SEO, Typography } from "../components"
 import { VoterCardList } from "../components/inscribete/VoterCardList"
 import { VoterCenters } from "../components/inscribete/VoterCenters"
 import { VoterStatus } from "../components/inscribete/VoterStatus"
+import Logo from "../assets/images/logo.svg"
 
 export default function Inscribete() {
   return (
     <Layout>
       <SEO title="Inscríbete" />
       <Highlight>
-        <Container className="w-11/12 text-center pt-32">
+        <Container className="w-11/12 text-center pt-5">
+          <div className="flex justify-center mb-24">
+            <img className="h-32" src={Logo} alt="Para Votar logo" />
+          </div>
           <Typography variant="h3" className="uppercase">
             Inscríbete, conoce cómo obtener tu tarjeta electoral
           </Typography>
