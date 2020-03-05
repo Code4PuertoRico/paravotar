@@ -2,6 +2,8 @@ import React from "react"
 import Helmet from "react-helmet"
 import { useStaticQuery, graphql } from "gatsby"
 
+import Banner from "../../static/meta/banner.png"
+
 type Meta = {
   description?: string
   lang?: string
@@ -39,53 +41,25 @@ export default function SEO({ description, lang, title, meta }: Props) {
       }}
       title={title}
       titleTemplate={`%s | ${site.siteMetadata.title}`}
-      meta={[
-        {
-          name: `description`,
-          content: metaDescription,
-        },
-        {
-          name: "image",
-          content: "/static/meta/banner.png",
-        },
-        {
-          property: `og:title`,
-          content: title,
-        },
-        {
-          property: `og:description`,
-          content: metaDescription,
-        },
-        {
-          name: `og:image`,
-          content: "/static/meta/banner.png",
-        },
-        {
-          property: `og:type`,
-          content: `website`,
-        },
-        {
-          name: `twitter:card`,
-          content: `summary_large_image`,
-        },
-        {
-          name: `twitter:creator`,
-          content: site.siteMetadata.author,
-        },
-        {
-          name: `twitter:title`,
-          content: title,
-        },
-        {
-          name: `twitter:description`,
-          content: metaDescription,
-        },
-        {
-          name: `twitter:image`,
-          content: "/static/meta/banner.png",
-        },
-      ].concat(meta)}
-    />
+    >
+      {/* General tags */}
+      <title>{title}</title>
+      <meta name="description" content={metaDescription} />
+      <meta name="image" content={Banner} />
+
+      {/* OpenGraph tags */}
+      <meta property="og:url" content={site.siteMetadata.siteUrl} />
+      <meta property="og:title" content={title} />
+      <meta property="og:description" content={metaDescription} />
+      <meta property="og:image" content={Banner} />
+
+      {/* Twitter Card tags */}
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:creator" content={site.siteMetadata.author} />
+      <meta name="twitter:title" content={title} />
+      <meta name="twitter:description" content={metaDescription} />
+      <meta name="twitter:image" content={Banner} />
+    </Helmet>
   )
 }
 

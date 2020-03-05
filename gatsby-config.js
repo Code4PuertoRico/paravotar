@@ -1,5 +1,16 @@
+const url = process.env.ROOT_URL || "https://www.paravotar.org"
+const {
+  NODE_ENV,
+  URL: NETLIFY_SITE_URL = url,
+  DEPLOY_PRIME_URL: NETLIFY_DEPLOY_URL = NETLIFY_SITE_URL,
+  CONTEXT: NETLIFY_ENV = NODE_ENV,
+} = process.env
+const isNetlifyProduction = NETLIFY_ENV === "production"
+const siteUrl = isNetlifyProduction ? NETLIFY_SITE_URL : NETLIFY_DEPLOY_URL
+
 module.exports = {
   siteMetadata: {
+    siteUrl,
     title: `Para Votar`,
     description: `Inscríbete, Practica y Sal a Votar`,
     author: `@Code4PuertoRico`,
