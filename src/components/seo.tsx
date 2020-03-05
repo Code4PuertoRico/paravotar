@@ -2,6 +2,8 @@ import React from "react"
 import Helmet from "react-helmet"
 import { useStaticQuery, graphql } from "gatsby"
 
+import Banner from "../../static/meta/banner.png"
+
 type Meta = {
   description?: string
   lang?: string
@@ -53,6 +55,10 @@ export default function SEO({ description, lang, title, meta }: Props) {
           content: metaDescription,
         },
         {
+          name: `og:image`,
+          content: Banner,
+        },
+        {
           property: `og:type`,
           content: `website`,
         },
@@ -71,6 +77,10 @@ export default function SEO({ description, lang, title, meta }: Props) {
         {
           name: `twitter:description`,
           content: metaDescription,
+        },
+        {
+          name: `twitter:image`,
+          content: Banner,
         },
       ].concat(meta)}
     />
