@@ -5,5 +5,5 @@ type Props = {
 }
 
 export default function Highlight({ children }: Props) {
-  return <div className="bg-secondary h-78 min-h-full">{children}</div>
+  return <div className="bg-secondary h-120 min-h-full">{children}</div>
 }
