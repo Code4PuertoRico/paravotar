@@ -45,6 +45,10 @@ export default function SEO({ description, lang, title, meta }: Props) {
           content: metaDescription,
         },
         {
+          name: "image",
+          content: "/static/meta/banner.png",
+        },
+        {
           property: `og:title`,
           content: title,
         },
@@ -62,7 +66,7 @@ export default function SEO({ description, lang, title, meta }: Props) {
         },
         {
           name: `twitter:card`,
-          content: `summary`,
+          content: `summary_large_image`,
         },
         {
           name: `twitter:creator`,
