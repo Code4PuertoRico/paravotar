@@ -27,6 +27,7 @@ export default function SEO({ description, lang, title, meta }: Props) {
               title
               description
               author
+              siteUrl
             }
           }
         }
@@ -51,14 +52,20 @@ export default function SEO({ description, lang, title, meta }: Props) {
       <meta property="og:url" content={site.siteMetadata.siteUrl} />
       <meta property="og:title" content={title} />
       <meta property="og:description" content={metaDescription} />
-      <meta property="og:image" content={Banner} />
+      <meta
+        property="og:image"
+        content={`${site.siteMetadata.siteUrl}${Banner}`}
+      />
 
       {/* Twitter Card tags */}
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:creator" content={site.siteMetadata.author} />
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={metaDescription} />
-      <meta name="twitter:image" content={Banner} />
+      <meta
+        name="twitter:image"
+        content={`${site.siteMetadata.siteUrl}${Banner}`}
+      />
     </Helmet>
   )
 }
