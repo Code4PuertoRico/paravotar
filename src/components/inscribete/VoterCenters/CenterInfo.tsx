@@ -3,6 +3,8 @@ import { animated, useSpring } from "react-spring"
 
 import { Town } from "../types"
 import { Link } from "../../../components/index"
+import Location from "../../../assets/icons/location.inline.svg"
+import Phone from "../../../assets/icons/phone.inline.svg"
 
 interface CenterInfoProps {
   town: Town
@@ -31,20 +33,20 @@ export function CenterInfo({ town }: CenterInfoProps) {
       <div className="mt-8">
         <Link
           className="w-full text-center lg:w-1/2"
-          to={`tel:${town.telefono}`}
-          variant="inverse"
+          to={town.googleMapsLink}
+          target="_blank"
+          variant="primary"
         >
-          Llamar para mas información
+          <Location className="mr-1 h-5 w-5" /> Direcciones
         </Link>
       </div>
       <div className="mt-4">
         <Link
           className="w-full text-center lg:w-1/2"
-          to={town.googleMapsLink}
-          target="_blank"
-          variant="primary"
+          to={`tel:${town.telefono}`}
+          variant="inverse"
         >
-          Direcciones
+          <Phone className="mr-1 h-5 w-5" /> Llamar para mas información
         </Link>
       </div>
     </animated.div>

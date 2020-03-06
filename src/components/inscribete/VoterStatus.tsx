@@ -3,6 +3,7 @@ import React from "react"
 import Typography from "../typography"
 import Link from "../link"
 import BrowserExample from "../../assets/images/browser-example.png"
+import OutsideLink from "../../assets/icons/outside-link.inline.svg"
 
 export function VoterStatus() {
   return (
@@ -34,13 +35,18 @@ export function VoterStatus() {
             correspondiente.
           </Typography>
           <Link
-            className="mt-6"
+            className="mt-6 w-full md:w-1/3"
             variant="primary"
             to="http://ww2.ceepur.org/es-pr/Paginas/Estatus-del-Elector.aspx"
             target="_blank"
           >
-            Verificar mi status
+            <OutsideLink className="mr-2 h-5 w-5" /> Verificar mi status
           </Link>
+          <Typography variant="p" className="mt-2 text-xs">
+            Este enlace te llevará a la página de la Comisión Estatal de
+            Elecciones. Allí podrás llenar el formulario que te dirá cuál es el
+            estatus de tu registro electoral.
+          </Typography>
         </div>
       </div>
     </>

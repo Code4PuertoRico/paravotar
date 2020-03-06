@@ -20,6 +20,7 @@ body {
 
 svg {
   fill: currentColor;
+  stroke: currentColor;
 }
 
 /* purgecss end ignore */

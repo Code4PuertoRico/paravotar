@@ -1,10 +1,10 @@
-import React, { ReactChildren } from "react"
+import React, { ReactNode } from "react"
 import { Link as GatsbyLink } from "gatsby"
 
 type Props = {
   variant: "primary" | "inverse" | "link"
   to: string
-  children: ReactChildren | string
+  children: ReactNode | string
   target?: string
   className: string
 }
@@ -22,8 +22,8 @@ export default function Link({
     variant === "link"
       ? "text-primary font-medium"
       : variant === "inverse"
-      ? "inline-block rounded border border-primary bg-transparent text-primary font-bold py-2 px-4 text-xs uppercase hover:bg-primary-hover hover:text-white active:text-white-active active:bg-primary-active"
-      : "inline-block rounded border border-primary bg-primary text-white py-1 font-bold px-4 hover:bg-primary-hover hover:text-white active:text-white-active active:bg-primary-active"
+      ? "flex align-center justify-center rounded border border-primary bg-transparent text-primary font-bold py-1 px-4 text-sm hover:bg-primary-hover hover:text-white active:text-white-active active:bg-primary-active"
+      : "flex align-center justify-center rounded border border-primary bg-primary text-white py-1 font-bold px-4 text-sm hover:bg-primary-hover hover:text-white active:text-white-active active:bg-primary-active"
 
   if (isExternalLink) {
     return (
