@@ -1,0 +1,7 @@
+# Redirect domain aliases to primary domain
+https://www.paravotar.com/* https://www.paravotar.org/:splat 301!
+https://www.paravotarpr.com/* https://www.paravotar.org/:splat 301!
+https://wwww.paravotarpr.org/* https://www.paravotar.org/:splat 301!
+
+# Optional: Redirect default Netlify subdomain to primary domain
+https://paravotar.netlify.com/* https://www.paravotar.org/:splat 301!
