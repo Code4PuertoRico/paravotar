@@ -7,7 +7,16 @@ import { Button, Typography } from "../index"
 import Arrows from "../arrows"
 import { Voter } from "./types"
 
-export function VoterCard({ id, icon, description, docs }: Voter) {
+export function VoterCard({
+  id,
+  icon,
+  description,
+  prerequisites,
+  requiredDocsText,
+  requiredDocs,
+  optionalDocs,
+  shouldKnow,
+}: Voter) {
   const [isOpen, setIsOpen] = useState(false)
   const btnCopy = isOpen ? "Cerrar ventana" : "Ver documentos necesarios"
 
@@ -37,11 +46,69 @@ export function VoterCard({ id, icon, description, docs }: Voter) {
           style={{ opacity: props.opacity }}
           ref={ref}
         >
-          {docs.map((doc, index) => (
-            <li key={`${id}-${index}`} className="ml-4 pt-2 list-disc text-sm">
-              {doc}
+          {/* Pre-requisites */}
+          {prerequisites.length > 0 ? (
+            <li>
+              <Typography variant="h5">Pré-requisitos:</Typography>
+              <ul>
+                {prerequisites.map((item, index) => (
+                  <li
+                    key={`prerequisites-${id}-${index}`}
+                    className="ml-4 pt-2 list-disc text-sm"
+                  >
+                    {item}
+                  </li>
+                ))}
+              </ul>
             </li>
-          ))}
+          ) : null}
+
+          {/* Should know */}
+          <li className={prerequisites.length > 0 ? "pt-4" : ""}>
+            <Typography variant="h5">Debes saber:</Typography>
+            <ul>
+              {shouldKnow.map((item, index) => (
+                <li
+                  key={`should-know-${id}-${index}`}
+                  className="ml-4 pt-2 list-disc text-sm"
+                >
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </li>
+
+          {/* Required docs */}
+          <li className="pt-4">
+            <Typography variant="h5">{requiredDocsText}</Typography>
+            <ul>
+              {requiredDocs.map((item, index) => (
+                <li
+                  key={`required-docs-${id}-${index}`}
+                  className="ml-4 pt-2 list-disc text-sm"
+                >
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </li>
+
+          {/* Optional docs */}
+          <li className="pt-4">
+            <Typography variant="h5">
+              Optionalmente, puedes llevar los siguientes documentos:
+            </Typography>
+            <ul>
+              {optionalDocs.map((item, index) => (
+                <li
+                  key={`optional-docs-${id}-${index}`}
+                  className="ml-4 pt-2 list-disc text-sm"
+                >
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </li>
         </animated.ul>
       </animated.div>
       <Button
