@@ -19,7 +19,7 @@ export const VoterDocs: Voter[] = [
     ],
     requiredDocsText: "Recomendamos que lleves los siguientes documentos:",
     requiredDocs: [
-      "Identificación con foto con foto expedida por Gobierno Estatal, Municipal o Federal. Puedes utilizar tu licencia de conducir.",
+      "Identificación con foto con foto expedida por Gobierno Estatal, Municipal o Federal. Puedes llevar tu licencia de conducir.",
       "Si no tienes una identificación con foto expedida por Gobierno, lleva una factura con la dirección del lugar en donde vives y asegurate de saber tu Seguro Social.",
     ],
     optionalDocs: [
@@ -42,7 +42,7 @@ export const VoterDocs: Voter[] = [
     ],
     requiredDocsText: "Recomendamos que lleves los siguientes documentos:",
     requiredDocs: [
-      "Identificación con foto con foto expedida por Gobierno Estatal, Municipal o Federal. Puedes utilizar tu licencia de conducir.",
+      "Identificación con foto con foto expedida por Gobierno Estatal, Municipal o Federal. Puedes llevar tu licencia de conducir.",
       "Si no tienes una identificación con foto expedida por Gobierno, lleva una factura con la dirección del lugar en donde vives y asegurate de saber tu Seguro Social.",
     ],
     optionalDocs: [
@@ -68,7 +68,7 @@ export const VoterDocs: Voter[] = [
       "Certificada del Acta de Nacimiento.",
     ],
     optionalDocs: [
-      "Identificación con foto con foto expedida por Gobierno Estatal, Municipal o Federal. Esto puede ser necesario en el caso que la CEE tenga que validar tu identidad. Puedes utilizar tu licencia de conducir.",
+      "Identificación con foto con foto expedida por Gobierno Estatal, Municipal o Federal. Esto puede ser necesario en el caso que la CEE tenga que validar tu identidad. Puedes llevar tu licencia de conducir.",
       "Factura con la dirección del lugar en donde vives. Esto el caso que la CEE no pueda validar tu dirección en su sistema.",
     ],
   },
@@ -89,7 +89,7 @@ export const VoterDocs: Voter[] = [
       "Certificado de Naturalización.",
     ],
     optionalDocs: [
-      "Identificación con foto con foto expedida por Gobierno Estatal, Municipal o Federal. Esto puede ser necesario en el caso que la CEE tenga que validar tu identidad. Puedes utilizar tu licencia de conducir.",
+      "Identificación con foto con foto expedida por Gobierno Estatal, Municipal o Federal. Esto puede ser necesario en el caso que la CEE tenga que validar tu identidad. Puedes llevar tu licencia de conducir.",
       "Factura con la dirección del lugar en donde vives. Esto el caso que la CEE no pueda validar tu dirección en su sistema.",
     ],
   },
