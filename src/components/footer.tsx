@@ -2,6 +2,7 @@ import React from "react"
 
 import Code4PR from "../assets/icons/code-4-pr.svg"
 import Heart from "../assets/icons/heart.svg"
+import Twitter from "../assets/icons/twitter.png"
 import { Container, Link } from "../components/index"
 
 export default function Footer() {
@@ -17,7 +18,19 @@ export default function Footer() {
         ¿Cómo puedo contribuir al proyecto?
       </Link>
       <p className="font-bold mt-4">
-        Para Votar no esta afiliado al gobierno ni a ningún partido politico.
+        Una humilde aportación de{" "}
+        <Link to="https://twitter.com/eluciiano" target="_blank">
+          Emmanuel Luciano
+        </Link>
+        ,{" "}
+        <Link to="https://twitter.com/jpadilla1293" target="_blank">
+          José Padilla
+        </Link>
+        , &{" "}
+        <Link to="https://twitter.com/LayshiCurbelo" target="_blank">
+          Layshi Curbelo
+        </Link>{" "}
+        . Para Votar no esta afiliado al gobierno ni a ningún partido politico.
         Para Votar no guarda ningún tipo de información del usuario.
       </p>
       <p className="mt-2">
@@ -30,6 +43,13 @@ export default function Footer() {
         </Link>
         .
       </p>
+      <Link to="https://www.twitter.com/paravotarpr" target="_blank">
+        <img
+          className="h-12 w-12 mx-auto mt-4 object-contain"
+          src={Twitter}
+          alt="Twitter"
+        />
+      </Link>
       <p className="text-sm mt-10">
         Hecho con{" "}
         <img className="inline-block h-4 w-4" src={Heart} alt="love" /> desde PR
