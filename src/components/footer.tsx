@@ -18,19 +18,7 @@ export default function Footer() {
         ¿Cómo puedo contribuir al proyecto?
       </Link>
       <p className="font-bold mt-4">
-        Una humilde aportación de{" "}
-        <Link to="https://twitter.com/eluciiano" target="_blank">
-          Emmanuel Luciano
-        </Link>
-        ,{" "}
-        <Link to="https://twitter.com/jpadilla1293" target="_blank">
-          José Padilla
-        </Link>
-        , &{" "}
-        <Link to="https://twitter.com/LayshiCurbelo" target="_blank">
-          Layshi Curbelo
-        </Link>{" "}
-        . Para Votar no esta afiliado al gobierno ni a ningún partido politico.
+        Para Votar no esta afiliado al gobierno ni a ningún partido politico.
         Para Votar no guarda ningún tipo de información del usuario.
       </p>
       <p className="mt-2">
@@ -43,23 +31,52 @@ export default function Footer() {
         </Link>
         .
       </p>
-      <Link to="https://www.twitter.com/paravotarpr" target="_blank">
-        <img
-          className="h-12 w-12 mx-auto mt-4 object-contain"
-          src={Twitter}
-          alt="Twitter"
-        />
-      </Link>
       <p className="text-sm mt-10">
         Hecho con{" "}
         <img className="inline-block h-4 w-4" src={Heart} alt="love" /> desde PR
-        y la diaspora.
+        y la diaspora por{" "}
+        <Link to="https://twitter.com/eluciiano" target="_blank">
+          Emmanuel Luciano
+        </Link>
+        ,{" "}
+        <Link to="https://twitter.com/jpadilla1293" target="_blank">
+          José Padilla
+        </Link>{" "}
+        &{" "}
+        <Link to="https://twitter.com/LayshiCurbelo" target="_blank">
+          Layshi Curbelo
+        </Link>
+        .
       </p>
-      <img
-        className="h-16 w-16 mx-auto mt-4"
-        src={Code4PR}
-        alt="Code 4 Puerto Rico"
-      />
+      <p className="text-sm mt-2">
+        Gracias a todas las personas que nos han dado su feedback para mejorar
+        esta herramienta.
+      </p>
+      <p className="text-sm">
+        Para sugerencias y comentarios nos puedes contactar por{" "}
+        <Link to="https://www.twitter.com/paravotarpr" target="_blank">
+          Twitter
+        </Link>{" "}
+        o puedes abrir un issue en{" "}
+        <Link
+          to="https://github.com/Code4PuertoRico/papeleta-pr/issues/new"
+          target="_blank"
+        >
+          Github
+        </Link>
+        .
+      </p>
+      <Link
+        to="https://www.twitter.com/code4puertorico"
+        target="_blank"
+        className="inline-block"
+      >
+        <img
+          className="h-12 w-12 mx-auto mt-4"
+          src={Code4PR}
+          alt="Code 4 Puerto Rico"
+        />
+      </Link>
     </Container>
   )
 }
