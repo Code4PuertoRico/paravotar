@@ -42,7 +42,7 @@ export function VoterCard({
         style={{ height: props.height }}
       >
         <animated.ul
-          className="pl-2 pb-4"
+          className="pb-4"
           style={{ opacity: props.opacity }}
           ref={ref}
         >

@@ -11,11 +11,11 @@ export const VoterDocs: Voter[] = [
     description: "Naciste en Puerto Rico y tienes más de 18 años:",
     prerequisites: [],
     shouldKnow: [
-      "Nombre completo.",
-      "Dirección postal.",
-      "Número de teléfono.",
-      "Número de Seguro Social.",
-      "Estatura.",
+      "Nombre completo",
+      "Dirección postal",
+      "Número de teléfono",
+      "Número de Seguro Social",
+      "Estatura",
     ],
     requiredDocsText: "Recomendamos que lleves los siguientes documentos:",
     requiredDocs: [
@@ -34,11 +34,11 @@ export const VoterDocs: Voter[] = [
       "Naciste en Puerto Rico y cumples los 18 años durante el cuatrenio de las elecciones:",
     prerequisites: [],
     shouldKnow: [
-      "Nombre completo.",
-      "Dirección postal.",
-      "Número de teléfono.",
-      "Número de Seguro Social.",
-      "Estatura.",
+      "Nombre completo",
+      "Dirección postal",
+      "Número de teléfono",
+      "Número de Seguro Social",
+      "Estatura",
     ],
     requiredDocsText: "Recomendamos que lleves los siguientes documentos:",
     requiredDocs: [
@@ -57,10 +57,10 @@ export const VoterDocs: Voter[] = [
       "Naciste en los Estados Unidos, Continentales, Territorios o Posesiones:",
     prerequisites: [],
     shouldKnow: [
-      "Nombre completo.",
-      "Dirección postal.",
-      "Número de teléfono.",
-      "Estatura.",
+      "Nombre completo",
+      "Dirección postal",
+      "Número de teléfono",
+      "Estatura",
     ],
     requiredDocsText: "Debes llevar uno de los siguientes documentos:",
     requiredDocs: [
