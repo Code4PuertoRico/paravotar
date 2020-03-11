@@ -21,12 +21,12 @@ export function CenterInfo({ town }: CenterInfoProps) {
       <table>
         <tbody>
           <tr className="text-base md:text-xl">
-            <td className="font-bold pr-12 align-top">Dirección</td>
-            <td>{town.direccion}</td>
+            <td className="font-bold pr-12 align-top w-1/4">Dirección</td>
+            <td className="w-3/4">{town.direccion}</td>
           </tr>
           <tr className="text-base md:text-xl">
-            <td className="font-bold pt-6 pr-12 align-top">Teléfono</td>
-            <td className="pt-6">{town.telefono}</td>
+            <td className="font-bold pt-6 pr-12 align-top w-1/4">Teléfono</td>
+            <td className="w-3/4 pt-6">{town.telefono}</td>
           </tr>
         </tbody>
       </table>

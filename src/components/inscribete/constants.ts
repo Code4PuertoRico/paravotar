@@ -9,10 +9,21 @@ export const VoterDocs: Voter[] = [
     id: "eighteen-plus",
     icon: EighteenPlus,
     description: "Naciste en Puerto Rico y tienes más de 18 años:",
-    docs: [
-      "Identificación con foto expedida por Gobierno Estatal, Municipal o Federal. Puedes usar tu Licencia de Conducir.",
-      "Factura de agua o luz del lugar donde vives. En el caso de que la factura no este a tu nombre debe llevar una carta del dueño de la factura que certifique tu residencia en la dirección provista.",
-      "Puedes necesitar tu Certificado de Nacimiento y Seguro Social.",
+    prerequisites: [],
+    shouldKnow: [
+      "Nombre completo",
+      "Dirección postal",
+      "Dirección física",
+      "Número de teléfono",
+      "Número de Seguro Social",
+      "Estatura",
+    ],
+    requiredDocsText: "Documentos requeridos:",
+    requiredDocs: ["Ninguno"],
+    optionalDocs: [
+      "Identificación con foto expedida por Gobierno Estatal, Municipal o Federal. Esto puede ser necesario en el caso que la CEE tenga que validar tu identidad. Puedes llevar tu licencia de conducir.",
+      "Certificado de Nacimiento. Esto puede ser necesario en el caso de que la CEE no encuentre tu información en el Registro Demográfico.",
+      "Factura con la dirección del lugar en donde vives. Esto puede ser necesario en el caso que la CEE no pueda validar tu dirección en su sistema.",
     ],
   },
   {
@@ -20,11 +31,23 @@ export const VoterDocs: Voter[] = [
     icon: TurnsEighteen,
     description:
       "Naciste en Puerto Rico y cumples los 18 años durante el cuatrenio de las elecciones:",
-    docs: [
-      "Visita la Junta de Inscripción Permanente de su municipio o precinto electoral para cotejar que aparezcas en la Base de Datos del Registro Demográfico. De no aparecer tendrá que presentar el Certificado de Nacimiento Original.",
-      "Identificación con foto expedida por Gobierno Estatal, Municipal o Federal. Puedes usar tu Licencia de Conducir.",
-      "Factura de agua o luz del lugar donde vives. En el caso de que la factura no este a tu nombre debe llevar una carta del dueño de la factura que certifique tu residencia en la dirección provista.",
-      "Seguro Social.",
+    prerequisites: [
+      "Cumplir 18 años de edad en o antes del 3 de Noviembre, día de las Elecciones Generales en Puerto Rico.",
+    ],
+    shouldKnow: [
+      "Nombre completo",
+      "Dirección postal",
+      "Dirección física",
+      "Número de teléfono",
+      "Número de Seguro Social",
+      "Estatura",
+    ],
+    requiredDocsText: "Documentos requeridos:",
+    requiredDocs: ["Ninguno"],
+    optionalDocs: [
+      "Identificación con foto expedida por Gobierno Estatal, Municipal o Federal. Esto puede ser necesario en el caso que la CEE tenga que validar tu identidad. Puedes llevar tu licencia de conducir.",
+      "Certificado de Nacimiento. Esto puede ser necesario en el caso de que la CEE no encuentre tu información en el Registro Demográfico.",
+      "Factura con la dirección del lugar en donde vives. Esto puede ser necesario en el caso que la CEE no pueda validar tu dirección en su sistema.",
     ],
   },
   {
@@ -32,22 +55,44 @@ export const VoterDocs: Voter[] = [
     icon: BornInTerritory,
     description:
       "Naciste en los Estados Unidos, Continentales, Territorios o Posesiones:",
-    docs: [
-      "Pasaporte de Estados Unidos de América aunque no esté vigente.",
-      "Copia Certificada del Acta de Nacimiento.",
-      "Identificación con foto expedida por Gobierno Estatal, Municipal o Federal. Puedes usar tu Licencia de Conducir.",
-      "Factura de agua o luz del lugar donde vives. En el caso de que la factura no este a tu nombre debe llevar una carta del dueño de la factura que certifique tu residencia en la dirección provista.",
+    prerequisites: [],
+    shouldKnow: [
+      "Nombre completo",
+      "Dirección postal",
+      "Dirección física",
+      "Número de teléfono",
+      "Estatura",
+    ],
+    requiredDocsText: "Debes llevar uno de los siguientes documentos:",
+    requiredDocs: [
+      "Pasaporte de Estados Unidos de América (aunque no esté vigente).",
+      "Certificado del Acta de Nacimiento.",
+    ],
+    optionalDocs: [
+      "Identificación con foto expedida por Gobierno Estatal, Municipal o Federal. Esto puede ser necesario en el caso que la CEE tenga que validar tu identidad. Puedes llevar tu licencia de conducir.",
+      "Factura con la dirección del lugar en donde vives. Esto puede ser necesario en el caso que la CEE no pueda validar tu dirección en su sistema.",
     ],
   },
   {
     id: "born-in-other-countries",
     icon: BornInOtherCountries,
     description: "Naciste en un país extranjero:",
-    docs: [
+    prerequisites: [],
+    shouldKnow: [
+      "Nombre completo",
+      "Dirección postal",
+      "Dirección física",
+      "Número de teléfono",
+      "Estatura",
+    ],
+    requiredDocsText: "Debes llevar uno de los siguientes documentos:",
+    requiredDocs: [
       "Pasaporte de Estados Unidos de América vigente.",
       "Certificado de Naturalización.",
-      "Identificación con foto expedida por Gobierno Estatal, Municipal o Federal. Puedes usar tu Licencia de Conducir.",
-      "Factura de agua o luz del lugar donde vives. En el caso de que la factura no este a tu nombre debe llevar una carta del dueño de la factura que certifique tu residencia en la dirección provista.",
+    ],
+    optionalDocs: [
+      "Identificación con foto expedida por Gobierno Estatal, Municipal o Federal. Esto puede ser necesario en el caso que la CEE tenga que validar tu identidad. Puedes llevar tu licencia de conducir.",
+      "Factura con la dirección del lugar en donde vives. Esto puede ser necesario en el caso que la CEE no pueda validar tu dirección en su sistema.",
     ],
   },
 ]

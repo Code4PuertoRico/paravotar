@@ -5,6 +5,7 @@ const Variants = {
   h2: "h2",
   h3: "h3",
   h4: "h4",
+  h5: "h5",
   p: "p",
   span: "span",
 }
@@ -49,6 +50,13 @@ function getVariantStyles(
       const fontWeight = weight ? Weights[weight] : defaultWeight
 
       return `text-dark ${fontWeight} text-lg`
+    }
+
+    case Variants.h5: {
+      const defaultWeight = "font-bold"
+      const fontWeight = weight ? Weights[weight] : defaultWeight
+
+      return `text-dark ${fontWeight} text-base`
     }
 
     case Variants.p: {
