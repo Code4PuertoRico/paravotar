@@ -66,7 +66,7 @@ export const VoterDocs: Voter[] = [
     requiredDocsText: "Debes llevar uno de los siguientes documentos:",
     requiredDocs: [
       "Pasaporte de Estados Unidos de América (aunque no esté vigente).",
-      "Certificada del Acta de Nacimiento.",
+      "Certificado del Acta de Nacimiento.",
     ],
     optionalDocs: [
       "Identificación con foto con foto expedida por Gobierno Estatal, Municipal o Federal. Esto puede ser necesario en el caso que la CEE tenga que validar tu identidad. Puedes llevar tu licencia de conducir.",
