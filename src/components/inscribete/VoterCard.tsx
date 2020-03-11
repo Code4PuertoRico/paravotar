@@ -79,24 +79,26 @@ export function VoterCard({
           </li>
 
           {/* Required docs */}
-          <li className="pt-4">
-            <Typography variant="h5">{requiredDocsText}</Typography>
-            <ul>
-              {requiredDocs.map((item, index) => (
-                <li
-                  key={`required-docs-${id}-${index}`}
-                  className="ml-4 pt-2 list-disc text-sm"
-                >
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </li>
+          {requiredDocs.length >= 1 && requiredDocs ? (
+            <li className="pt-4">
+              <Typography variant="h5">{requiredDocsText}</Typography>
+              <ul>
+                {requiredDocs.map((item, index) => (
+                  <li
+                    key={`required-docs-${id}-${index}`}
+                    className="ml-4 pt-2 list-disc text-sm"
+                  >
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </li>
+          ) : null}
 
           {/* Optional docs */}
           <li className="pt-4">
             <Typography variant="h5">
-              Optionalmente, puedes llevar los siguientes documentos:
+              Documentos opcionales y situaciones que te podrías encontrar:
             </Typography>
             <ul>
               {optionalDocs.map((item, index) => (

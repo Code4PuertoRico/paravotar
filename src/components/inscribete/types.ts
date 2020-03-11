@@ -2,7 +2,7 @@ export type Voter = {
   id: string
   icon: string
   description: string
-  prerequisites: []
+  prerequisites: string[]
   shouldKnow: string[]
   requiredDocsText: string
   requiredDocs: string[]

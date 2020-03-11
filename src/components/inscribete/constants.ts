@@ -13,18 +13,17 @@ export const VoterDocs: Voter[] = [
     shouldKnow: [
       "Nombre completo",
       "Dirección postal",
+      "Dirección física",
       "Número de teléfono",
       "Número de Seguro Social",
       "Estatura",
     ],
-    requiredDocsText: "Recomendamos que lleves los siguientes documentos:",
-    requiredDocs: [
-      "Identificación con foto con foto expedida por Gobierno Estatal, Municipal o Federal. Puedes llevar tu licencia de conducir.",
-      "Si no tienes una identificación con foto expedida por Gobierno, lleva una factura con la dirección del lugar en donde vives y asegurate de saber tu Seguro Social.",
-    ],
+    requiredDocsText: "Documentos requeridos:",
+    requiredDocs: ["Ninguno"],
     optionalDocs: [
+      "Identificación con foto con foto expedida por Gobierno Estatal, Municipal o Federal. Esto puede ser necesario en el caso que la CEE tenga que validar tu identidad. Puedes llevar tu licencia de conducir.",
       "Certificado de Nacimiento. Esto puede ser necesario en el caso de que la CEE no encuentre tu información en el Registro Demográfico.",
-      "Factura con la dirección del lugar en donde vives. Esto el caso que la CEE no pueda validar tu dirección en su sistema.",
+      "Factura con la dirección del lugar en donde vives. Esto puede ser necesario en el caso que la CEE no pueda validar tu dirección en su sistema.",
     ],
   },
   {
@@ -32,22 +31,23 @@ export const VoterDocs: Voter[] = [
     icon: TurnsEighteen,
     description:
       "Naciste en Puerto Rico y cumples los 18 años durante el cuatrenio de las elecciones:",
-    prerequisites: [],
+    prerequisites: [
+      "Cumplir 18 años de edad en o antes del 3 de Noviembre, día de las Elecciones Generales en Puerto Rico.",
+    ],
     shouldKnow: [
       "Nombre completo",
       "Dirección postal",
+      "Dirección física",
       "Número de teléfono",
       "Número de Seguro Social",
       "Estatura",
     ],
-    requiredDocsText: "Recomendamos que lleves los siguientes documentos:",
-    requiredDocs: [
-      "Identificación con foto con foto expedida por Gobierno Estatal, Municipal o Federal. Puedes llevar tu licencia de conducir.",
-      "Si no tienes una identificación con foto expedida por Gobierno, lleva una factura con la dirección del lugar en donde vives y asegurate de saber tu Seguro Social.",
-    ],
+    requiredDocsText: "Documentos requeridos:",
+    requiredDocs: ["Ninguno"],
     optionalDocs: [
+      "Identificación con foto con foto expedida por Gobierno Estatal, Municipal o Federal. Esto puede ser necesario en el caso que la CEE tenga que validar tu identidad. Puedes llevar tu licencia de conducir.",
       "Certificado de Nacimiento. Esto puede ser necesario en el caso de que la CEE no encuentre tu información en el Registro Demográfico.",
-      "Factura con la dirección del lugar en donde vives. Esto el caso que la CEE no pueda validar tu dirección en su sistema.",
+      "Factura con la dirección del lugar en donde vives. Esto puede ser necesario en el caso que la CEE no pueda validar tu dirección en su sistema.",
     ],
   },
   {
@@ -59,6 +59,7 @@ export const VoterDocs: Voter[] = [
     shouldKnow: [
       "Nombre completo",
       "Dirección postal",
+      "Dirección física",
       "Número de teléfono",
       "Estatura",
     ],
@@ -69,7 +70,7 @@ export const VoterDocs: Voter[] = [
     ],
     optionalDocs: [
       "Identificación con foto con foto expedida por Gobierno Estatal, Municipal o Federal. Esto puede ser necesario en el caso que la CEE tenga que validar tu identidad. Puedes llevar tu licencia de conducir.",
-      "Factura con la dirección del lugar en donde vives. Esto el caso que la CEE no pueda validar tu dirección en su sistema.",
+      "Factura con la dirección del lugar en donde vives. Esto puede ser necesario en el caso que la CEE no pueda validar tu dirección en su sistema.",
     ],
   },
   {
@@ -80,6 +81,7 @@ export const VoterDocs: Voter[] = [
     shouldKnow: [
       "Nombre completo",
       "Dirección postal",
+      "Dirección física",
       "Número de teléfono",
       "Estatura",
     ],
@@ -90,7 +92,7 @@ export const VoterDocs: Voter[] = [
     ],
     optionalDocs: [
       "Identificación con foto con foto expedida por Gobierno Estatal, Municipal o Federal. Esto puede ser necesario en el caso que la CEE tenga que validar tu identidad. Puedes llevar tu licencia de conducir.",
-      "Factura con la dirección del lugar en donde vives. Esto el caso que la CEE no pueda validar tu dirección en su sistema.",
+      "Factura con la dirección del lugar en donde vives. Esto puede ser necesario en el caso que la CEE no pueda validar tu dirección en su sistema.",
     ],
   },
 ]
