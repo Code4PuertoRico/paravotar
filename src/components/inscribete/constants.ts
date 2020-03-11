@@ -21,7 +21,7 @@ export const VoterDocs: Voter[] = [
     requiredDocsText: "Documentos requeridos:",
     requiredDocs: ["Ninguno"],
     optionalDocs: [
-      "Identificación con foto con foto expedida por Gobierno Estatal, Municipal o Federal. Esto puede ser necesario en el caso que la CEE tenga que validar tu identidad. Puedes llevar tu licencia de conducir.",
+      "Identificación con foto expedida por Gobierno Estatal, Municipal o Federal. Esto puede ser necesario en el caso que la CEE tenga que validar tu identidad. Puedes llevar tu licencia de conducir.",
       "Certificado de Nacimiento. Esto puede ser necesario en el caso de que la CEE no encuentre tu información en el Registro Demográfico.",
       "Factura con la dirección del lugar en donde vives. Esto puede ser necesario en el caso que la CEE no pueda validar tu dirección en su sistema.",
     ],
@@ -45,7 +45,7 @@ export const VoterDocs: Voter[] = [
     requiredDocsText: "Documentos requeridos:",
     requiredDocs: ["Ninguno"],
     optionalDocs: [
-      "Identificación con foto con foto expedida por Gobierno Estatal, Municipal o Federal. Esto puede ser necesario en el caso que la CEE tenga que validar tu identidad. Puedes llevar tu licencia de conducir.",
+      "Identificación con foto expedida por Gobierno Estatal, Municipal o Federal. Esto puede ser necesario en el caso que la CEE tenga que validar tu identidad. Puedes llevar tu licencia de conducir.",
       "Certificado de Nacimiento. Esto puede ser necesario en el caso de que la CEE no encuentre tu información en el Registro Demográfico.",
       "Factura con la dirección del lugar en donde vives. Esto puede ser necesario en el caso que la CEE no pueda validar tu dirección en su sistema.",
     ],
@@ -69,7 +69,7 @@ export const VoterDocs: Voter[] = [
       "Certificado del Acta de Nacimiento.",
     ],
     optionalDocs: [
-      "Identificación con foto con foto expedida por Gobierno Estatal, Municipal o Federal. Esto puede ser necesario en el caso que la CEE tenga que validar tu identidad. Puedes llevar tu licencia de conducir.",
+      "Identificación con foto expedida por Gobierno Estatal, Municipal o Federal. Esto puede ser necesario en el caso que la CEE tenga que validar tu identidad. Puedes llevar tu licencia de conducir.",
       "Factura con la dirección del lugar en donde vives. Esto puede ser necesario en el caso que la CEE no pueda validar tu dirección en su sistema.",
     ],
   },
@@ -91,7 +91,7 @@ export const VoterDocs: Voter[] = [
       "Certificado de Naturalización.",
     ],
     optionalDocs: [
-      "Identificación con foto con foto expedida por Gobierno Estatal, Municipal o Federal. Esto puede ser necesario en el caso que la CEE tenga que validar tu identidad. Puedes llevar tu licencia de conducir.",
+      "Identificación con foto expedida por Gobierno Estatal, Municipal o Federal. Esto puede ser necesario en el caso que la CEE tenga que validar tu identidad. Puedes llevar tu licencia de conducir.",
       "Factura con la dirección del lugar en donde vives. Esto puede ser necesario en el caso que la CEE no pueda validar tu dirección en su sistema.",
     ],
   },
