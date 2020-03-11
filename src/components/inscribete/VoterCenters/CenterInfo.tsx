@@ -69,7 +69,12 @@ export const CenterInfo: React.FunctionComponent<CenterInfoProps> = ({
         style={props}
       >
         {town.locations.map((t, i) => (
-          <TownInfo town={t as Required<Town>} key={`town-${i}`} />
+          <div
+            key={`town-${i}`}
+            className="pt-10 pb-10 border-b border-separator"
+          >
+            <TownInfo town={t as Required<Town>} />
+          </div>
         ))}
       </animated.div>
     )
