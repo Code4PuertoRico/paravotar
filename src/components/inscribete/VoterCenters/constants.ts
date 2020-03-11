@@ -1,4 +1,4 @@
-export const voterCenters = [
+export const voterCenters: Town[] = [
   {
     pueblo: "Adjuntas",
     telefono: "787-829-6800",
@@ -448,32 +448,37 @@ export const voterCenters = [
       "https://google.com/maps/search/?api=1&query=18.08094055,-67.03614809",
   },
   {
-    pueblo: "San Juan 1",
-    telefono: "787-722-2801",
-    direccion: "Torre Minillas CSI, 1er Piso",
-    googleMapsLink:
-      "https://google.com/maps/search/?api=1&query=18.44827005,-66.06757461",
-  },
-  {
-    pueblo: "San Juan 1-A",
-    telefono: "787-726-9086",
-    direccion: "Torre Minillas CSI, 1er Piso",
-    googleMapsLink:
-      "https://google.com/maps/search/?api=1&query=18.44827005,-66.06757461",
-  },
-  {
-    pueblo: "San Juan 2-A",
-    telefono: "787-765-0302",
-    direccion: "Ave Barbosa #618 Esq Cll. Mayagüez",
-    googleMapsLink:
-      "https://google.com/maps/search/?api=1&query=18.41211321,-66.04350468",
-  },
-  {
-    pueblo: "San Juan 2-Anexo",
-    telefono: "787-753-2510",
-    direccion: "#550 Ave Arterial B (Al lado Coliseo PR)",
-    googleMapsLink:
-      "https://google.com/maps/search/?api=1&query=18.42797345,-66.06288468",
+    pueblo: "San Juan",
+    locations: [
+      {
+        pueblo: "1",
+        telefono: "787-722-2801",
+        direccion: "Torre Minillas CSI, 1er Piso",
+        googleMapsLink:
+          "https://google.com/maps/search/?api=1&query=18.44827005,-66.06757461",
+      },
+      {
+        pueblo: "1-A",
+        telefono: "787-726-9086",
+        direccion: "Torre Minillas CSI, 1er Piso",
+        googleMapsLink:
+          "https://google.com/maps/search/?api=1&query=18.44827005,-66.06757461",
+      },
+      {
+        pueblo: "2-A",
+        telefono: "787-765-0302",
+        direccion: "Ave Barbosa #618 Esq Cll. Mayagüez",
+        googleMapsLink:
+          "https://google.com/maps/search/?api=1&query=18.41211321,-66.04350468",
+      },
+      {
+        pueblo: "2-Anexo",
+        telefono: "787-753-2510",
+        direccion: "#550 Ave Arterial B (Al lado Coliseo PR)",
+        googleMapsLink:
+          "https://google.com/maps/search/?api=1&query=18.42797345,-66.06288468",
+      },
+    ],
   },
   {
     pueblo: "San Lorenzo",

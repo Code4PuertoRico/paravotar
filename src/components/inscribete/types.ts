@@ -11,7 +11,8 @@ export type Voter = {
 
 export type Town = {
   pueblo: string
-  telefono: string
-  direccion: string
-  googleMapsLink: string
+  telefono?: string
+  direccion?: string
+  googleMapsLink?: string
+  locations?: Town[]
 }
