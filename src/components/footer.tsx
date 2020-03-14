@@ -2,7 +2,6 @@ import React from "react"
 
 import Code4PR from "../assets/icons/code-4-pr.svg"
 import Heart from "../assets/icons/heart.svg"
-import Twitter from "../assets/icons/twitter.png"
 import { Container, Link } from "../components/index"
 
 export default function Footer() {
