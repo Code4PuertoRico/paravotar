@@ -20,7 +20,7 @@ export default function Link({
     to.includes("https") || to.includes("tel") || to.includes("http")
   const style =
     variant === "link"
-      ? "text-primary font-medium"
+      ? "text-primary font-medium hover:underline"
       : variant === "inverse"
       ? "flex align-center justify-center rounded border border-primary bg-transparent text-primary font-bold py-1 px-4 text-sm hover:bg-primary-hover hover:text-white active:text-white-active active:bg-primary-active"
       : "flex align-center justify-center rounded border border-primary bg-primary text-white py-1 font-bold px-4 text-sm hover:bg-primary-hover hover:text-white active:text-white-active active:bg-primary-active"
