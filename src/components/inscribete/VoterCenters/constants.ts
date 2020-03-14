@@ -1,3 +1,5 @@
+import { Town } from "../types"
+
 export const voterCenters: Town[] = [
   {
     pueblo: "Adjuntas",
@@ -5,6 +7,11 @@ export const voterCenters: Town[] = [
     direccion: "43 Cll San Joaquin, Adjuntas, 00601, Puerto Rico",
     googleMapsLink:
       "https://google.com/maps/search/?api=1&query=18.16324986,-66.72088792",
+    servicios: [
+      "Trámites electorales",
+      "Servicios de PR.GOV",
+      "Registro Demográfico",
+    ],
   },
   {
     pueblo: "Aguada",
@@ -12,6 +19,11 @@ export const voterCenters: Town[] = [
     direccion: "175 Calle Paz, Aguada, 00602, Puerto Rico",
     googleMapsLink:
       "https://google.com/maps/search/?api=1&query=18.37904977,-67.1868032",
+    servicios: [
+      "Trámites electorales",
+      "Servicios de PR.GOV",
+      "Registro Demográfico",
+    ],
   },
   {
     pueblo: "Aguadilla",
@@ -19,6 +31,7 @@ export const voterCenters: Town[] = [
     direccion: "Calle Luis Muñoz Rivera #32",
     googleMapsLink:
       "https://google.com/maps/search/?api=1&query=18.4304219,-67.15449527",
+    servicios: ["Trámites electorales", "Servicios de PR.GOV"],
   },
   {
     pueblo: "Aguas Buenas",
@@ -26,6 +39,7 @@ export const voterCenters: Town[] = [
     direccion: "Calle Monserrrate #38",
     googleMapsLink:
       "https://google.com/maps/search/?api=1&query=18.25641812,-66.10448208",
+    servicios: ["Trámites electorales", "Servicios de PR.GOV"],
   },
   {
     pueblo: "Aibonito",
@@ -33,6 +47,7 @@ export const voterCenters: Town[] = [
     direccion: "Biblioteca Mun. Cll. Ignacio López, Ave. San José",
     googleMapsLink:
       "https://google.com/maps/search/?api=1&query=18.13959797,-66.26459629",
+    servicios: ["Trámites electorales", "Servicios de PR.GOV"],
   },
   {
     pueblo: "Añasco",
@@ -40,6 +55,7 @@ export const voterCenters: Town[] = [
     direccion: "Cll. San Antonio #38",
     googleMapsLink:
       "https://google.com/maps/search/?api=1&query=18.28264885,-67.14165849",
+    servicios: ["Trámites electorales", "Servicios de PR.GOV"],
   },
   {
     pueblo: "Arecibo",
@@ -47,6 +63,11 @@ export const voterCenters: Town[] = [
     direccion: "Cll. Gonzalo Marín #59",
     googleMapsLink:
       "https://google.com/maps/search/?api=1&query=18.47193887,-66.7148237",
+    servicios: [
+      "Trámites electorales",
+      "Servicios de PR.GOV",
+      "Registro Demográfico",
+    ],
   },
   {
     pueblo: "Arroyo",
@@ -54,6 +75,7 @@ export const voterCenters: Town[] = [
     direccion: "111 Cll. Morse (Ant. Esc. José de Choudens)",
     googleMapsLink:
       "https://google.com/maps/search/?api=1&query=17.96673976,-66.06142752",
+    servicios: ["Trámites electorales", "Servicios de PR.GOV"],
   },
   {
     pueblo: "Barceloneta",
@@ -61,6 +83,11 @@ export const voterCenters: Town[] = [
     direccion: "Edif. Fidel Santiago, Cll. Georgetti #12",
     googleMapsLink:
       "https://google.com/maps/search/?api=1&query=18.45314056,-66.53889537",
+    servicios: [
+      "Trámites electorales",
+      "Servicios de PR.GOV",
+      "Registro Demográfico",
+    ],
   },
   {
     pueblo: "Barranquitas",
@@ -68,6 +95,11 @@ export const voterCenters: Town[] = [
     direccion: "Cll. Muñoz Rivera #41",
     googleMapsLink:
       "https://google.com/maps/search/?api=1&query=18.18563455,-66.30797946",
+    servicios: [
+      "Trámites electorales",
+      "Servicios de PR.GOV",
+      "Registro Demográfico",
+    ],
   },
   {
     pueblo: "Bayamón",
@@ -75,6 +107,12 @@ export const voterCenters: Town[] = [
     direccion: "Carr # 2 KM 11, Bajos Casa Alcaldía",
     googleMapsLink:
       "https://google.com/maps/search/?api=1&query=18.39573704,-66.15558123",
+    servicios: [
+      "Trámites electorales",
+      "Servicios de PR.GOV",
+      "Registro Demográfico",
+    ],
+    JIPIsla: true,
   },
   {
     pueblo: "Cabo Rojo",
@@ -82,6 +120,7 @@ export const voterCenters: Town[] = [
     direccion: "Cll. Rius Rivera 1, Esq. Mestre Local 1",
     googleMapsLink:
       "https://google.com/maps/search/?api=1&query=18.08737109,-67.14484507",
+    servicios: ["Trámites electorales", "Servicios de PR.GOV"],
   },
   {
     pueblo: "Caguas",
@@ -89,6 +128,12 @@ export const voterCenters: Town[] = [
     direccion: "Urb. Bunker, Cll. Brazil Esq. Cll Ecuador",
     googleMapsLink:
       "https://google.com/maps/search/?api=1&query=18.22663241,-66.04136638",
+    servicios: [
+      "Trámites electorales",
+      "Servicios de PR.GOV",
+      "Registro Demográfico",
+    ],
+    JIPIsla: true,
   },
   {
     pueblo: "Camuy",
@@ -96,6 +141,7 @@ export const voterCenters: Town[] = [
     direccion: "Cll. Perelló #8",
     googleMapsLink:
       "https://google.com/maps/search/?api=1&query=18.48357848,-66.84578339",
+    servicios: ["Trámites electorales", "Servicios de PR.GOV"],
   },
   {
     pueblo: "Canóvanas",
@@ -103,6 +149,7 @@ export const voterCenters: Town[] = [
     direccion: "Cll. Palmer #57",
     googleMapsLink:
       "https://google.com/maps/search/?api=1&query=18.37925926,-65.90167681",
+    servicios: ["Trámites electorales", "Servicios de PR.GOV"],
   },
   {
     pueblo: "Carolina",
@@ -110,6 +157,8 @@ export const voterCenters: Town[] = [
     direccion: "Edif Plaza Centro Local D-65, Ave Fernández Juncos",
     googleMapsLink:
       "https://google.com/maps/search/?api=1&query=18.38210533,-65.95579786",
+    servicios: ["Trámites electorales", "Servicios de PR.GOV"],
+    JIPIsla: true,
   },
   {
     pueblo: "Cataño",
@@ -117,6 +166,7 @@ export const voterCenters: Town[] = [
     direccion: "Local 16 Plaza del Mercado Ave. Barbosa",
     googleMapsLink:
       "https://google.com/maps/search/?api=1&query=18.4394492,-66.12714417",
+    servicios: ["Trámites electorales", "Servicios de PR.GOV"],
   },
   {
     pueblo: "Cayey",
@@ -124,6 +174,7 @@ export const voterCenters: Town[] = [
     direccion: "Cll. Núñez Romeu #159",
     googleMapsLink:
       "https://google.com/maps/search/?api=1&query=18.11309759,-66.16433463",
+    servicios: ["Trámites electorales", "Servicios de PR.GOV"],
   },
   {
     pueblo: "Ceiba",
@@ -131,6 +182,7 @@ export const voterCenters: Town[] = [
     direccion: "Ave. Lauro Piñero #295",
     googleMapsLink:
       "https://google.com/maps/search/?api=1&query=18.26224965,-65.64823979",
+    servicios: ["Trámites electorales", "Servicios de PR.GOV"],
   },
   {
     pueblo: "Ciales",
@@ -138,6 +190,7 @@ export const voterCenters: Town[] = [
     direccion: "Anexo Ant. Hospital Municipal #4, Cll. Hospital",
     googleMapsLink:
       "https://google.com/maps/search/?api=1&query=18.33362166,-66.46918376",
+    servicios: ["Trámites electorales", "Servicios de PR.GOV"],
   },
   {
     pueblo: "Cidra",
@@ -145,6 +198,8 @@ export const voterCenters: Town[] = [
     direccion: "Cll. Antonio R, Barceló #43, Esq. Cruz Haddock",
     googleMapsLink:
       "https://google.com/maps/search/?api=1&query=18.17590081,-66.15829547",
+    servicios: ["Trámites electorales", "Servicios de PR.GOV"],
+    JIPIsla: true,
   },
   {
     pueblo: "Coamo",
@@ -152,6 +207,7 @@ export const voterCenters: Town[] = [
     direccion: "Cll. Mario Braschi #17 (Bajos)",
     googleMapsLink:
       "https://google.com/maps/search/?api=1&query=18.08162879,-66.35693514",
+    servicios: ["Trámites electorales", "Servicios de PR.GOV"],
   },
   {
     pueblo: "Corozal",
@@ -159,6 +215,7 @@ export const voterCenters: Town[] = [
     direccion: "Carr 891 KM 1.3 Bo Pueblo",
     googleMapsLink:
       "https://google.com/maps/search/?api=1&query=18.34243291,-66.31366678",
+    servicios: ["Trámites electorales", "Servicios de PR.GOV"],
   },
   {
     pueblo: "Culebra",
@@ -166,6 +223,7 @@ export const voterCenters: Town[] = [
     direccion: "Salón 102, Esc. Ecológica",
     googleMapsLink:
       "https://google.com/maps/search/?api=1&query=18.30777948,-65.30323199",
+    servicios: ["Trámites electorales", "Servicios de PR.GOV"],
   },
   {
     pueblo: "Dorado",
@@ -173,6 +231,7 @@ export const voterCenters: Town[] = [
     direccion: "Ctro. de Gobierno, Carr 693 KM 6.6 Bo Pueblo",
     googleMapsLink:
       "https://google.com/maps/search/?api=1&query=18.46015882,-66.2649249",
+    servicios: ["Trámites electorales", "Servicios de PR.GOV"],
   },
   {
     pueblo: "Fajardo",
@@ -180,6 +239,8 @@ export const voterCenters: Town[] = [
     direccion: "Cll. Iglesias #105",
     googleMapsLink:
       "https://google.com/maps/search/?api=1&query=18.32401816,-65.65378487",
+    servicios: ["Trámites electorales", "Servicios de PR.GOV"],
+    JIPIsla: true,
   },
   {
     pueblo: "Florida",
@@ -187,6 +248,7 @@ export const voterCenters: Town[] = [
     direccion: "Cll. Ramón Torres #96",
     googleMapsLink:
       "https://google.com/maps/search/?api=1&query=18.36162432,-66.5672049",
+    servicios: ["Trámites electorales", "Servicios de PR.GOV"],
   },
   {
     pueblo: "Guánica",
@@ -194,6 +256,7 @@ export const voterCenters: Town[] = [
     direccion: "Cll. 25 de Julio, esq. Cll. SS Rodríguez",
     googleMapsLink:
       "https://google.com/maps/search/?api=1&query=17.97446386,-66.90743272",
+    servicios: ["Trámites electorales", "Servicios de PR.GOV"],
   },
   {
     pueblo: "Guayama",
@@ -201,6 +264,7 @@ export const voterCenters: Town[] = [
     direccion: "101 Cll Baldorioty, Bo Pueblo",
     googleMapsLink:
       "https://google.com/maps/search/?api=1&query=17.98411299,-66.11747626",
+    servicios: ["Trámites electorales", "Servicios de PR.GOV"],
   },
   {
     pueblo: "Guayanilla",
@@ -208,6 +272,7 @@ export const voterCenters: Town[] = [
     direccion: "PR-335, KM. 13.1 (Cll. Rufina)",
     googleMapsLink:
       "https://google.com/maps/search/?api=1&query=18.0184192,-66.79371384",
+    servicios: ["Trámites electorales", "Servicios de PR.GOV"],
   },
   {
     pueblo: "Guaynabo",
@@ -215,6 +280,7 @@ export const voterCenters: Town[] = [
     direccion: "Guaynabo Medical Mall, #140 Ave. Las Cumbres",
     googleMapsLink:
       "https://google.com/maps/search/?api=1&query=18.36162954,-66.11331008",
+    servicios: ["Trámites electorales", "Servicios de PR.GOV"],
   },
   {
     pueblo: "Gurabo",
@@ -222,6 +288,7 @@ export const voterCenters: Town[] = [
     direccion: "#54 Cll. Angel Celestino Morales",
     googleMapsLink:
       "https://google.com/maps/search/?api=1&query=18.25607131,-65.97177791",
+    servicios: ["Trámites electorales", "Servicios de PR.GOV"],
   },
   {
     pueblo: "Hatillo",
@@ -229,6 +296,7 @@ export const voterCenters: Town[] = [
     direccion: "Cll. Vidal Félix #123",
     googleMapsLink:
       "https://google.com/maps/search/?api=1&query=18.48671279,-66.82591331",
+    servicios: ["Trámites electorales", "Servicios de PR.GOV"],
   },
   {
     pueblo: "Hormigueros",
@@ -236,6 +304,7 @@ export const voterCenters: Town[] = [
     direccion: "Carr. 345 Km 0.9, Complejo Deportivo Hemanos Miura",
     googleMapsLink:
       "https://google.com/maps/search/?api=1&query=18.13787928,-67.12081177",
+    servicios: ["Trámites electorales", "Servicios de PR.GOV"],
   },
   {
     pueblo: "Humacao",
@@ -243,6 +312,7 @@ export const voterCenters: Town[] = [
     direccion: "Cll. Dolores Cabreras #4W",
     googleMapsLink:
       "https://google.com/maps/search/?api=1&query=18.1490653,-65.82670141",
+    servicios: ["Trámites electorales", "Servicios de PR.GOV"],
   },
   {
     pueblo: "Isabela",
@@ -250,6 +320,7 @@ export const voterCenters: Town[] = [
     direccion: "#151 Cll. Trinitaria",
     googleMapsLink:
       "https://google.com/maps/search/?api=1&query=18.5013872,-67.0201119",
+    servicios: ["Trámites electorales", "Servicios de PR.GOV"],
   },
   {
     pueblo: "Jayuya",
@@ -257,6 +328,7 @@ export const voterCenters: Town[] = [
     direccion: "Esc. Carmen Salas, Carr 144 Km 4.0",
     googleMapsLink:
       "https://google.com/maps/search/?api=1&query=18.21812723,-66.59554252",
+    servicios: ["Trámites electorales", "Servicios de PR.GOV"],
   },
   {
     pueblo: "JIP Isla - CEE",
@@ -264,6 +336,7 @@ export const voterCenters: Town[] = [
     direccion: "#550 Ave Arterial B (Al lado Coliseo PR)",
     googleMapsLink:
       "https://google.com/maps/search/?api=1&query=18.42823443,-66.06290084",
+    servicios: ["Trámites electorales", "Servicios de PR.GOV"],
   },
   {
     pueblo: "Juana Díaz",
@@ -271,6 +344,7 @@ export const voterCenters: Town[] = [
     direccion: "Terminal de Carros Públicos #54 Cll Comercio",
     googleMapsLink:
       "https://google.com/maps/search/?api=1&query=18.05307836,-66.50692269",
+    servicios: ["Trámites electorales", "Servicios de PR.GOV"],
   },
   {
     pueblo: "Juncos",
@@ -278,6 +352,7 @@ export const voterCenters: Town[] = [
     direccion: "PR-31 Km 24.5, Antiguo Edificio Guardia Nacional",
     googleMapsLink:
       "https://google.com/maps/search/?api=1&query=18.23026111,-65.91126587",
+    servicios: ["Trámites electorales", "Servicios de PR.GOV"],
   },
   {
     pueblo: "Lajas",
@@ -285,6 +360,7 @@ export const voterCenters: Town[] = [
     direccion: "Centro Comercial Municipal",
     googleMapsLink:
       "https://google.com/maps/search/?api=1&query=18.04409496,-67.05902315",
+    servicios: ["Trámites electorales", "Servicios de PR.GOV"],
   },
   {
     pueblo: "Lares",
@@ -292,6 +368,11 @@ export const voterCenters: Town[] = [
     direccion: "Cll. Felipe Arana #2",
     googleMapsLink:
       "https://google.com/maps/search/?api=1&query=18.29618939,-66.87736873",
+    servicios: [
+      "Trámites electorales",
+      "Servicios de PR.GOV",
+      "Registro Demográfico",
+    ],
   },
   {
     pueblo: "Las Marías",
@@ -299,6 +380,7 @@ export const voterCenters: Town[] = [
     direccion: "Dpto. de Estado. #1 Cll. San Benito",
     googleMapsLink:
       "https://google.com/maps/search/?api=1&query=18.25248386,-66.99181196",
+    servicios: ["Trámites electorales", "Servicios de PR.GOV"],
   },
   {
     pueblo: "Las Piedras",
@@ -306,6 +388,7 @@ export const voterCenters: Town[] = [
     direccion: "Cll. Jesús T Piñero #77, Ctro Comercial López",
     googleMapsLink:
       "https://google.com/maps/search/?api=1&query=18.17957921,-65.87227667",
+    servicios: ["Trámites electorales", "Servicios de PR.GOV"],
   },
   {
     pueblo: "Loíza",
@@ -313,6 +396,7 @@ export const voterCenters: Town[] = [
     direccion: "Ant. Esc. Carlos Escobar, Cll. C final",
     googleMapsLink:
       "https://google.com/maps/search/?api=1&query=18.43231794,-65.8778135",
+    servicios: ["Trámites electorales", "Servicios de PR.GOV"],
   },
   {
     pueblo: "Luquillo",
@@ -320,6 +404,11 @@ export const voterCenters: Town[] = [
     direccion: "Sect. Fortuna, Cll. 10 esq. Cll. 1",
     googleMapsLink:
       "https://google.com/maps/search/?api=1&query=18.37791562,-65.74440404",
+    servicios: [
+      "Trámites electorales",
+      "Servicios de PR.GOV",
+      "Registro Demográfico",
+    ],
   },
   {
     pueblo: "Manatí",
@@ -327,6 +416,7 @@ export const voterCenters: Town[] = [
     direccion: "Estac. Puerta del Este, #3 Cll Celis Aguilera",
     googleMapsLink:
       "https://google.com/maps/search/?api=1&query=18.42966016,-66.49221087",
+    servicios: ["Trámites electorales", "Servicios de PR.GOV"],
   },
   {
     pueblo: "Maricao",
@@ -334,6 +424,7 @@ export const voterCenters: Town[] = [
     direccion: "Edif. Betances #4 Cll Rafael Janer",
     googleMapsLink:
       "https://google.com/maps/search/?api=1&query=18.1805922,-66.97928483",
+    servicios: ["Trámites electorales", "Servicios de PR.GOV"],
   },
   {
     pueblo: "Maunabo",
@@ -341,6 +432,7 @@ export const voterCenters: Town[] = [
     direccion: "Ant. Esc. Urbana, Carr. 901",
     googleMapsLink:
       "https://google.com/maps/search/?api=1&query=18.00519776,-65.90050048",
+    servicios: ["Trámites electorales", "Servicios de PR.GOV"],
   },
   {
     pueblo: "Mayagüez",
@@ -348,6 +440,12 @@ export const voterCenters: Town[] = [
     direccion: "Cll. Ramos Antonini #107",
     googleMapsLink:
       "https://google.com/maps/search/?api=1&query=18.20099497,-67.13751441",
+    servicios: [
+      "Trámites electorales",
+      "Servicios de PR.GOV",
+      "Registro Demográfico",
+    ],
+    JIPIsla: true,
   },
   {
     pueblo: "Moca",
@@ -355,6 +453,7 @@ export const voterCenters: Town[] = [
     direccion: "Cll. Barbosa #136",
     googleMapsLink:
       "https://google.com/maps/search/?api=1&query=18.39533251,-67.11594678",
+    servicios: ["Trámites electorales", "Servicios de PR.GOV"],
   },
   {
     pueblo: "Morovis",
@@ -362,6 +461,7 @@ export const voterCenters: Town[] = [
     direccion: "Cll Principal #39, Esq. Ruíz Belvis",
     googleMapsLink:
       "https://google.com/maps/search/?api=1&query=18.32581208,-66.40661387",
+    servicios: ["Trámites electorales", "Servicios de PR.GOV"],
   },
   {
     pueblo: "Naguabo",
@@ -369,6 +469,7 @@ export const voterCenters: Town[] = [
     direccion: "Cll. Juan R. Garzot #27",
     googleMapsLink:
       "https://google.com/maps/search/?api=1&query=18.21219921,-65.73610883",
+    servicios: ["Trámites electorales", "Servicios de PR.GOV"],
   },
   {
     pueblo: "Naranjito",
@@ -376,6 +477,7 @@ export const voterCenters: Town[] = [
     direccion: "Edif. José Archilla Cabrera, Carr 825",
     googleMapsLink:
       "https://google.com/maps/search/?api=1&query=18.30177227,-66.24696895",
+    servicios: ["Trámites electorales", "Servicios de PR.GOV"],
   },
   {
     pueblo: "Orocovis",
@@ -383,6 +485,7 @@ export const voterCenters: Town[] = [
     direccion: "Carretera 568 Km 0.1 (Edificio Sorobel)",
     googleMapsLink:
       "https://google.com/maps/search/?api=1&query=18.22949545,-66.38976054",
+    servicios: ["Trámites electorales", "Servicios de PR.GOV"],
   },
   {
     pueblo: "Patillas",
@@ -390,6 +493,8 @@ export const voterCenters: Town[] = [
     direccion: "Cll. Alberto Ricci #40 Esq Riefkhol",
     googleMapsLink:
       "https://google.com/maps/search/?api=1&query=18.00609622,-66.01375297",
+    servicios: ["Trámites electorales", "Servicios de PR.GOV"],
+    JIPIsla: true,
   },
   {
     pueblo: "Peñuelas",
@@ -397,6 +502,7 @@ export const voterCenters: Town[] = [
     direccion: "#55 Cll. Muñoz Rivera",
     googleMapsLink:
       "https://google.com/maps/search/?api=1&query=18.05181892,-66.7214185",
+    servicios: ["Trámites electorales", "Servicios de PR.GOV"],
   },
   {
     pueblo: "Ponce",
@@ -404,6 +510,8 @@ export const voterCenters: Town[] = [
     direccion: "Plaza del Mercado Cll.Victoria, Esq. Cll. León",
     googleMapsLink:
       "https://google.com/maps/search/?api=1&query=18.01494637,-66.61331883",
+    servicios: ["Trámites electorales", "Servicios de PR.GOV"],
+    JIPIsla: true,
   },
   {
     pueblo: "Quebradillas",
@@ -411,6 +519,7 @@ export const voterCenters: Town[] = [
     direccion: "Cll. San Carlos Esq. Cll. José Pérez Soler",
     googleMapsLink:
       "https://google.com/maps/search/?api=1&query=18.47217385,-66.93753211",
+    servicios: ["Trámites electorales", "Servicios de PR.GOV"],
   },
   {
     pueblo: "Rincón",
@@ -418,6 +527,7 @@ export const voterCenters: Town[] = [
     direccion: "Carr 115 KM 12.3, Ave. Albizu Campos Bo Pueblo",
     googleMapsLink:
       "https://google.com/maps/search/?api=1&query=18.33234004,-67.24994724",
+    servicios: ["Trámites electorales", "Servicios de PR.GOV"],
   },
   {
     pueblo: "Río Grande",
@@ -425,6 +535,8 @@ export const voterCenters: Town[] = [
     direccion: "PR-187 Int. Calle Juan R. González",
     googleMapsLink:
       "https://google.com/maps/search/?api=1&query=18.37951416,-65.82909424",
+    servicios: ["Trámites electorales", "Servicios de PR.GOV"],
+    JIPIsla: true,
   },
   {
     pueblo: "Sabana Grande",
@@ -432,6 +544,7 @@ export const voterCenters: Town[] = [
     direccion: "Cll. Luis Muñoz Rivera #27",
     googleMapsLink:
       "https://google.com/maps/search/?api=1&query=18.07716688,-66.95979304",
+    servicios: ["Trámites electorales", "Servicios de PR.GOV"],
   },
   {
     pueblo: "Salinas",
@@ -439,6 +552,11 @@ export const voterCenters: Town[] = [
     direccion: "#14 Cll. Santiago Palmer",
     googleMapsLink:
       "https://google.com/maps/search/?api=1&query=17.97624525,-66.29752761",
+    servicios: [
+      "Trámites electorales",
+      "Servicios de PR.GOV",
+      "Registro Demográfico",
+    ],
   },
   {
     pueblo: "San Germán",
@@ -446,6 +564,7 @@ export const voterCenters: Town[] = [
     direccion: "#114 Calle Dr. Santiago Veve (Plaza del Mercado)",
     googleMapsLink:
       "https://google.com/maps/search/?api=1&query=18.08094055,-67.03614809",
+    servicios: ["Trámites electorales", "Servicios de PR.GOV"],
   },
   {
     pueblo: "San Juan",
@@ -456,6 +575,7 @@ export const voterCenters: Town[] = [
         direccion: "Torre Minillas CSI, 1er Piso",
         googleMapsLink:
           "https://google.com/maps/search/?api=1&query=18.44827005,-66.06757461",
+        servicios: ["Trámites electorales", "Servicios de PR.GOV"],
       },
       {
         pueblo: "1-A",
@@ -463,6 +583,7 @@ export const voterCenters: Town[] = [
         direccion: "Torre Minillas CSI, 1er Piso",
         googleMapsLink:
           "https://google.com/maps/search/?api=1&query=18.44827005,-66.06757461",
+        servicios: ["Trámites electorales", "Servicios de PR.GOV"],
       },
       {
         pueblo: "2-A",
@@ -470,6 +591,8 @@ export const voterCenters: Town[] = [
         direccion: "Ave Barbosa #618 Esq Cll. Mayagüez",
         googleMapsLink:
           "https://google.com/maps/search/?api=1&query=18.41211321,-66.04350468",
+        servicios: ["Trámites electorales", "Servicios de PR.GOV"],
+        JIPIsla: true,
       },
       {
         pueblo: "2-Anexo",
@@ -477,6 +600,8 @@ export const voterCenters: Town[] = [
         direccion: "#550 Ave Arterial B (Al lado Coliseo PR)",
         googleMapsLink:
           "https://google.com/maps/search/?api=1&query=18.42797345,-66.06288468",
+        servicios: ["Trámites electorales", "Servicios de PR.GOV"],
+        JIPIsla: true,
       },
     ],
   },
@@ -486,6 +611,7 @@ export const voterCenters: Town[] = [
     direccion: "Cll. Valeriano Muñoz #55 Este Final",
     googleMapsLink:
       "https://google.com/maps/search/?api=1&query=18.18761937,-65.96082451",
+    servicios: ["Trámites electorales", "Servicios de PR.GOV"],
   },
   {
     pueblo: "San Sebastián",
@@ -493,6 +619,7 @@ export const voterCenters: Town[] = [
     direccion: "Cll. Hipolito Castro #37",
     googleMapsLink:
       "https://google.com/maps/search/?api=1&query=18.33553895,-66.99240721",
+    servicios: ["Trámites electorales", "Servicios de PR.GOV"],
   },
   {
     pueblo: "Santa Isabel",
@@ -500,6 +627,7 @@ export const voterCenters: Town[] = [
     direccion: "Cll. Baldorioty Int. Cll. Celis Aguilera",
     googleMapsLink:
       "https://google.com/maps/search/?api=1&query=17.96599665,-66.40479633",
+    servicios: ["Trámites electorales", "Servicios de PR.GOV"],
   },
   {
     pueblo: "Toa Alta",
@@ -507,6 +635,11 @@ export const voterCenters: Town[] = [
     direccion: "Cll. José De Diego #35-A",
     googleMapsLink:
       "https://google.com/maps/search/?api=1&query=18.38869936,-66.24879383",
+    servicios: [
+      "Trámites electorales",
+      "Servicios de PR.GOV",
+      "Registro Demográfico",
+    ],
   },
   {
     pueblo: "Toa Baja",
@@ -514,6 +647,7 @@ export const voterCenters: Town[] = [
     direccion: "Carretera 865 Km 5.0 Barrio Candelaria",
     googleMapsLink:
       "https://google.com/maps/search/?api=1&query=18.41697185,-66.21217798",
+    servicios: ["Trámites electorales", "Servicios de PR.GOV"],
   },
   {
     pueblo: "Utuado",
@@ -521,6 +655,12 @@ export const voterCenters: Town[] = [
     direccion: "Cll. Dr. Cueto #87",
     googleMapsLink:
       "https://google.com/maps/search/?api=1&query=18.26614102,-66.70315614",
+    servicios: [
+      "Trámites electorales",
+      "Servicios de PR.GOV",
+      "Registro Demográfico",
+    ],
+    JIPIsla: true,
   },
   {
     pueblo: "Vega Alta",
@@ -528,6 +668,7 @@ export const voterCenters: Town[] = [
     direccion: "Cll.Teodomiro Ramírez #80",
     googleMapsLink:
       "https://google.com/maps/search/?api=1&query=18.41270866,-66.33153004",
+    servicios: ["Trámites electorales", "Servicios de PR.GOV"],
   },
   {
     pueblo: "Vega Baja",
@@ -535,6 +676,8 @@ export const voterCenters: Town[] = [
     direccion: "Plaza del Mercado Local A-35, Bo Pueblo",
     googleMapsLink:
       "https://google.com/maps/search/?api=1&query=18.44490259,-66.38972017",
+    servicios: ["Trámites electorales", "Servicios de PR.GOV"],
+    JIPIsla: true,
   },
   {
     pueblo: "Vieques",
@@ -542,6 +685,7 @@ export const voterCenters: Town[] = [
     direccion: "Ant. Local CESCO 354 Cll. Antonio G. Mellado",
     googleMapsLink:
       "https://google.com/maps/search/?api=1&query=18.14902126,-65.44084755",
+    servicios: ["Trámites electorales", "Servicios de PR.GOV"],
   },
   {
     pueblo: "Villaba",
@@ -549,6 +693,7 @@ export const voterCenters: Town[] = [
     direccion: "Cll. Sharton, Centro de Bellas Artes",
     googleMapsLink:
       "https://google.com/maps/search/?api=1&query=18.12949022,-66.49247399",
+    servicios: ["Trámites electorales", "Servicios de PR.GOV"],
   },
   {
     pueblo: "Yabucoa",
@@ -556,6 +701,11 @@ export const voterCenters: Town[] = [
     direccion: "Cll. Catalina Morales #5",
     googleMapsLink:
       "https://google.com/maps/search/?api=1&query=18.04912927,-65.88167703",
+    servicios: [
+      "Trámites electorales",
+      "Servicios de PR.GOV",
+      "Registro Demográfico",
+    ],
   },
   {
     pueblo: "Yauco",
@@ -563,5 +713,10 @@ export const voterCenters: Town[] = [
     direccion: "Estadio Mario Ramírez, desvío Carr. 3334 int.",
     googleMapsLink:
       "https://google.com/maps/search/?api=1&query=18.02212742,-66.85863299",
+    servicios: [
+      "Trámites electorales",
+      "Servicios de PR.GOV",
+      "Registro Demográfico",
+    ],
   },
 ]

@@ -24,8 +24,22 @@ const TownInfo: React.FunctionComponent<{ town: Required<Town> }> = ({
           <td className="font-bold pt-6 pr-12 align-top w-1/4">Teléfono</td>
           <td className="w-3/4 pt-6">{town.telefono}</td>
         </tr>
+        <tr className="text-base md:text-xl">
+          <td className="font-bold pt-6 pr-12 align-top w-1/4">Servicios</td>
+          <td className="w-3/4 pt-6">
+            {town.servicios.map(s => (
+              <p key={s}>{s}</p>
+            ))}
+          </td>
+        </tr>
       </tbody>
     </table>
+    {town.JIPIsla ? (
+      <p className="mt-4">
+        * En este centro puede realizar cualquier trámite electoral sin importar
+        el precinto en el cual reside.
+      </p>
+    ) : null}
     <div className="mt-8">
       <Link
         className="w-full text-center lg:w-1/2"
