@@ -82,14 +82,24 @@ export const CenterInfo: React.FunctionComponent<CenterInfoProps> = ({
         className="flex flex-col p-4 border-t border-separator justify-center w-full lg:ml-40 lg:m-0 lg:border-t-0"
         style={props}
       >
-        {town.locations.map((t, i) => (
-          <div
-            key={`town-${i}`}
-            className="pt-10 pb-10 border-b border-separator"
-          >
-            <TownInfo town={t as Required<Town>} />
-          </div>
-        ))}
+        {town.locations
+          .sort((a, b) => {
+            if (a.JIPIsla) {
+              return -1
+            } else if (b.JIPIsla) {
+              return 1
+            }
+
+            return 0
+          })
+          .map((t, i) => (
+            <div
+              key={`town-${i}`}
+              className="pt-10 pb-10 border-b border-separator last:border-b-0"
+            >
+              <TownInfo town={t as Required<Town>} />
+            </div>
+          ))}
       </animated.div>
     )
   }

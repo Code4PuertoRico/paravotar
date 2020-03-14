@@ -337,6 +337,7 @@ export const voterCenters: Town[] = [
     googleMapsLink:
       "https://google.com/maps/search/?api=1&query=18.42823443,-66.06290084",
     servicios: ["Trámites electorales", "Servicios de PR.GOV"],
+    JIPIsla: true,
   },
   {
     pueblo: "Juana Díaz",
@@ -568,6 +569,7 @@ export const voterCenters: Town[] = [
   },
   {
     pueblo: "San Juan",
+    JIPIsla: true,
     locations: [
       {
         pueblo: "1",
