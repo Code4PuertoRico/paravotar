@@ -1,5 +1,4 @@
 import EighteenPlus from "../../assets/icons/eighteen-plus.svg"
-import TurnsEighteen from "../../assets/icons/turns-eighteen.svg"
 import BornInTerritory from "../../assets/icons/born-in-territory.svg"
 import BornInOtherCountries from "../../assets/icons/born-in-other-countries.svg"
 import { Voter } from "./types"
@@ -8,8 +7,7 @@ export const VoterDocs: Voter[] = [
   {
     id: "eighteen-plus",
     icon: EighteenPlus,
-    description: "Naciste en Puerto Rico y tienes más de 18 años:",
-    prerequisites: [],
+    description: "Naciste en Puerto Rico:",
     shouldKnow: [
       "Nombre completo",
       "Dirección postal",
@@ -18,35 +16,15 @@ export const VoterDocs: Voter[] = [
       "Número de Seguro Social",
       "Estatura",
     ],
-    requiredDocsText: "Documentos requeridos:",
-    requiredDocs: ["Ninguno"],
-    optionalDocs: [
-      "Identificación con foto expedida por Gobierno Estatal, Municipal o Federal. Esto puede ser necesario en el caso que la CEE tenga que validar tu identidad. Puedes llevar tu licencia de conducir.",
-      "Certificado de Nacimiento. Esto puede ser necesario en el caso de que la CEE no encuentre tu información en el Registro Demográfico.",
-      "Factura con la dirección del lugar en donde vives. Esto puede ser necesario en el caso que la CEE no pueda validar tu dirección en su sistema.",
-    ],
-  },
-  {
-    id: "turns-eighteen",
-    icon: TurnsEighteen,
-    description:
-      "Naciste en Puerto Rico y cumples los 18 años durante el cuatrenio de las elecciones:",
-    prerequisites: [
-      "Cumplir 18 años de edad en o antes del 3 de Noviembre, día de las Elecciones Generales en Puerto Rico.",
-    ],
-    shouldKnow: [
-      "Nombre completo",
-      "Dirección postal",
-      "Dirección física",
-      "Número de teléfono",
-      "Número de Seguro Social",
-      "Estatura",
+    recommendedDocsText:
+      "Recomendamos que lleves uno o más de los siguientes documentos:",
+    recommendedDocs: [
+      "Licencia de conducir o identificación con foto expedida por Gobierno Estatal, Municipal o Federal.",
+      "Certificado de Nacimiento original. Puede ser necesario en el caso de que la CEE no encuentre tu información en el sistema del Registro Demográfico.",
     ],
     requiredDocsText: "Documentos requeridos:",
     requiredDocs: ["Ninguno"],
     optionalDocs: [
-      "Identificación con foto expedida por Gobierno Estatal, Municipal o Federal. Esto puede ser necesario en el caso que la CEE tenga que validar tu identidad. Puedes llevar tu licencia de conducir.",
-      "Certificado de Nacimiento. Esto puede ser necesario en el caso de que la CEE no encuentre tu información en el Registro Demográfico.",
       "Factura con la dirección del lugar en donde vives. Esto puede ser necesario en el caso que la CEE no pueda validar tu dirección en su sistema.",
     ],
   },
@@ -54,8 +32,7 @@ export const VoterDocs: Voter[] = [
     id: "born-in-territory",
     icon: BornInTerritory,
     description:
-      "Naciste en los Estados Unidos, Continentales, Territorios o Posesiones:",
-    prerequisites: [],
+      "Naciste en los Estados Unidos, incluyendo cualquiera de sus territorios continentales o posesiones:",
     shouldKnow: [
       "Nombre completo",
       "Dirección postal",
@@ -63,21 +40,22 @@ export const VoterDocs: Voter[] = [
       "Número de teléfono",
       "Estatura",
     ],
+    recommendedDocs: [
+      "Licencia de conducir o identificación con foto expedida por Gobierno Estatal, Municipal o Federal.",
+    ],
     requiredDocsText: "Debes llevar uno de los siguientes documentos:",
     requiredDocs: [
-      "Pasaporte de Estados Unidos de América (aunque no esté vigente).",
-      "Certificado del Acta de Nacimiento.",
+      "Pasaporte de Estados Unidos de América vigente",
+      "Certificado de Nacimiento original",
     ],
     optionalDocs: [
-      "Identificación con foto expedida por Gobierno Estatal, Municipal o Federal. Esto puede ser necesario en el caso que la CEE tenga que validar tu identidad. Puedes llevar tu licencia de conducir.",
       "Factura con la dirección del lugar en donde vives. Esto puede ser necesario en el caso que la CEE no pueda validar tu dirección en su sistema.",
     ],
   },
   {
     id: "born-in-other-countries",
     icon: BornInOtherCountries,
-    description: "Naciste en un país extranjero:",
-    prerequisites: [],
+    description: "Naciste en un país extranjero y resides en Puerto Rico:",
     shouldKnow: [
       "Nombre completo",
       "Dirección postal",
@@ -85,13 +63,16 @@ export const VoterDocs: Voter[] = [
       "Número de teléfono",
       "Estatura",
     ],
+    recommendedDocs: [
+      "Licencia de conducir o identificación con foto expedida por Gobierno Estatal, Municipal o Federal.",
+    ],
     requiredDocsText: "Debes llevar uno de los siguientes documentos:",
     requiredDocs: [
-      "Pasaporte de Estados Unidos de América vigente.",
-      "Certificado de Naturalización.",
+      "Pasaporte de Estados Unidos de América vigente",
+      "Certificado de Naturalización",
+      "Certificación del Departamento de Estado con acreditación",
     ],
     optionalDocs: [
-      "Identificación con foto expedida por Gobierno Estatal, Municipal o Federal. Esto puede ser necesario en el caso que la CEE tenga que validar tu identidad. Puedes llevar tu licencia de conducir.",
       "Factura con la dirección del lugar en donde vives. Esto puede ser necesario en el caso que la CEE no pueda validar tu dirección en su sistema.",
     ],
   },
