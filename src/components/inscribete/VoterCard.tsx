@@ -7,16 +7,7 @@ import { Button, Typography } from "../index"
 import Arrows from "../arrows"
 import { Voter } from "./types"
 
-export function VoterCard({
-  id,
-  icon,
-  description,
-  prerequisites,
-  requiredDocsText,
-  requiredDocs,
-  optionalDocs,
-  shouldKnow,
-}: Voter) {
+export function VoterCard(voter: Voter) {
   const [isOpen, setIsOpen] = useState(false)
   const btnCopy = isOpen ? "Cerrar ventana" : "Ver documentos necesarios"
 
@@ -33,9 +24,9 @@ export function VoterCard({
       className="flex flex-col flex-shrink-0 w-full rounded shadow-md p-6 bg-white mx-0 my-2 relative lg:flex-1 md:m-2"
       style={{ minHeight: "15rem" }}
     >
-      <img className="mr-auto" src={icon} alt="man" />
+      <img className="mr-auto" src={voter.icon} alt="man" />
       <Typography variant="p" className="pt-4 mb-2">
-        {description}
+        {voter.description}
       </Typography>
       <animated.div
         className="overflow-hidden"
@@ -46,14 +37,39 @@ export function VoterCard({
           style={{ opacity: props.opacity }}
           ref={ref}
         >
-          {/* Pre-requisites */}
-          {prerequisites.length > 0 ? (
-            <li>
-              <Typography variant="h5">Pré-requisitos:</Typography>
+          {/* Voting pre-requisite */}
+          <li className="pt-2">
+            Para votar en las Elecciones Generales en Puerto Rico debes tener 18
+            años (o más) en o antes del 3 de noviembre de 2020.
+          </li>
+
+          {/* Required docs */}
+          {voter.requiredDocs.length >= 1 && voter.requiredDocs ? (
+            <li className="pt-4">
+              <Typography variant="h5">{voter.requiredDocsText}</Typography>
               <ul>
-                {prerequisites.map((item, index) => (
+                {voter.requiredDocs.map((item, index) => (
                   <li
-                    key={`prerequisites-${id}-${index}`}
+                    key={`required-docs-${voter.id}-${index}`}
+                    className="ml-4 pt-2 list-disc text-sm"
+                  >
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </li>
+          ) : null}
+
+          {/* Recommended docs */}
+          {voter.recommendedDocs.length >= 1 && voter.recommendedDocs ? (
+            <li className="pt-4">
+              <Typography variant="h5">
+                {voter.recommendedDocsText || "Recomendamos que lleves:"}
+              </Typography>
+              <ul>
+                {voter.recommendedDocs.map((item, index) => (
+                  <li
+                    key={`required-docs-${voter.id}-${index}`}
                     className="ml-4 pt-2 list-disc text-sm"
                   >
                     {item}
@@ -64,12 +80,12 @@ export function VoterCard({
           ) : null}
 
           {/* Should know */}
-          <li className={prerequisites.length > 0 ? "pt-4" : ""}>
+          <li className={voter.shouldKnow.length > 0 ? "pt-4" : ""}>
             <Typography variant="h5">Debes saber:</Typography>
             <ul>
-              {shouldKnow.map((item, index) => (
+              {voter.shouldKnow.map((item, index) => (
                 <li
-                  key={`should-know-${id}-${index}`}
+                  key={`should-know-${voter.id}-${index}`}
                   className="ml-4 pt-2 list-disc text-sm"
                 >
                   {item}
@@ -78,32 +94,15 @@ export function VoterCard({
             </ul>
           </li>
 
-          {/* Required docs */}
-          {requiredDocs.length >= 1 && requiredDocs ? (
-            <li className="pt-4">
-              <Typography variant="h5">{requiredDocsText}</Typography>
-              <ul>
-                {requiredDocs.map((item, index) => (
-                  <li
-                    key={`required-docs-${id}-${index}`}
-                    className="ml-4 pt-2 list-disc text-sm"
-                  >
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </li>
-          ) : null}
-
           {/* Optional docs */}
           <li className="pt-4">
             <Typography variant="h5">
               Documentos opcionales y situaciones que te podrías encontrar:
             </Typography>
             <ul>
-              {optionalDocs.map((item, index) => (
+              {voter.optionalDocs.map((item, index) => (
                 <li
-                  key={`optional-docs-${id}-${index}`}
+                  key={`optional-docs-${voter.id}-${index}`}
                   className="ml-4 pt-2 list-disc text-sm"
                 >
                   {item}
