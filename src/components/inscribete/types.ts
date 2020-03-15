@@ -15,4 +15,6 @@ export type Town = {
   direccion?: string
   googleMapsLink?: string
   locations?: Town[]
+  servicios?: string[]
+  JIPIsla?: boolean
 }

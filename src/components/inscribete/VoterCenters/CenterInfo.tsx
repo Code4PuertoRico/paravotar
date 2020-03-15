@@ -24,8 +24,22 @@ const TownInfo: React.FunctionComponent<{ town: Required<Town> }> = ({
           <td className="font-bold pt-6 pr-12 align-top w-1/4">Teléfono</td>
           <td className="w-3/4 pt-6">{town.telefono}</td>
         </tr>
+        <tr className="text-base md:text-xl">
+          <td className="font-bold pt-6 pr-12 align-top w-1/4">Servicios</td>
+          <td className="w-3/4 pt-6">
+            {town.servicios.map(s => (
+              <p key={s}>{s}</p>
+            ))}
+          </td>
+        </tr>
       </tbody>
     </table>
+    {town.JIPIsla ? (
+      <p className="mt-4">
+        * En este centro puede realizar cualquier trámite electoral sin importar
+        el precinto en el cual reside.
+      </p>
+    ) : null}
     <div className="mt-8">
       <Link
         className="w-full text-center lg:w-1/2"
@@ -68,14 +82,24 @@ export const CenterInfo: React.FunctionComponent<CenterInfoProps> = ({
         className="flex flex-col p-4 border-t border-separator justify-center w-full lg:ml-40 lg:m-0 lg:border-t-0"
         style={props}
       >
-        {town.locations.map((t, i) => (
-          <div
-            key={`town-${i}`}
-            className="pt-10 pb-10 border-b border-separator"
-          >
-            <TownInfo town={t as Required<Town>} />
-          </div>
-        ))}
+        {town.locations
+          .sort((a, b) => {
+            if (a.JIPIsla) {
+              return -1
+            } else if (b.JIPIsla) {
+              return 1
+            }
+
+            return 0
+          })
+          .map((t, i) => (
+            <div
+              key={`town-${i}`}
+              className="pt-10 pb-10 border-b border-separator last:border-b-0"
+            >
+              <TownInfo town={t as Required<Town>} />
+            </div>
+          ))}
       </animated.div>
     )
   }
