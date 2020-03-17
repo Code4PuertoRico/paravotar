@@ -8,7 +8,7 @@ module.exports = {
       },
       secondary: "#E3C094",
       background: "#FDFAF7",
-      dark: "#3A3630",
+      dark: "#342F2D",
       separator: "rgb(220, 220, 220)",
       white: { default: "#ffffff", hover: "#D2D0CD", active: "#C0BCB8" },
       black: "#000000",
