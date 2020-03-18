@@ -2,7 +2,7 @@ module.exports = {
   theme: {
     colors: {
       primary: {
-        default: "#917149",
+        default: "#886944",
         hover: "#7B603E",
         active: "#745A3A",
       },
