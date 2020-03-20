@@ -13,7 +13,7 @@ export default function Inscribete() {
       <Highlight>
         <Container className="w-11/12 text-center pt-5">
           <div className="flex justify-center mb-24">
-            <img className="h-32" src={Logo} alt="Para Votar logo" />
+            <img className="h-32" src={Logo} alt="Para Votar" />
           </div>
           <Typography variant="h3" className="uppercase">
             Inscríbete, conoce cómo obtener tu tarjeta electoral

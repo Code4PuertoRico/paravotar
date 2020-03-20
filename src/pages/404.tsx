@@ -16,7 +16,7 @@ export default function NotFoundPage() {
         <img
           className="m-auto my-8"
           src="https://media.giphy.com/media/NTY1kHmcLsCsg/giphy.gif"
-          alt="Sad animation"
+          alt="Animación de un muñequito con cara triste"
         />
       </Container>
     </Layout>

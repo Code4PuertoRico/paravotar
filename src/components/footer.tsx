@@ -32,7 +32,7 @@ export default function Footer() {
       </p>
       <p className="text-sm mt-10">
         Hecho con{" "}
-        <img className="inline-block h-4 w-4" src={Heart} alt="love" /> desde PR
+        <img className="inline-block h-4 w-4" src={Heart} alt="amor" /> desde PR
         y la diaspora por{" "}
         <Link to="https://twitter.com/eluciiano" target="_blank">
           Emmanuel Luciano
@@ -73,7 +73,7 @@ export default function Footer() {
         <img
           className="h-12 w-12 mx-auto mt-4"
           src={Code4PR}
-          alt="Code 4 Puerto Rico"
+          alt="Hecho bajo la organización de Code 4 Puerto Rico"
         />
       </Link>
     </Container>
