@@ -23,6 +23,10 @@ svg {
   stroke: currentColor;
 }
 
+div:focus {
+  outline: none;
+}
+
 a:focus,
 button:focus {
   outline: none;
