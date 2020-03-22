@@ -22,7 +22,7 @@ function Name({ town, selectedTown, onSelect }: TownProps) {
   return (
     <li className="ml-4 mt-1 lg:flex lg:items-center lg:ml-0 lg:mt-4 first:mt-0 first:ml-0">
       <animated.button
-        className="whitespace-no-wrap overflow-hidden h-8 m-1 px-2"
+        className="whitespace-no-wrap overflow-hidden h-8 m-1"
         onClick={() => onSelect(town)}
         style={props}
       >

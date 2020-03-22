@@ -48,6 +48,7 @@ export function VoterStatus() {
             target="_blank"
           >
             <OutsideLink className="mr-2 h-5 w-5" /> Verificar mi status
+            <span className="sr-only">electoral</span>
           </Link>
           <Typography tag="p" variant="p" className="mt-2 text-xs">
             Este enlace te llevará a la página de la Comisión Estatal de

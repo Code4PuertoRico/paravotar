@@ -14,26 +14,24 @@ const TownInfo: React.FunctionComponent<{ town: Required<Town> }> = ({
   town,
 }) => (
   <>
-    <table>
-      <tbody>
-        <tr className="text-base md:text-xl">
-          <td className="font-bold pr-12 align-top w-1/4">Dirección</td>
-          <td className="w-3/4">{town.direccion}</td>
-        </tr>
-        <tr className="text-base md:text-xl">
-          <td className="font-bold pt-6 pr-12 align-top w-1/4">Teléfono</td>
-          <td className="w-3/4 pt-6">{town.telefono}</td>
-        </tr>
-        <tr className="text-base md:text-xl">
-          <td className="font-bold pt-6 pr-12 align-top w-1/4">Servicios</td>
-          <td className="w-3/4 pt-6">
-            {town.servicios.map(s => (
-              <p key={s}>{s}</p>
-            ))}
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div>
+      <div className="flex text-base md:text-xl">
+        <p className="font-bold pr-12 align-top w-1/4">Dirección</p>
+        <p className="w-3/4">{town.direccion}</p>
+      </div>
+      <div className="flex text-base md:text-xl pt-6">
+        <p className="font-bold pr-12 align-top w-1/4">Teléfono</p>
+        <p className="w-3/4">{town.telefono}</p>
+      </div>
+      <div className="flex text-base md:text-xl pt-6">
+        <p className="font-bold pr-12 align-top w-1/4">Servicios</p>
+        <p className="w-3/4">
+          {town.servicios.map(s => (
+            <p key={s}>{s}</p>
+          ))}
+        </p>
+      </div>
+    </div>
     {town.JIPIsla ? (
       <p className="mt-4">
         * En este centro puede realizar cualquier trámite electoral sin importar
@@ -48,6 +46,9 @@ const TownInfo: React.FunctionComponent<{ town: Required<Town> }> = ({
         variant="primary"
       >
         <Location className="mr-1 h-5 w-5" /> Direcciones
+        <span className="sr-only">
+          para esta Junta de Inscripción Permanente
+        </span>
       </Link>
     </div>
     <div className="mt-4">
@@ -57,6 +58,9 @@ const TownInfo: React.FunctionComponent<{ town: Required<Town> }> = ({
         variant="inverse"
       >
         <Phone className="mr-1 h-5 w-5" /> Llamar para mas información
+        <span className="sr-only">
+          sobre esta Junta de Inscripción Permanente
+        </span>
       </Link>
     </div>
   </>

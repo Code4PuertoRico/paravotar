@@ -10,6 +10,9 @@ import { Voter } from "./types"
 export function VoterCard(voter: Voter) {
   const [isOpen, setIsOpen] = useState(false)
   const btnCopy = isOpen ? "Cerrar ventana" : "Ver documentos necesarios"
+  const srText = isOpen
+    ? `de documentos requeridos para ${voter.srText}`
+    : `para ${voter.srText}`
 
   // Animation
   const [ref, bounds] = useMeasure({ polyfill: ResizeObserver })
@@ -122,7 +125,7 @@ export function VoterCard(voter: Voter) {
         className="text-xs mt-auto"
         onClick={() => setIsOpen(!isOpen)}
       >
-        {btnCopy}{" "}
+        {btnCopy} <span className="sr-only">{srText}</span>
         <Arrows
           style={{ transform: props.transform }}
           className="inline-block ml-1"
