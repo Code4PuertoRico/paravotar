@@ -15,6 +15,7 @@ export function VoterCard(voter: Voter) {
   const [ref, bounds] = useMeasure({ polyfill: ResizeObserver })
   const props = useSpring({
     height: isOpen ? bounds.height || "auto" : 0,
+    visibility: isOpen ? "visible" : "hidden",
     opacity: isOpen ? 1 : 0,
     transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
   })
@@ -25,12 +26,12 @@ export function VoterCard(voter: Voter) {
       style={{ minHeight: "15rem" }}
     >
       <img className="mr-auto" src={voter.icon} alt="" />
-      <Typography variant="p" className="pt-4 mb-2">
+      <Typography tag="p" variant="p" className="pt-4 mb-2">
         {voter.description}
       </Typography>
       <animated.div
         className="overflow-hidden"
-        style={{ height: props.height }}
+        style={{ height: props.height, visibility: props.visibility }}
       >
         <animated.ul
           className="pb-4"
@@ -46,7 +47,9 @@ export function VoterCard(voter: Voter) {
           {/* Required docs */}
           {voter.requiredDocs.length >= 1 && voter.requiredDocs ? (
             <li className="pt-4">
-              <Typography variant="h5">{voter.requiredDocsText}</Typography>
+              <Typography tag="h3" variant="h5">
+                {voter.requiredDocsText}
+              </Typography>
               <ul>
                 {voter.requiredDocs.map((item, index) => (
                   <li
@@ -63,7 +66,7 @@ export function VoterCard(voter: Voter) {
           {/* Recommended docs */}
           {voter.recommendedDocs.length >= 1 && voter.recommendedDocs ? (
             <li className="pt-4">
-              <Typography variant="h5">
+              <Typography tag="h3" variant="h5">
                 {voter.recommendedDocsText || "Recomendamos que lleves:"}
               </Typography>
               <ul>
@@ -81,7 +84,9 @@ export function VoterCard(voter: Voter) {
 
           {/* Should know */}
           <li className={voter.shouldKnow.length > 0 ? "pt-4" : ""}>
-            <Typography variant="h5">Debes saber:</Typography>
+            <Typography tag="h3" variant="h5">
+              Debes saber:
+            </Typography>
             <ul>
               {voter.shouldKnow.map((item, index) => (
                 <li
@@ -96,7 +101,7 @@ export function VoterCard(voter: Voter) {
 
           {/* Optional docs */}
           <li className="pt-4">
-            <Typography variant="h5">
+            <Typography tag="h3" variant="h5">
               Documentos opcionales y situaciones que te podrías encontrar:
             </Typography>
             <ul>

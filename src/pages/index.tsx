@@ -15,10 +15,15 @@ export default function Inscribete() {
           <div className="flex justify-center mb-24">
             <img className="h-32" src={Logo} alt="Para Votar" />
           </div>
-          <Typography variant="h3" className="uppercase">
+          <Typography tag="h1" variant="h3" className="uppercase">
             Inscríbete, conoce cómo obtener tu tarjeta electoral
           </Typography>
-          <Typography variant="h2" weight="base" className="font-normal mt-4">
+          <Typography
+            tag="h2"
+            variant="h2"
+            weight="base"
+            className="font-normal mt-4"
+          >
             ¿Qué debo llevar para obtener mi tarjeta electoral?
           </Typography>
         </Container>
@@ -26,10 +31,15 @@ export default function Inscribete() {
       <Container className="w-11/12 mt-4 mb-32 lg:-mt-32">
         <VoterCardList />
       </Container>
-      <Typography variant="h3" className="uppercase text-center">
+      <Typography tag="h2" variant="h3" className="uppercase text-center">
         BUSCA DONDE PUEDES SACAR TU TARJETA ELECTORAL
       </Typography>
-      <Typography variant="h2" weight="base" className="text-center mt-3">
+      <Typography
+        tag="h3"
+        variant="h2"
+        weight="base"
+        className="text-center mt-3"
+      >
         Identifica tu pueblo, revisa horarios de información contacto.
       </Typography>
       <Container className="w-11/12 mt-12 mb-32 bg-white shadow-md rounded">

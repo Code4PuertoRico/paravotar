@@ -7,7 +7,7 @@ export default function NotFoundPage() {
     <Layout>
       <SEO title="404: Not found" />
       <Container className="w-11/12 text-center pt-32">
-        <Typography variant="h2">
+        <Typography tag="h1" variant="h2">
           No encontramos la página que esta buscando.
         </Typography>
         <Link className="mt-4" variant="inverse" to="/">

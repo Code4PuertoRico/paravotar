@@ -33,7 +33,7 @@ export function LetterList({ onSelect, letter }: LetterListProps) {
         <li key={l}>
           <button
             onClick={handleSelect(l)}
-            className={`flex items-center justify-center text-2xl h-10 w-10 rounded-full border-2 hover:bg-primary hover:text-white focus:outline-none ${
+            className={`flex items-center justify-center text-2xl h-10 w-10 rounded-full border-2 hover:bg-primary hover:text-white ${
               l === letter
                 ? "text-white font-bold bg-primary border-dark"
                 : "border-white"
