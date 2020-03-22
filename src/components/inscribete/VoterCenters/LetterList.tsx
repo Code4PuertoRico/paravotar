@@ -39,6 +39,10 @@ export function LetterList({ onSelect, letter }: LetterListProps) {
                 : "border-white"
             }`}
           >
+            <span className="sr-only">
+              Mostrar los pueblos con Juntas de Inscripción Permanentes que
+              comienzan con la letra{" "}
+            </span>
             {l}
           </button>
         </li>
