@@ -27,6 +27,7 @@ export const VoterDocs: Voter[] = [
     optionalDocs: [
       "Factura con la dirección del lugar en donde vives. Esto puede ser necesario en el caso que la CEE no pueda validar tu dirección en su sistema.",
     ],
+    srText: "personas nacidas en Puerto Rico",
   },
   {
     id: "born-in-territory",
@@ -51,6 +52,8 @@ export const VoterDocs: Voter[] = [
     optionalDocs: [
       "Factura con la dirección del lugar en donde vives. Esto puede ser necesario en el caso que la CEE no pueda validar tu dirección en su sistema.",
     ],
+    srText:
+      "personas nacidas en Estados Unidos, incluyendo cualquiera de sus territorios continentales o posesiones.",
   },
   {
     id: "born-in-other-countries",
@@ -75,5 +78,7 @@ export const VoterDocs: Voter[] = [
     optionalDocs: [
       "Factura con la dirección del lugar en donde vives. Esto puede ser necesario en el caso que la CEE no pueda validar tu dirección en su sistema.",
     ],
+    srText:
+      "personas nacidas en un país extranjero y que residen en Puerto Rico.",
   },
 ]

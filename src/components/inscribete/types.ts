@@ -8,6 +8,7 @@ export type Voter = {
   requiredDocsText: string
   requiredDocs: string[]
   optionalDocs: string[]
+  srText: string
 }
 
 export type Town = {

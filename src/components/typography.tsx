@@ -72,6 +72,7 @@ function getVariantStyles(
 }
 
 type Props = {
+  tag: keyof VariantsOptions
   variant: keyof VariantsOptions
   children: ReactChild
   className?: string
@@ -79,6 +80,7 @@ type Props = {
 }
 
 export default function Typography({
+  tag,
   variant,
   className,
   children,
@@ -87,7 +89,7 @@ export default function Typography({
   const variantStyle = getVariantStyles(variant, weight)
 
   return React.createElement(
-    variant,
+    tag,
     {
       className: `${variantStyle} ${className}`,
     },

@@ -21,18 +21,19 @@ export default function Footer() {
         Para Votar no guarda ningún tipo de información del usuario.
       </p>
       <p className="mt-2">
-        El código de este proyecto es totalmente público y puedes verlo{" "}
+        El código de este proyecto es totalmente público y{" "}
         <Link
           to="https://github.com/Code4PuertoRico/papeleta-pr"
           target="_blank"
         >
-          aquí
+          <span className="sr-only">El código de este proyecto</span>
+          puedes verlo en GitHub
         </Link>
         .
       </p>
       <p className="text-sm mt-10">
         Hecho con{" "}
-        <img className="inline-block h-4 w-4" src={Heart} alt="love" /> desde PR
+        <img className="inline-block h-4 w-4" src={Heart} alt="amor" /> desde PR
         y la diaspora por{" "}
         <Link to="https://twitter.com/eluciiano" target="_blank">
           Emmanuel Luciano
@@ -73,7 +74,7 @@ export default function Footer() {
         <img
           className="h-12 w-12 mx-auto mt-4"
           src={Code4PR}
-          alt="Code 4 Puerto Rico"
+          alt="Hecho bajo la organización de Code for Puerto Rico"
         />
       </Link>
     </Container>

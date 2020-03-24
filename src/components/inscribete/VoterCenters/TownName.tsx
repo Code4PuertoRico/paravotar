@@ -20,13 +20,22 @@ function Name({ town, selectedTown, onSelect }: TownProps) {
   })
 
   return (
-    <li className="ml-4 h-8 lg:flex lg:items-center lg:ml-0 lg:mt-4 first:mt-0 first:ml-0">
+    <li className="ml-4 mt-1 lg:flex lg:items-center lg:ml-0 lg:mt-4 first:mt-0 first:ml-0">
       <animated.button
-        className="whitespace-no-wrap overflow-hidden h-8 focus:outline-none"
+        className="whitespace-no-wrap overflow-hidden h-8 m-1"
         onClick={() => onSelect(town)}
         style={props}
       >
+        <span className="sr-only">
+          Mostrar Juntas de Inscripción Permanentes en
+        </span>
         {town.pueblo}
+        {town.JIPIsla ? (
+          <span className="sr-only">
+            Este pueblo tiene Juntas de Inscripción Permanentes que atienden a
+            personas de cualquier parte de la isla.
+          </span>
+        ) : null}
       </animated.button>
       {town.JIPIsla ? (
         <animated.div
