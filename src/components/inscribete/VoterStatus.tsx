@@ -42,7 +42,7 @@ export function VoterStatus() {
             correspondiente.
           </Typography>
           <Link
-            className="mt-6 w-full md:w-1/3"
+            className="mt-6 w-full pt-2 pb-2 md:w-1/2"
             variant="primary"
             to="http://ww2.ceepur.org/es-pr/Paginas/Estatus-del-Elector.aspx"
             target="_blank"
