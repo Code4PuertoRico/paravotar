@@ -8,6 +8,7 @@ import { VoterStatus } from "../components/inscribete/VoterStatus"
 import { VoterDocs } from "../components/inscribete/constants"
 import { VoterInfoLeftPanel } from "../components/inscribete/VoterInfo/LeftPanel"
 import { VoterInfoRightPanel } from "../components/inscribete/VoterInfo/RightPanel"
+import { SpecialVoters } from "../components/inscribete/Special-Voters"
 
 const style: { [key: string]: any } = {
   DropdownWrapper: (base: any) => ({
@@ -136,6 +137,9 @@ export default function Inscribete() {
       </Typography>
       <Container className="w-11/12 mt-12 mb-32 bg-white shadow-md rounded">
         <VoterCenters />
+      </Container>
+      <Container className="w-11/12 mb-32">
+        <SpecialVoters />
       </Container>
       <Container className="w-11/12 mb-32">
         <VoterStatus />

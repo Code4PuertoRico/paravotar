@@ -20,3 +20,16 @@ export type Town = {
   servicios?: string[]
   JIPIsla?: boolean
 }
+
+export type AbsenteeAndEarlyVoting = {
+  summary: string
+  details: string
+}
+
+export type SpecialVoter = {
+  icon: string
+  summary: string
+  deadline: string
+  documents: string[]
+  reasons: AbsenteeAndEarlyVoting[]
+}

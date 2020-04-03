@@ -1,4 +1,4 @@
-import React, { ReactChild } from "react"
+import React, { ReactNode } from "react"
 
 const Variants = {
   h1: "h1",
@@ -74,7 +74,7 @@ function getVariantStyles(
 type Props = {
   tag: keyof VariantsOptions
   variant: keyof VariantsOptions
-  children: ReactChild
+  children: ReactNode
   className?: string
   weight?: keyof WeightOptions
 }
