@@ -7,7 +7,7 @@ export const VoterDocs: Voter[] = [
   {
     id: "eighteen-plus",
     icon: EighteenPlus,
-    description: "Naciste en Puerto Rico:",
+    description: "Nacido en Puerto Rico",
     shouldKnow: [
       "Nombre completo",
       "Dirección postal",
@@ -33,7 +33,7 @@ export const VoterDocs: Voter[] = [
     id: "born-in-territory",
     icon: BornInTerritory,
     description:
-      "Naciste en los Estados Unidos, incluyendo cualquiera de sus territorios continentales o posesiones:",
+      "Nacido en los Estados Unidos, Continentales, Territorios o Posesiones",
     shouldKnow: [
       "Nombre completo",
       "Dirección postal",
@@ -58,7 +58,7 @@ export const VoterDocs: Voter[] = [
   {
     id: "born-in-other-countries",
     icon: BornInOtherCountries,
-    description: "Naciste en un país extranjero y resides en Puerto Rico:",
+    description: "Nacido en un país extranjero y resides en Puerto Rico",
     shouldKnow: [
       "Nombre completo",
       "Dirección postal",

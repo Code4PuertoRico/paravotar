@@ -27,7 +27,9 @@ const TownInfo: React.FunctionComponent<{ town: Required<Town> }> = ({
         <p className="font-bold pr-12 align-top w-1/4">Servicios</p>
         <p className="w-3/4">
           {town.servicios.map(s => (
-            <p key={s}>{s}</p>
+            <span key={s} className="block">
+              {s}
+            </span>
           ))}
         </p>
       </div>
