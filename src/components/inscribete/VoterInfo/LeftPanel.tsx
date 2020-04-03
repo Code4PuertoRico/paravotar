@@ -6,7 +6,7 @@ import NotePad from "../../../assets/icons/notepad.svg"
 export const VoterInfoLeftPanel: React.FunctionComponent<{
   voterMetadata: Voter
 }> = ({ voterMetadata }) => (
-  <div className="flex flex-col lg:flex-row justify-center items-center m-4 lg:block lg:w-1/3 lg:m-0 lg:border-r lg:border-separator">
+  <div className="flex flex-col justify-center items-center m-4 lg:w-1/3 lg:m-0 lg:border-r lg:border-separator">
     <img src={NotePad} alt="Notepad" className="mb-4" />
     <Typography
       tag="p"
