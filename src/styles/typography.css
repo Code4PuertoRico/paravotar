@@ -28,6 +28,15 @@
 @font-face {
   font-family: "Inter";
   font-style: normal;
+  font-weight: 600;
+  src: url("../../static/fonts/Inter-SemiBold.woff2"),
+    url("../../static/fonts/Inter-SemiBold.woff"),
+    url("../../static/fonts/Inter-SemiBold.ttf");
+}
+
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
   font-weight: 700;
   src: url("../../static/fonts/Inter-Bold.woff2"),
     url("../../static/fonts/Inter-Bold.woff"),
