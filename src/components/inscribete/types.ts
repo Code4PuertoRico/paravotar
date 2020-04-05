@@ -30,6 +30,9 @@ export type SpecialVoter = {
   icon: string
   summary: string
   deadline: string
-  documents: string[]
+  documents: Array<{
+    title: string
+    link: string
+  }>
   reasons: AbsenteeAndEarlyVoting[]
 }

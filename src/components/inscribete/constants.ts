@@ -206,7 +206,11 @@ export const AbsenteeVoter: SpecialVoter = {
   summary:
     "Votantes ausentes son residentes de Puerto Rico que aparezcan como votantes activos en el registro de la CEE, pero que por alguna razón certificada no estarán en Puerto Rico el día de la elección.",
   documents: [
-    "http://ww2.ceepur.org/es-pr/EducacionyAdiestramiento/Documentos%20de%20JAVA/Solicitud%20Voto%20Ausente.pdf",
+    {
+      title: "Voto Ausente",
+      link:
+        "http://ww2.ceepur.org/es-pr/EducacionyAdiestramiento/Documentos%20de%20JAVA/Solicitud%20Voto%20Ausente.pdf",
+    },
   ],
   deadline: "4 de septiembre de 2020",
   reasons: AbsenteeVoterReasons,
@@ -217,9 +221,21 @@ export const EarlyVoter: SpecialVoter = {
   summary:
     "Votantes ADELANTADOS son una discreción especial para residentes de Puerto Rico que aparezcan como votantes activos en el registro de la CEE, pero que aunque estarán en PR el día de las elecciones, por alguna razón certificada necesitan votar por adelantado.",
   documents: [
-    "http://ww2.ceepur.org/es-pr/EducacionyAdiestramiento/Documentos%20de%20JAVA/Solicitud%20de%20Voto%20Adelantado.pdf",
-    "http://ww2.ceepur.org/es-pr/EducacionyAdiestramiento/Documentos%20de%20JAVA/ Solicitud%20para%20Voto%20en%20el%20Domicilio.pdf",
-    "http://ww2.ceepur.org/es-pr/EducacionyAdiestramiento/Documentos%20de%20JAVA/ Solicitud%20para%20Voto%20por%20Tel%C3%A9fono.pdf",
+    {
+      title: "Voto Adelantado",
+      link:
+        "http://ww2.ceepur.org/es-pr/EducacionyAdiestramiento/Documentos%20de%20JAVA/Solicitud%20de%20Voto%20Adelantado.pdf",
+    },
+    {
+      title: "Voto en el Domicilio",
+      link:
+        "http://ww2.ceepur.org/es-pr/EducacionyAdiestramiento/Documentos%20de%20JAVA/Solicitud%20para%20Voto%20en%20el%20Domicilio.pdf",
+    },
+    {
+      title: "Voto por el Teléfono",
+      link:
+        "http://ww2.ceepur.org/es-pr/EducacionyAdiestramiento/Documentos%20de%20JAVA/Solicitud%20para%20Voto%20por%20Tel%C3%A9fono.pdf",
+    },
   ],
   deadline: "19 de noviembre de 2020",
   reasons: EarlyVoterReasons,
