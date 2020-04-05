@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useRef, useEffect } from "react"
 import DropdownAria from "react-dropdown-aria"
 
 import Logo from "../assets/images/logo.svg"
@@ -63,8 +63,15 @@ const getVoterMeta = (v: string) =>
 
 export default function Inscribete() {
   const [selectedOption, setSelectedOption] = useState(options[0].value)
+  const containerRef = useRef<HTMLDivElement>(null)
 
   const voterMetadata = getVoterMeta(selectedOption)
+
+  useEffect(() => {
+    if (containerRef && containerRef.current) {
+      containerRef.current.focus()
+    }
+  }, [selectedOption])
 
   return (
     <Layout>
@@ -91,7 +98,7 @@ export default function Inscribete() {
             weight="base"
             className="font-normal mt-4"
           >
-            Yo soy...
+            Yo nací en...
           </Typography>
         </Container>
       </Highlight>
@@ -106,8 +113,12 @@ export default function Inscribete() {
           style={style}
         />
       </Container>
-      <Container className="w-11/12 mt-12 mb-32 bg-white shadow-md rounded">
-        <div className="border-t border-separator lg:flex lg:p-10">
+      <Container
+        className="w-11/12 mt-12 mb-32 bg-white shadow-md rounded"
+        tabIndex={-1}
+        ref={containerRef}
+      >
+        <div className="border-separator lg:flex lg:p-10">
           <VoterInfoLeftPanel voterMetadata={voterMetadata} />
           <VoterInfoRightPanel voterMetadata={voterMetadata} />
         </div>
