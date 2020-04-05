@@ -1,10 +1,43 @@
 import React from "react"
+import { Machine } from "xstate"
+import { useMachine } from "@xstate/react"
 
 import Typography from "../../typography"
 import { EarlyVoter, AbsenteeVoter } from "../constants"
 import SpecialVoterCard from "./SpecialVoterCard"
+import Switch from "../../switch"
+import Case from "../../case"
+import Default from "../../default"
+import SpecialVoterReasons from "./SpecialVoterReasons"
+
+const states = {
+  idle: {
+    on: {
+      ABSENTEE_VOTER_TOGGLED: "absenteeVoter",
+      EARLY_VOTER_TOGGLED: "earlyVoter",
+    },
+  },
+  absenteeVoter: {
+    on: {
+      CLOSED: "idle",
+    },
+  },
+  earlyVoter: {
+    on: {
+      CLOSED: "idle",
+    },
+  },
+}
+
+const SpecialVoterMachine = Machine({
+  id: "special-voters",
+  initial: "idle",
+  states,
+})
 
 export function SpecialVoters() {
+  const [state, send] = useMachine(SpecialVoterMachine)
+
   return (
     <>
       <div className="text-center">
@@ -20,34 +53,54 @@ export function SpecialVoters() {
           Identifica si cualificas en alguna de estas categorías.
         </Typography>
       </div>
-      <div className="flex flex-row flex-wrap">
-        <SpecialVoterCard
-          icon={EarlyVoter.icon}
-          title="Voto por adelantado"
-          summary={EarlyVoter.summary}
-          deadline={EarlyVoter.deadline}
-          documents={EarlyVoter.documents}
-          onClickRequirements={() => {
-            // TODO
-          }}
-          onClickDownload={() => {
-            // TODO
-          }}
-        />
-        <SpecialVoterCard
-          icon={AbsenteeVoter.icon}
-          title="Voto ausente"
-          summary={AbsenteeVoter.summary}
-          deadline={AbsenteeVoter.deadline}
-          documents={AbsenteeVoter.documents}
-          onClickRequirements={() => {
-            // TODO
-          }}
-          onClickDownload={() => {
-            // TODO
-          }}
-        />
-      </div>
+      <Switch value={state.value}>
+        <Case value="absenteeVoter">
+          <SpecialVoterReasons
+            icon={AbsenteeVoter.icon}
+            title="Voto ausente"
+            reasons={AbsenteeVoter.reasons}
+            documents={AbsenteeVoter.documents}
+            onClickClose={() => {
+              send("CLOSED")
+            }}
+          />
+        </Case>
+        <Case value="earlyVoter">
+          <SpecialVoterReasons
+            icon={EarlyVoter.icon}
+            title="Voto por adelantado"
+            reasons={EarlyVoter.reasons}
+            documents={EarlyVoter.documents}
+            onClickClose={() => {
+              send("CLOSED")
+            }}
+          />
+        </Case>
+        <Default>
+          <div className="flex flex-row flex-wrap">
+            <SpecialVoterCard
+              icon={EarlyVoter.icon}
+              title="Voto por adelantado"
+              summary={EarlyVoter.summary}
+              deadline={EarlyVoter.deadline}
+              documents={EarlyVoter.documents}
+              onClickRequirements={() => {
+                send("EARLY_VOTER_TOGGLED")
+              }}
+            />
+            <SpecialVoterCard
+              icon={AbsenteeVoter.icon}
+              title="Voto ausente"
+              summary={AbsenteeVoter.summary}
+              deadline={AbsenteeVoter.deadline}
+              documents={AbsenteeVoter.documents}
+              onClickRequirements={() => {
+                send("ABSENTEE_VOTER_TOGGLED")
+              }}
+            />
+          </div>
+        </Default>
+      </Switch>
     </>
   )
 }
