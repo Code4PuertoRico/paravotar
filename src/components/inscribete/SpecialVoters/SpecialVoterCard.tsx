@@ -27,9 +27,10 @@ export default function SpecialVoterCard(voter: Props) {
       <Typography tag="p" variant="p" className="mt-3">
         {voter.summary}
       </Typography>
-      <Typography tag="p" variant="h4" className="mt-3">
+      <Typography tag="p" variant="h4" className="mt-3" weight="semibold">
+        Fecha límite para sometera tu solicitud: <br />{" "}
         <span className="text-primary">
-          Fecha límite <time>{voter.deadline}</time>
+          <time>{voter.deadline}</time>
         </span>
       </Typography>
 
