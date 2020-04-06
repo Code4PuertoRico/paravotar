@@ -57,7 +57,7 @@ export const VoterDocs: Voter[] = [
   {
     id: "born-in-other-countries",
     icon: BornInOtherCountries,
-    description: "Un país extranjero y resides en Puerto Rico",
+    description: "Un país extranjero y resido en Puerto Rico",
     shouldKnow: [
       "Nombre completo",
       "Dirección postal",
