@@ -8,7 +8,7 @@ import { VoterStatus } from "../components/inscribete/VoterStatus"
 import { VoterDocs } from "../components/inscribete/constants"
 import { VoterInfoLeftPanel } from "../components/inscribete/VoterInfo/LeftPanel"
 import { VoterInfoRightPanel } from "../components/inscribete/VoterInfo/RightPanel"
-import { SpecialVoters } from "../components/inscribete/Special-Voters"
+import { SpecialVoters } from "../components/inscribete/SpecialVoters"
 
 const style: { [key: string]: any } = {
   DropdownWrapper: (base: any) => ({
