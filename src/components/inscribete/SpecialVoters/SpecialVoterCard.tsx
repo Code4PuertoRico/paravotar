@@ -13,6 +13,7 @@ type Props = {
   title: string
   summary: string
   deadline: string
+  detailsTitle: string
   documents: Array<{ title: string; link: string }>
   onClickRequirements: () => void
 }
@@ -61,7 +62,7 @@ export default function SpecialVoterCard(voter: Props) {
         className="mt-4"
         onClick={voter.onClickRequirements}
       >
-        <List className="mr-1 h-5 w-5 inline-block" /> Ver los requisitos
+        <List className="mr-1 h-5 w-5 inline-block" /> {voter.detailsTitle}
       </Button>
     </Card>
   )

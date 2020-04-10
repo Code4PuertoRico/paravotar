@@ -148,12 +148,12 @@ const EarlyVoterReasons: AbsenteeAndEarlyVoting[] = [
   {
     summary: "Personas con impedimentos de movilidad",
     details:
-      "Las personas con impedimentos de movilidad (encamados) que cualifiquen como electores de Fácil Acceso en el Domicilio. La Comisión Local será responsable de verificar, evaluar y aprobar la solicitud, conforme al Reglamento aplicable. Los miembros de las Juntas de Inscripción Permanente deberán grabar la solicitud como una transacción de fácil acceso. La Junta Administrativa del Voto Ausente (JAVA) será responsable de trabajar la votación como voto adelantado y la adjudicación de estos votos.",
+      "Las personas con impedimentos de movilidad (encamados) que cualifiquen como electores de Fácil Acceso en el Domicilio.",
   },
   {
     summary: "Personas recluidas en una institución hospitalaria",
     details:
-      "Personas que se encuentren recluidas en una institución hospitalaria o de tratamiento o cuidado de salud a largo plazo debidamente autorizada y que se certifique que continuarán internadas el día de una elección.",
+      "Personas que se encuentren recluidas en una institución hospitalaria de tratamiento o cuidado de salud a largo plazo debidamente autorizada y que se certifique que continuarán internadas el día de una elección.",
   },
   {
     summary: "Periodistas y foto-periodistas",
@@ -163,7 +163,7 @@ const EarlyVoterReasons: AbsenteeAndEarlyVoting[] = [
   {
     summary: "Integrantes de la Policía de Puerto Rico",
     details:
-      "Los integrantes de la Policía de Puerto Rico, hasta un máximo de 2,500 electores; de los Cuerpos de Policía Municipal, del Cuerpo de Oficiales de Custodia de la Administración de Corrección, del Cuerpo de Oficiales de Servicios Juveniles de la Administración de Instituciones Juveniles y del Cuerpo de Bomberos de Puerto Rico que estarán de turno en servicio activo durante las horas de votación del día de una elección y que no se encuentren disfrutando de alguna licencia concedida por la agencia concernida",
+      "Los integrantes de la Policía de Puerto Rico que se encuentren trabajando durante las horas de votación del día de una elección y que no se encuentren disfrutando de alguna licencia concedida por la agencia concernida.",
   },
   {
     summary:
@@ -178,14 +178,14 @@ const EarlyVoterReasons: AbsenteeAndEarlyVoting[] = [
       "Personas que al día de la elección hayan cumplido 18 años, que estén bajo la custodia de la Administración de Instituciones Juveniles.",
   },
   {
-    summary: "Comisionados(as) Electorales",
-    details:
-      "Los miembros de la Comisión, el Secretario, los Vicepresidentes y los Subsecretarios; los comisionados alternos; los miembros de las comisiones locales de elecciones, sus alternos y los miembros de las juntas de inscripción permanente, así como los empleados de la Comisión asignados a funciones indispensables el día de las elecciones, asesores legales de los Comisionados y los empleados de la Comisión asignados a las Oficinas de los (las) Comisionados(as) Electorales. En el caso de una elección especial o primaria también podrán votar por adelantado las personas que designe la Comisión para realizar funciones indispensables el día de la elección; los Presidentes de las Comisiones Locales podrán emitir su voto por correo o en persona según se disponga por la Comisión.",
-  },
-  {
     summary: "Jueces y juezas",
     details:
       "Los jueces y juezas del Tribunal de Primera Instancia y del Tribunal de Apelaciones que sean designados por el Tribunal Supremo, de conformidad con las reglas de administración que adopte a esos fines, para atender los casos electorales que estén laborando el día de la elección.",
+  },
+  {
+    summary: "Comisionados(as) Electorales",
+    details:
+      "Los miembros de la Comisión, el Secretario, los Vicepresidentes y los Subsecretarios; los comisionados alternos; los miembros de las comisiones locales de elecciones, sus alternos y los miembros de las juntas de inscripción permanente, así como los empleados de la Comisión asignados a funciones indispensables el día de las elecciones, asesores legales de los Comisionados y los empleados de la Comisión asignados a las Oficinas de los (las) Comisionados(as) Electorales. En el caso de una elección especial o primaria también podrán votar por adelantado las personas que designe la Comisión para realizar funciones indispensables el día de la elección; los Presidentes de las Comisiones Locales podrán emitir su voto por correo o en persona según se disponga por la Comisión.",
   },
   {
     summary: "Candidatos a ocupar cargos electivos",
@@ -197,7 +197,7 @@ const EarlyVoterReasons: AbsenteeAndEarlyVoting[] = [
 export const AbsenteeVoter: SpecialVoter = {
   icon: AbsenteeVoterIcon,
   summary:
-    "El Voto Ausente es una discreción especial que se le extiende a residentes de Puerto Rico que estarán fuera de la isla el día de las elecciones.",
+    "El Voto Ausente es una discreción especial que se le extiende a votantes activos que estarán fuera de la isla el día de las elecciones por alguna razón certificada.",
   documents: [
     {
       title: "Voto Ausente",
@@ -212,7 +212,7 @@ export const AbsenteeVoter: SpecialVoter = {
 export const EarlyVoter: SpecialVoter = {
   icon: EarlyVoterIcon,
   summary:
-    "El Voto Adelantado es una discreción especial para personas que, a pesar estar en la isla el día de las elecciones, necesitan adelantar su voto por alguna razón certificada.",
+    "El Voto Adelantado es una discreción especial que se le extiende a votantes activos que, a pesar estar en la isla el día de las elecciones, necesitan adelantar su voto por alguna razón certificada.",
   documents: [
     {
       title: "Voto Adelantado",

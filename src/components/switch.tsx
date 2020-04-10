@@ -5,6 +5,7 @@ import Default from "./default"
 import { StateValue } from "xstate"
 
 type Props = {
+  className: string
   value: StateValue
   children: Array<ReactComponentElement<any, { value?: string }>>
 }
