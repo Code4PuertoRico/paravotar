@@ -1,4 +1,7 @@
 import React, { useState } from "react"
+import { useSpring, animated } from "react-spring"
+import useMeasure from "react-use-measure"
+import { ResizeObserver } from "@juggle/resize-observer"
 
 import Download from "../../../assets/icons/download.inline.svg"
 import ButtonDropdown from "../../button-dropdown"
@@ -16,21 +19,42 @@ type ReasonProps = {
 
 function Reason({ summary, details }: ReasonProps) {
   const [isOpen, setIsOpen] = useState(false)
+  const [ref, bounds] = useMeasure({ polyfill: ResizeObserver })
+  const props = useSpring({
+    height: isOpen ? bounds.height || "auto" : 0,
+    visibility: isOpen ? "visible" : "hidden",
+    opacity: isOpen ? 1 : 0,
+    transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
+  })
 
   return (
-    <li className="mt-4 border border-separator border-r-0 border-l-0 border-t-0">
+    <li className="border border-separator border-r-0 border-l-0 border-t-0">
       <button
-        className="flex justify-between items-center w-full p-2 font-semibold"
+        className="flex justify-between items-center w-full px-2 pb-2 pt-3 font-semibold text-left"
         onClick={() => setIsOpen(!isOpen)}
       >
         {summary}
-        <Arrows />
+        <span className="w-5">
+          <Arrows
+            className="inline-block ml-1"
+            style={{ transform: props.transform }}
+          />
+        </span>
       </button>
-      {isOpen ? (
-        <Typography tag="p" variant="p" className="p-2">
-          {details}
-        </Typography>
-      ) : null}
+      <animated.div
+        className="overflow-hidden"
+        style={{
+          height: props.height,
+          visibility: props.visibility,
+          opacity: props.opacity,
+        }}
+      >
+        <div ref={ref}>
+          <Typography tag="p" variant="p" className="px-2 pt-2 pb-3">
+            {details}
+          </Typography>
+        </div>
+      </animated.div>
     </li>
   )
 }
@@ -50,7 +74,7 @@ export default function SpecialVoterReasons(voter: Props) {
       <Typography tag="h4" variant="h4" className="mt-4 uppercase">
         {voter.title}
       </Typography>
-      <ul>
+      <ul className="pt-2">
         {voter.reasons.map(reason => (
           <Reason
             key={reason.summary}
@@ -59,31 +83,41 @@ export default function SpecialVoterReasons(voter: Props) {
           />
         ))}
       </ul>
-      {voter.documents.length > 1 ? (
-        <ButtonDropdown
-          placeholder="Escoge la solicitud a descargar"
-          options={voter.documents.map(document => ({ value: document.title }))}
-          onSelect={(docTitle: string) => {
-            const document = voter.documents.find(doc => doc.title === docTitle)
+      <div className="w-full md:w-1/2 md:mx-auto">
+        {voter.documents.length > 1 ? (
+          <ButtonDropdown
+            placeholder="Escoge la solicitud a descargar"
+            options={voter.documents.map(document => ({
+              value: document.title,
+            }))}
+            onSelect={(docTitle: string) => {
+              const document = voter.documents.find(
+                doc => doc.title === docTitle
+              )
 
-            // Open download in a new tab.
-            window.open(document?.link, "_blank")
-          }}
-        />
-      ) : (
-        <Link
-          to={voter.documents[0].link}
-          target="_blank"
-          variant="primary"
-          className="mt-6"
+              // Open download in a new tab.
+              window.open(document?.link, "_blank")
+            }}
+          />
+        ) : (
+          <Link
+            to={voter.documents[0].link}
+            target="_blank"
+            variant="primary"
+            className="mt-6"
+          >
+            <Download className="mr-1 h-5 w-5 inline-block" /> Descarga la
+            solicitud
+          </Link>
+        )}
+        <Button
+          variant="inverse"
+          className="mt-4 w-full"
+          onClick={voter.onClickClose}
         >
-          <Download className="mr-1 h-5 w-5 inline-block" /> Descarga la
-          solicitud
-        </Link>
-      )}
-      <Button variant="inverse" className="mt-4" onClick={voter.onClickClose}>
-        Close
-      </Button>
+          Close
+        </Button>
+      </div>
     </Card>
   )
 }
