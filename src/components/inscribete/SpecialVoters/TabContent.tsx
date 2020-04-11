@@ -11,6 +11,7 @@ type Props = {
   title: string
   summary: string
   deadline: string
+  exceptions?: string
   documents: Array<{ title: string; link: string }>
   reasons: Array<{ summary: string; details: string }>
 }
@@ -41,6 +42,9 @@ export default function TabContent(voter: Props) {
           />
         ))}
       </ul>
+      <Typography tag="p" variant="p" className="mt-4">
+        {voter.exceptions}
+      </Typography>
       {voter.documents.length > 1 ? (
         <ButtonDropdown
           placeholder="Escoge la solicitud a descargar"

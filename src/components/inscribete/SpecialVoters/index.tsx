@@ -67,6 +67,7 @@ export function SpecialVoters() {
                 title="Electores con derecho al Voto Ausente"
                 reasons={AbsenteeVoter.reasons}
                 documents={AbsenteeVoter.documents}
+                exceptions={AbsenteeVoter.exceptions}
                 onClickClose={() => send("CLOSED")}
               />
             </Case>

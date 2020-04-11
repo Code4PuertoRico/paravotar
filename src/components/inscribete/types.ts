@@ -35,4 +35,5 @@ export type SpecialVoter = {
     link: string
   }>
   reasons: AbsenteeAndEarlyVoting[]
+  exceptions?: string
 }

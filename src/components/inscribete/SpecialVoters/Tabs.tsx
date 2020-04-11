@@ -89,6 +89,7 @@ export default function Tabs() {
         deadline={voter.deadline}
         documents={voter.documents}
         reasons={voter.reasons}
+        exceptions={voter.exceptions}
       />
     </Card>
   )

@@ -207,6 +207,8 @@ export const AbsenteeVoter: SpecialVoter = {
   ],
   deadline: "4 de septiembre de 2020",
   reasons: AbsenteeVoterReasons,
+  exceptions:
+    "Los electores con derecho al voto ausente que se encuentren fuera de Estados Unidos de América o sus territorios, dependientes de electores que vivan bajo el mismo techo y los miembros de las Fuerzas Armadas y Marinos Mercantes no necesitarán percentar una certificación ni declaración jurada bajo notario público.",
 }
 
 export const EarlyVoter: SpecialVoter = {

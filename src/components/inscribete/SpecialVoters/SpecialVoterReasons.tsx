@@ -62,6 +62,7 @@ export function Reason({ summary, details }: ReasonProps) {
 type Props = {
   icon: string
   title: string
+  exceptions?: string
   reasons: AbsenteeAndEarlyVoting[]
   documents: Array<{ title: string; link: string }>
   onClickClose: () => void
@@ -87,6 +88,11 @@ export default function SpecialVoterReasons(voter: Props) {
           />
         ))}
       </div>
+      {voter.exceptions ? (
+        <Typography tag="p" variant="p" className="mt-4">
+          {voter.exceptions}
+        </Typography>
+      ) : null}
       <div className="w-full md:w-1/2 md:mx-auto">
         {voter.documents.length > 1 ? (
           <ButtonDropdown
