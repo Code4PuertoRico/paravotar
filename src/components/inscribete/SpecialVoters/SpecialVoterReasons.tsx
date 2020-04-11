@@ -17,7 +17,7 @@ type ReasonProps = {
   details: string
 }
 
-function Reason({ summary, details }: ReasonProps) {
+export function Reason({ summary, details }: ReasonProps) {
   const [isOpen, setIsOpen] = useState(false)
   const [ref, bounds] = useMeasure({ polyfill: ResizeObserver })
   const props = useSpring({

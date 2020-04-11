@@ -9,6 +9,7 @@ import Switch from "../../switch"
 import Case from "../../case"
 import Default from "../../default"
 import SpecialVoterReasons from "./SpecialVoterReasons"
+import Tabs from "./Tabs"
 
 const states = {
   idle: {
@@ -40,7 +41,7 @@ export function SpecialVoters() {
 
   return (
     <>
-      <div className="text-center mt-3">
+      <div className="mx-auto mt-3 text-center">
         <Typography tag="h2" variant="h3" className="uppercase">
           Aprende a como votar por adelantado o votar de manera ausente
         </Typography>
@@ -54,48 +55,53 @@ export function SpecialVoters() {
         </Typography>
       </div>
       <div className="mt-12 mb-32">
-        <Switch className="mt-12 mb-32" value={state.value}>
-          <Case value="absenteeVoter">
-            <SpecialVoterReasons
-              icon={AbsenteeVoter.icon}
-              title="Electores con derecho al Voto Ausente"
-              reasons={AbsenteeVoter.reasons}
-              documents={AbsenteeVoter.documents}
-              onClickClose={() => send("CLOSED")}
-            />
-          </Case>
-          <Case value="earlyVoter">
-            <SpecialVoterReasons
-              icon={EarlyVoter.icon}
-              title="Electores con derecho al Voto Adelantado"
-              reasons={EarlyVoter.reasons}
-              documents={EarlyVoter.documents}
-              onClickClose={() => send("CLOSED")}
-            />
-          </Case>
-          <Default>
-            <div className="flex flex-row flex-wrap">
-              <SpecialVoterCard
-                icon={EarlyVoter.icon}
-                title="Voto por adelantado"
-                summary={EarlyVoter.summary}
-                deadline={EarlyVoter.deadline}
-                documents={EarlyVoter.documents}
-                detailsTitle="Ver electores cualificados"
-                onClickRequirements={() => send("EARLY_VOTER_TOGGLED")}
-              />
-              <SpecialVoterCard
+        <div className="md:hidden">
+          <Tabs />
+        </div>
+        <div className="hidden md:block">
+          <Switch className="mt-12 mb-32" value={state.value}>
+            <Case value="absenteeVoter">
+              <SpecialVoterReasons
                 icon={AbsenteeVoter.icon}
-                title="Voto ausente"
-                summary={AbsenteeVoter.summary}
-                deadline={AbsenteeVoter.deadline}
+                title="Electores con derecho al Voto Ausente"
+                reasons={AbsenteeVoter.reasons}
                 documents={AbsenteeVoter.documents}
-                detailsTitle="Ver razones certificadas"
-                onClickRequirements={() => send("ABSENTEE_VOTER_TOGGLED")}
+                onClickClose={() => send("CLOSED")}
               />
-            </div>
-          </Default>
-        </Switch>
+            </Case>
+            <Case value="earlyVoter">
+              <SpecialVoterReasons
+                icon={EarlyVoter.icon}
+                title="Electores con derecho al Voto Adelantado"
+                reasons={EarlyVoter.reasons}
+                documents={EarlyVoter.documents}
+                onClickClose={() => send("CLOSED")}
+              />
+            </Case>
+            <Default>
+              <div className="flex flex-row flex-wrap">
+                <SpecialVoterCard
+                  icon={EarlyVoter.icon}
+                  title="Voto por adelantado"
+                  summary={EarlyVoter.summary}
+                  deadline={EarlyVoter.deadline}
+                  documents={EarlyVoter.documents}
+                  detailsTitle="Ver electores cualificados"
+                  onClickRequirements={() => send("EARLY_VOTER_TOGGLED")}
+                />
+                <SpecialVoterCard
+                  icon={AbsenteeVoter.icon}
+                  title="Voto ausente"
+                  summary={AbsenteeVoter.summary}
+                  deadline={AbsenteeVoter.deadline}
+                  documents={AbsenteeVoter.documents}
+                  detailsTitle="Ver razones certificadas"
+                  onClickRequirements={() => send("ABSENTEE_VOTER_TOGGLED")}
+                />
+              </div>
+            </Default>
+          </Switch>
+        </div>
       </div>
     </>
   )
