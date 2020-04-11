@@ -77,6 +77,7 @@ export function SpecialVoters() {
                 title="Electores con derecho al Voto Adelantado"
                 reasons={EarlyVoter.reasons}
                 documents={EarlyVoter.documents}
+                exceptions={EarlyVoter.exceptions}
                 onClickClose={() => send("CLOSED")}
               />
             </Case>

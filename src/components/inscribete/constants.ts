@@ -205,7 +205,7 @@ export const AbsenteeVoter: SpecialVoter = {
         "http://ww2.ceepur.org/es-pr/EducacionyAdiestramiento/Documentos%20de%20JAVA/Solicitud%20Voto%20Ausente.pdf",
     },
   ],
-  deadline: "4 de septiembre de 2020",
+  deadline: "Por anunciarse",
   reasons: AbsenteeVoterReasons,
   exceptions:
     "Los electores con derecho al voto ausente que se encuentren fuera de Estados Unidos de América o sus territorios, dependientes de electores que vivan bajo el mismo techo y los miembros de las Fuerzas Armadas y Marinos Mercantes no necesitarán percentar una certificación ni declaración jurada bajo notario público.",
@@ -232,6 +232,8 @@ export const EarlyVoter: SpecialVoter = {
         "http://ww2.ceepur.org/es-pr/EducacionyAdiestramiento/Documentos%20de%20JAVA/Solicitud%20para%20Voto%20por%20Tel%C3%A9fono.pdf",
     },
   ],
-  deadline: "19 de noviembre de 2020",
+  deadline: "Por anunciarse",
   reasons: EarlyVoterReasons,
+  exceptions:
+    "Los profesionales de la salud, jueces y juezas y personas con impedimentos de movilidad podrán solicitar el voto adelantado hasta 15 días antes del día de la elección.",
 }

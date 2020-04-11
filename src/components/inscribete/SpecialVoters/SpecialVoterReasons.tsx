@@ -71,15 +71,15 @@ type Props = {
 export default function SpecialVoterReasons(voter: Props) {
   return (
     <Card>
-      <img className="w-12 h-auto" src={voter.icon} alt="" />
+      <img className="w-12 h-auto mx-auto" src={voter.icon} alt="" />
       <Typography
         tag="h4"
         variant="h4"
-        className="mt-4 uppercase tracking-wide"
+        className="mt-4 uppercase tracking-wide text-center"
       >
         {voter.title}
       </Typography>
-      <div className="pt-2">
+      <div className="pt-4">
         {voter.reasons.map(reason => (
           <Reason
             key={reason.summary}
