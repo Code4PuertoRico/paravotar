@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect, createRef } from "react"
 import { useSpring, animated } from "react-spring"
 import useMeasure from "react-use-measure"
 import { ResizeObserver } from "@juggle/resize-observer"
@@ -8,7 +8,7 @@ import ButtonDropdown from "../../button-dropdown"
 import Typography from "../../typography"
 import Button from "../../button"
 import Arrows from "../../arrows"
-import Card from "../../card"
+import Card, { CardRef } from "../../card"
 import Link from "../../link"
 import { AbsenteeAndEarlyVoting } from "../types"
 
@@ -69,8 +69,16 @@ type Props = {
 }
 
 export default function SpecialVoterReasons(voter: Props) {
+  const ref = createRef<CardRef>()
+
+  useEffect(() => {
+    if (ref && ref.current) {
+      ref.current.focus()
+    }
+  }, [ref])
+
   return (
-    <Card>
+    <Card ref={ref} tabIndex={-1}>
       <img className="w-12 h-auto mx-auto" src={voter.icon} alt="" />
       <Typography
         tag="h4"
