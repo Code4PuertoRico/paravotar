@@ -1,4 +1,4 @@
-import React, { useState, useEffect, createRef } from "react"
+import React, { useState, useEffect, useRef } from "react"
 import { useSpring, animated } from "react-spring"
 import useMeasure from "react-use-measure"
 import { ResizeObserver } from "@juggle/resize-observer"
@@ -69,7 +69,7 @@ type Props = {
 }
 
 export default function SpecialVoterReasons(voter: Props) {
-  const ref = createRef<CardRef>()
+  const ref = useRef<CardRef>(null!)
 
   useEffect(() => {
     if (ref && ref.current) {
