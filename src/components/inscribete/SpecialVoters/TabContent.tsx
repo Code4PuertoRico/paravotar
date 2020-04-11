@@ -7,7 +7,9 @@ import Link from "../../link"
 import Download from "../../../assets/icons/download.inline.svg"
 
 type Props = {
+  title: string
   summary: string
+  deadline: string
   documents: Array<{ title: string; link: string }>
   reasons: Array<{ summary: string; details: string }>
 }
@@ -15,8 +17,17 @@ type Props = {
 export default function TabContent(voter: Props) {
   return (
     <>
-      <Typography tag="p" variant="p" className="mt-4">
+      <Typography tag="p" variant="p" className="mt-6">
         {voter.summary}
+      </Typography>
+      <Typography tag="p" variant="p" className="mt-4" weight="semibold">
+        Fecha límite para sometera tu solicitud: <br />{" "}
+        <span className="text-primary">
+          <time>{voter.deadline}</time>
+        </span>
+      </Typography>
+      <Typography tag="p" variant="h4" className="mt-6" weight="semibold">
+        {voter.title}
       </Typography>
       <ul className="pt-2">
         {voter.reasons.map(reason => (

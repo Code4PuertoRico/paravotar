@@ -1,12 +1,31 @@
-import React from "react"
+import React, { ReactNode } from "react"
 import { Machine } from "xstate"
 import { useMachine } from "@xstate/react"
 import { useSpring, animated } from "react-spring"
 
+import Typography from "../../typography"
 import Card from "../../card"
 import { EarlyVoter, AbsenteeVoter } from "../constants"
-import Typography from "../../typography"
 import TabContent from "./TabContent"
+
+type TabProps = {
+  isActive: boolean
+  onClick: () => void
+  children: ReactNode
+}
+
+function Tab({ isActive, onClick, children }: TabProps) {
+  return (
+    <button
+      className={`w-1/2 pb-2 border border-b-8 border-t-0 border-r-0 border-l-0 transition ease-in-out duration-300 ${
+        isActive ? "border-primary opacity-100" : "border-white opacity-25"
+      }`}
+      onClick={onClick}
+    >
+      {children}
+    </button>
+  )
+}
 
 const tabsState = {
   absenteeVoter: {
@@ -23,24 +42,23 @@ const tabsState = {
 
 const SpecialVotersTabsMachine = Machine({
   id: "special-voters-mobile",
-  initial: "absenteeVoter",
+  initial: "earlyVoter",
   states: tabsState,
 })
 
 export default function Tabs() {
   const [state, send] = useMachine(SpecialVotersTabsMachine)
   const voter = state.value === "earlyVoter" ? EarlyVoter : AbsenteeVoter
+  const title = `Electores con derecho al Voto ${
+    state.value === "earlyVoter" ? "por Adelantado" : "Ausente"
+  }`
   const props = useSpring({ opacity: 1, from: { opacity: 0 } })
 
   return (
     <Card>
       <div className="flex">
-        <button
-          className={`w-1/2 pb-4 border border-b-8 border-t-0 border-r-0 border-l-0 transition ease-in-out duration-300 ${
-            state.value === "earlyVoter"
-              ? "border-primary opacity-100"
-              : "border-white opacity-25"
-          }`}
+        <Tab
+          isActive={state.value === "earlyVoter"}
           onClick={() => send("EARLY_VOTER_TOGGLED")}
         >
           <img src={EarlyVoter.icon} className="mx-auto" alt="" />
@@ -51,13 +69,9 @@ export default function Tabs() {
           >
             Votar por Adelantado
           </Typography>
-        </button>
-        <button
-          className={`w-1/2 pb-4 border border-b-8 border-t-0 border-r-0 border-l-0 transition ease-in-out duration-300 ${
-            state.value === "absenteeVoter"
-              ? "border-primary opacity-100"
-              : "border-white opacity-25"
-          }`}
+        </Tab>
+        <Tab
+          isActive={state.value === "absenteeVoter"}
           onClick={() => send("ABSENTEE_VOTER_TOGGLED")}
         >
           <img src={AbsenteeVoter.icon} className="mx-auto" alt="" />
@@ -68,11 +82,13 @@ export default function Tabs() {
           >
             Votar Ausente
           </Typography>
-        </button>
+        </Tab>
       </div>
       <animated.div style={props}>
         <TabContent
+          title={title}
           summary={voter.summary}
+          deadline={voter.deadline}
           documents={voter.documents}
           reasons={voter.reasons}
         />
