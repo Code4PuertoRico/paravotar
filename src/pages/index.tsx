@@ -82,7 +82,7 @@ export default function Inscribete() {
           <div className="flex justify-center mb-24">
             <img className="h-32" src={Logo} alt="Para Votar" />
           </div>
-          <Typography tag="h1" variant="h3" className="uppercase">
+          <Typography tag="h1" variant="h3" className="uppercase tracking-wide">
             Inscríbete, conoce cómo obtener tu tarjeta electoral
           </Typography>
           <Typography
@@ -124,7 +124,11 @@ export default function Inscribete() {
           <VoterInfoRightPanel voterMetadata={voterMetadata} />
         </div>
       </Container>
-      <Typography tag="h2" variant="h3" className="uppercase text-center">
+      <Typography
+        tag="h2"
+        variant="h3"
+        className="uppercase text-center tracking-wide"
+      >
         BUSCA DONDE PUEDES SACAR TU TARJETA ELECTORAL
       </Typography>
       <Typography

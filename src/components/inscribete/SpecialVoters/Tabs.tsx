@@ -1,7 +1,6 @@
 import React, { ReactNode } from "react"
 import { Machine } from "xstate"
 import { useMachine } from "@xstate/react"
-import { useSpring, animated } from "react-spring"
 
 import Typography from "../../typography"
 import Card from "../../card"
@@ -52,7 +51,6 @@ export default function Tabs() {
   const title = `Electores con derecho al Voto ${
     state.value === "earlyVoter" ? "por Adelantado" : "Ausente"
   }`
-  const props = useSpring({ opacity: 1, from: { opacity: 0 } })
 
   return (
     <Card>
@@ -65,7 +63,7 @@ export default function Tabs() {
           <Typography
             tag="h4"
             variant="h4"
-            className="text-center uppercase mt-2"
+            className="text-center uppercase mt-2 tracking-wide"
           >
             Votar por Adelantado
           </Typography>
@@ -78,21 +76,20 @@ export default function Tabs() {
           <Typography
             tag="h4"
             variant="h4"
-            className="text-center uppercase mt-2"
+            className="text-center uppercase mt-2 tracking-wide"
           >
             Votar Ausente
           </Typography>
         </Tab>
       </div>
-      <animated.div style={props}>
-        <TabContent
-          title={title}
-          summary={voter.summary}
-          deadline={voter.deadline}
-          documents={voter.documents}
-          reasons={voter.reasons}
-        />
-      </animated.div>
+      <TabContent
+        key={state.value}
+        title={title}
+        summary={voter.summary}
+        deadline={voter.deadline}
+        documents={voter.documents}
+        reasons={voter.reasons}
+      />
     </Card>
   )
 }

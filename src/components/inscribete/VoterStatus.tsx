@@ -9,7 +9,7 @@ export function VoterStatus() {
   return (
     <>
       <div className="text-center">
-        <Typography tag="h2" variant="h3" className="uppercase">
+        <Typography tag="h2" variant="h3" className="uppercase tracking-wide">
           Verifica el estatus de tu registro electoral
         </Typography>
         <Typography

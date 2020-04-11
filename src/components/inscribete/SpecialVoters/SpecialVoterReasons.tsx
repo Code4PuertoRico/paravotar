@@ -28,9 +28,9 @@ export function Reason({ summary, details }: ReasonProps) {
   })
 
   return (
-    <li className="border border-separator border-r-0 border-l-0 border-t-0">
+    <div className="border border-separator border-r-0 border-l-0 border-t-0">
       <button
-        className="flex justify-between items-center w-full px-2 pb-2 pt-3 font-semibold text-left"
+        className="flex justify-between items-center w-full px-2 pb-2 pt-3 font-semibold text-left text-dark"
         onClick={() => setIsOpen(!isOpen)}
       >
         {summary}
@@ -55,7 +55,7 @@ export function Reason({ summary, details }: ReasonProps) {
           </Typography>
         </div>
       </animated.div>
-    </li>
+    </div>
   )
 }
 
@@ -71,10 +71,14 @@ export default function SpecialVoterReasons(voter: Props) {
   return (
     <Card>
       <img className="w-12 h-auto" src={voter.icon} alt="" />
-      <Typography tag="h4" variant="h4" className="mt-4 uppercase">
+      <Typography
+        tag="h4"
+        variant="h4"
+        className="mt-4 uppercase tracking-wide"
+      >
         {voter.title}
       </Typography>
-      <ul className="pt-2">
+      <div className="pt-2">
         {voter.reasons.map(reason => (
           <Reason
             key={reason.summary}
@@ -82,7 +86,7 @@ export default function SpecialVoterReasons(voter: Props) {
             details={reason.details}
           />
         ))}
-      </ul>
+      </div>
       <div className="w-full md:w-1/2 md:mx-auto">
         {voter.documents.length > 1 ? (
           <ButtonDropdown

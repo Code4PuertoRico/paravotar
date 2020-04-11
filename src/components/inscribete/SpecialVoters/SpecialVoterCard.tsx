@@ -22,7 +22,11 @@ export default function SpecialVoterCard(voter: Props) {
   return (
     <Card className="text-center">
       <img className="w-12 h-auto m-auto" src={voter.icon} alt="" />
-      <Typography tag="h4" variant="h4" className="mt-4 uppercase">
+      <Typography
+        tag="h4"
+        variant="h4"
+        className="mt-4 uppercase tracking-wide"
+      >
         {voter.title}
       </Typography>
       <Typography tag="p" variant="p" className="mt-3">

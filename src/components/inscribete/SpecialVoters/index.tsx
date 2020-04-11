@@ -42,8 +42,8 @@ export function SpecialVoters() {
   return (
     <>
       <div className="mx-auto mt-3 text-center">
-        <Typography tag="h2" variant="h3" className="uppercase">
-          Aprende a como votar por adelantado o votar de manera ausente
+        <Typography tag="h2" variant="h3" className="uppercase tracking-wide">
+          Aprende qué es el voto por adelantado y el voto ausente
         </Typography>
         <Typography
           tag="h3"
@@ -51,7 +51,8 @@ export function SpecialVoters() {
           weight="base"
           className="font-normal mt-4"
         >
-          Identifica si cualificas en alguna de estas categorías.
+          Identifica si cualificas para el voto ausente o voto adelantado y
+          descarga la solicitud.
         </Typography>
       </div>
       <div className="mt-12 mb-32">

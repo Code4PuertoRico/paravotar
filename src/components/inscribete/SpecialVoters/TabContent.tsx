@@ -1,4 +1,5 @@
 import React from "react"
+import { animated, useSpring } from "react-spring"
 
 import { Reason } from "./SpecialVoterReasons"
 import Typography from "../../typography"
@@ -15,8 +16,10 @@ type Props = {
 }
 
 export default function TabContent(voter: Props) {
+  const props = useSpring({ opacity: 1, from: { opacity: 0 } })
+
   return (
-    <>
+    <animated.div style={props}>
       <Typography tag="p" variant="p" className="mt-6">
         {voter.summary}
       </Typography>
@@ -62,6 +65,6 @@ export default function TabContent(voter: Props) {
           solicitud
         </Link>
       )}
-    </>
+    </animated.div>
   )
 }

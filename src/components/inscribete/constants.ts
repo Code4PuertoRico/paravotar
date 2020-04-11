@@ -212,7 +212,7 @@ export const AbsenteeVoter: SpecialVoter = {
 export const EarlyVoter: SpecialVoter = {
   icon: EarlyVoterIcon,
   summary:
-    "El Voto Adelantado es una discreción especial que se le extiende a votantes activos que, a pesar estar en la isla el día de las elecciones, necesitan adelantar su voto por alguna razón certificada.",
+    "El Voto Adelantado es una discreción especial que se le extiende a votantes activos que estarán en la isla el día de las elecciones pero necesitan adelantar su voto por alguna razón certificada.",
   documents: [
     {
       title: "Voto Adelantado",
