@@ -12,7 +12,9 @@ const IndexPage = () => (
     <SEO title="Practica tu voto" />
     <Highlight>
       <Container className="text-center">
-        <h1 className="text-9xl uppercase font-bold">Pratica Tu Voto</h1>
+        <h1 className="text-9xl uppercase font-bold tracking-wide">
+          Pratica Tu Voto
+        </h1>
       </Container>
     </Highlight>
     <Container>

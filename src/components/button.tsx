@@ -9,11 +9,11 @@ type VariantOptions = typeof Variants
 function getButtonStyle(variant: keyof VariantOptions) {
   switch (variant) {
     case Variants.inverse: {
-      return "rounded border border-primary bg-transparent text-primary font-bold py-1 px-4 hover:bg-primary-hover hover:text-white active:text-white-active active:bg-primary-active"
+      return "rounded border border-primary bg-transparent text-primary font-bold text-sm py-1 px-4 hover:bg-primary-hover hover:text-white active:text-white-active active:bg-primary-active"
     }
 
     default: {
-      return "rounded border border-primary bg-primary text-white py-1 font-bold px-4 hover:bg-primary-hover hover:text-white active:text-white-active active:bg-primary-active"
+      return "rounded border border-primary bg-primary text-white py-1 font-bold text-sm px-4 hover:bg-primary-hover hover:text-white active:text-white-active active:bg-primary-active"
     }
   }
 }

@@ -8,6 +8,7 @@ import { VoterStatus } from "../components/inscribete/VoterStatus"
 import { VoterDocs } from "../components/inscribete/constants"
 import { VoterInfoLeftPanel } from "../components/inscribete/VoterInfo/LeftPanel"
 import { VoterInfoRightPanel } from "../components/inscribete/VoterInfo/RightPanel"
+import { SpecialVoters } from "../components/inscribete/SpecialVoters"
 
 const style: { [key: string]: any } = {
   DropdownWrapper: (base: any) => ({
@@ -81,7 +82,7 @@ export default function Inscribete() {
           <div className="flex justify-center mb-24">
             <img className="h-32" src={Logo} alt="Para Votar" />
           </div>
-          <Typography tag="h1" variant="h3" className="uppercase">
+          <Typography tag="h1" variant="h3" className="uppercase tracking-wide">
             Inscríbete, conoce cómo obtener tu tarjeta electoral
           </Typography>
           <Typography
@@ -123,7 +124,11 @@ export default function Inscribete() {
           <VoterInfoRightPanel voterMetadata={voterMetadata} />
         </div>
       </Container>
-      <Typography tag="h2" variant="h3" className="uppercase text-center">
+      <Typography
+        tag="h2"
+        variant="h3"
+        className="uppercase text-center tracking-wide"
+      >
         BUSCA DONDE PUEDES SACAR TU TARJETA ELECTORAL
       </Typography>
       <Typography
@@ -136,6 +141,9 @@ export default function Inscribete() {
       </Typography>
       <Container className="w-11/12 mt-12 mb-32 bg-white shadow-md rounded">
         <VoterCenters />
+      </Container>
+      <Container className="w-11/12 mb-32">
+        <SpecialVoters />
       </Container>
       <Container className="w-11/12 mb-32">
         <VoterStatus />
