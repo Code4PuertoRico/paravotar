@@ -60,7 +60,6 @@ export default function SpecialVoterCards() {
 
   useEffect(() => {
     if (state.context.previous === "reasons" && ref && ref.current) {
-      console.log("focus")
       ref.current.focus()
     }
   }, [ref, state.context])
