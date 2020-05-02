@@ -24,7 +24,8 @@
     "react-spring": "^8.0.27",
     "react-use-measure": "^2.0.0",
     "typescript": "^3.7.5",
-    "xstate": "^4.7.7"
+    "whatwg-fetch": "^3.0.0",
+    "xstate": "^4.9.1"
   },
   "devDependencies": {
     "@fullhuman/postcss-purgecss": "^2.0.5",

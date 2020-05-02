@@ -1,11 +1,8 @@
 import React from "react"
+import "whatwg-fetch"
 
-import { Ballot } from "../papeleta/Form/components/Ballot"
-import { StateBallot, LegislativeBallot } from "../papeleta/ballots"
 import { Container, Highlight, Layout, SEO } from "../components/index"
-
-const stateBallot = new StateBallot()
-const legislativeBallot = new LegislativeBallot()
+import { Flow } from "../packages/practica/components/Flow"
 
 const IndexPage = () => (
   <Layout>
@@ -18,12 +15,7 @@ const IndexPage = () => (
       </Container>
     </Highlight>
     <Container>
-      <h2>State Ballot</h2>
-      <hr />
-      <Ballot ballotRef={stateBallot.getService()} />
-      <h2>Legislative Ballot</h2>
-      <hr />
-      <Ballot ballotRef={legislativeBallot.getService()} />
+      <Flow />
     </Container>
   </Layout>
 )
