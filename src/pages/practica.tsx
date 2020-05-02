@@ -1,5 +1,5 @@
 import React from "react"
-import "whatwg-fetch"
+import "fetch-ponyfill"
 
 import { Container, Highlight, Layout, SEO } from "../components/index"
 import { Flow } from "../packages/practica/components/Flow"
