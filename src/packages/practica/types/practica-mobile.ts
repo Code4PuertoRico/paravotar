@@ -1,4 +1,4 @@
-import { VoterDetailsResponse } from "../services/types"
+import { VoterDetailsResponse, BallotResponse } from "../services/types"
 
 export enum PracticaMobileStates {
   IDLE = "IDLE",
@@ -6,6 +6,8 @@ export enum PracticaMobileStates {
   SELECTING_BALLOT = "SELECTING_BALLOT",
   INVALID_VOTER_ID = "INVALID_VOTER_ID",
   PRACTICE_IN_PROGRESS = "PRACTICE_IN_PROGRESS",
+  LOADING_BALLOT = "LOADING_BALLOT",
+  FAILED_TO_LOAD_BALLOT = "FAILED_TO_LOAD_BALLOT",
 }
 
 export enum PracticaMobileEventTypes {
@@ -15,4 +17,6 @@ export enum PracticaMobileEventTypes {
 
 export interface PracticaMobileContext {
   voterDetails?: VoterDetailsResponse
+  ballotDetails?: BallotResponse
+  selectedBallotType?: "legislativo" | "municipal" | "estatal"
 }

@@ -1,4 +1,4 @@
-import { baseUrl } from "./constants"
+import { baseUrl, PUBLIC_S3_BUCKET } from "./constants"
 
 interface HttpResponse<T> extends Response {
   parsedBody?: T
@@ -55,3 +55,5 @@ export const createService = (baseUrl: string) => ({
 })
 
 export const papeletaClient = createService(baseUrl)
+
+export const s3Client = createService(PUBLIC_S3_BUCKET)

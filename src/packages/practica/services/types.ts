@@ -9,4 +9,11 @@ export type VoterDetailsResponse = {
   fechaDeNacimiento: string
   centroDeVotacion: string
   direccion: string
+  papeletas: {
+    legislativo: string
+    municipal: string
+    estatal: string
+  }
 }
+
+export type BallotResponse = { ocrResult: string; logoImg?: string }[][]
