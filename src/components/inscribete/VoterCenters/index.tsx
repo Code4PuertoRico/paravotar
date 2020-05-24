@@ -99,7 +99,11 @@ export function VoterCenters() {
           className="overflow-hidden"
           style={{ height: props.height }}
         >
-          <div className="border-t border-separator lg:flex lg:p-10" ref={ref}>
+          <div
+            className="border-t border-separator lg:flex lg:p-10"
+            ref={ref}
+            style={{ maxHeight: 500 }}
+          >
             <TownList
               townList={townList}
               onSelect={setSelectedTown}
