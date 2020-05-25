@@ -7,6 +7,7 @@ import {
 } from "../types/practica-mobile"
 
 import * as services from "../services"
+import { EnterVoterId } from "../components/EnterVoterId"
 
 const {
   IDLE,
@@ -28,6 +29,9 @@ export const practicaMobileMachine = createMachine<PracticaMobileContext>(
         on: {
           [SEARCH_VOTER_ID]: LOADING_VOTER_DETAILS,
         },
+        meta: {
+          Component: EnterVoterId,
+        },
       },
       [LOADING_VOTER_DETAILS]: {
         invoke: {
@@ -38,10 +42,16 @@ export const practicaMobileMachine = createMachine<PracticaMobileContext>(
           },
           onError: INVALID_VOTER_ID,
         },
+        meta: {
+          Component: EnterVoterId,
+        },
       },
       [INVALID_VOTER_ID]: {
         on: {
           [SEARCH_VOTER_ID]: LOADING_VOTER_DETAILS,
+        },
+        meta: {
+          Component: EnterVoterId,
         },
       },
       [SELECTING_BALLOT]: {

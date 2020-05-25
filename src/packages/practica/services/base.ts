@@ -10,7 +10,7 @@ interface QueryParams {
 
 export async function http<T>(request: RequestInfo): Promise<HttpResponse<T>> {
   const response: HttpResponse<T> = await fetch(request)
-  response.parsedBody = await response.json()
+  response.parsedBody = await (response.text ? response.json() : null)
 
   if (!response.ok) {
     throw new Error("Bad response from server")
@@ -39,7 +39,7 @@ const encodeQueryParams = (params: QueryParams) =>
     .map(k => encodeURIComponent(k) + "=" + encodeURIComponent(params[k]))
     .join("&")
 
-export const createService = (baseUrl: string) => ({
+export const createService = (baseUrl: string, options?: RequestInit) => ({
   get: <T>(path: string, queryParams?: QueryParams, args?: RequestInit) => {
     let url = `${baseUrl}${path}`
 
@@ -48,7 +48,9 @@ export const createService = (baseUrl: string) => ({
         (url.indexOf("?") === -1 ? "?" : "&") + encodeQueryParams(queryParams)
     }
 
-    return get<T>(url, args)
+    const opts = { ...(options || {}), ...args }
+
+    return get<T>(url, opts)
   },
   post: <T>(path: string, args?: RequestInit) =>
     post<T>(`${baseUrl}${path}`, args),

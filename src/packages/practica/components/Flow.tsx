@@ -1,15 +1,17 @@
 import _ from "lodash"
 import React from "react"
-import { useMachine } from "@xstate/react"
 import { practicaMobileMachine } from "../machines/practica-mobile"
 import {
   PracticaMobileEventTypes,
   PracticaMobileStates,
 } from "../types/practica-mobile"
 import { Button } from "../../../components"
+import { useMachineWithComponent } from "../../../hooks/useMachineWithComponent"
 
 export const Flow: React.FunctionComponent = () => {
-  const [current, send] = useMachine(practicaMobileMachine)
+  const [current, send, Component] = useMachineWithComponent(
+    practicaMobileMachine
+  )
 
   return (
     <section>
@@ -17,19 +19,7 @@ export const Flow: React.FunctionComponent = () => {
 
       <pre>Context: {JSON.stringify(current.context, null, 2)}</pre>
 
-      <form
-        onSubmit={evt => {
-          evt.preventDefault()
-
-          send(PracticaMobileEventTypes.SEARCH_VOTER_ID, {
-            voterId: evt.target.voterId.value,
-          })
-        }}
-      >
-        <label htmlFor="voterId">
-          Voter ID: <input type="text" name="voterId" placeholder="Voter ID" />
-        </label>
-      </form>
+      <Component current={current} send={send} />
 
       {current.matches(PracticaMobileStates.SELECTING_BALLOT) ? (
         <section className="flex flex-col justify-between h-24">
