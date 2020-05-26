@@ -78,7 +78,7 @@ export default function Inscribete() {
     <Layout>
       <SEO title="Inscríbete" />
       <Highlight>
-        <Container className="w-11/12 text-center pt-5">
+        <Container className="w-11/12 text-center pt-5 lg:w-9/12">
           <div className="flex justify-center mb-24">
             <img className="h-32" src={Logo} alt="Para Votar" />
           </div>
@@ -115,7 +115,7 @@ export default function Inscribete() {
         />
       </Container>
       <Container
-        className="w-11/12 mt-12 mb-32 bg-white shadow-md rounded"
+        className="w-11/12 mt-12 mb-32 bg-white shadow-md rounded lg:w-9/12"
         tabIndex={-1}
         ref={containerRef}
       >
@@ -139,13 +139,13 @@ export default function Inscribete() {
       >
         Identifica tu pueblo, revisa horarios de información contacto.
       </Typography>
-      <Container className="w-11/12 mt-12 mb-32 bg-white shadow-md rounded">
+      <Container className="w-11/12 mt-12 mb-32 bg-white shadow-md rounded lg:w-9/12">
         <VoterCenters />
       </Container>
-      <Container className="w-11/12 mb-32">
+      <Container className="w-11/12 mb-32 lg:w-9/12">
         <SpecialVoters />
       </Container>
-      <Container className="w-11/12 mb-32">
+      <Container className="w-11/12 mb-32 lg:w-9/12">
         <VoterStatus />
       </Container>
     </Layout>
