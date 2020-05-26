@@ -8,18 +8,31 @@ import {
 
 import * as services from "../services"
 import { EnterVoterId } from "../components/EnterVoterId"
+import { SelectingBallot } from "../components/SelectingBallot"
+import { BallotService } from "../services/BallotService"
+import { SelectingVotingMethod } from "../components/SelectingVotingMethod"
+import { VotoIntegro } from "../components/VotoIntegro"
 
 const {
   IDLE,
   LOADING_VOTER_DETAILS,
   SELECTING_BALLOT,
   INVALID_VOTER_ID,
-  PRACTICE_IN_PROGRESS,
+  SELECTING_VOTING_METHOD,
   LOADING_BALLOT,
   FAILED_TO_LOAD_BALLOT,
+  VOTO_INTEGRO,
+  VOTO_MIXTO,
+  VOTO_CANDIDATURA,
 } = PracticaMobileStates
 
-const { SEARCH_VOTER_ID, BALLOT_SELECTED } = PracticaMobileEventTypes
+const {
+  SEARCH_VOTER_ID,
+  BALLOT_SELECTED,
+  INTEGRO_SELECTED,
+  MIXTO_SELECTED,
+  CANDIDATURA_SELECTED,
+} = PracticaMobileEventTypes
 
 export const practicaMobileMachine = createMachine<PracticaMobileContext>(
   {
@@ -61,23 +74,44 @@ export const practicaMobileMachine = createMachine<PracticaMobileContext>(
             target: LOADING_BALLOT,
           },
         },
+        meta: {
+          Component: SelectingBallot,
+        },
       },
       [LOADING_BALLOT]: {
         invoke: {
           src: "getBallotDetails",
           onDone: {
-            actions: "saveBallotDetails",
-            target: PRACTICE_IN_PROGRESS,
+            actions: ["saveBallotDetails", "initiateBallot"],
+            target: SELECTING_VOTING_METHOD,
           },
           onError: FAILED_TO_LOAD_BALLOT,
         },
+        meta: {
+          Component: SelectingBallot,
+        },
       },
-      [PRACTICE_IN_PROGRESS]: {
-        on: {},
+      [SELECTING_VOTING_METHOD]: {
+        on: {
+          [INTEGRO_SELECTED]: VOTO_INTEGRO,
+          [MIXTO_SELECTED]: VOTO_MIXTO,
+          [CANDIDATURA_SELECTED]: VOTO_CANDIDATURA,
+        },
+        meta: {
+          Component: SelectingVotingMethod,
+        },
       },
       [FAILED_TO_LOAD_BALLOT]: {
         on: {},
       },
+      [VOTO_INTEGRO]: {
+        on: {},
+        meta: {
+          Component: VotoIntegro,
+        },
+      },
+      [VOTO_MIXTO]: {},
+      [VOTO_CANDIDATURA]: {},
     },
   },
   {
@@ -95,6 +129,17 @@ export const practicaMobileMachine = createMachine<PracticaMobileContext>(
       saveBallotDetails: assign((_, { data }) => ({
         ballotDetails: data.parsedBody,
       })),
+      initiateBallot: assign(
+        ({ selectedBallotType, voterDetails, ballots }, { data }) => ({
+          ballots: {
+            ...ballots,
+            [selectedBallotType as string]: new BallotService(
+              _.get(voterDetails, `papeletas[${selectedBallotType}]`, ""),
+              data.parsedBody
+            ),
+          },
+        })
+      ),
       saveSelectedBallot: assign((_, { ballotType }) => ({
         selectedBallotType: ballotType,
       })),

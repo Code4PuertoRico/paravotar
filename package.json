@@ -7,6 +7,7 @@
   "dependencies": {
     "@juggle/resize-observer": "^3.0.2",
     "@xstate/react": "^0.8.1",
+    "fast-levenshtein": "^2.0.6",
     "fetch-ponyfill": "^6.1.0",
     "gatsby": "^2.19.7",
     "gatsby-image": "^2.2.39",
@@ -17,6 +18,7 @@
     "gatsby-plugin-typescript": "^2.1.26",
     "gatsby-source-filesystem": "^2.1.46",
     "gatsby-transformer-sharp": "^2.3.13",
+    "memoizee": "^0.4.14",
     "prop-types": "^15.7.2",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
@@ -33,6 +35,7 @@
     "@testing-library/react": "^9.4.0",
     "@types/jest": "^25.1.1",
     "@types/lodash": "^4.14.150",
+    "@types/memoizee": "^0.4.4",
     "@types/node": "^13.5.2",
     "@types/react": "^16.9.19",
     "@types/react-dom": "^16.9.5",
