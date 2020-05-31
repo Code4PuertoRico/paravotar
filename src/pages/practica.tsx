@@ -14,7 +14,7 @@ const IndexPage = () => (
         </h1>
       </Container>
     </Highlight>
-    <Container>
+    <Container className="flex justify-center pt-8 pb-8">
       <Flow />
     </Container>
   </Layout>

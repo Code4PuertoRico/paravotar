@@ -10,18 +10,24 @@ export const VotoIntegro: React.FunctionComponent<BaseScreenProps> = ({
 
   return (
     <section>
-      <h2>Voto Integro</h2>
-      <p>Selecciona un partido:</p>
-      {service.getParties().map(p => (
-        <>
-          {p.isIndependent ? (
-            <div>I</div>
-          ) : (
-            <img src={`${PUBLIC_S3_BUCKET}${p.imgUrl}`} alt="partido" />
-          )}
-          <p>{p.text}</p>
-        </>
-      ))}
+      <p>{current.context.selectedBallotType as string} / Voto Integro</p>
+      <h2 className="text-xl">Selecciona un partido</h2>
+
+      <div className="h-12"></div>
+
+      <div className="flex flex-wrap flex-auto justify-between">
+        {service
+          .getParties()
+          .filter(p => !p.isIndependent)
+          .map(p => (
+            <img
+              key={p.text}
+              className="w-24 h-24 mb-4"
+              src={`${PUBLIC_S3_BUCKET}${p.imgUrl}`}
+              alt="partido"
+            />
+          ))}
+      </div>
     </section>
   )
 }

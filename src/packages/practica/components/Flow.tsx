@@ -9,9 +9,7 @@ export const Flow: React.FunctionComponent = () => {
   )
 
   return (
-    <section>
-      <h4>Current: {current.value.toString()}</h4>
-
+    <section className="w-104 border-2 flex flex-col p-4">
       <Component current={current} send={send} />
     </section>
   )

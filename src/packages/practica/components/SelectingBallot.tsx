@@ -10,18 +10,24 @@ export const SelectingBallot: React.FunctionComponent<BaseScreenProps> = ({
 }) => {
   const papeletas = _.get(current.context, "voterDetails.papeletas", {})
   return (
-    <section className="flex flex-col justify-between h-24">
+    <section className="flex flex-col justify-center text-center">
+      <h2 className="text-xl">Seleccione una papeleta para praticar</h2>
+
+      <div className="h-16"></div>
+
       {Object.keys(papeletas).map(k => (
-        <Button
-          key={k}
-          onClick={() => {
-            send(PracticaMobileEventTypes.BALLOT_SELECTED, {
-              ballotType: k,
-            })
-          }}
-        >
-          {_.upperCase(k)}
-        </Button>
+        <div key={k} className="mb-8 flex flex-col">
+          <Button
+            className="h-12 text-lg"
+            onClick={() => {
+              send(PracticaMobileEventTypes.BALLOT_SELECTED, {
+                ballotType: k,
+              })
+            }}
+          >
+            {_.upperCase(k)}
+          </Button>
+        </div>
       ))}
     </section>
   )
