@@ -4,6 +4,7 @@ import { PUBLIC_S3_BUCKET } from "../services/constants"
 
 export const VotoIntegro: React.FunctionComponent<BaseScreenProps> = ({
   current,
+  send,
 }) => {
   const service =
     current.context.ballots[current.context.selectedBallotType as string]
@@ -19,13 +20,17 @@ export const VotoIntegro: React.FunctionComponent<BaseScreenProps> = ({
         {service
           .getParties()
           .filter(p => !p.isIndependent)
-          .map(p => (
-            <img
+          .map((p, idx) => (
+            <button
               key={p.text}
-              className="w-24 h-24 mb-4"
-              src={`${PUBLIC_S3_BUCKET}${p.imgUrl}`}
-              alt="partido"
-            />
+              onClick={() => send("partySelection", { column: idx })}
+            >
+              <img
+                className="w-24 h-24 mb-4 cursor-pointer"
+                src={`${PUBLIC_S3_BUCKET}${p.imgUrl}`}
+                alt="partido"
+              />
+            </button>
           ))}
       </div>
     </section>

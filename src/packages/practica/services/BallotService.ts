@@ -113,7 +113,7 @@ export class BallotService {
     return this.getParties()[column]
   }
 
-  public selectParty(column: number) {
+  public setParty(column: number) {
     if (column === -1) {
       this.selectedParty = undefined
     } else {
@@ -122,7 +122,58 @@ export class BallotService {
   }
 
   public getSelectedParty() {
-    return this.selectedParty
+    if (this.selectedParty !== undefined) {
+      return this.getParties()[this.selectedParty]
+    }
+    return undefined
+  }
+
+  public getPreferredCandidatesByParty() {
+    if (this.selectedParty === undefined) {
+      return []
+    }
+
+    return this.getSections().reduce(
+      (acum, s) => {
+        const limit = s.metadata.limit
+        const section: any = {
+          title: s.title,
+          candidates: [],
+        }
+        let rowIdx = 0
+
+        while (section.candidates.length < limit) {
+          section.candidates.push({
+            candidate: s.rows[rowIdx][this.selectedParty!],
+            coords: {
+              row: acum.rowIdx + 1 + rowIdx,
+              column: this.selectedParty!,
+            },
+          })
+
+          rowIdx += 1
+        }
+
+        acum.selections.push(section)
+
+        return {
+          rowIdx: acum.rowIdx + 1 + s.rows.length,
+          selections: acum.selections,
+        }
+      },
+      { rowIdx: 1, selections: [] } as {
+        rowIdx: number
+        selections: {
+          title: string
+          candidates: [
+            {
+              candidate: { ocrResult: string; logoImg?: string }
+              coords: { row: number; column: number }
+            }
+          ]
+        }[]
+      }
+    ).selections
   }
 
   public selectCandidate(

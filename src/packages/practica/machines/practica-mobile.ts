@@ -12,6 +12,7 @@ import { SelectingBallot } from "../components/SelectingBallot"
 import { BallotService } from "../services/BallotService"
 import { SelectingVotingMethod } from "../components/SelectingVotingMethod"
 import { VotoIntegro } from "../components/VotoIntegro"
+import { PreviewIntegro } from "../components/PreviewIntegro"
 
 const {
   IDLE,
@@ -105,11 +106,26 @@ export const practicaMobileMachine = createMachine<PracticaMobileContext>(
         on: {},
       },
       [VOTO_INTEGRO]: {
-        on: {},
+        on: {
+          partySelection: {
+            target: "previewIntegro",
+            actions: "savePartySelection",
+          },
+        },
         meta: {
           Component: VotoIntegro,
         },
       },
+      previewIntegro: {
+        on: {
+          back: VOTO_INTEGRO,
+          complete: "generatePDF",
+        },
+        meta: {
+          Component: PreviewIntegro,
+        },
+      },
+      generatePDF: {},
       [VOTO_MIXTO]: {},
       [VOTO_CANDIDATURA]: {},
     },
@@ -143,6 +159,11 @@ export const practicaMobileMachine = createMachine<PracticaMobileContext>(
       saveSelectedBallot: assign((_, { ballotType }) => ({
         selectedBallotType: ballotType,
       })),
+      savePartySelection: ({ ballots, selectedBallotType }, { column }) => {
+        const ballot = ballots[selectedBallotType as string]
+
+        ballot.setParty(column)
+      },
     },
   }
 )

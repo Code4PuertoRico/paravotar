@@ -12,7 +12,7 @@ const Error = (message: string) => () => (
 export function useMachineWithComponent<TContext, TEvent extends EventObject>(
   machine: StateMachine<TContext, any, TEvent>
 ): [State<TContext, TEvent>, Interpreter<TContext, any, TEvent>["send"], any] {
-  const [current, send] = useMachine(machine)
+  const [current, send] = useMachine(machine, { devTools: true })
   const last = get(current.toStrings(), `[${current.toStrings().length - 1}]`)
 
   const meta = get(current.meta, `${machine.id}.${last}`, {})
