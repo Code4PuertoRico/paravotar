@@ -1,4 +1,3 @@
-import _ from "lodash"
 import levenshtein from "fast-levenshtein"
 import memoize from "memoizee"
 import {
@@ -16,7 +15,7 @@ export class BallotService {
 
   private selectedParty: undefined | number
   private selectedCandidatesPerSection: {
-    [key: string]: { r: number; c: number }[]
+    [key: string]: { row: number; column: number }[]
   } = {}
 
   constructor(
@@ -126,7 +125,11 @@ export class BallotService {
     return this.selectedParty
   }
 
-  public selectCandidate(sectionName: string, row: number, column: number) {
+  public selectCandidate(
+    sectionName: string,
+    candidateRow: number,
+    candidateColumn: number
+  ) {
     const section = this.getSections().filter(s => s.title === sectionName)[0]
 
     if (!this.selectedCandidatesPerSection[sectionName]) {
@@ -135,7 +138,9 @@ export class BallotService {
 
     const selections = this.selectedCandidatesPerSection[sectionName]
 
-    const idx = selections.findIndex(({ r, c }) => r === row && c === column)
+    const idx = selections.findIndex(
+      ({ row, column }) => row === candidateRow && column === candidateColumn
+    )
 
     if (idx > -1) {
       selections.splice(idx, 1)
@@ -146,7 +151,7 @@ export class BallotService {
       throw Error("Can not select more candidates for this section")
     }
 
-    selections.push({ r: row, c: column })
+    selections.push({ row: candidateRow, column: candidateColumn })
 
     this.selectedCandidatesPerSection[sectionName] = selections
   }

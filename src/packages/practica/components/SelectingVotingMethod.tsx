@@ -5,7 +5,6 @@ import { PracticaMobileEventTypes } from "../types/practica-mobile"
 import { Button } from "../../../components"
 
 export const SelectingVotingMethod: React.FunctionComponent<BaseScreenProps> = ({
-  current,
   send,
 }) => {
   return (

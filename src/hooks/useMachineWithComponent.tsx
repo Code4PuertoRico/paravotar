@@ -4,18 +4,7 @@ import { useMachine } from "@xstate/react"
 import get from "lodash/get"
 
 const Error = (message: string) => () => (
-  <div
-    style={{
-      padding: "50px",
-      paddingTop: 0,
-      backgroundColor: "indianred",
-      color: "black",
-      fontSize: "42px",
-      overflow: "auto",
-      overflowY: "hidden",
-      whiteSpace: "pre-line",
-    }}
-  >
+  <div className="p-3 pt-0 bg-red text-black text-3xl overflow-auto overflow-y-hidden whitespace-pre-line">
     {message}
   </div>
 )
@@ -26,7 +15,7 @@ export function useMachineWithComponent<TContext, TEvent extends EventObject>(
   const [current, send] = useMachine(machine)
   const last = get(current.toStrings(), `[${current.toStrings().length - 1}]`)
 
-  const meta = get(current.meta, `${machine.id}.${last}`)
+  const meta = get(current.meta, `${machine.id}.${last}`, {})
 
   const defaultComponent =
     process.env.NODE_ENV !== "production"
@@ -37,7 +26,7 @@ export function useMachineWithComponent<TContext, TEvent extends EventObject>(
         `)
       : () => null
 
-  const Component = meta && meta.Component ? meta.Component : defaultComponent
+  const Component = meta.Component || defaultComponent
 
   return [current, send, Component]
 }

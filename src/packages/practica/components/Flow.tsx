@@ -1,4 +1,3 @@
-import _ from "lodash"
 import React from "react"
 import { practicaMobileMachine } from "../machines/practica-mobile"
 import { useMachineWithComponent } from "../../../hooks/useMachineWithComponent"
