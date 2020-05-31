@@ -11,11 +11,10 @@ html {
   @apply text-dark;
   font-size: 16px;
   font-family: "Inter", Helvetica;
-  background: linear-gradient(155deg, rgba(253,250,247,1) 0%, rgba(252,241,218,1) 100%);
 }
 
 body {
-  background: linear-gradient(155deg, rgba(253,250,247,1) 0%, rgba(252,241,218,1) 100%);
+  @apply overflow-hidden;
 }
 
 svg {
@@ -31,6 +30,10 @@ a:focus,
 button:focus {
   outline: none;
   box-shadow: 0 0 0 3px #886944c2;
+}
+
+.bg-gradient {
+  background: linear-gradient(155deg, rgba(253,250,247,1) 0%, rgba(252,241,218,1) 100%);
 }
 
 /* purgecss end ignore */

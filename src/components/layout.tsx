@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react"
 
-import { Footer } from "../components/index"
+import { Footer, Sidebar } from "../components/index"
 
 type Props = {
   children: ReactNode
@@ -9,8 +9,13 @@ type Props = {
 const Layout = ({ children }: Props) => {
   return (
     <>
-      <main className="w-full mx-auto">{children}</main>
-      <Footer />
+      <div className="grid grid-flow-col grid-cols-5 overflow-hidden">
+        <Sidebar />
+        <div className="overflow-y-scroll h-screen col-span-4 bg-gradient">
+          <main className="w-full mx-auto mt-3">{children}</main>
+          <Footer />
+        </div>
+      </div>
     </>
   )
 }

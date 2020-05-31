@@ -62,7 +62,7 @@
     "lint-staged": "^10.0.7",
     "prettier": "^1.19.1",
     "react-test-renderer": "^16.12.0",
-    "tailwindcss": "^1.2.0"
+    "tailwindcss": "1.4.5"
   },
   "keywords": [
     "gatsby"
