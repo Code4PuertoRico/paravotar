@@ -18,7 +18,7 @@ function getButtonStyle(variant: keyof VariantOptions) {
   }
 }
 
-type Props = {
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant: keyof VariantOptions
   onClick: () => void
   children: ReactChild | ReactChild[]
@@ -30,11 +30,12 @@ export default function Button({
   onClick,
   children,
   className,
-}: Props) {
+  ...rest
+}: ButtonProps) {
   const style = getButtonStyle(variant)
 
   return (
-    <button className={`${style} ${className}`} onClick={onClick}>
+    <button className={`${style} ${className}`} onClick={onClick} {...rest}>
       {children}
     </button>
   )
