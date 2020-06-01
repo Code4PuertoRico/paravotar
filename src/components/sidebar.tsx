@@ -14,10 +14,11 @@ type SectionProps = {
   name: string
   icon: string
   children?: ReactNode
+  isActive: boolean
 }
 
 function Section(props: SectionProps) {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(props.isActive)
 
   // Animation
   const [ref, bounds] = useMeasure({ polyfill: ResizeObserver })
@@ -26,7 +27,7 @@ function Section(props: SectionProps) {
     visibility: isOpen ? "visible" : "hidden",
     opacity: isOpen ? 1 : 0,
     transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
-    backgroundColor: isOpen ? "#d0aa7c" : "#E3C094",
+    backgroundColor: isOpen ? "#E3C094" : "#f5ddc0",
   })
 
   return (
@@ -35,11 +36,11 @@ function Section(props: SectionProps) {
       style={{ backgroundColor: springProps.backgroundColor }}
     >
       <button
-        className="flex items-center justify-between py-1 px-4 w-full"
+        className="flex items-center justify-between py-1 px-4 w-full hover:bg-secondary"
         onClick={() => setIsOpen(!isOpen)}
       >
         <div className="flex items-center">
-          <img className="w-10" src={props.icon} alt="" />
+          <img className="w-8" src={props.icon} alt="" />
           <div className="text-left ml-2">{props.name}</div>
         </div>
         <Arrows
@@ -47,15 +48,17 @@ function Section(props: SectionProps) {
           style={{ transform: springProps.transform }}
         />
       </button>
-      <animated.ul
+      <animated.div
         style={{
           height: springProps.height,
           visibility: springProps.visibility,
           opacity: springProps.opacity,
         }}
       >
-        <div ref={ref}>{props.children}</div>
-      </animated.ul>
+        <ul className="list-disc ml-6" ref={ref}>
+          {props.children}
+        </ul>
+      </animated.div>
     </animated.div>
   )
 }
@@ -67,35 +70,48 @@ type SubSectionProps = {
 
 function SubSection(props: SubSectionProps) {
   return (
-    <li>
-      <Link className="px-4 py-2 block w-full" to={props.route}>
+    <li className="ml-5">
+      <Link className="pr-4 py-2 block w-full" to={props.route}>
         {props.name}
       </Link>
     </li>
   )
 }
 
-export default function Sidebar() {
+type SidebarProps = {
+  pathname: string
+}
+
+export default function Sidebar({ pathname }: SidebarProps) {
   return (
-    <nav className="col-span-1 bg-secondary border border-solid border-b-0 border-t-0 border-l-0 border-footer">
-      <aside>
+    <nav className="col-span-1 relative border border-solid border-b-0 border-t-0 border-l-0 border-footer bg-navbar">
+      <aside className="sticky h-screen top-0">
         <div className="px-4">
           <img className="h-24" src={Logo} alt="Para Votar" />
         </div>
-        <div className="mt-4">
-          <Section name="Inscríbete" icon={Inscribete}>
-            <SubSection name="Requisitos" route="/#requirements" />
+        <div className="mt-6">
+          <Section
+            name="Inscríbete"
+            icon={Inscribete}
+            isActive={pathname === "/"}
+          >
+            <SubSection name="Tarjeta Electoral" route="/#tarjeta-electoral" />
             <SubSection
               name="Juntas de Inscripción Permanentes"
-              route="/#JIP"
+              route="/#juntas-de-inscripcion-permanentes"
             />
-            <SubSection
-              name="Verifica tu status electoral"
-              route="/#electoral-status"
-            />
+            <SubSection name="Estatus Electoral" route="/#electoral-status" />
           </Section>
-          <Section name="Practica" icon={Practica} />
-          <Section name="Sal a votar" icon={SalAVotar}>
+          <Section
+            name="Practica"
+            icon={Practica}
+            isActive={pathname === "/practica"}
+          />
+          <Section
+            name="Sal a votar"
+            icon={SalAVotar}
+            isActive={pathname === "/sal-a-votar"}
+          >
             <SubSection
               name="Voto adelantado y voto ausente"
               route="/sal-a-votar#voto-ausente-y-adelantado"

@@ -1,7 +1,6 @@
 import React, { ReactNode } from "react"
 
 type Props = {
-  id?: string
   children: ReactNode
   tag?: string
   className?: string
@@ -10,7 +9,6 @@ type Props = {
 }
 
 export default function Container({
-  id,
   children,
   className = "",
   tag = "section",
@@ -20,7 +18,6 @@ export default function Container({
   return React.createElement(
     tag,
     {
-      id,
       className: `max-w-6xl mx-auto ${className}`,
       tabIndex,
       ref,

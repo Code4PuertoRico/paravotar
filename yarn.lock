@@ -1746,6 +1746,14 @@
     "@types/history" "*"
     "@types/react" "*"
 
+"@types/reach__router@^1.3.5":
+  version "1.3.5"
+  resolved "https://registry.yarnpkg.com/@types/reach__router/-/reach__router-1.3.5.tgz#14e1e981cccd3a5e50dc9e969a72de0b9d472f6d"
+  integrity sha512-h0NbqXN/tJuBY/xggZSej1SKQEstbHO7J/omt1tYoFGmj3YXOodZKbbqD4mNDh7zvEGYd7YFrac1LTtAr3xsYQ==
+  dependencies:
+    "@types/history" "*"
+    "@types/react" "*"
+
 "@types/react-dom@*", "@types/react-dom@^16.9.5":
   version "16.9.5"
   resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-16.9.5.tgz#5de610b04a35d07ffd8f44edad93a71032d9aaa7"
@@ -1767,6 +1775,11 @@
   dependencies:
     "@types/prop-types" "*"
     csstype "^2.2.0"
+
+"@types/smooth-scroll@^16.1.0":
+  version "16.1.0"
+  resolved "https://registry.yarnpkg.com/@types/smooth-scroll/-/smooth-scroll-16.1.0.tgz#903859ef225dc6cdbfa0bde4406ef539d7a5a7f7"
+  integrity sha512-7vcLoVwdalVHBjVoPVzBISN8mHx7oqPOXyTgkXb3OVRgjdeed27TqRc5+D1sub5QozNfJ9SStbR/Kpf0TxXTKQ==
 
 "@types/stack-utils@^1.0.1":
   version "1.0.1"
@@ -12579,6 +12592,11 @@ slugify@^1.3.6:
   version "1.3.6"
   resolved "https://registry.yarnpkg.com/slugify/-/slugify-1.3.6.tgz#ba5fd6159b570fe4811d02ea9b1f4906677638c3"
   integrity sha512-wA9XS475ZmGNlEnYYLPReSfuz/c3VQsEMoU43mi6OnKMCdbnFXd4/Yg7J0lBv8jkPolacMpOrWEaoYxuE1+hoQ==
+
+smooth-scroll@16.0.3:
+  version "16.0.3"
+  resolved "https://registry.yarnpkg.com/smooth-scroll/-/smooth-scroll-16.0.3.tgz#5914e0e4050a5313102d734140ddee0267526fd7"
+  integrity sha512-Wnhk3tWeqVJRrSUxeLQ4r7MNQvc9MNlswyWfKqAQ9cc37D8VqTco/CicWcdHzSFEC4/9/kPPK3uY6oyY+mdRYg==
 
 snapdragon-node@^2.0.1:
   version "2.1.1"

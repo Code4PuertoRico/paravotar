@@ -60,7 +60,11 @@ const options = VoterDocs.map(v => ({
 const getVoterMeta = (v: string) =>
   VoterDocs.filter(vd => vd.description === v)[0]
 
-export default function Inscribete() {
+type PageProps = {
+  location: Location
+}
+
+export default function Inscribete({ location }: PageProps) {
   const [selectedOption, setSelectedOption] = useState(options[0].value)
   const containerRef = useRef<HTMLDivElement>(null)
 
@@ -73,10 +77,15 @@ export default function Inscribete() {
   }, [selectedOption])
 
   return (
-    <Layout>
+    <Layout location={location}>
       <SEO title="Inscríbete" />
-      <Container id="requirements" className="w-11/12 text-center pt-5">
-        <Typography tag="h1" variant="h3" className="uppercase tracking-wide">
+      <Container className="w-11/12 text-center pt-5">
+        <Typography
+          id="tarjeta-electoral"
+          tag="h1"
+          variant="h3"
+          className="uppercase tracking-wide"
+        >
           Inscríbete, conoce cómo obtener tu tarjeta electoral
         </Typography>
         <Typography
@@ -117,8 +126,9 @@ export default function Inscribete() {
           <VoterInfoRightPanel voterMetadata={voterMetadata} />
         </div>
       </Container>
-      <Container id="JIP" className="w-11/12 mb-32 lg:w-10/12">
+      <Container className="w-11/12 mb-32 lg:w-10/12">
         <Typography
+          id="juntas-de-inscripcion-permanentes"
           tag="h2"
           variant="h3"
           className="uppercase text-center tracking-wide"
@@ -137,7 +147,7 @@ export default function Inscribete() {
           <VoterCenters />
         </div>
       </Container>
-      <Container id="electoral-status" className="w-11/12 mb-32 lg:w-10/12">
+      <Container className="w-11/12 mb-32 lg:w-10/12">
         <VoterStatus />
       </Container>
     </Layout>

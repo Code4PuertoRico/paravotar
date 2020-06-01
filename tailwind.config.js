@@ -19,6 +19,7 @@ module.exports = {
         municipal: "#FEF8B9",
       },
       footer: "rgba(58,54,48, 0.24)",
+      navbar: "#f5ddc0",
     },
     fontFamily: {
       body: ["Inter", "Helvetica"],

@@ -3,14 +3,15 @@ import React from "react"
 import { Container, Layout, SEO } from "../components"
 import { SpecialVoters } from "../components/inscribete/SpecialVoters"
 
-export default function SalAVotar() {
+type PageProps = {
+  location: Location
+}
+
+export default function SalAVotar({ location }: PageProps) {
   return (
-    <Layout>
+    <Layout location={location}>
       <SEO title="Sal a votar" />
-      <Container
-        id="voto-adelantado-y-ausente"
-        className="w-11/12 mb-32 pt-5 lg:w-10/12"
-      >
+      <Container className="w-11/12 mb-32 pt-5 lg:w-10/12">
         <SpecialVoters />
       </Container>
     </Layout>

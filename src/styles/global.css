@@ -13,10 +13,6 @@ html {
   font-family: "Inter", Helvetica;
 }
 
-body {
-  @apply overflow-hidden;
-}
-
 svg {
   fill: currentColor;
   stroke: currentColor;
@@ -33,7 +29,8 @@ button:focus {
 }
 
 .bg-gradient {
-  background: linear-gradient(155deg, rgba(253,250,247,1) 0%, rgba(252,241,218,1) 100%);
+  background: rgba(253,250,247,1);
+  /* background: linear-gradient(155deg, rgba(253,250,247,1) 0%, rgba(252,241,218,1) 100%); */
 }
 
 /* purgecss end ignore */

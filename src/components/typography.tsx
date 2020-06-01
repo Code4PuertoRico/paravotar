@@ -77,6 +77,7 @@ function getVariantStyles(
 }
 
 type Props = {
+  id?: string
   tag: keyof VariantsOptions
   variant: keyof VariantsOptions
   children: ReactNode
@@ -85,6 +86,7 @@ type Props = {
 }
 
 export default function Typography({
+  id,
   tag,
   variant,
   className,
@@ -96,6 +98,7 @@ export default function Typography({
   return React.createElement(
     tag,
     {
+      id,
       className: `${variantStyle} ${className}`,
     },
     children
