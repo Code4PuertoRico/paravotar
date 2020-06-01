@@ -1,3 +1,4 @@
+import _ from "lodash"
 import levenshtein from "fast-levenshtein"
 import memoize from "memoizee"
 import {
@@ -181,7 +182,7 @@ export class BallotService {
     candidateRow: number,
     candidateColumn: number
   ) {
-    const section = this.getSections().filter(s => s.title === sectionName)[0]
+    const section = this.getSections().find(s => s.title === sectionName)
 
     if (!this.selectedCandidatesPerSection[sectionName]) {
       this.selectedCandidatesPerSection[sectionName] = []
@@ -198,6 +199,10 @@ export class BallotService {
       return
     }
 
+    if (!section) {
+      return
+    }
+
     if (selections.length >= section.metadata.limit) {
       throw Error("Can not select more candidates for this section")
     }
@@ -205,5 +210,36 @@ export class BallotService {
     selections.push({ row: candidateRow, column: candidateColumn })
 
     this.selectedCandidatesPerSection[sectionName] = selections
+  }
+
+  public getCandidatesByPositionAndParty(
+    sectionTitle: string,
+    party: string,
+    isIndependent?: boolean
+  ) {
+    const section = this.getSections().find(s => s.title === sectionTitle)
+
+    if (isIndependent) {
+      const partiesLength = this.getParties().filter(p => !p.isIndependent)
+        .length
+
+      const independentIndexes = []
+
+      let idx = partiesLength
+
+      while (idx < this.getParties().length) {
+        independentIndexes.push(idx)
+        idx += 1
+      }
+
+      return independentIndexes
+        .map(i => section?.rows.map(r => r[i]))
+        .flat()
+        .filter(c => c.ocrResult !== "")
+    }
+
+    const partyIndex = this.getParties().findIndex(p => p.text === party)
+
+    return section?.rows.map(r => r[partyIndex])
   }
 }

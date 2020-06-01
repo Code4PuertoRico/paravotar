@@ -43,6 +43,13 @@ export const SelectingVotingMethod: React.FunctionComponent<BaseScreenProps> = (
           VOTO POR CANDIDATURA
         </Button>
       </div>
+      <Button
+        onClick={() => {
+          send("back")
+        }}
+      >
+        Back
+      </Button>
     </section>
   )
 }

@@ -26,6 +26,8 @@ export interface PracticaMobileContext {
   voterDetails?: VoterDetailsResponse
   ballotDetails?: BallotResponse
   selectedBallotType?: "legislativo" | "municipal" | "estatal"
+  byCandidatePosition?: string
+  byCandidateParty?: any
   ballots: {
     [key: string]: BallotService
   }

@@ -1,6 +1,7 @@
 import React from "react"
 import { BaseScreenProps } from "../types/machine-props"
 import { PUBLIC_S3_BUCKET } from "../services/constants"
+import { Button } from "../../../components"
 
 export const VotoIntegro: React.FunctionComponent<BaseScreenProps> = ({
   current,
@@ -33,6 +34,13 @@ export const VotoIntegro: React.FunctionComponent<BaseScreenProps> = ({
             </button>
           ))}
       </div>
+      <Button
+        onClick={() => {
+          send("back")
+        }}
+      >
+        Back
+      </Button>
     </section>
   )
 }

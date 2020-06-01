@@ -13,6 +13,9 @@ import { BallotService } from "../services/BallotService"
 import { SelectingVotingMethod } from "../components/SelectingVotingMethod"
 import { VotoIntegro } from "../components/VotoIntegro"
 import { PreviewIntegro } from "../components/PreviewIntegro"
+import { VotoPorCandidatura } from "../components/VotoPorCandidatura"
+import { PartidosPorCandidatura } from "../components/PartidosPorCandidatura"
+import { CandidatosPorCandidatura } from "../components/CandidatosPorCandidatura"
 
 const {
   IDLE,
@@ -94,6 +97,7 @@ export const practicaMobileMachine = createMachine<PracticaMobileContext>(
       },
       [SELECTING_VOTING_METHOD]: {
         on: {
+          back: SELECTING_BALLOT,
           [INTEGRO_SELECTED]: VOTO_INTEGRO,
           [MIXTO_SELECTED]: VOTO_MIXTO,
           [CANDIDATURA_SELECTED]: VOTO_CANDIDATURA,
@@ -107,6 +111,7 @@ export const practicaMobileMachine = createMachine<PracticaMobileContext>(
       },
       [VOTO_INTEGRO]: {
         on: {
+          back: SELECTING_VOTING_METHOD,
           partySelection: {
             target: "previewIntegro",
             actions: "savePartySelection",
@@ -119,15 +124,49 @@ export const practicaMobileMachine = createMachine<PracticaMobileContext>(
       previewIntegro: {
         on: {
           back: VOTO_INTEGRO,
-          complete: "generatePDF",
+          complete: "generateIntegroPDF",
         },
         meta: {
           Component: PreviewIntegro,
         },
       },
-      generatePDF: {},
+      generateIntegroPDF: {},
       [VOTO_MIXTO]: {},
-      [VOTO_CANDIDATURA]: {},
+      [VOTO_CANDIDATURA]: {
+        on: {
+          back: SELECTING_VOTING_METHOD,
+          positionSelected: {
+            target: "selectParty",
+            actions: "saveSelectedPositionByCandidate",
+          },
+        },
+        meta: {
+          Component: VotoPorCandidatura,
+        },
+      },
+      selectParty: {
+        on: {
+          back: VOTO_CANDIDATURA,
+          partySelected: {
+            target: "selectCandidates",
+            actions: "saveSelectedPartyByCandidate",
+          },
+        },
+        meta: {
+          Component: PartidosPorCandidatura,
+        },
+      },
+      selectCandidates: {
+        on: {
+          back: "selectParty",
+          candidateSelected: {
+            actions: "saveCandidateSelection",
+          },
+        },
+        meta: {
+          Component: CandidatosPorCandidatura,
+        },
+      },
     },
   },
   {
@@ -163,6 +202,31 @@ export const practicaMobileMachine = createMachine<PracticaMobileContext>(
         const ballot = ballots[selectedBallotType as string]
 
         ballot.setParty(column)
+      },
+      saveSelectedPositionByCandidate: assign((_, { position }) => ({
+        byCandidatePosition: position,
+      })),
+      saveSelectedPartyByCandidate: assign((_, { party }) => ({
+        byCandidateParty: party,
+      })),
+      saveCandidateSelection: (
+        { byCandidatePosition, byCandidateParty, ballots, selectedBallotType },
+        { row }
+      ) => {
+        const ballot = ballots[selectedBallotType as string]
+
+        if (!byCandidateParty.isIndependent) {
+          const idx = ballot
+            .getParties()
+            .findIndex(p => p.text === byCandidateParty.text)
+
+          ballot.selectCandidate(byCandidatePosition!, row, idx)
+        } else {
+          const parties = ballot.getParties().filter(p => !p.isIndependent)
+            .length
+
+          ballot.selectCandidate(byCandidatePosition!, 0, parties + row)
+        }
       },
     },
   }
