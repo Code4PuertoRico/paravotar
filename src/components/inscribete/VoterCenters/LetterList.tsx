@@ -28,9 +28,9 @@ export function LetterList({ onSelect, letter }: LetterListProps) {
   }
 
   return (
-    <ul className="flex overflow-x-auto items-start mx-4 pt-4 pb-5 lg:flex-no-wrap lg:justify-around">
+    <ul className="flex overflow-x-auto items-start mx-4 pt-4 pb-5 lg:flex-no-wrap">
       {Object.keys(letterList).map(l => (
-        <li key={l}>
+        <li className="mx-1" key={l}>
           <button
             onClick={handleSelect(l)}
             className={`flex items-center justify-center text-2xl h-10 w-10 rounded-full border-2 hover:bg-primary hover:text-white ${

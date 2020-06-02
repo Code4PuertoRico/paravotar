@@ -18,7 +18,7 @@ export const VoterInfoLeftPanel: React.FunctionComponent<{
         Debes Saber:
       </Typography>
     </div>
-    <ul className="list-disc ml-4">
+    <ul className="list-disc ml-1">
       {voterMetadata.shouldKnow.map((k, i) => (
         <li className="ml-5 mt-1" key={i}>
           {k}
