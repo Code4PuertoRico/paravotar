@@ -35,6 +35,9 @@ module.exports = {
         "120": "30rem",
         "128": "31rem",
       },
+      inset: {
+        "-h-screen": "-100vh",
+      },
     },
   },
   variants: {
