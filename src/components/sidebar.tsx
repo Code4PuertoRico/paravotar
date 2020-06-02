@@ -2,6 +2,8 @@ import React, { useState, ReactNode } from "react"
 import { Link } from "gatsby"
 
 import Logo from "../assets/images/logo.svg"
+import Close from "../assets/icons/close.svg"
+import Menu from "../assets/icons/menu.svg"
 import Inscribete from "../assets/icons/inscribete.svg"
 import Practica from "../assets/icons/practica.svg"
 import SalAVotar from "../assets/icons/sal-a-votar.svg"
@@ -82,9 +84,70 @@ type SidebarProps = {
   pathname: string
 }
 
+export function Navbar({ pathname }: SidebarProps) {
+  const [isOpen, setIsOpen] = useState(false)
+
+  return (
+    <>
+      <nav className="flex items-center justify-between bg-navbar sticky h-16 px-2 top-0 z-50 md:hidden">
+        <button onClick={() => setIsOpen(!isOpen)}>
+          <img className="h-6 w-6" src={Menu} alt="Mobile Menu" />
+        </button>
+        <img className="h-12 -mt-1" src={Logo} alt="Para Votar" />
+        <div className="h-6 w-6"></div>
+      </nav>
+      {isOpen && (
+        <div className="fixed top-0 bg-navbar h-screen w-screen z-50 pt-12">
+          <button
+            className="absolute top-0 right-0 mt-2 mr-2"
+            onClick={() => setIsOpen(false)}
+          >
+            <img className="h-5 w-5" src={Close} alt="Close Menu" />
+          </button>
+          <div className="px-4">
+            <img className="mx-auto h-16" src={Logo} alt="Para Votar" />
+          </div>
+          <div className="mt-10">
+            <Section
+              name="Inscríbete"
+              icon={Inscribete}
+              isActive={pathname === "/"}
+            >
+              <SubSection
+                name="Tarjeta Electoral"
+                route="/#tarjeta-electoral"
+              />
+              <SubSection
+                name="Juntas de Inscripción Permanentes"
+                route="/#juntas-de-inscripcion-permanentes"
+              />
+              <SubSection name="Estatus Electoral" route="/#electoral-status" />
+            </Section>
+            <Section
+              name="Practica"
+              icon={Practica}
+              isActive={pathname === "/practica"}
+            />
+            <Section
+              name="Sal a votar"
+              icon={SalAVotar}
+              isActive={pathname === "/sal-a-votar"}
+            >
+              <SubSection
+                name="Voto adelantado y voto ausente"
+                route="/sal-a-votar#voto-ausente-y-adelantado"
+              />
+            </Section>
+          </div>
+        </div>
+      )}
+    </>
+  )
+}
+
 export default function Sidebar({ pathname }: SidebarProps) {
   return (
-    <nav className="col-span-1 relative border border-solid border-b-0 border-t-0 border-l-0 border-footer bg-navbar">
+    <nav className="hidden md:grid md:col-span-1 md:relative md:border md:border-solid md:border-b-0 md:border-t-0 md:border-l-0 md:border-footer md:bg-navbar">
       <aside className="sticky h-screen top-0">
         <div className="px-4">
           <img className="h-24" src={Logo} alt="Para Votar" />

@@ -2,7 +2,7 @@ import React, { ReactNode, useEffect } from "react"
 
 import SmoothScroll from "smooth-scroll"
 
-import { Footer, Sidebar } from "../components/index"
+import { Footer, Sidebar, Navbar } from "../components/index"
 
 type Props = {
   children: ReactNode
@@ -35,9 +35,10 @@ const Layout = ({ children, location }: Props) => {
 
   return (
     <>
-      <div className="grid grid-flow-col grid-cols-5">
+      <div className="md:grid md:grid-flow-col md:grid-cols-5">
         <Sidebar pathname={pathname} />
-        <div className="overflow-y-scroll col-span-4 bg-background">
+        <Navbar pathname={pathname} />
+        <div className="overflow-y-scroll bg-background md:col-span-4">
           <main className="w-full mx-auto mt-3">{children}</main>
           <Footer />
         </div>
