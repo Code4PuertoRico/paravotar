@@ -1,7 +1,5 @@
 import React, { ReactNode, useEffect } from "react"
 
-import SmoothScroll from "smooth-scroll"
-
 import { Footer, Sidebar, Navbar } from "../components/index"
 
 type Props = {
@@ -10,7 +8,8 @@ type Props = {
 }
 
 if (typeof window !== "undefined") {
-  new SmoothScroll('a[href*="#"]')
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  require("smooth-scroll")('a[href*="#"]')
 }
 
 const Layout = ({ children, location }: Props) => {
@@ -20,8 +19,8 @@ const Layout = ({ children, location }: Props) => {
   useEffect(() => {
     const scrollOnInit = () => {
       if (typeof window !== "undefined" && hash) {
-        console.log("check", hash)
-        const scroll = new SmoothScroll()
+        // eslint-disable-next-line @typescript-eslint/no-var-requires
+        const scroll = require("smooth-scroll")()
         const anchor = document.querySelector(hash)
 
         if (anchor) {
