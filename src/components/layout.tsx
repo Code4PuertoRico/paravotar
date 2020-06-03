@@ -9,7 +9,9 @@ type Props = {
 
 if (typeof window !== "undefined") {
   // eslint-disable-next-line @typescript-eslint/no-var-requires
-  require("smooth-scroll")('a[href*="#"]')
+  require("smooth-scroll")('a[href*="#"]', {
+    offset: () => 70,
+  })
 }
 
 const Layout = ({ children, location }: Props) => {
@@ -24,7 +26,9 @@ const Layout = ({ children, location }: Props) => {
         const anchor = document.querySelector(hash)
 
         if (anchor) {
-          scroll.animateScroll(anchor)
+          scroll.animateScroll(anchor, null, {
+            offset: () => 70,
+          })
         }
       }
     }
