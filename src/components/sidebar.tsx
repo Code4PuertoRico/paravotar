@@ -34,7 +34,7 @@ function Section(props: SectionProps) {
 
   return (
     <animated.div
-      className="overflow-hidden my-1"
+      className="overflow-y-hidden p-2"
       style={{ backgroundColor: springProps.backgroundColor }}
     >
       <button

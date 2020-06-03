@@ -38,11 +38,19 @@ const Layout = ({ children, location }: Props) => {
 
   return (
     <>
+      <a
+        className="absolute overflow-hidden text-center w-1 h-1 mt-1 mx-1 focus:w-full focus:h-auto focus:overflow-none focus:z-50 focus:bg-secondary"
+        href="#main-content"
+      >
+        Ir al contenido principal
+      </a>
       <div className="md:grid md:grid-flow-col md:grid-cols-5">
         <Sidebar pathname={pathname} />
         <Navbar pathname={pathname} />
         <div className="overflow-y-scroll bg-background md:col-span-4">
-          <main className="w-full mx-auto mt-3">{children}</main>
+          <main id="main-content" className="w-full mx-auto mt-3">
+            {children}
+          </main>
           <Footer />
         </div>
       </div>
