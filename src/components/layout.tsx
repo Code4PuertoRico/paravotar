@@ -44,10 +44,10 @@ const Layout = ({ children, location }: Props) => {
       >
         Ir al contenido principal
       </a>
-      <div className="md:grid md:grid-flow-col md:grid-cols-5">
+      <div className="lg:grid lg:grid-flow-col lg:grid-cols-5">
         <Sidebar pathname={pathname} />
         <Navbar pathname={pathname} />
-        <div className="overflow-y-scroll bg-background md:col-span-4">
+        <div className="overflow-y-scroll bg-background lg:col-span-4">
           <main id="main-content" className="w-full mx-auto mt-3">
             {children}
           </main>

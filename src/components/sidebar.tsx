@@ -12,7 +12,7 @@ type SidebarProps = {
 
 export default function Sidebar({ pathname }: SidebarProps) {
   return (
-    <nav className="hidden md:grid md:col-span-1 md:relative md:border md:border-solid md:border-b-0 md:border-t-0 md:border-l-0 md:border-footer md:bg-navbar">
+    <nav className="hidden lg:grid lg:col-span-1 lg:relative lg:border lg:border-solid lg:border-b-0 lg:border-t-0 lg:border-l-0 lg:border-footer lg:bg-navbar">
       <aside className="sticky h-screen top-0">
         <div className="px-4">
           <img className="h-24" src={Logo} alt="Para Votar" />

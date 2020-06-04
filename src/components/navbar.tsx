@@ -28,7 +28,7 @@ export default function Navbar({ pathname }: SidebarProps) {
 
   return (
     <>
-      <nav className="flex items-center justify-between bg-navbar sticky h-16 px-2 top-0 z-50 shadow-md md:hidden">
+      <nav className="flex items-center justify-between bg-navbar sticky h-16 px-2 top-0 z-50 shadow-md lg:hidden">
         <button onClick={() => setIsOpen(!isOpen)}>
           <img className="h-6 w-6" src={Menu} alt="Mobile Menu" />
         </button>
