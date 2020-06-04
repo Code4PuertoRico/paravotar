@@ -19,6 +19,7 @@ module.exports = {
         municipal: "#FEF8B9",
       },
       footer: "rgba(58,54,48, 0.24)",
+      navbar: "#f5ddc0",
     },
     fontFamily: {
       body: ["Inter", "Helvetica"],
@@ -34,13 +35,20 @@ module.exports = {
         "120": "30rem",
         "128": "31rem",
       },
+      inset: {
+        "-h-screen": "-100vh",
+      },
     },
   },
   variants: {
-    backgroundColor: ["responsive", "hover", "active", "disabled"],
+    visibility: ["responsive", "hover", "focus"],
+    backgroundColor: ["responsive", "hover", "active", "focus", "disabled"],
     borderRadius: ["responsive", "hover", "focus"],
     margin: ["responsive", "first"],
     borderWidth: ["responsive", "last"],
+    width: ["responsive", "hover", "focus"],
+    height: ["responsive", "hover", "focus"],
+    zIndex: ["responsive", "hover", "focus"],
   },
   plugins: [],
 }

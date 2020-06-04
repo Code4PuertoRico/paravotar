@@ -4,8 +4,12 @@ import "fetch-ponyfill"
 import { Container, Highlight, Layout, SEO } from "../components/index"
 import { Flow } from "../packages/practica/components/Flow"
 
-const IndexPage = () => (
-  <Layout>
+type PageProps = {
+  location: Location
+}
+
+const IndexPage = ({ location }: PageProps) => (
+  <Layout location={location}>
     <SEO title="Practica tu voto" />
     <Highlight>
       <Container className="text-center">

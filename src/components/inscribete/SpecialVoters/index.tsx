@@ -7,7 +7,7 @@ import SpecialVoterCards from "./SpecialVoterCards"
 export function SpecialVoters() {
   return (
     <>
-      <div className="mx-auto mt-3 text-center">
+      <div className="mx-auto text-center">
         <Typography tag="h2" variant="h3" className="uppercase tracking-wide">
           Aprende qué es el voto por adelantado y el voto ausente
         </Typography>
