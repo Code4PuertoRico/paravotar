@@ -73,11 +73,11 @@ export default function Navbar({ pathname }: SidebarProps) {
               onClick={() => setIsOpen(false)}
             />
           </Section>
-          <Section
+          {/* <Section
             name="Practica"
             icon={Practica}
             isActive={pathname === "/practica"}
-          />
+          /> */}
           <Section
             name="Sal a votar"
             icon={SalAVotar}

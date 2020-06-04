@@ -30,11 +30,11 @@ export default function Sidebar({ pathname }: SidebarProps) {
             />
             <SubSection name="Estatus Electoral" route="/#electoral-status" />
           </Section>
-          <Section
+          {/* <Section
             name="Practica"
             icon={Practica}
             isActive={pathname === "/practica"}
-          />
+          /> */}
           <Section
             name="Sal a votar"
             icon={SalAVotar}
