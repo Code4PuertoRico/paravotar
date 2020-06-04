@@ -1,4 +1,4 @@
-import React, { useState, ReactNode } from "react"
+import React, { useRef, useState, ReactNode, useEffect } from "react"
 import { Link } from "gatsby"
 
 import Logo from "../assets/images/logo.svg"
@@ -89,8 +89,19 @@ type SidebarProps = {
   pathname: string
 }
 
+interface HTMLDivElementWithInert extends HTMLDivElement {
+  inert: boolean
+}
+
 export function Navbar({ pathname }: SidebarProps) {
   const [isOpen, setIsOpen] = useState(false)
+  const menuRef = useRef<HTMLDivElementWithInert>(null)
+
+  useEffect(() => {
+    if (menuRef && menuRef.current) {
+      menuRef.current.inert = !isOpen
+    }
+  }, [isOpen])
 
   return (
     <>
@@ -102,9 +113,11 @@ export function Navbar({ pathname }: SidebarProps) {
         <div className="h-6 w-6"></div>
       </nav>
       <div
+        id="testing"
         className={`fixed top-0 bg-navbar h-screen w-screen z-50 pt-12 transform ease-linear duration-300 ${
           isOpen ? "top-0" : "-top-h-screen"
         }`}
+        ref={menuRef}
       >
         <button
           className="absolute top-0 right-0 mt-2 mr-2"

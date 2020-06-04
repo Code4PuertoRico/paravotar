@@ -14263,6 +14263,11 @@ which@^2.0.1:
   dependencies:
     isexe "^2.0.0"
 
+wicg-inert@^3.0.3:
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/wicg-inert/-/wicg-inert-3.0.3.tgz#7d05eaed64176887ee4c66fc0c4d6fe4b38ccce5"
+  integrity sha512-XwXf8K0NN4cpagjBlZ2/j/5Sjf6dW3HNbfywEy1y6Z8PJKvSHVGiuc5Id/9RZ6EmGq+GQCGTo7B2SK0Misbr6g==
+
 wide-align@^1.1.0:
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/wide-align/-/wide-align-1.1.3.tgz#ae074e6bdc0c14a431e804e624549c633b000457"
