@@ -23,8 +23,8 @@ export default function MakeAppointment() {
           weight="base"
           className="font-normal mt-4"
         >
-          Identifica la Junta de Inscripción Permanente más cercana y ti e
-          inscribete
+          Encuentra la Junta de Inscripción Permanente más cercana a ti e
+          inscríbete.
         </Typography>
       </div>
       <div className="mt-12 mb-32">
@@ -50,7 +50,7 @@ export default function MakeAppointment() {
                 {center.address}
               </Typography>
               <Link
-                className="w-full text-center mt-3"
+                className="self-end w-full text-center mt-3 self-end"
                 to={center.location}
                 target="_blank"
                 variant="primary"
