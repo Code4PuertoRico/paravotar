@@ -159,10 +159,11 @@ export default function Inscribete({ location }: PageProps) {
           </span>
           <Link
             to="tel:+1787-777-8682,2362"
-            className="pt-3 md:pt-2 h-12 text-md md:text-lg"
+            className="h-12 text-base md:text-lg flex justify-center items-center"
             variant="primary"
           >
-            (787) 777-8682 ext. 2362
+            (787) 777-8682 &nbsp;
+            <span className="text-xs pt-1 md:text-base md:pt-0">ext. 2362</span>
           </Link>
         </div>
       </StickyBanner>
