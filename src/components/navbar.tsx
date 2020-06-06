@@ -63,10 +63,15 @@ export default function Navbar({ pathname }: SidebarProps) {
               onClick={() => setIsOpen(false)}
             />
             <SubSection
+              name="Saca tu cita"
+              route="/#saca-tu-cita"
+              onClick={() => setIsOpen(false)}
+            />
+            {/* <SubSection
               name="Juntas de Inscripción Permanentes"
               route="/#juntas-de-inscripcion-permanentes"
               onClick={() => setIsOpen(false)}
-            />
+            /> */}
             <SubSection
               name="Estatus Electoral"
               route="/#electoral-status"
