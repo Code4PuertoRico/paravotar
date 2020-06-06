@@ -32,23 +32,25 @@ export default function MakeAppointment() {
           {ActiveCenters.map(center => (
             <div
               key={center.name}
-              className="cols-span-auto bg-white p-4 shadow-md rounded"
+              className="flex flex-col justify-between bg-white p-4 shadow-md rounded"
             >
-              <Typography tag="p" variant="h4">
-                {center.name}
-              </Typography>
-              {center.extra ? (
-                <Typography
-                  tag="p"
-                  variant="p"
-                  className="text-xs text-gray-400"
-                >
-                  {center.extra}
+              <div>
+                <Typography tag="p" variant="h4">
+                  {center.name}
                 </Typography>
-              ) : null}
-              <Typography tag="p" variant="p" className="text-sm mt-1">
-                {center.address}
-              </Typography>
+                {center.extra ? (
+                  <Typography
+                    tag="p"
+                    variant="p"
+                    className="text-xs text-gray-400"
+                  >
+                    {center.extra}
+                  </Typography>
+                ) : null}
+                <Typography tag="p" variant="p" className="text-sm mt-1">
+                  {center.address}
+                </Typography>
+              </div>
               <Link
                 className="self-end w-full text-center mt-3 self-end"
                 to={center.location}
