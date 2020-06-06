@@ -154,15 +154,15 @@ export default function Inscribete({ location }: PageProps) {
       <StickyBanner>
         <div className="flex flex-col md:flex-row justify-center items-center">
           <span className="font-bold mb-4 md:mb-0 md:mr-4 block text-lg md:text-lg">
-            Saca tu cita, llama ahora
+            Saca tu cita para Inscribirte, llama ahora
           </span>
-          <form action="tel:+1787-777-8682">
+          <form action="tel:+1787-777-8682,2362">
             <Button
               variant="primary"
               type="submit"
               className="h-12 text-md md:text-lg"
             >
-              (787)-777-8682 Ext. 2362
+              (787) 777-8682 Ext. 2362
             </Button>
           </form>
         </div>
