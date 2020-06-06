@@ -1,12 +1,13 @@
 import React, { useState, useRef, useEffect } from "react"
 import DropdownAria from "react-dropdown-aria"
 
-import { Container, Layout, SEO, Typography } from "../components"
+import { Container, Layout, SEO, Typography, Button, Link } from "../components"
 import { VoterCenters } from "../components/inscribete/VoterCenters"
 import { VoterStatus } from "../components/inscribete/VoterStatus"
 import { VoterDocs } from "../components/inscribete/constants"
 import { VoterInfoLeftPanel } from "../components/inscribete/VoterInfo/LeftPanel"
 import { VoterInfoRightPanel } from "../components/inscribete/VoterInfo/RightPanel"
+import { StickyBanner } from "../components/sticky-banner"
 
 const style: { [key: string]: any } = {
   DropdownWrapper: (base: any) => ({
@@ -150,6 +151,22 @@ export default function Inscribete({ location }: PageProps) {
       <Container className="w-11/12 mb-32 lg:w-10/12">
         <VoterStatus />
       </Container>
+      <StickyBanner>
+        <div className="flex flex-col md:flex-row justify-center items-center">
+          <span className="font-bold mb-4 md:mr-4 block text-lg md:text-lg">
+            Saca tu cita, llama ahora
+          </span>
+          <form action="tel:+1787-777-8682">
+            <Button
+              variant="primary"
+              type="submit"
+              className="h-12 text-md md:text-lg"
+            >
+              (787)-777-8682 Ext. 2362
+            </Button>
+          </form>
+        </div>
+      </StickyBanner>
     </Layout>
   )
 }

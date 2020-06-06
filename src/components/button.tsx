@@ -20,7 +20,7 @@ function getButtonStyle(variant: keyof VariantOptions) {
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant: keyof VariantOptions
-  onClick: () => void
+  onClick?: () => void
   children: ReactChild | ReactChild[]
   className?: string
 }
