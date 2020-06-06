@@ -8,6 +8,7 @@ import { VoterDocs } from "../components/inscribete/constants"
 import { VoterInfoLeftPanel } from "../components/inscribete/VoterInfo/LeftPanel"
 import { VoterInfoRightPanel } from "../components/inscribete/VoterInfo/RightPanel"
 import { StickyBanner } from "../components/sticky-banner"
+import MakeAppointment from "../components/inscribete/MakeAppointment"
 
 const style: { [key: string]: any } = {
   DropdownWrapper: (base: any) => ({
@@ -127,7 +128,7 @@ export default function Inscribete({ location }: PageProps) {
           <VoterInfoRightPanel voterMetadata={voterMetadata} />
         </div>
       </Container>
-      <Container className="w-11/12 mb-32 lg:w-10/12">
+      {/* <Container className="w-11/12 mb-32 lg:w-10/12">
         <Typography
           id="juntas-de-inscripcion-permanentes"
           tag="h2"
@@ -147,6 +148,9 @@ export default function Inscribete({ location }: PageProps) {
         <div className="mt-12 bg-white shadow-md rounded">
           <VoterCenters />
         </div>
+      </Container> */}
+      <Container className="w-11/12 mb-32 lg:w-10/12">
+        <MakeAppointment />
       </Container>
       <Container className="w-11/12 mb-32 lg:w-10/12">
         <VoterStatus />
