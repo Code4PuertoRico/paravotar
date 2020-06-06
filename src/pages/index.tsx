@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react"
 import DropdownAria from "react-dropdown-aria"
 
-import { Container, Layout, SEO, Typography, Button, Link } from "../components"
+import { Container, Layout, SEO, Typography, Link } from "../components"
 import { VoterCenters } from "../components/inscribete/VoterCenters"
 import { VoterStatus } from "../components/inscribete/VoterStatus"
 import { VoterDocs } from "../components/inscribete/constants"
@@ -156,15 +156,13 @@ export default function Inscribete({ location }: PageProps) {
           <span className="font-bold mb-4 md:mb-0 md:mr-4 block text-lg md:text-lg">
             Saca tu cita para Inscribirte, llama ahora
           </span>
-          <form action="tel:+1787-777-8682,2362">
-            <Button
-              variant="primary"
-              type="submit"
-              className="h-12 text-md md:text-lg"
-            >
-              (787) 777-8682 Ext. 2362
-            </Button>
-          </form>
+          <Link
+            to="tel:+1787-777-8682,2362"
+            className="pt-3 md:pt-2 h-12 text-md md:text-lg"
+            variant="primary"
+          >
+            (787) 777-8682 ext. 2362
+          </Link>
         </div>
       </StickyBanner>
     </Layout>
