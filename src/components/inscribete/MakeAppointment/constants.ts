@@ -68,6 +68,7 @@ export const ActiveCenters = [
   {
     name: "Rio Grande 101-102",
     address: "Carr. 187 Plaza Rio Grande, Puerto Rico 00745",
-    location: "",
+    location:
+      "https://www.google.com/maps/place/PR-187,+Puerto+Rico/@18.3782961,-65.8291662,19.58z/data=!4m5!3m4!1s0x8c036166bb280fcf:0x80cad67192219978!8m2!3d18.3783758!4d-65.8287215?hl=en-US",
   },
 ]
