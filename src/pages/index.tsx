@@ -153,7 +153,7 @@ export default function Inscribete({ location }: PageProps) {
       </Container>
       <StickyBanner>
         <div className="flex flex-col md:flex-row justify-center items-center">
-          <span className="font-bold mb-4 md:mr-4 block text-lg md:text-lg">
+          <span className="font-bold mb-4 md:mb-0 md:mr-4 block text-lg md:text-lg">
             Saca tu cita, llama ahora
           </span>
           <form action="tel:+1787-777-8682">
