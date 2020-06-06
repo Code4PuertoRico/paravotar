@@ -152,7 +152,7 @@ export default function Inscribete({ location }: PageProps) {
         <VoterStatus />
       </Container>
       <StickyBanner>
-        <div className="flex flex-col md:flex-row justify-center items-center">
+        <div className="flex flex-col md:flex-row justify-center items-center text-center">
           <span className="font-bold mb-4 md:mb-0 md:mr-4 block text-lg md:text-lg">
             Saca tu cita para Inscribirte, llama ahora
           </span>
