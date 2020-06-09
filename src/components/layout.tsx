@@ -6,8 +6,6 @@ import { withTrans } from "../i18n/withTrans"
 type Props = {
   children: ReactNode
   location: Location
-  t: any
-  i18n: any
 }
 
 if (typeof window !== "undefined") {
@@ -17,7 +15,7 @@ if (typeof window !== "undefined") {
   })
 }
 
-const Layout = ({ children, location, t, i18n }: Props) => {
+const Layout = ({ children, location }: Props) => {
   const hash = location?.hash
   const pathname = location?.pathname || ""
 

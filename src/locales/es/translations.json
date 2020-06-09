@@ -1,5 +1,8 @@
 {
   "site": {
-    "Language-Button": "English Version"
+    "Language-Button": "English Version",
+    "tarjeta-electoral-title": "Inscríbete, conoce cómo obtener tu tarjeta electoral",
+    "born-location": "Yo nací en...",
+    "what-bring-registration-card": "¿Qué debo llevar para obtener mi tarjeta electoral?"
   }
 }

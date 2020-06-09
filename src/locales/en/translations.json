@@ -1,5 +1,8 @@
 {
   "site": {
-    "Language-Button": "Versión Español"
+    "Language-Button": "Versión Español",
+    "tarjeta-electoral-title": "Register to vote, how to get a voter registration card",
+    "born-location": "I was born in...",
+    "what-bring-registration-card": "What do I need to bring to get my registration card to vote?"
   }
 }

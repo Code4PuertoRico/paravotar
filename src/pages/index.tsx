@@ -9,6 +9,8 @@ import { VoterDocs } from "../components/inscribete/constants"
 import { VoterInfoLeftPanel } from "../components/inscribete/VoterInfo/LeftPanel"
 import { VoterInfoRightPanel } from "../components/inscribete/VoterInfo/RightPanel"
 import { StickyBanner } from "../components/sticky-banner"
+import { withTrans } from "../i18n/withTrans"
+import { useTranslation } from "react-i18next"
 
 const style: { [key: string]: any } = {
   DropdownWrapper: (base: any) => ({
@@ -66,7 +68,9 @@ type PageProps = {
   location: Location
 }
 
-export default function Inscribete({ location }: PageProps) {
+const Inscribete = ({ location }: PageProps) => {
+  const { t, i18n } = useTranslation()
+
   const [selectedOption, setSelectedOption] = useState(options[0].value)
   const containerRef = useRef<HTMLDivElement>(null)
 
@@ -89,7 +93,7 @@ export default function Inscribete({ location }: PageProps) {
           variant="h3"
           className="uppercase tracking-wide"
         >
-          Inscríbete, conoce cómo obtener tu tarjeta electoral
+          {t("site.tarjeta-electoral-title")}
         </Typography>
         <Typography
           tag="h2"
@@ -97,7 +101,7 @@ export default function Inscribete({ location }: PageProps) {
           weight="base"
           className="font-normal mt-4"
         >
-          ¿Qué debo llevar para obtener mi tarjeta electoral?
+          {t("site.what-bring-registration-card")}
         </Typography>
         <Typography
           tag="h2"
@@ -105,7 +109,7 @@ export default function Inscribete({ location }: PageProps) {
           weight="base"
           className="font-normal mt-4"
         >
-          Yo nací en...
+          {t("site.born-location")}
         </Typography>
       </Container>
       <Container className="w-11/12 mt-4 mb-8 lg:w-10/12">
@@ -172,3 +176,5 @@ export default function Inscribete({ location }: PageProps) {
     </Layout>
   )
 }
+
+export default withTrans(Inscribete)
