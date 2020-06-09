@@ -90,4 +90,54 @@ export const ActiveCenters = [
     location:
       "https://google.com/maps/search/?api=1&query=18.00519776,-65.90050048",
   },
+  {
+    name: "Guaynabo 06-07",
+    address: "Concepto Municipal Medical Mall Guaynabo, Puerto Rico 00969",
+    location:
+      "https://www.google.com/maps/place/Junta+de+Inscripcion+Permanente/@18.3614876,-66.1139214,19z/data=!4m8!1m2!2m1!1sMedical+Mall!3m4!1s0x8c034276ae75a8d3:0xe3cfe3a9f43133e!8m2!3d18.361369!4d-66.1128118",
+  },
+  {
+    name: "Cataño 08",
+    address:
+      "Plaza del Mercado Local 16 Avenida Cataño, Puerto Rico 00964-0296",
+    location:
+      "https://www.google.com/maps/place/Junta+de+Inscripcion+Permanente/@18.4387812,-66.1272759,20z/data=!4m8!1m2!2m1!1sJunta+de+inscripcion!3m4!1s0x0:0xeac263e5f4e02753!8m2!3d18.4387131!4d-66.12684",
+  },
+  {
+    name: "Orocovis 066",
+    address: "Edificio Sorobel Carr. 568 KM 0 HM 2 Orocovis, Puerto Rico 00720",
+    location:
+      "https://google.com/maps/search/?api=1&query=18.22949545,-66.38976054",
+  },
+  {
+    name: "Naranjito 073",
+    address:
+      "Edificio Gubernamental José Archilla Rivera Carr 825 Naranjito, Puerto Rico 00719",
+    location:
+      "https://google.com/maps/search/?api=1&query=18.30177227,-66.24696895",
+  },
+  {
+    name: "Comerío 074",
+    address: "Barrio Pueblo Calle Georgetti Final Comerío, Puerto Rico 00782",
+    location:
+      "https://google.com/maps/search/?api=1&query=18.21759198,-66.2261689",
+  },
+  {
+    name: "San Lorenzo 086-087",
+    address: "Calle Valeriano Muñoz #55 Este Final San Lorenzo, 00685",
+    location:
+      "https://google.com/maps/search/?api=1&query=18.18761937,-65.96082451",
+  },
+  {
+    name: "Fajardo 099",
+    address: "#105 Calle Iglesias",
+    location:
+      "https://google.com/maps/search/?api=1&query=18.32401816,-65.65378487",
+  },
+  {
+    name: "Luquillo 100",
+    address: "#257 Calle Fernández García Luquillo, Puerto Rico 00773",
+    location:
+      "https://www.google.com/maps/place/CEE.+Junta+De+Inscripcion+Permanente./@18.338753,-65.8602074,11z/data=!4m8!1m2!2m1!1sJunta+de+inscripcion+!3m4!1s0x0:0x564b3ca7048be115!8m2!3d18.3743202!4d-65.7154083",
+  },
 ]

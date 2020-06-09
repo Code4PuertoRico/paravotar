@@ -210,6 +210,13 @@ export const voterCenters: Town[] = [
     servicios: ["Trámites electorales", "Servicios de PR.GOV"],
   },
   {
+    pueblo: "Comerío",
+    telefono: "787-875-2191",
+    direccion: "Barrio Pueblo Calle Georgetti Final",
+    googleMapsLink:
+      "https://google.com/maps/search/?api=1&query=18.21759198,-66.2261689",
+  },
+  {
     pueblo: "Corozal",
     telefono: "787-859-1015",
     direccion: "Carr 891 KM 1.3 Bo Pueblo",
@@ -402,9 +409,9 @@ export const voterCenters: Town[] = [
   {
     pueblo: "Luquillo",
     telefono: "787-889-2335",
-    direccion: "Sect. Fortuna, Cll. 10 esq. Cll. 1",
+    direccion: "#257 Calle Fernández García",
     googleMapsLink:
-      "https://google.com/maps/search/?api=1&query=18.37791562,-65.74440404",
+      "https://www.google.com/maps/place/CEE.+Junta+De+Inscripcion+Permanente./@18.338753,-65.8602074,11z/data=!4m8!1m2!2m1!1sJunta+de+inscripcion+!3m4!1s0x0:0x564b3ca7048be115!8m2!3d18.3743202!4d-65.7154083",
     servicios: [
       "Trámites electorales",
       "Servicios de PR.GOV",
