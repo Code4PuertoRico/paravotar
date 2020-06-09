@@ -1,22 +1,94 @@
 import React from "react"
 import { PUBLIC_S3_BUCKET } from "../../packages/practica/services/constants"
 
-type PartyHeaderProps = {
+type HeaderProps = {
   url: string
   ocrResult: string
   logo?: string
 }
 
-function PartyHeader({ url, logo, ocrResult }: PartyHeaderProps) {
+function PoliticalParty({ url, logo, ocrResult }: HeaderProps) {
   return (
     <div className="px-auto text-center border border-white" key={ocrResult}>
-      {logo && (
-        <img className="mx-auto" src={`${url}/${logo}`} alt={ocrResult} />
-      )}
+      <img className="mx-auto" src={`${url}/${logo}`} alt={ocrResult} />
       <input type="checkbox" />
       <p className="whitespace-pre-line text-white">{ocrResult}</p>
     </div>
   )
+}
+
+function IndependentCandidate({ ocrResult }: { ocrResult: string }) {
+  if (ocrResult.includes("CANDIDATOS(AS) INDEPENDIENTES")) {
+    const esHeader = "CANDIDATOS(AS) INDEPENDIENTES"
+    const enHeader = "INDEPENDENT CANDIDATES"
+    const esParagraph = ocrResult
+      .substring(esHeader.length, ocrResult.indexOf(enHeader))
+      .trim()
+      .replace(/\n/g, "")
+    const enParagraph = ocrResult
+      .substring(ocrResult.indexOf(enHeader) + enHeader.length)
+      .trim()
+      .replace(/\n/g, "")
+
+    return (
+      <div className="px-auto text-center border border-white">
+        <p className="whitespace-pre-line text-white font-semibold">
+          {esHeader}
+        </p>
+        <p className="whitespace-pre-line text-white text-sm mt-1">
+          {esParagraph}
+        </p>
+        <p className="whitespace-pre-line text-white font-semibold mt-2">
+          {enHeader}
+        </p>
+        <p className="whitespace-pre-line text-white text-sm mt-1">
+          {enParagraph}
+        </p>
+      </div>
+    )
+  } else if (ocrResult.includes("NOMINACIÓN DIRECTA")) {
+    const esHeader = "NOMINACIÓN DIRECTA"
+    const enHeader = "WRITE IN CANDIDATES"
+    const esParagraph = ocrResult
+      .substring(esHeader.length, ocrResult.indexOf(enHeader))
+      .trim()
+      .replace(/\n/g, "")
+    const enParagraph = ocrResult
+      .substring(ocrResult.indexOf(enHeader) + enHeader.length)
+      .trim()
+      .replace(/\n/g, "")
+
+    return (
+      <div className="px-auto text-center border border-white">
+        <p className="whitespace-pre-line text-white font-semibold">
+          {esHeader}
+        </p>
+        <p className="whitespace-pre-line text-white text-sm mt-1">
+          {esParagraph}
+        </p>
+        <p className="whitespace-pre-line text-white font-semibold mt-2">
+          {enHeader}
+        </p>
+        <p className="whitespace-pre-line text-white text-sm mt-1">
+          {enParagraph}
+        </p>
+      </div>
+    )
+  }
+
+  return (
+    <div className="px-auto text-center border border-white" key={ocrResult}>
+      <p className="whitespace-pre-line text-white">{ocrResult}</p>
+    </div>
+  )
+}
+
+function Header({ url, logo, ocrResult }: HeaderProps) {
+  if (logo) {
+    return <PoliticalParty url={url} logo={logo} ocrResult={ocrResult} />
+  }
+
+  return <IndependentCandidate ocrResult={ocrResult} />
 }
 
 type CandidateProps = {
@@ -29,7 +101,7 @@ type CandidateProps = {
 function Candidate({ url, img, ocrResult }: CandidateProps) {
   const splitOcrResult = ocrResult
     .trim()
-    .replace("\n", " ")
+    .replace(/\n/g, " ")
     .split(".")
   const number = splitOcrResult[0]
   const name = splitOcrResult[splitOcrResult.length - 1]
@@ -66,7 +138,7 @@ export default function StateBallot({ ballotPath, votes }) {
   const url = `${PUBLIC_S3_BUCKET}${ballotPath}`
 
   return (
-    <div className="bg-black" style={{ width: 4000 }}>
+    <div className="bg-black" style={{ width: 3000 }}>
       {votes.map((row, rowIndex) => {
         return (
           <div
@@ -80,7 +152,7 @@ export default function StateBallot({ ballotPath, votes }) {
 
               if (rowIndex === 0) {
                 return (
-                  <PartyHeader
+                  <Header
                     key={key}
                     url={url}
                     logo={col.logoImg}
