@@ -21,7 +21,7 @@ function getButtonStyle(variant: keyof VariantOptions) {
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant: keyof VariantOptions
   onClick?: () => void
-  children: ReactChild | ReactChild[]
+  children: ReactChild | ReactChild[] | any // sorry for this any
   className?: string
 }
 

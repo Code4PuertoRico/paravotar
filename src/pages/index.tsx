@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react"
 import DropdownAria from "react-dropdown-aria"
 
 import { Container, Layout, SEO, Typography, Link } from "../components"
+import LanguageMenu from "../components/languageMenu"
 import { VoterCenters } from "../components/inscribete/VoterCenters"
 import { VoterStatus } from "../components/inscribete/VoterStatus"
 import { VoterDocs } from "../components/inscribete/constants"
@@ -81,6 +82,7 @@ export default function Inscribete({ location }: PageProps) {
     <Layout location={location}>
       <SEO title="Inscríbete" />
       <Container className="w-11/12 text-center pt-5">
+        <LanguageMenu />
         <Typography
           id="tarjeta-electoral"
           tag="h1"
