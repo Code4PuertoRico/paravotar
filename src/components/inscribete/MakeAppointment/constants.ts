@@ -84,4 +84,10 @@ export const ActiveCenters = [
     location:
       "https://google.com/maps/search/?api=1&query=17.96673976,-66.06142752",
   },
+  {
+    name: "Maunabo 092",
+    address: "Antigua Esc. Urbana Carr. 901 Maunabo, Puerto Rico 00707",
+    location:
+      "https://google.com/maps/search/?api=1&query=18.00519776,-65.90050048",
+  },
 ]
