@@ -25,3 +25,4 @@ jobs:
           build-directory: "public/"
         env:
           PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+          BUNDLE_ANALYZER_TOKEN: ${{ secrets.BUNDLE_ANALYZER_TOKEN }}
