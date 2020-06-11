@@ -4,6 +4,7 @@ import BornInOtherCountries from "../../assets/icons/born-in-other-countries.svg
 import AbsenteeVoterIcon from "../../assets/icons/absentee-voter.svg"
 import EarlyVoterIcon from "../../assets/icons/early-voter.svg"
 import { Voter, SpecialVoter, AbsenteeAndEarlyVoting } from "./types"
+import i18next from "i18next"
 
 export const VoterDocs: Voter[] = [
   {
@@ -11,21 +12,20 @@ export const VoterDocs: Voter[] = [
     icon: EighteenPlus,
     description: "Puerto Rico",
     shouldKnow: [
-      "Nombre completo",
-      "Dirección postal",
+      "site.complete-name",
+      "site.postal-address",
       "Dirección física",
       "Número de teléfono",
       "Número de Seguro Social",
       "Estatura",
     ],
-    recommendedDocsText:
-      "Recomendamos que lleves uno o más de los siguientes documentos:",
+    recommendedDocsText: "site.rec-docs",
     recommendedDocs: [
       "Licencia de conducir o identificación con foto expedida por Gobierno Estatal, Municipal o Federal.",
       "Certificado de Nacimiento original. Puede ser necesario en el caso de que la CEE no encuentre tu información en el sistema del Registro Demográfico.",
     ],
-    requiredDocsText: "Documentos requeridos:",
-    requiredDocs: ["Ninguno"],
+    requiredDocsText: "site.req-docs",
+    requiredDocs: ["site.none"],
     optionalDocs: [
       "Factura con la dirección del lugar en donde vives. Esto puede ser necesario en el caso que la CEE no pueda validar tu dirección en su sistema.",
     ],

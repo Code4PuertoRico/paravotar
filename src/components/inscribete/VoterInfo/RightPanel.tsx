@@ -1,6 +1,7 @@
 import React from "react"
 import { Voter } from "../types"
 import Typography from "../../typography"
+import i18next from "i18next"
 
 export const VoterInfoRightPanel: React.FunctionComponent<{
   voterMetadata: Voter
@@ -8,15 +9,14 @@ export const VoterInfoRightPanel: React.FunctionComponent<{
   <div className="flex flex-col p-4 border-t border-separator justify-center w-full lg:ml-10 lg:m-0 lg:border-t-0">
     {/* Voting pre-requisite */}
     <Typography tag="p" variant="p" weight="base" className="font-normal">
-      Para votar en las Elecciones Generales en Puerto Rico debes tener 18 años
-      (o más) en o antes del 3 de noviembre de 2020.
+      {i18next.t("site.to-vote-req1")}
     </Typography>
 
     {/* Required docs */}
     {voterMetadata.requiredDocs.length >= 1 && voterMetadata.requiredDocs ? (
       <section className="mt-2">
         <Typography tag="h3" variant="h5">
-          {voterMetadata.requiredDocsText}
+          {i18next.t(`${voterMetadata.requiredDocsText}`)}
         </Typography>
         <ul className="ml-4">
           {voterMetadata.requiredDocs.map((item, index) => (
@@ -24,7 +24,7 @@ export const VoterInfoRightPanel: React.FunctionComponent<{
               key={`required-docs-${voterMetadata.id}-${index}`}
               className="ml-4 pt-2 list-disc text-sm"
             >
-              {item}
+              {i18next.t(`${item}`)}
             </li>
           ))}
         </ul>
@@ -36,7 +36,8 @@ export const VoterInfoRightPanel: React.FunctionComponent<{
     voterMetadata.recommendedDocs ? (
       <section className="mt-4">
         <Typography tag="h3" variant="h5">
-          {voterMetadata.recommendedDocsText || "Recomendamos que lleves:"}
+          {i18next.t(`${voterMetadata.recommendedDocsText}`) ||
+            "Recomendamos que lleves:"}
         </Typography>
         <ul className="ml-4">
           {voterMetadata.recommendedDocs.map((item, index) => (

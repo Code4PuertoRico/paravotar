@@ -1,8 +1,15 @@
 {
   "site": {
-    "Language-Button": "Versión Español",
+    "Language-Button":"Versión Español",
     "tarjeta-electoral-title": "Register to vote, how to get a voter registration card",
     "born-location": "I was born in...",
-    "what-bring-registration-card": "What do I need to bring to get my registration card to vote?"
+    "what-bring-registration-card": "What do I need to bring to get my registration card to vote?",
+    "you-must-know": "You must know:",
+    "to-vote-req1": "To vote in the General Elections in Puerto Rico you must be 18 years old (or older) on or before November 3, 2020.",
+    "rec-docs": "We recommend that you bring one or more of the following documents:",
+    "req-docs": "Required documents:",
+    "complete-name": "Complete name",
+    "postal-address": "Postal address",
+    "none": "Nothing"
   }
 }

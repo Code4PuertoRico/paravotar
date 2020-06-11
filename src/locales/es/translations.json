@@ -3,6 +3,13 @@
     "Language-Button": "English Version",
     "tarjeta-electoral-title": "Inscríbete, conoce cómo obtener tu tarjeta electoral",
     "born-location": "Yo nací en...",
-    "what-bring-registration-card": "¿Qué debo llevar para obtener mi tarjeta electoral?"
+    "what-bring-registration-card": "¿Qué debo llevar para obtener mi tarjeta electoral?",
+    "you-must-know": "Debes Saber:",
+    "to-vote-req1": "Para votar en las Elecciones Generales en Puerto Rico debes tener 18 años (o más) en o antes del 3 de noviembre de 2020.",
+    "rec-docs": "Recomendamos que lleves uno o más de los siguientes documentos:",
+    "req-docs": "Documentos requeridos:",
+    "complete-name": "Nombre completo",
+    "postal-address": "Dirección postal",
+    "none": "Ninguno"
   }
 }
