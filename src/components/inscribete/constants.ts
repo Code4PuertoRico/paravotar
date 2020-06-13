@@ -14,10 +14,10 @@ export const VoterDocs: Voter[] = [
     shouldKnow: [
       "site.complete-name",
       "site.postal-address",
-      "Dirección física",
-      "Número de teléfono",
-      "Número de Seguro Social",
-      "Estatura",
+      "site.physical-address",
+      "site.phone-number",
+      "site.ss-number",
+      "site.voter-height",
     ],
     recommendedDocsText: "site.rec-docs",
     recommendedDocs: [

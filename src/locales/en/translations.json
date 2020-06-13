@@ -10,6 +10,10 @@
     "req-docs": "Required documents:",
     "complete-name": "Complete name",
     "postal-address": "Postal address",
-    "none": "Nothing"
+    "none": "Nothing",
+    "physical-address": "Residential address",
+    "phone-number": "Phone number",
+    "ss-number": "Social Security number",
+    "voter-height": "Height"
   }
 }

@@ -10,6 +10,10 @@
     "req-docs": "Documentos requeridos:",
     "complete-name": "Nombre completo",
     "postal-address": "Dirección postal",
-    "none": "Ninguno"
+    "none": "Ninguno",
+    "physical-address": "Dirección física",
+    "phone-number": "Número de teléfono",
+    "ss-number": "Número de Seguro Social",
+    "voter-height": "Estatura"
   }
 }
