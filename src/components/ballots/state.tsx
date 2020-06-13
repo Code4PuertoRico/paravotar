@@ -1,5 +1,36 @@
-import React from "react"
+import React, { useState } from "react"
+
+import VoteCross from "../../assets/icons/vote-cross.svg"
 import { PUBLIC_S3_BUCKET } from "../../packages/practica/services/constants"
+
+type CheckboxProps = {
+  type: "candidate" | "party"
+  id: string
+  checked?: boolean
+}
+
+function Checkbox({ type, id, checked = false }: CheckboxProps) {
+  const [isChecked, setIsChecked] = useState<boolean>(checked)
+  const style = `${
+    type === "candidate" ? "h-8 w-12 ml-3 mr-1" : "h-12 w-16 mx-auto"
+  }`
+
+  return (
+    <label htmlFor={id}>
+      <input
+        id={id}
+        type="checkbox"
+        className="hidden"
+        onClick={() => setIsChecked(!isChecked)}
+      />
+      <div
+        className={`${style} bg-white border flex items-center justify-center`}
+      >
+        {isChecked ? <img className="h-6 w-8" src={VoteCross} alt="" /> : null}
+      </div>
+    </label>
+  )
+}
 
 type HeaderProps = {
   url: string
@@ -9,10 +40,12 @@ type HeaderProps = {
 
 function PoliticalParty({ url, logo, ocrResult }: HeaderProps) {
   return (
-    <div className="px-auto text-center border border-white" key={ocrResult}>
+    <div className="p-2 text-center border border-white" key={ocrResult}>
       <img className="mx-auto" src={`${url}/${logo}`} alt={ocrResult} />
-      <input type="checkbox" />
-      <p className="whitespace-pre-line text-white">{ocrResult}</p>
+      <Checkbox type="party" id={ocrResult.replace(" ", "-").toLowerCase()} />
+      <p className="whitespace-pre-line text-white font-semibold">
+        {ocrResult}
+      </p>
     </div>
   )
 }
@@ -31,7 +64,7 @@ function IndependentCandidate({ ocrResult }: { ocrResult: string }) {
       .replace(/\n/g, "")
 
     return (
-      <div className="px-auto text-center border border-white">
+      <div className="p-2 text-center border border-white">
         <p className="whitespace-pre-line text-white font-semibold">
           {esHeader}
         </p>
@@ -59,17 +92,17 @@ function IndependentCandidate({ ocrResult }: { ocrResult: string }) {
       .replace(/\n/g, "")
 
     return (
-      <div className="px-auto text-center border border-white">
+      <div className="p-2 text-center border border-white">
         <p className="whitespace-pre-line text-white font-semibold">
           {esHeader}
         </p>
-        <p className="whitespace-pre-line text-white text-sm mt-1">
+        <p className="whitespace-pre-line text-white text-xs mt-1">
           {esParagraph}
         </p>
         <p className="whitespace-pre-line text-white font-semibold mt-2">
           {enHeader}
         </p>
-        <p className="whitespace-pre-line text-white text-sm mt-1">
+        <p className="whitespace-pre-line text-white text-xs mt-1">
           {enParagraph}
         </p>
       </div>
@@ -77,7 +110,7 @@ function IndependentCandidate({ ocrResult }: { ocrResult: string }) {
   }
 
   return (
-    <div className="px-auto text-center border border-white" key={ocrResult}>
+    <div className="p-2 text-center border border-white" key={ocrResult}>
       <p className="whitespace-pre-line text-white">{ocrResult}</p>
     </div>
   )
@@ -111,7 +144,10 @@ function Candidate({ url, img, ocrResult }: CandidateProps) {
       <div className="border px-auto" key={ocrResult}>
         <div className="flex items-center justify-center mx-auto p-1">
           {isNaN(Number(number)) ? null : <p>{number}.</p>}
-          <div className="h-8 w-12 bg-white border ml-3 mr-1"></div>
+          <Checkbox
+            type="candidate"
+            id={name.replace(" ", "-").toLowerCase()}
+          />
           <img
             className="h-10 w-10"
             src={`${url}/${img}`}
@@ -138,7 +174,7 @@ export default function StateBallot({ ballotPath, votes }) {
   const url = `${PUBLIC_S3_BUCKET}${ballotPath}`
 
   return (
-    <div className="bg-black" style={{ width: 3000 }}>
+    <div className="bg-black" style={{ width: 2200 }}>
       {votes.map((row, rowIndex) => {
         return (
           <div
