@@ -125,7 +125,6 @@ function Header({ url, logo, ocrResult }: HeaderProps) {
 }
 
 type CandidateProps = {
-  index: number
   url: string
   img: string
   ocrResult: string
@@ -170,12 +169,22 @@ function SectionHeader({ ocrResult }: { ocrResult: string }) {
   )
 }
 
-export default function StateBallot({ ballotPath, votes }) {
+type BallotContent = {
+  ocrResult: string
+  logoImg?: string
+}
+
+type BallotProps = {
+  ballotPath: string
+  votes: BallotContent[][]
+}
+
+export default function StateBallot({ ballotPath, votes }: BallotProps) {
   const url = `${PUBLIC_S3_BUCKET}${ballotPath}`
 
   return (
     <div className="bg-black" style={{ width: 2200 }}>
-      {votes.map((row, rowIndex) => {
+      {votes.map((row: BallotContent[], rowIndex: number) => {
         return (
           <div
             key={`state-ballot-${rowIndex}`}
@@ -183,7 +192,7 @@ export default function StateBallot({ ballotPath, votes }) {
               rowIndex !== 0 ? "bg-ballots-governmental" : ""
             }`}
           >
-            {row.map((col, colIndex) => {
+            {row.map((col: BallotContent, colIndex: number) => {
               const key = `${col.ocrResult}-${colIndex}`
 
               if (rowIndex === 0) {
