@@ -18,9 +18,13 @@ export default function Candidate({ url, img, ocrResult }: CandidateProps) {
 
   if (name) {
     return (
-      <div className="border px-auto" key={ocrResult}>
-        <div className="flex items-center justify-center mx-auto p-1">
-          {isNaN(Number(number)) ? null : <p>{number}.</p>}
+      <div className="border" key={ocrResult}>
+        <div className="flex items-center mx-auto py-1 px-3">
+          {isNaN(Number(number)) ? (
+            <div className="h-5 w-4"></div>
+          ) : (
+            <p className="h-5 w-4">{number}.</p>
+          )}
           <Checkbox
             type="candidate"
             id={name.replace(" ", "-").toLowerCase()}
