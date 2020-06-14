@@ -1,5 +1,13 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
+
+import { Machine, assign } from "xstate"
+import { useMachine } from "@xstate/react"
+
 import { StateBallot, LegislativeBallot } from "../components/ballots/index"
+import { PUBLIC_S3_BUCKET } from "../packages/practica/services/constants"
+import Switch from "../components/switch"
+import Case from "../components/case"
+import Default from "../components/default"
 
 const state = {
   ballotType: "estatal",
@@ -452,14 +460,163 @@ const legislative = {
   ],
 }
 
-export default function GenerateBallot() {
+async function fetchBallot(path: string) {
+  const resp = await fetch(`${PUBLIC_S3_BUCKET}${path}/data.json`)
+  const data = await resp.json()
+
+  return data
+}
+
+const config = {
+  id: "ballotMachine",
+  initial: "idle",
+  context: {
+    type: "",
+    path: "",
+    ballot: [],
+  },
+  states: {
+    idle: {
+      on: {
+        FETCH: "loading",
+      },
+    },
+    loading: {
+      invoke: {
+        id: "fetchBallot",
+        src: context => fetchBallot(context.path),
+        onDone: {
+          target: "success",
+          actions: assign({ ballot: (context, event) => event.data }),
+        },
+        onError: {
+          target: "failure",
+        },
+      },
+    },
+    success: {
+      id: "generateBallotMachine",
+      initial: "idle",
+      states: {
+        idle: {
+          on: {
+            "": [
+              {
+                target: "governmental",
+                cond(context) {
+                  return context.type === "estatal"
+                },
+              },
+              {
+                target: "legislative",
+                cond(context) {
+                  return context.type === "legislativa"
+                },
+              },
+              {
+                target: "municipal",
+                cond(context) {
+                  return context.type === "municipal"
+                },
+              },
+              {
+                target: "unknown",
+                cond(context) {
+                  return (
+                    context.type !== "estatal" &&
+                    context.type !== "legislativa" &&
+                    context.type !== "municipal"
+                  )
+                },
+              },
+            ],
+          },
+        },
+        governmental: {
+          type: "final",
+        },
+        legislative: {
+          type: "final",
+        },
+        municipal: {
+          type: "final",
+        },
+        unknown: {
+          type: "final",
+        },
+      },
+    },
+    failure: {
+      type: "final",
+    },
+  },
+}
+
+const BallotMachine = Machine(config)
+
+type PageProps = {
+  location: Location
+}
+
+type BallotContent = {
+  ocrResult: string
+  logoImg?: string
+}
+
+export default function GenerateBallot({ location }: PageProps) {
+  // const [isLoading, setIsLoading] = useState<boolean>(false)
+  // const [ballotData, setBallotData] = useState<BallotContent[][]>()
+
+  const params = new URLSearchParams(location.search)
+  const ballotType = params.get("ballotType")
+  const ballotPath = params.get("ballotPath")
+  const [state, send] = useMachine(BallotMachine, {
+    context: {
+      type: ballotType,
+      path: ballotPath,
+    },
+  })
+
+  useEffect(() => {
+    send("FETCH")
+  }, [send])
+
+  if (state.value.success) {
+    return (
+      <Switch value={state.value.success}>
+        <Case value="governmental">
+          <StateBallot
+            ballotPath={state.context.path}
+            votes={state.context.ballot}
+          />
+        </Case>
+        <Case value="legislative">
+          <LegislativeBallot
+            ballotPath={state.context.path}
+            votes={state.context.ballot}
+          />
+        </Case>
+        <Case value="municipal">
+          <div>Municipal</div>
+        </Case>
+        <Default>
+          <div>Unknown</div>
+        </Default>
+      </Switch>
+    )
+  }
+
   return (
-    <div>
-      <StateBallot ballotPath={state.ballotPath} votes={state.votes} />
-      <LegislativeBallot
-        ballotPath={legislative.ballotPath}
-        votes={legislative.votes}
-      />
-    </div>
+    <Switch value={state.value}>
+      <Case value="loading">
+        <div>Loading...</div>
+      </Case>
+      <Case value="failure">
+        <div>Failure</div>
+      </Case>
+      <Default>
+        <div>Test</div>
+      </Default>
+    </Switch>
   )
 }
