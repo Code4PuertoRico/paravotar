@@ -18,27 +18,16 @@ type BallotContent = {
   logoImg?: string
 }
 
+type VotesCoordinates = {
+  column: number
+  row: number
+}
+
 type BallotMachineContext = {
   type: string | null
   path: string | null
+  votes: VotesCoordinates[]
   ballot: BallotContent[][]
-}
-
-type BallotMachineStateSchema = {
-  states: {
-    idle: {}
-    loading: {}
-    success: {
-      states: {
-        idle: {}
-        governmental: {}
-        legislative: {}
-        municipal: {}
-        unknown: {}
-      }
-    }
-    failure: {}
-  }
 }
 
 async function fetchBallot(path: string | null) {
@@ -52,13 +41,14 @@ async function fetchBallot(path: string | null) {
   throw Error("Invalid ballot path")
 }
 
-const BallotMachine = Machine<BallotMachineContext, BallotMachineStateSchema>({
+const BallotMachine = Machine<BallotMachineContext>({
   id: "ballotMachine",
   initial: "idle",
   context: {
     type: "",
     path: "",
     ballot: [],
+    votes: [],
   },
   states: {
     idle: {
@@ -145,12 +135,15 @@ export default function GenerateBallot({ location }: PageProps) {
   const params = new URLSearchParams(location.search)
   const ballotType = params.get("ballotType")
   const ballotPath = params.get("ballotPath")
+  const votes = JSON.parse(params.get("votes") || "")
+
   const [state, send] = useMachine<BallotMachineContext, EventObject>(
     BallotMachine,
     {
       context: {
         type: ballotType,
         path: ballotPath,
+        votes,
       },
     }
   )
@@ -164,8 +157,9 @@ export default function GenerateBallot({ location }: PageProps) {
       <Switch state={state}>
         <Case value={{ success: "governmental" }}>
           <GovernmentalBallot
-            ballotPath={state.context.path}
-            votes={state.context.ballot}
+            path={state.context.path}
+            structure={state.context.ballot}
+            votes={votes}
           />
         </Case>
         <Case value={{ success: "legislative" }}>

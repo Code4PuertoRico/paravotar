@@ -6,9 +6,15 @@ type CandidateProps = {
   url: string
   img: string
   ocrResult: string
+  hasVote: boolean
 }
 
-export default function Candidate({ url, img, ocrResult }: CandidateProps) {
+export default function Candidate({
+  url,
+  img,
+  ocrResult,
+  hasVote,
+}: CandidateProps) {
   const splitOcrResult = ocrResult
     .trim()
     .replace(/\n/g, " ")
@@ -28,6 +34,7 @@ export default function Candidate({ url, img, ocrResult }: CandidateProps) {
           <Checkbox
             type="candidate"
             id={name.replace(" ", "-").toLowerCase()}
+            checked={hasVote}
           />
           <img
             className="h-10 w-10"

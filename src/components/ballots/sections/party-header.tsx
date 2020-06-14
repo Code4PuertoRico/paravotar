@@ -5,14 +5,19 @@ import Checkbox from "./checkbox"
 type HeaderProps = {
   url: string
   ocrResult: string
+  hasVote: boolean
   logo?: string
 }
 
-function PoliticalParty({ url, logo, ocrResult }: HeaderProps) {
+function PoliticalParty({ url, logo, ocrResult, hasVote }: HeaderProps) {
   return (
     <div className="p-2 text-center border border-white" key={ocrResult}>
       <img className="mx-auto" src={`${url}/${logo}`} alt={ocrResult} />
-      <Checkbox type="party" id={ocrResult.replace(" ", "-").toLowerCase()} />
+      <Checkbox
+        type="party"
+        id={ocrResult.replace(" ", "-").toLowerCase()}
+        checked={hasVote}
+      />
       <p className="whitespace-pre-line text-white font-semibold">
         {ocrResult}
       </p>
@@ -86,9 +91,21 @@ function IndependentCandidate({ ocrResult }: { ocrResult: string }) {
   )
 }
 
-export default function PartyHeader({ url, logo, ocrResult }: HeaderProps) {
+export default function PartyHeader({
+  url,
+  logo,
+  ocrResult,
+  hasVote,
+}: HeaderProps) {
   if (logo) {
-    return <PoliticalParty url={url} logo={logo} ocrResult={ocrResult} />
+    return (
+      <PoliticalParty
+        url={url}
+        logo={logo}
+        ocrResult={ocrResult}
+        hasVote={hasVote}
+      />
+    )
   }
 
   return <IndependentCandidate ocrResult={ocrResult} />

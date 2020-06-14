@@ -9,17 +9,27 @@ type BallotContent = {
   logoImg?: string
 }
 
-type BallotProps = {
-  ballotPath: string
-  votes: BallotContent[][]
+type VotesCoordinates = {
+  column: number
+  row: number
 }
 
-export default function GovernmentalBallot({ ballotPath, votes }: BallotProps) {
-  const url = `${PUBLIC_S3_BUCKET}${ballotPath}`
+type BallotProps = {
+  path: string
+  structure: BallotContent[][]
+  votes: VotesCoordinates[]
+}
+
+export default function GovernmentalBallot({
+  path,
+  structure,
+  votes,
+}: BallotProps) {
+  const url = `${PUBLIC_S3_BUCKET}${path}`
 
   return (
     <div className="bg-black" style={{ width: 2200 }}>
-      {votes.map((row: BallotContent[], rowIndex: number) => {
+      {structure.map((row: BallotContent[], rowIndex: number) => {
         return (
           <div
             key={`state-ballot-${rowIndex}`}
@@ -29,6 +39,9 @@ export default function GovernmentalBallot({ ballotPath, votes }: BallotProps) {
           >
             {row.map((col: BallotContent, colIndex: number) => {
               const key = `${col.ocrResult}-${colIndex}`
+              const vote = !!votes.find(vote => {
+                return vote.row === rowIndex && vote.column === colIndex
+              })
 
               if (rowIndex === 0) {
                 return (
@@ -37,6 +50,7 @@ export default function GovernmentalBallot({ ballotPath, votes }: BallotProps) {
                     url={url}
                     logo={col.logoImg}
                     ocrResult={col.ocrResult}
+                    hasVote={vote}
                   />
                 )
               }
@@ -48,6 +62,7 @@ export default function GovernmentalBallot({ ballotPath, votes }: BallotProps) {
                     url={url}
                     img={col.logoImg}
                     ocrResult={col.ocrResult}
+                    hasVote={vote}
                   />
                 )
               }
