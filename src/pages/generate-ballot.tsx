@@ -135,7 +135,8 @@ export default function GenerateBallot({ location }: PageProps) {
   const params = new URLSearchParams(location.search)
   const ballotType = params.get("ballotType")
   const ballotPath = params.get("ballotPath")
-  const votes = JSON.parse(params.get("votes") || "")
+  const rawVotes = params.get("votes") || ""
+  const votes = JSON.parse(rawVotes)
 
   const [state, send] = useMachine<BallotMachineContext, EventObject>(
     BallotMachine,
