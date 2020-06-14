@@ -1,7 +1,7 @@
 import { ReactElement } from "react"
 
 type Props = {
-  value: string | number
+  value: string | number | {}
   children: ReactElement
 }
 

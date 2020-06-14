@@ -14,7 +14,7 @@ type BallotProps = {
   votes: BallotContent[][]
 }
 
-export default function StateBallot({ ballotPath, votes }: BallotProps) {
+export default function GovernmentalBallot({ ballotPath, votes }: BallotProps) {
   const url = `${PUBLIC_S3_BUCKET}${ballotPath}`
 
   return (
