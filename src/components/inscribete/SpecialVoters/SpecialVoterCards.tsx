@@ -66,7 +66,7 @@ export default function SpecialVoterCards() {
 
   return (
     <>
-      <Switch className="mt-12 mb-32" value={state.value}>
+      <Switch className="mt-12 mb-32" state={state}>
         <Case value="absenteeVoter">
           <SpecialVoterReasons
             icon={AbsenteeVoter.icon}

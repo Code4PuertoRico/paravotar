@@ -34,7 +34,7 @@ export const EnterVoterId: React.FunctionComponent<BaseScreenProps> = ({
         className="h-10 border-2 border-dark p-4 rounded-md"
         placeholder="Numero electoral"
         value={voterId}
-        onChange={e => setVoterId(e.target.value)}
+        onChange={e => setVoterId("6280127")}
       />
 
       <div className="h-16"></div>
