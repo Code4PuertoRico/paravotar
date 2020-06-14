@@ -36,8 +36,7 @@ export const VoterInfoRightPanel: React.FunctionComponent<{
     voterMetadata.recommendedDocs ? (
       <section className="mt-4">
         <Typography tag="h3" variant="h5">
-          {i18next.t(`${voterMetadata.recommendedDocsText}`) ||
-            "Recomendamos que lleves:"}
+          {i18next.t(`${voterMetadata.recommendedDocsText}`)}
         </Typography>
         <ul className="ml-4">
           {voterMetadata.recommendedDocs.map((item, index) => (
@@ -45,7 +44,7 @@ export const VoterInfoRightPanel: React.FunctionComponent<{
               key={`required-docs-${voterMetadata.id}-${index}`}
               className="ml-4 pt-2 list-disc text-sm"
             >
-              {item}
+              {i18next.t(`${item}`)}
             </li>
           ))}
         </ul>
@@ -55,7 +54,7 @@ export const VoterInfoRightPanel: React.FunctionComponent<{
     {/* Optional docs */}
     <section className="pt-4">
       <Typography tag="h3" variant="h5">
-        Documentos opcionales y situaciones que te podrías encontrar:
+        {i18next.t("site.optional-docs")}
       </Typography>
       <ul className="ml-4">
         {voterMetadata.optionalDocs.map((item, index) => (
@@ -63,7 +62,7 @@ export const VoterInfoRightPanel: React.FunctionComponent<{
             key={`optional-docs-${voterMetadata.id}-${index}`}
             className="ml-4 pt-2 list-disc text-sm"
           >
-            {item}
+            {i18next.t(`${item}`)}
           </li>
         ))}
       </ul>

@@ -7,13 +7,23 @@
     "you-must-know": "Debes Saber:",
     "to-vote-req1": "Para votar en las Elecciones Generales en Puerto Rico debes tener 18 años (o más) en o antes del 3 de noviembre de 2020.",
     "rec-docs": "Recomendamos que lleves uno o más de los siguientes documentos:",
+    "rec-docs-short": "Recomendamos que lleves:",
+    "rec-docs1": "Licencia de conducir o identificación con foto expedida por Gobierno Estatal, Municipal o Federal.",
+    "rec-docs2": "Certificado de Nacimiento original. Puede ser necesario en el caso de que la CEE no encuentre tu información en el sistema del Registro Demográfico.",
     "req-docs": "Documentos requeridos:",
+    "req-docs1": "Pasaporte de Estados Unidos de América vigente",
+    "req-docs2": "Certificado de Nacimiento original",
+    "req-docs3": "Certificado de Naturalización",
+    "req-docs4": "Certificación del Departamento de Estado con acreditación",
+    "optional-docs": "Documentos opcionales y situaciones que te podrías encontrar:",
+    "optional-docs1": "Factura con la dirección del lugar en donde vives. Esto puede ser necesario en el caso que la CEE no pueda validar tu dirección en su sistema.",
     "complete-name": "Nombre completo",
     "postal-address": "Dirección postal",
     "none": "Ninguno",
     "physical-address": "Dirección física",
     "phone-number": "Número de teléfono",
     "ss-number": "Número de Seguro Social",
-    "voter-height": "Estatura"
+    "voter-height": "Estatura",
+    "born-in-other-countries": "Un país extranjero y resido en Puerto Rico"
   }
 }

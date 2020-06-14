@@ -4,7 +4,6 @@ import BornInOtherCountries from "../../assets/icons/born-in-other-countries.svg
 import AbsenteeVoterIcon from "../../assets/icons/absentee-voter.svg"
 import EarlyVoterIcon from "../../assets/icons/early-voter.svg"
 import { Voter, SpecialVoter, AbsenteeAndEarlyVoting } from "./types"
-import i18next from "i18next"
 
 export const VoterDocs: Voter[] = [
   {
@@ -20,15 +19,10 @@ export const VoterDocs: Voter[] = [
       "site.voter-height",
     ],
     recommendedDocsText: "site.rec-docs",
-    recommendedDocs: [
-      "Licencia de conducir o identificación con foto expedida por Gobierno Estatal, Municipal o Federal.",
-      "Certificado de Nacimiento original. Puede ser necesario en el caso de que la CEE no encuentre tu información en el sistema del Registro Demográfico.",
-    ],
+    recommendedDocs: ["site.rec-docs1", "site.rec-docs2"],
     requiredDocsText: "site.req-docs",
     requiredDocs: ["site.none"],
-    optionalDocs: [
-      "Factura con la dirección del lugar en donde vives. Esto puede ser necesario en el caso que la CEE no pueda validar tu dirección en su sistema.",
-    ],
+    optionalDocs: ["site.optional-docs1"],
     srText: "personas nacidas en Puerto Rico",
   },
   {
@@ -36,49 +30,36 @@ export const VoterDocs: Voter[] = [
     icon: BornInTerritory,
     description: "Estados Unidos, Continentales, Territorios o Posesiones",
     shouldKnow: [
-      "Nombre completo",
-      "Dirección postal",
-      "Dirección física",
-      "Número de teléfono",
-      "Estatura",
+      "site.complete-name",
+      "site.postal-address",
+      "site.physical-address",
+      "site.phone-number",
+      "site.voter-height",
     ],
-    recommendedDocs: [
-      "Licencia de conducir o identificación con foto expedida por Gobierno Estatal, Municipal o Federal.",
-    ],
+    recommendedDocsText: "site.rec-docs-short",
+    recommendedDocs: ["site.rec-docs1"],
     requiredDocsText: "Debes llevar uno de los siguientes documentos:",
-    requiredDocs: [
-      "Pasaporte de Estados Unidos de América vigente",
-      "Certificado de Nacimiento original",
-    ],
-    optionalDocs: [
-      "Factura con la dirección del lugar en donde vives. Esto puede ser necesario en el caso que la CEE no pueda validar tu dirección en su sistema.",
-    ],
+    requiredDocs: ["site.req-docs1", "site.req-docs2"],
+    optionalDocs: ["site.optional-docs1"],
     srText:
       "personas nacidas en Estados Unidos, incluyendo cualquiera de sus territorios continentales o posesiones.",
   },
   {
     id: "born-in-other-countries",
     icon: BornInOtherCountries,
-    description: "Un país extranjero y resido en Puerto Rico",
+    description: "site.born-in-other-countries",
     shouldKnow: [
-      "Nombre completo",
-      "Dirección postal",
-      "Dirección física",
-      "Número de teléfono",
-      "Estatura",
+      "site.complete-name",
+      "site.postal-address",
+      "site.physical-address",
+      "site.phone-number",
+      "site.voter-height",
     ],
-    recommendedDocs: [
-      "Licencia de conducir o identificación con foto expedida por Gobierno Estatal, Municipal o Federal.",
-    ],
+    recommendedDocsText: "site.rec-docs-short",
+    recommendedDocs: ["site.rec-docs1"],
     requiredDocsText: "Debes llevar uno de los siguientes documentos:",
-    requiredDocs: [
-      "Pasaporte de Estados Unidos de América vigente",
-      "Certificado de Naturalización",
-      "Certificación del Departamento de Estado con acreditación",
-    ],
-    optionalDocs: [
-      "Factura con la dirección del lugar en donde vives. Esto puede ser necesario en el caso que la CEE no pueda validar tu dirección en su sistema.",
-    ],
+    requiredDocs: ["site.req-docs1", "site.req-docs3", "site.req-docs4"],
+    optionalDocs: ["site.optional-docs1"],
     srText:
       "personas nacidas en un país extranjero y que residen en Puerto Rico.",
   },
