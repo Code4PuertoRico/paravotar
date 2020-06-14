@@ -2,17 +2,8 @@ import React from "react"
 
 import { Candidate, PartyHeader, SectionHeader } from "./sections/index"
 
-import { PUBLIC_S3_BUCKET } from "../../packages/practica/services/constants"
-
-type BallotContent = {
-  ocrResult: string
-  logoImg?: string
-}
-
-type VotesCoordinates = {
-  column: number
-  row: number
-}
+import { BallotContent, VotesCoordinates } from "../types/ballot-machine"
+import { PUBLIC_S3_BUCKET } from "../../practica/services/constants"
 
 type BallotProps = {
   path: string

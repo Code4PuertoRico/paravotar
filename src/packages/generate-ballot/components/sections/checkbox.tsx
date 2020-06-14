@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 
-import VoteCross from "../../../assets/icons/vote-cross.svg"
+import VoteCross from "../../../../assets/icons/vote-cross.svg"
 
 type CheckboxProps = {
   type: "candidate" | "party"

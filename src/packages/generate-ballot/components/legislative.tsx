@@ -1,18 +1,8 @@
 import React from "react"
 
 import { Candidate, PartyHeader, SectionHeader } from "./sections/index"
-
-import { PUBLIC_S3_BUCKET } from "../../packages/practica/services/constants"
-
-type BallotContent = {
-  ocrResult: string
-  logoImg?: string
-}
-
-type VotesCoordinates = {
-  column: number
-  row: number
-}
+import { VotesCoordinates, BallotContent } from "../types/ballot-machine"
+import { PUBLIC_S3_BUCKET } from "../../practica/services/constants"
 
 type BallotProps = {
   path: string
@@ -20,7 +10,7 @@ type BallotProps = {
   votes: VotesCoordinates[]
 }
 
-export default function MunicipalBallot({
+export default function LegislativeBallot({
   path,
   structure,
   votes,
@@ -34,7 +24,7 @@ export default function MunicipalBallot({
           <div
             key={`state-ballot-${rowIndex}`}
             className={`grid grid-cols-${row.length} ${
-              rowIndex !== 0 ? "bg-ballots-municipal" : ""
+              rowIndex !== 0 ? "bg-ballots-legislative" : ""
             }`}
           >
             {row.map((col: BallotContent, colIndex: number) => {
