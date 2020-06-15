@@ -164,7 +164,7 @@ export default function Inscribete({ location }: PageProps) {
           <Link
             to="tel:+1787-777-8682,2362"
             className="h-12 text-base md:text-lg flex justify-center items-center"
-            variant="primary"
+            variant="danger"
           >
             (787) 777-8682 &nbsp;
             <span className="text-xs pt-1 md:text-base md:pt-0">ext. 2362</span>
