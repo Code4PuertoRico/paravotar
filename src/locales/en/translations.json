@@ -25,6 +25,8 @@
     "ss-number": "Social Security number",
     "voter-height": "Height",
     "born-in-other-countries": "A foreign country and I reside in Puerto Rico",
-    "born-in-territory": "United States, Continentals, Territories or Possessions"
+    "born-in-territory": "United States, Continentals, Territories or Possessions",
+    "where-voter-card": "Make an appointment and sign up to vote",
+    "where-voter-card-guide": "Find the \"Junta de Inscripción Permanente\" closest to you and sign up."
   }
 }
