@@ -12,7 +12,7 @@ module.exports = {
       separator: "rgb(220, 220, 220)",
       white: { default: "#ffffff", hover: "#D2D0CD", active: "#C0BCB8" },
       black: "#000000",
-      red: "indianred",
+      red: { default: "#EA0000", hover: "#C20000", active: "#FF0000" },
       ballots: {
         governmental: "#CCCDCF",
         legislative: "#FCF1D9",

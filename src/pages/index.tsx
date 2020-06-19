@@ -11,6 +11,8 @@ import { VoterInfoRightPanel } from "../components/inscribete/VoterInfo/RightPan
 import { StickyBanner } from "../components/sticky-banner"
 import { withTrans } from "../i18n/withTrans"
 import { useTranslation } from "react-i18next"
+import MakeAppointment from "../components/inscribete/MakeAppointment"
+import Phone from "../assets/icons/phone.inline.svg"
 
 const style: { [key: string]: any } = {
   DropdownWrapper: (base: any) => ({
@@ -145,7 +147,7 @@ const Inscribete = ({ location }: PageProps) => {
           <VoterInfoRightPanel voterMetadata={voterMetadata} />
         </div>
       </Container>
-      <Container className="w-11/12 mb-32 lg:w-10/12">
+      {/* <Container className="w-11/12 mb-32 lg:w-10/12">
         <Typography
           id="juntas-de-inscripcion-permanentes"
           tag="h2"
@@ -165,6 +167,9 @@ const Inscribete = ({ location }: PageProps) => {
         <div className="mt-12 bg-white shadow-md rounded">
           <VoterCenters />
         </div>
+      </Container> */}
+      <Container className="w-11/12 mb-32 lg:w-10/12">
+        <MakeAppointment />
       </Container>
       <Container className="w-11/12 mb-32 lg:w-10/12">
         <VoterStatus />
@@ -178,8 +183,9 @@ const Inscribete = ({ location }: PageProps) => {
           <Link
             to="tel:+1787-777-8682,2362"
             className="h-12 text-base md:text-lg flex justify-center items-center"
-            variant="primary"
+            variant="danger"
           >
+            <Phone className="mr-2 h-5 w-5 tada animated infinite" />
             (787) 777-8682 &nbsp;
             <span className="text-xs pt-1 md:text-base md:pt-0">ext. 2362</span>
           </Link>

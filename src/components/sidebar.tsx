@@ -24,10 +24,11 @@ export default function Sidebar({ pathname }: SidebarProps) {
             isActive={pathname === "/"}
           >
             <SubSection name="Tarjeta Electoral" route="/#tarjeta-electoral" />
-            <SubSection
+            <SubSection name="Saca tu cita" route="/#saca-tu-cita" />
+            {/* <SubSection
               name="Juntas de Inscripción Permanentes"
               route="/#juntas-de-inscripcion-permanentes"
-            />
+            /> */}
             <SubSection name="Estatus Electoral" route="/#electoral-status" />
           </Section>
           {/* <Section

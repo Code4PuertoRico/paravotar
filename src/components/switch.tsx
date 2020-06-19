@@ -1,21 +1,23 @@
 import { ReactComponentElement } from "react"
 
+import { State } from "xstate"
+
 import Case from "./case"
 import Default from "./default"
-import { StateValue } from "xstate"
 
 type Props = {
-  className: string
-  value: StateValue
   children: Array<ReactComponentElement<any, { value?: string }>>
+  className?: string
+  state: State<any>
 }
 
-export default function Switch({ children, value }: Props) {
-  const match = children.find(
-    child =>
-      child.props.value === value &&
+export default function Switch({ children, state }: Props) {
+  const match = children.find(child => {
+    return (
+      state.matches(child.props.value) &&
       child.type.componentName === Case.componentName
-  )
+    )
+  })
 
   if (!match) {
     const defaultCase = children.find(child => {
