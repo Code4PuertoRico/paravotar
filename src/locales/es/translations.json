@@ -34,6 +34,15 @@
     "voter-important-guide1": "Es de suma importancia que verifiques el estatus de tu tarjeta electoral para que pueda ejercer tu voto el día de las elecciones. Si tu tarjeta electoral no esta activa debes visitar la Junta de Inscripción Permanente más cercana para activarla.",
     "voter-important-guide2": "Si te has mudado recientemente es importante renovar tu tarjeta electoral para ejercer tu voto en el municipio y Centro de Votación correspondiente.",
     "voter-status-verify": "Verificar mi estatus",
-    "voter-status-note": "Este enlace te llevará a la página de la Comisión Estatal de  Elecciones. Allí podrás llenar el formulario que te dirá cuál es el estatus de tu registro electoral."
+    "voter-status-note": "Este enlace te llevará a la página de la Comisión Estatal de  Elecciones. Allí podrás llenar el formulario que te dirá cuál es el estatus de tu registro electoral.",
+    "appointment-note": "Saca tu cita para Inscribirte, llama ahora"
+  },
+  "nav": {
+    "sign-up": "Inscríbete",
+    "voter-card": "Tarjeta Electoral",
+    "make-appointment": "Saca tu cita",
+    "voter-status": "Estatus Electoral",
+    "voter-action": "Sal a votar",
+    "vote-type1": "Voto adelantado y voto ausente"
   }
 }
