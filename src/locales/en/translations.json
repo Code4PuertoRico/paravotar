@@ -1,6 +1,6 @@
 {
   "site": {
-    "Language-Button":"Versión Español",
+    "Language-Button": "Versión Español",
     "tarjeta-electoral-title": "Register to vote, how to get a voter registration card",
     "born-location": "I was born in...",
     "what-bring-registration-card": "What do I need to bring to get my registration card to vote?",
@@ -44,5 +44,16 @@
     "voter-status": "Voter Status",
     "voter-action": "Go out to vote",
     "vote-type1": "Absentee and Early Voting"
+  },
+  "footer": {
+    "contribute": "How can I contribute to the project?",
+    "contribute-note1": "\"Para Votar\" is not affiliated with the Puerto Rico government or any political party.",
+    "contribute-note2": "\"Para Votar\" does not store any type of user information.",
+    "contribute-note3": "The code of this project is completly open and ",
+    "contribute-note4": "you can see it on GitHub",
+    "contribute-note5": "The code of this project is open ",
+    "contribute-note6": "Thanks to all the people who have given us their feedback to improve this tool.",
+    "support1": "For suggestions and comments you can contact us by ",
+    "support2": " or you can open an issue on "
   }
 }

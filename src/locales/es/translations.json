@@ -44,5 +44,16 @@
     "voter-status": "Estatus Electoral",
     "voter-action": "Sal a votar",
     "vote-type1": "Voto adelantado y voto ausente"
+  },
+  "footer": {
+    "contribute": "¿Cómo puedo contribuir al proyecto?",
+    "contribute-note1": "Para Votar no esta afiliado al gobierno ni a ningún partido politico.",
+    "contribute-note2": "Para Votar no guarda ningún tipo de información del usuario.",
+    "contribute-note3": "El código de este proyecto es totalmente público y ",
+    "contribute-note4": "puedes verlo en GitHub",
+    "contribute-note5": "El código de este proyecto",
+    "contribute-note6": "Gracias a todas las personas que nos han dado su feedback para mejorar esta herramienta.",
+    "support1": "Para sugerencias y comentarios nos puedes contactar por ",
+    "support2": " o puedes abrir un issue en "
   }
 }
