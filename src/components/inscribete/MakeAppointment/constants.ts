@@ -178,79 +178,79 @@ export const ActiveCenters = [
       "https://google.com/maps/search/?api=1&query=18.20099497,-67.13751441",
   },
   {
-    name: "San Germán",
+    name: "San Germán 043-044",
     address: "#114 Calle Dr. Santiago Veve (Plaza del Mercado)",
     location:
       "https://google.com/maps/search/?api=1&query=18.08094055,-67.03614809",
   },
   {
-    name: "Cabo Rojo",
+    name: "Cabo Rojo 046",
     address: "Cll. Rius Rivera 1, Esq. Mestre Local 1",
     location:
       "https://google.com/maps/search/?api=1&query=18.08737109,-67.14484507",
   },
   {
-    name: "Coamo",
+    name: "Coamo 68 y 75",
     address: "Cll. Mario Braschi #17 (Bajos)",
     location:
       "https://google.com/maps/search/?api=1&query=18.08162879,-66.35693514",
   },
   {
-    name: "San Sebastián",
+    name: "San Sebastián 033",
     address: "Cll. Hipolito Castro #37",
     location:
       "https://google.com/maps/search/?api=1&query=18.33553895,-66.99240721",
   },
   {
-    name: "Aguadilla",
+    name: "Aguadilla 35",
     address: "Calle Luis Muñoz Rivera #32",
     location:
       "https://google.com/maps/search/?api=1&query=18.4304219,-67.15449527",
   },
   {
-    name: "Rincón",
+    name: "Rincón 039",
     address: "Carr 115 KM 12.3, Ave. Albizu Campos Bo Pueblo",
     location:
       "https://google.com/maps/search/?api=1&query=18.33234004,-67.24994724",
   },
   {
-    name: "Lajas",
+    name: "Lajas 047",
     address: "Centro Comercial Municipal",
     location:
       "https://google.com/maps/search/?api=1&query=18.04409496,-67.05902315",
   },
   {
-    name: "Caguas",
+    name: "Caguas 82 y 83",
     address: "Urb. Bunker, Cll. Brazil Esq. Cll Ecuador",
     location:
       "https://google.com/maps/search/?api=1&query=18.22663241,-66.04136638",
   },
   {
-    name: "Lares",
+    name: "Lares 053",
     address: "Cll. Felipe Arana #2",
     location:
       "https://google.com/maps/search/?api=1&query=18.29618939,-66.87736873",
   },
   {
-    name: "Loíza",
+    name: "Loíza 103",
     address: "Ant. Esc. Carlos Escobar, Cll. C final",
     location:
       "https://google.com/maps/search/?api=1&query=18.43231794,-65.8778135",
   },
   {
-    name: "Barranquitas",
+    name: "Barranquitas 70-71",
     address: "Cll. Muñoz Rivera #41",
     location:
       "https://google.com/maps/search/?api=1&query=18.18563455,-66.30797946",
   },
   {
-    name: "Canóvanas",
+    name: "Canóvanas 104-105",
     address: "Cll. Palmer #57",
     location:
       "https://google.com/maps/search/?api=1&query=18.37925926,-65.90167681",
   },
   {
-    name: "Juncos",
+    name: "Juncos 088",
     address: "PR-31 Km 24.5, Antiguo Edificio Guardia Nacional",
     location:
       "https://google.com/maps/search/?api=1&query=18.23026111,-65.91126587",
