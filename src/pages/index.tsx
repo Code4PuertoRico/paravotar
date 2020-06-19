@@ -176,9 +176,8 @@ const Inscribete = ({ location }: PageProps) => {
       </Container>
       <StickyBanner>
         <div className="flex flex-col md:flex-row justify-center items-center text-center">
-          <span className="font-bold mb-4 md:mb-0 md:mr-4 block text-md md:text-lg">
-            Saca tu cita para Inscribirte,{" "}
-            <span className="block md:inline-block">llama ahora</span>
+          <span className="font-bold pr-3 pl-3 mb-4 md:mb-0 md:mr-4 block text-md md:text-lg">
+            {t("site.appointment-note")}
           </span>
           <Link
             to="tel:+1787-777-8682,2362"
