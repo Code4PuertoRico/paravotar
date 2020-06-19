@@ -27,6 +27,13 @@
     "born-in-other-countries": "A foreign country and I reside in Puerto Rico",
     "born-in-territory": "United States, Continentals, Territories or Possessions",
     "where-voter-card": "Make an appointment and sign up to vote",
-    "where-voter-card-guide": "Find the \"Junta de Inscripción Permanente\" closest to you and sign up."
+    "where-voter-card-guide": "Find the \"Junta de Inscripción Permanente\" closest to you and sign up.",
+    "voter-status": "Check the status of your voter registry",
+    "voter-status-guide": "Check which is your polling location along with its address and the status of your voter card.",
+    "voter-important": "Why is it important?",
+    "voter-important-guide1": "It is extremely important that you verify the status of your voter card so that you can cast your vote on Election Day. If your voter card is not active, you must visit the nearest \"Junta de Inscripción Permanente\" to activate it.",
+    "voter-important-guide2": "If you have moved recently, it is important to renew your electoral card to exercise your vote in the municipality and corresponding Voting Center.",
+    "voter-status-verify": "Check my status",
+    "voter-status-note": "This link will take you to the page of the State Elections Commission. There you can fill out the form that will tell you the status of your voter registry."
   }
 }
