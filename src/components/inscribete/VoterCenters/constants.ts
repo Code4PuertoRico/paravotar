@@ -557,7 +557,7 @@ export const voterCenters: Town[] = [
   {
     pueblo: "Salinas",
     telefono: "787-824-2430",
-    direccion: "#14 Cll. Santiago Palmer",
+    direccion: "#14 Calle Santiago Palmer",
     googleMapsLink:
       "https://google.com/maps/search/?api=1&query=17.97624525,-66.29752761",
     servicios: [
@@ -641,7 +641,7 @@ export const voterCenters: Town[] = [
   {
     pueblo: "Toa Alta",
     telefono: "787-870-2580",
-    direccion: "Cll. José De Diego #35-A",
+    direccion: "Calle José De Diego #35-A",
     googleMapsLink:
       "https://google.com/maps/search/?api=1&query=18.38869936,-66.24879383",
     servicios: [

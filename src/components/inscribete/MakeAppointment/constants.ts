@@ -140,4 +140,119 @@ export const ActiveCenters = [
     location:
       "https://www.google.com/maps/place/CEE.+Junta+De+Inscripcion+Permanente./@18.338753,-65.8602074,11z/data=!4m8!1m2!2m1!1sJunta+de+inscripcion+!3m4!1s0x0:0x564b3ca7048be115!8m2!3d18.3743202!4d-65.7154083",
   },
+  {
+    name: "Toa Alta 013",
+    address: "Calle José De Diego #35-A Toa Alta, Puerto Rico 00953",
+    location:
+      "https://google.com/maps/search/?api=1&query=18.38869936,-66.24879383",
+  },
+  {
+    name: "Salinas 078-085",
+    address: "#14 Calle Santiago Palmer Salinas, Puerto Rico 00751",
+    location:
+      "https://google.com/maps/search/?api=1&query=17.97624525,-66.29752761",
+  },
+  {
+    name: "Patillas 091",
+    address:
+      "Calle Alberto Ricci #40 Esq Riefkhol Patillas, Puerto Rico 00723-1294",
+    location:
+      "https://google.com/maps/search/?api=1&query=18.00609622,-66.01375297",
+  },
+  {
+    name: "Ceiba 098",
+    address: "Ave. Lauro Piñero #295 Ceiba, Puerto Rico 00735",
+    location:
+      "https://google.com/maps/search/?api=1&query=18.26224965,-65.64823979",
+  },
+  {
+    name: "Manatí 021-022",
+    address: "Estac. Puerta del Este, #3 Cll Celis Aguilera",
+    location:
+      "https://google.com/maps/search/?api=1&query=18.42966016,-66.49221087",
+  },
+  {
+    name: "Mayagüez 041-042-042-A",
+    address: "Cll. Ramos Antonini #107",
+    location:
+      "https://google.com/maps/search/?api=1&query=18.20099497,-67.13751441",
+  },
+  {
+    name: "San Germán 043-044",
+    address: "#114 Calle Dr. Santiago Veve (Plaza del Mercado)",
+    location:
+      "https://google.com/maps/search/?api=1&query=18.08094055,-67.03614809",
+  },
+  {
+    name: "Cabo Rojo 046",
+    address: "Cll. Rius Rivera 1, Esq. Mestre Local 1",
+    location:
+      "https://google.com/maps/search/?api=1&query=18.08737109,-67.14484507",
+  },
+  {
+    name: "Coamo 68 y 75",
+    address: "Cll. Mario Braschi #17 (Bajos)",
+    location:
+      "https://google.com/maps/search/?api=1&query=18.08162879,-66.35693514",
+  },
+  {
+    name: "San Sebastián 033",
+    address: "Cll. Hipolito Castro #37",
+    location:
+      "https://google.com/maps/search/?api=1&query=18.33553895,-66.99240721",
+  },
+  {
+    name: "Aguadilla 35",
+    address: "Calle Luis Muñoz Rivera #32",
+    location:
+      "https://google.com/maps/search/?api=1&query=18.4304219,-67.15449527",
+  },
+  {
+    name: "Rincón 039",
+    address: "Carr 115 KM 12.3, Ave. Albizu Campos Bo Pueblo",
+    location:
+      "https://google.com/maps/search/?api=1&query=18.33234004,-67.24994724",
+  },
+  {
+    name: "Lajas 047",
+    address: "Centro Comercial Municipal",
+    location:
+      "https://google.com/maps/search/?api=1&query=18.04409496,-67.05902315",
+  },
+  {
+    name: "Caguas 82 y 83",
+    address: "Urb. Bunker, Cll. Brazil Esq. Cll Ecuador",
+    location:
+      "https://google.com/maps/search/?api=1&query=18.22663241,-66.04136638",
+  },
+  {
+    name: "Lares 053",
+    address: "Cll. Felipe Arana #2",
+    location:
+      "https://google.com/maps/search/?api=1&query=18.29618939,-66.87736873",
+  },
+  {
+    name: "Loíza 103",
+    address: "Ant. Esc. Carlos Escobar, Cll. C final",
+    location:
+      "https://google.com/maps/search/?api=1&query=18.43231794,-65.8778135",
+  },
+  {
+    name: "Barranquitas 70-71",
+    address: "Cll. Muñoz Rivera #41",
+    location:
+      "https://google.com/maps/search/?api=1&query=18.18563455,-66.30797946",
+  },
+  {
+    name: "Canóvanas 104-105",
+    address: "Cll. Palmer #57",
+    location:
+      "https://google.com/maps/search/?api=1&query=18.37925926,-65.90167681",
+  },
+  {
+    name: "Juncos 088",
+    address: "PR-31 Km 24.5, Antiguo Edificio Guardia Nacional",
+    location:
+      "https://google.com/maps/search/?api=1&query=18.23026111,-65.91126587",
+  },
 ]
