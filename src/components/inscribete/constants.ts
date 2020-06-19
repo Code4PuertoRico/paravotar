@@ -28,7 +28,7 @@ export const VoterDocs: Voter[] = [
   {
     id: "born-in-territory",
     icon: BornInTerritory,
-    description: "Estados Unidos, Continentales, Territorios o Posesiones",
+    description: "site.born-in-territory",
     shouldKnow: [
       "site.complete-name",
       "site.postal-address",

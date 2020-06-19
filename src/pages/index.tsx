@@ -57,13 +57,6 @@ const style: { [key: string]: any } = {
   },
 }
 
-const options = VoterDocs.map(v => ({
-  value: v.description,
-}))
-
-const getVoterMeta = (v: string) =>
-  VoterDocs.filter(vd => vd.description === v)[0]
-
 type PageProps = {
   location: Location
 }
@@ -71,6 +64,25 @@ type PageProps = {
 const Inscribete = ({ location }: PageProps) => {
   const { t, i18n } = useTranslation()
 
+  const options = VoterDocs.map(v => ({
+    value: t(`${v.description}`),
+  }))
+
+  const getVoterMeta = (v: string) => {
+    if (
+      v === "A foreign country and I reside in Puerto Rico" ||
+      v === "Un país extranjero y resido en Puerto Rico"
+    ) {
+      v = "site.born-in-other-countries"
+      return VoterDocs.filter(vd => vd.description === v)[0]
+    } else if (
+      v === "United States, Continentals, Territories or Possessions" ||
+      v === "Estados Unidos, Continentales, Territorios o Posesiones"
+    ) {
+      v = "site.born-in-territory"
+      return VoterDocs.filter(vd => vd.description === v)[0]
+    } else return VoterDocs.filter(vd => vd.description === v)[0]
+  }
   const [selectedOption, setSelectedOption] = useState(options[0].value)
   const containerRef = useRef<HTMLDivElement>(null)
 

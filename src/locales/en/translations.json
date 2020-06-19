@@ -24,6 +24,7 @@
     "phone-number": "Phone number",
     "ss-number": "Social Security number",
     "voter-height": "Height",
-    "born-in-other-countries": "A foreign country and I reside in Puerto Rico "
+    "born-in-other-countries": "A foreign country and I reside in Puerto Rico",
+    "born-in-territory": "United States, Continentals, Territories or Possessions"
   }
 }

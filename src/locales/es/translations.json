@@ -24,6 +24,7 @@
     "phone-number": "Número de teléfono",
     "ss-number": "Número de Seguro Social",
     "voter-height": "Estatura",
-    "born-in-other-countries": "Un país extranjero y resido en Puerto Rico"
+    "born-in-other-countries": "Un país extranjero y resido en Puerto Rico",
+    "born-in-territory": "Estados Unidos, Continentales, Territorios o Posesiones"
   }
 }
