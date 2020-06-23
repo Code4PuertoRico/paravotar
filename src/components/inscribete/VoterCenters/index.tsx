@@ -83,7 +83,7 @@ export function VoterCenters() {
         variant="h3"
         className="uppercase text-center tracking-wide"
       >
-        BUSCA DONDE PUEDES SACAR TU TARJETA ELECTORAL
+        Saca una cita e inscríbete
       </Typography>
       <Typography
         tag="h3"
@@ -91,7 +91,8 @@ export function VoterCenters() {
         weight="base"
         className="text-center mt-3"
       >
-        Identifica tu pueblo, revisa horarios de información contacto.
+        Encuentra la Junta de Inscripción Permanente más cercana a ti e
+        inscríbete.
       </Typography>
       <div className="mt-12 bg-white shadow-md rounded">
         <section>
