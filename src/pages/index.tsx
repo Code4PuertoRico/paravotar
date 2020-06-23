@@ -8,7 +8,7 @@ import { VoterDocs } from "../components/inscribete/constants"
 import { VoterInfoLeftPanel } from "../components/inscribete/VoterInfo/LeftPanel"
 import { VoterInfoRightPanel } from "../components/inscribete/VoterInfo/RightPanel"
 import { StickyBanner } from "../components/sticky-banner"
-import MakeAppointment from "../components/inscribete/MakeAppointment"
+// import MakeAppointment from "../components/inscribete/MakeAppointment"
 import Phone from "../assets/icons/phone.inline.svg"
 
 const style: { [key: string]: any } = {
@@ -129,30 +129,12 @@ export default function Inscribete({ location }: PageProps) {
           <VoterInfoRightPanel voterMetadata={voterMetadata} />
         </div>
       </Container>
-      {/* <Container className="w-11/12 mb-32 lg:w-10/12">
-        <Typography
-          id="juntas-de-inscripcion-permanentes"
-          tag="h2"
-          variant="h3"
-          className="uppercase text-center tracking-wide"
-        >
-          BUSCA DONDE PUEDES SACAR TU TARJETA ELECTORAL
-        </Typography>
-        <Typography
-          tag="h3"
-          variant="h2"
-          weight="base"
-          className="text-center mt-3"
-        >
-          Identifica tu pueblo, revisa horarios de información contacto.
-        </Typography>
-        <div className="mt-12 bg-white shadow-md rounded">
-          <VoterCenters />
-        </div>
-      </Container> */}
       <Container className="w-11/12 mb-32 lg:w-10/12">
-        <MakeAppointment />
+        <VoterCenters />
       </Container>
+      {/* <Container className="w-11/12 mb-32 lg:w-10/12">
+        <MakeAppointment />
+      </Container> */}
       <Container className="w-11/12 mb-32 lg:w-10/12">
         <VoterStatus />
       </Container>
