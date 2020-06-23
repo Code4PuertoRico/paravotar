@@ -1,4 +1,5 @@
 import React, { useRef, useState, useEffect } from "react"
+import LanguageMenu from "../components/languageMenu"
 
 import Logo from "../assets/images/logo.svg"
 import Inscribete from "../assets/icons/inscribete.svg"
@@ -95,6 +96,9 @@ export default function Navbar({ pathname }: SidebarProps) {
               onClick={() => setIsOpen(false)}
             />
           </Section>
+          <div className="w-auto text-center">
+            <LanguageMenu />
+          </div>
         </div>
       </div>
     </>

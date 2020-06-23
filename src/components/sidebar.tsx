@@ -1,4 +1,5 @@
 import React from "react"
+import LanguageMenu from "../components/languageMenu"
 
 import Logo from "../assets/images/logo.svg"
 import Inscribete from "../assets/icons/inscribete.svg"
@@ -56,6 +57,9 @@ export default function Sidebar({ pathname }: SidebarProps) {
               route="/sal-a-votar#voto-ausente-y-adelantado"
             />
           </Section>
+          <div className="w-auto text-center">
+            <LanguageMenu />
+          </div>
         </div>
       </aside>
     </nav>
