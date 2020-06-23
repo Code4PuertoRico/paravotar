@@ -1,5 +1,6 @@
 import React, { useMemo } from "react"
-import { voterCenters } from "./constants"
+// import { voterCenters } from "./constants"
+import { AvailableCentersDirectory } from "../MakeAppointment/constants"
 
 interface LetterListProps {
   onSelect: (letter: string) => void
@@ -9,9 +10,8 @@ interface LetterListProps {
 export function LetterList({ onSelect, letter }: LetterListProps) {
   const letterList = useMemo(
     () =>
-      voterCenters
-        .map(({ pueblo }) => pueblo)
-        .reduce((letterMap: any, pueblo) => {
+      AvailableCentersDirectory.map(({ pueblo }) => pueblo).reduce(
+        (letterMap: any, pueblo) => {
           const firstLetter = pueblo.charAt(0)
           if (Object.keys(letterMap).includes(firstLetter)) {
             letterMap[firstLetter] = letterMap[firstLetter] + 1
@@ -19,7 +19,9 @@ export function LetterList({ onSelect, letter }: LetterListProps) {
             letterMap[firstLetter] = 1
           }
           return letterMap
-        }, {}),
+        },
+        {}
+      ),
     []
   )
 
@@ -28,7 +30,7 @@ export function LetterList({ onSelect, letter }: LetterListProps) {
   }
 
   return (
-    <ul className="flex overflow-x-auto items-start mx-4 pt-4 pb-5 lg:flex-no-wrap">
+    <ul className="flex justify-center overflow-x-auto items-start mx-4 pt-4 pb-5 lg:flex-no-wrap">
       {Object.keys(letterList).map(l => (
         <li className="mx-1" key={l}>
           <button
