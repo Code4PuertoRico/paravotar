@@ -3,11 +3,14 @@
 ## Development
 
 ```shell
+# Install Gatsby CLI
+yarn global add gatsby-cli
+
 # Clone the repository
-git clone git@github.com:Code4PuertoRico/papeleta-pr.git
+git clone git@github.com:Code4PuertoRico/paravotar.git
 
 # Navigate into your new site’s directory
-cd papeleta-pr
+cd paravotar
 
 # Install dependencies
 yarn install
