@@ -48,7 +48,8 @@ const style: { [key: string]: any } = {
 }
 
 const dropdownOptions = voterCenters.map(({ pueblo, JIPIsla }) => ({
-  value: `${pueblo}${JIPIsla ? " (Isla)" : ""}`,
+  value: `${pueblo} (Isla)`,
+  // value: `${pueblo}${JIPIsla ? " (Isla)" : ""}`,
 }))
 
 export function VoterCenters() {
@@ -99,9 +100,10 @@ export function VoterCenters() {
               searchable={true}
               options={dropdownOptions}
               selectedOption={
-                selectedTown.JIPIsla
-                  ? `${selectedTown.pueblo} (Isla)`
-                  : selectedTown.pueblo
+                `${selectedTown.pueblo} (Isla)`
+                // selectedTown.JIPIsla
+                //   ? `${selectedTown.pueblo} (Isla)`
+                //   : selectedTown.pueblo
               }
               setSelected={(t: string) => {
                 const selection = t.replace(" (Isla)", "")

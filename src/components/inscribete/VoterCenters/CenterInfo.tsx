@@ -38,12 +38,12 @@ const TownInfo: React.FunctionComponent<{ town: Required<Town> }> = ({
         </p>
       </div> */}
     </div>
-    {town.JIPIsla ? (
-      <p className="mt-4">
-        * En este centro puede realizar cualquier trámite electoral sin importar
-        el precinto en el cual reside.
-      </p>
-    ) : null}
+    {/* {town.JIPIsla ? ( */}
+    <p className="mt-4">
+      * En este centro puede realizar cualquier trámite electoral sin importar
+      el precinto en el cual reside.
+    </p>
+    {/* ) : null} */}
     <div className="mt-8">
       <Link
         className="w-full text-center"

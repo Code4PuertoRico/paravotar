@@ -30,23 +30,20 @@ function Name({ town, selectedTown, onSelect }: TownProps) {
           Mostrar Juntas de Inscripción Permanentes en
         </span>
         {town.pueblo}
-        {town.JIPIsla ? (
-          <span className="sr-only">
-            Este pueblo tiene Juntas de Inscripción Permanentes que atienden a
-            personas de cualquier parte de la isla.
-          </span>
-        ) : null}
+        {/* {town.JIPIsla ? ( */}
+        <span className="sr-only">
+          Este pueblo tiene Juntas de Inscripción Permanentes que atienden a
+          personas de cualquier parte de la isla.
+        </span>
+        {/* ) : null} */}
       </animated.button>
-      {town.JIPIsla ? (
-        <animated.div
-          className="inline-block"
-          style={{ opacity: props.opacity }}
-        >
-          <span className="bg-primary py-1 px-2 ml-2 rounded font-bold text-xs uppercase text-white tracking-wide">
-            Isla
-          </span>
-        </animated.div>
-      ) : null}
+      {/* {town.JIPIsla ? ( */}
+      <animated.div className="inline-block" style={{ opacity: props.opacity }}>
+        <span className="bg-primary py-1 px-2 ml-2 rounded font-bold text-xs uppercase text-white tracking-wide">
+          Isla
+        </span>
+      </animated.div>
+      {/* ) : null} */}
     </li>
   )
 }
