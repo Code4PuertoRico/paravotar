@@ -139,12 +139,16 @@ export default function Inscribete({ location }: PageProps) {
         <VoterStatus />
       </Container>
       <StickyBanner>
-        <div className="flex flex-col md:flex-row justify-center items-center text-center">
-          <span className="font-bold mb-4 md:mb-0 md:mr-4 block text-md md:text-lg">
-            Saca tu cita para Inscribirte,{" "}
-            <span className="block md:inline-block">llama ahora</span>
-          </span>
-          <Link
+        <div className="text-center">
+          <p className="font-bold mb-2 text-md md:text-lg">
+            Saca tu tarjeta electoral, sin cita previa, en la JIP más cercana a
+            ti.
+          </p>
+          <p className="font-semibold text-md md:text-lg">
+            Fecha límite para inscribirte: <br className="md:hidden" /> 14 de
+            septiembre 2020.
+          </p>
+          {/* <Link
             to="tel:+1787-777-8682,2362"
             className="h-12 text-base md:text-lg flex justify-center items-center"
             variant="danger"
@@ -152,7 +156,7 @@ export default function Inscribete({ location }: PageProps) {
             <Phone className="mr-2 h-5 w-5 tada animated infinite" />
             (787) 777-8682 &nbsp;
             <span className="text-xs pt-1 md:text-base md:pt-0">ext. 2362</span>
-          </Link>
+          </Link> */}
         </div>
       </StickyBanner>
     </Layout>

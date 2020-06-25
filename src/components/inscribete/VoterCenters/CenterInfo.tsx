@@ -32,6 +32,12 @@ const TownInfo: React.FunctionComponent<{ town: Required<Town> }> = ({
         <p className="w-3/4">{town.telefono}</p>
       </div> */}
       <div className="flex text-base md:text-xl pt-6">
+        <p className="font-bold pr-12 align-top w-1/4">Horario</p>
+        <p className="w-3/4">
+          Lunes a Sabado <br /> 8:00 am - 4:00 pm
+        </p>
+      </div>
+      <div className="flex text-base md:text-xl pt-6">
         <p className="font-bold pr-12 align-top w-1/4">Servicios</p>
         <p className="w-3/4">
           Nuevas inscripciones, reactivaciones, reubicaciones y transferencias
