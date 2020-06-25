@@ -37,13 +37,13 @@ function Name({ town, selectedTown, onSelect }: TownProps) {
         </span>
         {/* ) : null} */}
       </animated.button>
-      {/* {town.JIPIsla ? ( */}
-      <animated.div className="inline-block" style={{ opacity: props.opacity }}>
-        <span className="bg-primary py-1 px-2 ml-2 rounded font-bold text-xs uppercase text-white tracking-wide">
-          Isla
-        </span>
-      </animated.div>
-      {/* ) : null} */}
+      {/* {town.JIPIsla ? (
+        <animated.div className="inline-block" style={{ opacity: props.opacity }}>
+          <span className="bg-primary py-1 px-2 ml-2 rounded font-bold text-xs uppercase text-white tracking-wide">
+            Isla
+          </span>
+        </animated.div>
+      ) : null} */}
     </li>
   )
 }
