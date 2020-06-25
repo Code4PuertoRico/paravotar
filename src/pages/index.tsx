@@ -144,10 +144,10 @@ export default function Inscribete({ location }: PageProps) {
             Saca tu tarjeta electoral, sin cita previa, en la JIP más cercana a
             ti.
           </p>
-          <p className="font-semibold text-md md:text-lg">
+          {/* <p className="font-semibold text-md md:text-lg">
             Fecha límite para inscribirte: <br className="md:hidden" /> 14 de
             septiembre 2020.
-          </p>
+          </p> */}
           {/* <Link
             to="tel:+1787-777-8682,2362"
             className="h-12 text-base md:text-lg flex justify-center items-center"
