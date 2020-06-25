@@ -6,8 +6,8 @@ import Dropdown from "react-dropdown-aria"
 
 import { LetterList } from "./LetterList"
 import { TownList } from "./TownList"
-// import { voterCenters } from "./constants"
-import { AvailableCentersDirectory } from "../MakeAppointment/constants"
+import { voterCenters } from "./constants"
+// import { AvailableCentersDirectory } from "../MakeAppointment/constants"
 import { CenterInfo } from "./CenterInfo"
 import Typography from "../../typography"
 
@@ -47,20 +47,17 @@ const style: { [key: string]: any } = {
   },
 }
 
-const dropdownOptions = AvailableCentersDirectory.map(
-  ({ pueblo, JIPIsla }) => ({
-    value: `${pueblo}${JIPIsla ? " (Isla)" : ""}`,
-  })
-)
+const dropdownOptions = voterCenters.map(({ pueblo, JIPIsla }) => ({
+  value: `${pueblo} (Isla)`,
+  // value: `${pueblo}${JIPIsla ? " (Isla)" : ""}`,
+}))
 
 export function VoterCenters() {
   const [selectedLetter, setSelectedLetter] = useState("A")
 
   const townList = useMemo(
     () =>
-      AvailableCentersDirectory.filter(({ pueblo }) =>
-        pueblo.startsWith(selectedLetter)
-      ),
+      voterCenters.filter(({ pueblo }) => pueblo.startsWith(selectedLetter)),
     [selectedLetter]
   )
 
@@ -78,12 +75,12 @@ export function VoterCenters() {
   return (
     <>
       <Typography
-        id="saca-tu-cita"
+        id="juntas-de-inscripcion-permanentes"
         tag="h2"
         variant="h3"
         className="uppercase text-center tracking-wide"
       >
-        Saca una cita e inscríbete
+        BUSCA DONDE PUEDES SACAR TU TARJETA ELECTORAL
       </Typography>
       <Typography
         tag="h3"
@@ -103,17 +100,16 @@ export function VoterCenters() {
               searchable={true}
               options={dropdownOptions}
               selectedOption={
-                selectedTown.JIPIsla
-                  ? `${selectedTown.pueblo} (Isla)`
-                  : selectedTown.pueblo
+                `${selectedTown.pueblo} (Isla)`
+                // selectedTown.JIPIsla
+                //   ? `${selectedTown.pueblo} (Isla)`
+                //   : selectedTown.pueblo
               }
               setSelected={(t: string) => {
                 const selection = t.replace(" (Isla)", "")
 
                 setSelectedTown(
-                  AvailableCentersDirectory.filter(
-                    ({ pueblo }) => pueblo === selection
-                  )[0]
+                  voterCenters.filter(({ pueblo }) => pueblo === selection)[0]
                 )
               }}
               style={style}
