@@ -18,6 +18,8 @@ jobs:
 
       - name: Build
         run: yarn run build
+        env:
+          BUNDLE_ANALYZER_TOKEN: ${{ secrets.BUNDLE_ANALYZER_TOKEN }}
 
       - name: Percy Test
         uses: percy/snapshot-action@v0.1.0

@@ -1,6 +1,7 @@
 import React, { ReactNode, useEffect } from "react"
 
 import { Footer, Sidebar, Navbar } from "../components/index"
+import { withTrans } from "../i18n/withTrans"
 
 type Props = {
   children: ReactNode
@@ -58,4 +59,4 @@ const Layout = ({ children, location }: Props) => {
   )
 }
 
-export default Layout
+export default withTrans(Layout)

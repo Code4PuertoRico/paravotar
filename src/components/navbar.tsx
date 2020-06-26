@@ -1,12 +1,14 @@
 import React, { useRef, useState, useEffect } from "react"
+import LanguageMenu from "../components/languageMenu"
 
 import Logo from "../assets/images/logo.svg"
 import Inscribete from "../assets/icons/inscribete.svg"
-import Practica from "../assets/icons/practica.svg"
+// import Practica from "../assets/icons/practica.svg"
 import SalAVotar from "../assets/icons/sal-a-votar.svg"
 import Close from "../assets/icons/close.svg"
 import Menu from "../assets/icons/menu.svg"
 import { Section, SubSection } from "./section"
+import i18next from "i18next"
 
 type SidebarProps = {
   pathname: string
@@ -53,22 +55,28 @@ export default function Navbar({ pathname }: SidebarProps) {
         </div>
         <div className="mt-10">
           <Section
-            name="Inscríbete"
+            name={i18next.t("nav.sign-up")}
             icon={Inscribete}
             isActive={pathname === "/"}
           >
             <SubSection
-              name="Tarjeta Electoral"
+              name={i18next.t("nav.voter-card")}
               route="/#tarjeta-electoral"
               onClick={() => setIsOpen(false)}
             />
+            {/* <SubSection
             <SubSection
-              name="Juntas de Inscripción Permanentes"
+              name={i18next.t("nav.make-appointment")}
+              route="/#saca-tu-cita"
+              onClick={() => setIsOpen(false)}
+            /> */}
+            <SubSection
+              name={i18next.t("nav.enrollment-centers")}
               route="/#juntas-de-inscripcion-permanentes"
               onClick={() => setIsOpen(false)}
             />
             <SubSection
-              name="Estatus Electoral"
+              name={i18next.t("nav.voter-status")}
               route="/#electoral-status"
               onClick={() => setIsOpen(false)}
             />
@@ -79,16 +87,19 @@ export default function Navbar({ pathname }: SidebarProps) {
             isActive={pathname === "/practica"}
           /> */}
           <Section
-            name="Sal a votar"
+            name={i18next.t("nav.voter-action")}
             icon={SalAVotar}
             isActive={pathname === "/sal-a-votar"}
           >
             <SubSection
-              name="Voto adelantado y voto ausente"
+              name={i18next.t("nav.vote-type1")}
               route="/sal-a-votar#voto-ausente-y-adelantado"
               onClick={() => setIsOpen(false)}
             />
           </Section>
+          <div className="w-auto text-center">
+            <LanguageMenu />
+          </div>
         </div>
       </div>
     </>

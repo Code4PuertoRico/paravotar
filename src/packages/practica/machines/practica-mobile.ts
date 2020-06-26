@@ -126,9 +126,13 @@ export const practicaMobileMachine = createMachine<PracticaMobileContext>(
       saveVoterDetails: assign((_, { data }) => ({
         voterDetails: data.parsedBody,
       })),
-      saveBallotDetails: assign((_, { data }) => ({
-        ballotDetails: data.parsedBody,
-      })),
+      saveBallotDetails: assign((_, { data }) => {
+        console.log({ data })
+
+        return {
+          ballotDetails: data.parsedBody,
+        }
+      }),
       initiateBallot: assign(
         ({ selectedBallotType, voterDetails, ballots }, { data }) => ({
           ballots: {

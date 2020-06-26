@@ -4,6 +4,7 @@ import Typography from "../typography"
 import Link from "../link"
 import BrowserExample from "../../assets/images/browser-example.png"
 import OutsideLink from "../../assets/icons/outside-link.inline.svg"
+import i18next from "i18next"
 
 export function VoterStatus() {
   return (
@@ -15,7 +16,7 @@ export function VoterStatus() {
           variant="h3"
           className="uppercase tracking-wide"
         >
-          Verifica el estatus de tu registro electoral
+          {i18next.t("site.voter-status")}
         </Typography>
         <Typography
           tag="h3"
@@ -23,8 +24,7 @@ export function VoterStatus() {
           weight="base"
           className="font-normal mt-4"
         >
-          Revisa cuál es tu centro de votación junto con su dirección y el
-          estatus de tu tarjeta electoral.
+          {i18next.t("site.voter-status-guide")}
         </Typography>
       </div>
       <div className="flex flex-wrap mt-12">
@@ -33,18 +33,13 @@ export function VoterStatus() {
         </div>
         <div className="w-full lg:mt-3 lg:w-1/2">
           <Typography tag="h4" variant="h3">
-            ¿Por que es importante?
+            {i18next.t("site.voter-important")}
           </Typography>
           <Typography tag="p" variant="p" className="mt-4">
-            Es de suma importancia que verifiques el estatus de tu tarjeta
-            electoral para que pueda ejercer tu voto el día de las elecciones.
-            Si tu tarjeta electoral no esta activa debes visitar la Junta de
-            Inscripción Permanente más cercana para activarla.
+            {i18next.t("site.voter-important-guide1")}
           </Typography>
           <Typography tag="p" variant="p" className="mt-4">
-            Si te has mudado recientemente es importante renovar tu tarjeta
-            electoral para ejercer tu voto en el municipio y Centro de Votación
-            correspondiente.
+            {i18next.t("site.voter-important-guide2")}
           </Typography>
           <Link
             className="mt-6 w-full pt-2 pb-2 md:w-1/2"
@@ -52,13 +47,14 @@ export function VoterStatus() {
             to="http://ww2.ceepur.org/es-pr/Paginas/Estatus-del-Elector.aspx"
             target="_blank"
           >
-            <OutsideLink className="mr-2 h-5 w-5" /> Verificar mi status
-            <span className="sr-only">electoral</span>
+            <OutsideLink className="mr-2 h-5 w-5" />
+            {i18next.t("site.voter-status-verify")}
+            <span className="sr-only">
+              {i18next.t("site.voter-status-verify")}
+            </span>
           </Link>
           <Typography tag="p" variant="p" className="mt-2 text-xs">
-            Este enlace te llevará a la página de la Comisión Estatal de
-            Elecciones. Allí podrás llenar el formulario que te dirá cuál es el
-            estatus de tu registro electoral.
+            {i18next.t("site.voter-status-note")}
           </Typography>
         </div>
       </div>

@@ -2,7 +2,7 @@ import React from "react"
 import { Voter } from "../types"
 import Typography from "../../typography"
 import NotePad from "../../../assets/icons/notepad.svg"
-
+import i18next from "i18next"
 export const VoterInfoLeftPanel: React.FunctionComponent<{
   voterMetadata: Voter
 }> = ({ voterMetadata }) => (
@@ -15,13 +15,13 @@ export const VoterInfoLeftPanel: React.FunctionComponent<{
         weight="base"
         className="font-bold block mb-4"
       >
-        Debes Saber:
+        {i18next.t("site.you-must-know")}
       </Typography>
     </div>
     <ul className="list-disc ml-1">
       {voterMetadata.shouldKnow.map((k, i) => (
         <li className="ml-5 mt-1" key={i}>
-          {k}
+          {i18next.t(`${k}`)}
         </li>
       ))}
     </ul>

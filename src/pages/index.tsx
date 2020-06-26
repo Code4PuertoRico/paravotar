@@ -1,5 +1,7 @@
 import React, { useState, useRef, useEffect } from "react"
+
 import DropdownAria from "react-dropdown-aria"
+import { useTranslation } from "react-i18next"
 
 import { Container, Layout, SEO, Typography, Link } from "../components"
 import { VoterCenters } from "../components/inscribete/VoterCenters"
@@ -8,6 +10,9 @@ import { VoterDocs } from "../components/inscribete/constants"
 import { VoterInfoLeftPanel } from "../components/inscribete/VoterInfo/LeftPanel"
 import { VoterInfoRightPanel } from "../components/inscribete/VoterInfo/RightPanel"
 import { StickyBanner } from "../components/sticky-banner"
+import { withTrans } from "../i18n/withTrans"
+// import MakeAppointment from "../components/inscribete/MakeAppointment"
+// import Phone from "../assets/icons/phone.inline.svg"
 
 const style: { [key: string]: any } = {
   DropdownWrapper: (base: any) => ({
@@ -54,18 +59,32 @@ const style: { [key: string]: any } = {
   },
 }
 
-const options = VoterDocs.map(v => ({
-  value: v.description,
-}))
-
-const getVoterMeta = (v: string) =>
-  VoterDocs.filter(vd => vd.description === v)[0]
-
 type PageProps = {
   location: Location
 }
 
-export default function Inscribete({ location }: PageProps) {
+const Inscribete = ({ location }: PageProps) => {
+  const { t, i18n } = useTranslation()
+
+  const options = VoterDocs.map(v => ({
+    value: t(`${v.description}`),
+  }))
+
+  const getVoterMeta = (v: string) => {
+    if (
+      v === "A foreign country and I reside in Puerto Rico" ||
+      v === "Un país extranjero y resido en Puerto Rico"
+    ) {
+      v = "site.born-in-other-countries"
+      return VoterDocs.filter(vd => vd.description === v)[0]
+    } else if (
+      v === "United States, Continentals, Territories or Possessions" ||
+      v === "Estados Unidos, Continentales, Territorios o Posesiones"
+    ) {
+      v = "site.born-in-territory"
+      return VoterDocs.filter(vd => vd.description === v)[0]
+    } else return VoterDocs.filter(vd => vd.description === v)[0]
+  }
   const [selectedOption, setSelectedOption] = useState(options[0].value)
   const containerRef = useRef<HTMLDivElement>(null)
 
@@ -87,7 +106,7 @@ export default function Inscribete({ location }: PageProps) {
           variant="h3"
           className="uppercase tracking-wide"
         >
-          Inscríbete, conoce cómo obtener tu tarjeta electoral
+          {t("site.tarjeta-electoral-title")}
         </Typography>
         <Typography
           tag="h2"
@@ -95,7 +114,7 @@ export default function Inscribete({ location }: PageProps) {
           weight="base"
           className="font-normal mt-4"
         >
-          ¿Qué debo llevar para obtener mi tarjeta electoral?
+          {t("site.what-bring-registration-card")}
         </Typography>
         <Typography
           tag="h2"
@@ -103,7 +122,7 @@ export default function Inscribete({ location }: PageProps) {
           weight="base"
           className="font-normal mt-4"
         >
-          Yo nací en...
+          {t("site.born-location")}
         </Typography>
       </Container>
       <Container className="w-11/12 mt-4 mb-8 lg:w-10/12">
@@ -128,45 +147,32 @@ export default function Inscribete({ location }: PageProps) {
         </div>
       </Container>
       <Container className="w-11/12 mb-32 lg:w-10/12">
-        <Typography
-          id="juntas-de-inscripcion-permanentes"
-          tag="h2"
-          variant="h3"
-          className="uppercase text-center tracking-wide"
-        >
-          BUSCA DONDE PUEDES SACAR TU TARJETA ELECTORAL
-        </Typography>
-        <Typography
-          tag="h3"
-          variant="h2"
-          weight="base"
-          className="text-center mt-3"
-        >
-          Identifica tu pueblo, revisa horarios de información contacto.
-        </Typography>
-        <div className="mt-12 bg-white shadow-md rounded">
-          <VoterCenters />
-        </div>
+        <VoterCenters />
       </Container>
+      {/* <Container className="w-11/12 mb-32 lg:w-10/12">
+        <MakeAppointment />
+      </Container> */}
       <Container className="w-11/12 mb-32 lg:w-10/12">
         <VoterStatus />
       </Container>
       <StickyBanner>
         <div className="flex flex-col md:flex-row justify-center items-center text-center">
-          <span className="font-bold mb-4 md:mb-0 md:mr-4 block text-md md:text-lg">
-            Saca tu cita para Inscribirte,{" "}
-            <span className="block md:inline-block">llama ahora</span>
+          <span className="font-bold pr-3 pl-3 mb-4 md:mb-0 md:mr-4 block text-md md:text-lg">
+            {t("site.register-to-vote-today")}
           </span>
-          <Link
+          {/* <Link
             to="tel:+1787-777-8682,2362"
             className="h-12 text-base md:text-lg flex justify-center items-center"
-            variant="primary"
+            variant="danger"
           >
+            <Phone className="mr-2 h-5 w-5 tada animated infinite" />
             (787) 777-8682 &nbsp;
             <span className="text-xs pt-1 md:text-base md:pt-0">ext. 2362</span>
-          </Link>
+          </Link> */}
         </div>
       </StickyBanner>
     </Layout>
   )
 }
+
+export default withTrans(Inscribete)
