@@ -29,14 +29,18 @@ export default function Sidebar({ pathname }: SidebarProps) {
               name={i18next.t("nav.voter-card")}
               route="/#tarjeta-electoral"
             />
-            <SubSection
+            {/* <SubSection
               name={i18next.t("nav.make-appointment")}
               route="/#saca-tu-cita"
-            />
-            {/* <SubSection
-              name="Juntas de Inscripción Permanentes"
-              route="/#juntas-de-inscripcion-permanentes"
             /> */}
+            <SubSection
+              name={i18next.t("nav.enrollment-centers")}
+              route="/#juntas-de-inscripcion-permanentes"
+            />
+            <SubSection
+              name={i18next.t("nav.voter-status")}
+              route="/#electoral-status"
+            />
             <SubSection
               name={i18next.t("nav.voter-status")}
               route="/#electoral-status"

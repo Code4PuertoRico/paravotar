@@ -26,24 +26,29 @@
     "voter-height": "Height",
     "born-in-other-countries": "A foreign country and I reside in Puerto Rico",
     "born-in-territory": "United States, Continentals, Territories or Possessions",
-    "where-voter-card": "Make an appointment and sign up to vote",
-    "where-voter-card-guide": "Find the \"Junta de Inscripción Permanente\" closest to you and sign up.",
+    "where-voter-card": "Register to vote",
+    "where-voter-card-guide": "Find the Enrollment Center closest to you and register to vote.",
     "voter-status": "Check the status of your voter registry",
     "voter-status-guide": "Check which is your polling location along with its address and the status of your voter card.",
     "voter-important": "Why is it important?",
-    "voter-important-guide1": "It is extremely important that you verify the status of your voter card so that you can cast your vote on Election Day. If your voter card is not active, you must visit the nearest \"Junta de Inscripción Permanente\" to activate it.",
+    "voter-important-guide1": "It is extremely important that you verify the status of your voter card so that you can cast your vote on Election Day. If your voter card is not active, you must visit the nearest Enrollment Center to activate it.",
     "voter-important-guide2": "If you have moved recently, it is important to renew your electoral card to exercise your vote in the municipality and corresponding Voting Center.",
     "voter-status-verify": "Check my status",
     "voter-status-note": "This link will take you to the page of the \"Comisión Estatal de  Elecciones\". There you can fill out the form that will tell you the status of your voter registry.",
-    "appointment-note": "Make your appointment to enroll, call now"
+    "register-to-vote-today": "Register to vote today at an Enrollment Center near you. No appointment required.",
+    "enrollment-centers-dates": "Monday to Saturday",
+    "enrollment-centers-services": "New voter registrations, reactivations, relocations and transfers",
+    "enrollment-centers-note": "* In this enrollment center you can carry out any electoral process regardless of the precinct in which you reside.",
+    "location": "Location"
   },
   "nav": {
-    "sign-up": "Sign up",
+    "sign-up": "Register to vote",
     "voter-card": "Voter Card",
     "make-appointment": "Make Appointment",
     "voter-status": "Voter Status",
     "voter-action": "Go out to vote",
-    "vote-type1": "Absentee and Early Voting"
+    "vote-type1": "Absentee and Early Voting",
+    "enrollment-centers": "Enrollment Centers"
   },
   "footer": {
     "contribute": "How can I contribute to the project?",

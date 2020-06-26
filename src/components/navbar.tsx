@@ -3,7 +3,7 @@ import LanguageMenu from "../components/languageMenu"
 
 import Logo from "../assets/images/logo.svg"
 import Inscribete from "../assets/icons/inscribete.svg"
-import Practica from "../assets/icons/practica.svg"
+// import Practica from "../assets/icons/practica.svg"
 import SalAVotar from "../assets/icons/sal-a-votar.svg"
 import Close from "../assets/icons/close.svg"
 import Menu from "../assets/icons/menu.svg"
@@ -64,6 +64,7 @@ export default function Navbar({ pathname }: SidebarProps) {
               route="/#tarjeta-electoral"
               onClick={() => setIsOpen(false)}
             />
+            {/* <SubSection
             <SubSection
               name={i18next.t("nav.make-appointment")}
               route="/#saca-tu-cita"

@@ -26,7 +26,7 @@
     "voter-height": "Estatura",
     "born-in-other-countries": "Un país extranjero y resido en Puerto Rico",
     "born-in-territory": "Estados Unidos, Continentales, Territorios o Posesiones",
-    "where-voter-card": "Saca una cita e inscríbete",
+    "where-voter-card": " Busca donde puedes sacar tu tarjeta electoral",
     "where-voter-card-guide": "Encuentra la Junta de Inscripción Permanente más cercana a ti e inscríbete.",
     "voter-status": "Verifica el estatus de tu registro electoral",
     "voter-status-guide": "Revisa cuál es tu centro de votación junto con su dirección y el estatus de tu tarjeta electoral.",
@@ -35,7 +35,11 @@
     "voter-important-guide2": "Si te has mudado recientemente es importante renovar tu tarjeta electoral para ejercer tu voto en el municipio y Centro de Votación correspondiente.",
     "voter-status-verify": "Verificar mi estatus",
     "voter-status-note": "Este enlace te llevará a la página de la Comisión Estatal de  Elecciones. Allí podrás llenar el formulario que te dirá cuál es el estatus de tu registro electoral.",
-    "appointment-note": "Saca tu cita para Inscribirte, llama ahora"
+    "register-to-vote-today": "Saca tu tarjeta electoral, sin cita previa, en la JIP más cercana a ti.",
+    "enrollment-centers-dates": "Lunes a Sabado",
+    "enrollment-centers-services": "Nuevas inscripciones, reactivaciones, reubicaciones y transferencias",
+    "enrollment-centers-note": "* En este centro puede realizar cualquier trámite electoral sin importar el precinto en el cual reside.",
+    "location": "Direcciones"
   },
   "nav": {
     "sign-up": "Inscríbete",
@@ -43,7 +47,8 @@
     "make-appointment": "Saca tu cita",
     "voter-status": "Estatus Electoral",
     "voter-action": "Sal a votar",
-    "vote-type1": "Voto adelantado y voto ausente"
+    "vote-type1": "Voto adelantado y voto ausente",
+    "enrollment-centers": "Juntas de Inscripción Permanentes"
   },
   "footer": {
     "contribute": "¿Cómo puedo contribuir al proyecto?",
