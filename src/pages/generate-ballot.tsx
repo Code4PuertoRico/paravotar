@@ -42,42 +42,44 @@ export default function GenerateBallot({ location }: PageProps) {
 
   if (state.matches("success") && state.context.path) {
     return (
-      <Switch state={state}>
-        <Case value={{ success: "governmental" }}>
-          <GovernmentalBallot
-            path={state.context.path}
-            structure={state.context.ballot}
-            votes={votes}
-          />
-        </Case>
-        <Case value={{ success: "legislative" }}>
-          <LegislativeBallot
-            path={state.context.path}
-            structure={state.context.ballot}
-            votes={votes}
-          />
-        </Case>
-        <Case value={{ success: "municipal" }}>
-          <MunicipalBallot
-            path={state.context.path}
-            structure={state.context.ballot}
-            votes={votes}
-          />
-        </Case>
-        <Default>
-          <div>Unknown</div>
-        </Default>
-      </Switch>
+      <div data-state="success">
+        <Switch state={state}>
+          <Case value={{ success: "governmental" }}>
+            <GovernmentalBallot
+              path={state.context.path}
+              structure={state.context.ballot}
+              votes={votes}
+            />
+          </Case>
+          <Case value={{ success: "legislative" }}>
+            <LegislativeBallot
+              path={state.context.path}
+              structure={state.context.ballot}
+              votes={votes}
+            />
+          </Case>
+          <Case value={{ success: "municipal" }}>
+            <MunicipalBallot
+              path={state.context.path}
+              structure={state.context.ballot}
+              votes={votes}
+            />
+          </Case>
+          <Default>
+            <div>Unknown</div>
+          </Default>
+        </Switch>
+      </div>
     )
   }
 
   return (
     <Switch state={state}>
       <Case value="loading">
-        <div>Loading...</div>
+        <div data-state={state.value}>Loading...</div>
       </Case>
       <Case value="failure">
-        <div>Failure</div>
+        <div data-state={state.value}>Failure</div>
       </Case>
       <Default>
         <div>Test</div>
