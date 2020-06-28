@@ -10,7 +10,7 @@ const LanguageMenu = (props: any) => {
   return (
     <>
       <Button
-        className="mb-4"
+        className="mt-4 mb-4"
         onClick={() => {
           if (language === "es") {
             i18n.changeLanguage("en")
