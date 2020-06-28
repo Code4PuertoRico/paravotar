@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react"
+import i18next from "i18next"
 import { useSpring, animated } from "react-spring"
 import useMeasure from "react-use-measure"
 import { ResizeObserver } from "@juggle/resize-observer"
@@ -91,24 +92,38 @@ export default function SpecialVoterReasons(voter: Props) {
         {voter.reasons.map(reason => (
           <Reason
             key={reason.summary}
-            summary={reason.summary}
-            details={reason.details}
+            summary={i18next.t(reason.summary)}
+            details={i18next.t(reason.details)}
           />
         ))}
       </div>
-      {voter.exceptions ? (
+      {i18next.t(voter.exceptions) ? (
         <Typography tag="p" variant="p" className="mt-4">
-          {voter.exceptions}
+          {i18next.t(voter.exceptions)}
         </Typography>
       ) : null}
       <div className="w-full md:w-1/2 md:mx-auto">
         {voter.documents.length > 1 ? (
           <ButtonDropdown
-            placeholder="Escoge la solicitud a descargar"
+            placeholder={i18next.t("site.absentee-voter-dropdown")}
             options={voter.documents.map(document => ({
-              value: document.title,
+              value: i18next.t(document.title),
             }))}
             onSelect={(docTitle: string) => {
+              if (docTitle == "Voto Adelantado" || docTitle == "Early Vote")
+                docTitle = "site.absentee-voter-dropdown-01"
+              else if (
+                docTitle == "Voto en el Domicilio" ||
+                docTitle == "Vote at Home"
+              )
+                docTitle = "site.absentee-voter-dropdown-02"
+              else if (
+                docTitle == "Voto por el Teléfono" ||
+                docTitle == "Vote by Phone"
+              )
+                docTitle = "site.absentee-voter-dropdown-03"
+              else docTitle = "none"
+
               const document = voter.documents.find(
                 doc => doc.title === docTitle
               )
@@ -124,8 +139,8 @@ export default function SpecialVoterReasons(voter: Props) {
             variant="primary"
             className="mt-6"
           >
-            <Download className="mr-1 h-5 w-5 inline-block" /> Descarga la
-            solicitud
+            <Download className="mr-1 h-5 w-5 inline-block" />
+            {i18next.t("site.early-voter-dropdown")}
           </Link>
         )}
         <Button
