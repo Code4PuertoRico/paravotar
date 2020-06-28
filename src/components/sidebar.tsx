@@ -41,10 +41,6 @@ export default function Sidebar({ pathname }: SidebarProps) {
               name={i18next.t("nav.voter-status")}
               route="/#electoral-status"
             />
-            <SubSection
-              name={i18next.t("nav.voter-status")}
-              route="/#electoral-status"
-            />
           </Section>
           {/* <Section
             name="Practica"

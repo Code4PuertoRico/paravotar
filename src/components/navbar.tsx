@@ -65,16 +65,15 @@ export default function Navbar({ pathname }: SidebarProps) {
               onClick={() => setIsOpen(false)}
             />
             {/* <SubSection
-            <SubSection
               name={i18next.t("nav.make-appointment")}
               route="/#saca-tu-cita"
               onClick={() => setIsOpen(false)}
-            />
-            {/* <SubSection
-              name="Juntas de Inscripción Permanentes"
+            /> */}
+            <SubSection
+              name={i18next.t("nav.enrollment-centers")}
               route="/#juntas-de-inscripcion-permanentes"
               onClick={() => setIsOpen(false)}
-            /> */}
+            />
             <SubSection
               name={i18next.t("nav.voter-status")}
               route="/#electoral-status"
