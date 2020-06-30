@@ -59,7 +59,10 @@
     "early-voter-dropdown": "Descarga la solicitud",
     "early-voter-exceptions": "Los profesionales de la salud, jueces y juezas y personas con impedimentos de movilidad podrán solicitar el voto adelantado hasta 15 días antes del día de la elección.",
     "qualified-voters": "Ver electores cualificados",
-    "certified-reasons": "Ver razones certificadas"
+    "certified-reasons": "Ver razones certificadas",
+    "address": "Dirección",
+    "working-hours": "Horario",
+    "services": "Servicios"
   },
   "nav": {
     "sign-up": "Inscríbete",
@@ -80,7 +83,7 @@
     "contribute-note6": "Gracias a todas las personas que nos han dado su feedback para mejorar esta herramienta.",
     "support1": "Para sugerencias y comentarios nos puedes contactar por ",
     "support2": " o puedes abrir un issue en "
-  }, 
+  },
   "early-voter": {
     "reason-summary-01": "Profesionales y empleados de la salud",
     "reason-detail-01": "Profesionales y empleados de la salud que el día de una elección ofrecerán servicios indispensables durante el horario de votación y que acrediten tal situación.",

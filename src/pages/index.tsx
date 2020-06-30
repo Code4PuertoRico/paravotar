@@ -3,6 +3,7 @@ import React, { useState, useRef, useEffect } from "react"
 import DropdownAria from "react-dropdown-aria"
 import { useTranslation } from "react-i18next"
 
+import { withTrans } from "../i18n/withTrans"
 import { Container, Layout, SEO, Typography } from "../components"
 import { VoterCenters } from "../components/inscribete/VoterCenters"
 import { VoterStatus } from "../components/inscribete/VoterStatus"
@@ -155,4 +156,4 @@ const Inscribete = ({ location }: PageProps) => {
   )
 }
 
-export default Inscribete
+export default withTrans(Inscribete)
