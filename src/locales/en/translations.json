@@ -62,7 +62,10 @@
     "certified-reasons": "See certified reasons",
     "address": "Address",
     "working-hours": "Working hours",
-    "services": "Services"
+    "services": "Services",
+    "made-with": "Made with",
+    "from-pr": "from PR and the diaspora by",
+    "other-contributors": "other contributors"
   },
   "nav": {
     "sign-up": "Register to vote",

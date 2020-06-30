@@ -62,7 +62,10 @@
     "certified-reasons": "Ver razones certificadas",
     "address": "Dirección",
     "working-hours": "Horario",
-    "services": "Servicios"
+    "services": "Servicios",
+    "made-with": "Hecho con",
+    "from-pr": "desde PR y la diaspora por",
+    "other-contributors": "otros contribuyentes"
   },
   "nav": {
     "sign-up": "Inscríbete",
