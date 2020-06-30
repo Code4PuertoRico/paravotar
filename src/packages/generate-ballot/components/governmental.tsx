@@ -3,7 +3,7 @@ import React from "react"
 import { Candidate, PartyHeader, SectionHeader } from "./sections/index"
 
 import { BallotContent, VotesCoordinates } from "../types/ballot-machine"
-import { PUBLIC_S3_BUCKET } from "../../practica/services/constants"
+import { CDN_URL } from "../constants"
 
 type BallotProps = {
   path: string
@@ -16,7 +16,7 @@ export default function GovernmentalBallot({
   structure,
   votes,
 }: BallotProps) {
-  const url = `${PUBLIC_S3_BUCKET}${path}`
+  const url = `${CDN_URL}${path}`
 
   return (
     <div className="bg-black" style={{ width: 2200 }}>
