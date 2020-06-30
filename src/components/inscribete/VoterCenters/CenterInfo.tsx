@@ -22,11 +22,13 @@ const TownInfo: React.FunctionComponent<{ town: Required<Town> }> = ({
         <p>{town.pueblo}</p>
       </div> */}
       {/* <div className="text-base md:text-xl pt-6">
-        <p className="font-semibold pr-12 align-top">Dirección</p>
+        <p className="font-semibold pr-12 align-top">{i18next.t('site.address')}</p>
         <p>{town.direccion}</p>
       </div> */}
       <div className="flex text-base md:text-xl">
-        <p className="font-bold pr-12 align-top w-1/4">Dirección</p>
+        <p className="font-bold pr-12 align-top w-1/4">
+          {i18next.t("site.address")}
+        </p>
         <p className="w-3/4">{town.direccion}</p>
       </div>
       {/* <div className="flex text-base md:text-xl pt-6">
@@ -34,13 +36,17 @@ const TownInfo: React.FunctionComponent<{ town: Required<Town> }> = ({
         <p className="w-3/4">{town.telefono}</p>
       </div> */}
       <div className="flex text-base md:text-xl pt-6">
-        <p className="font-bold pr-12 align-top w-1/4">Horario</p>
+        <p className="font-bold pr-12 align-top w-1/4">
+          {i18next.t("site.working-hours")}
+        </p>
         <p className="w-3/4">
           {i18next.t("site.enrollment-centers-dates")} <br /> 8:00 am - 4:00 pm
         </p>
       </div>
       <div className="flex text-base md:text-xl pt-6">
-        <p className="font-bold pr-12 align-top w-1/4">Servicios</p>
+        <p className="font-bold pr-12 align-top w-1/4">
+          {i18next.t("site.services")}
+        </p>
         <p className="w-3/4">
           {i18next.t("site.enrollment-centers-services")}
           {/* {town.servicios.map(s => (

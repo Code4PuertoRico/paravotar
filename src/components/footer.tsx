@@ -36,19 +36,26 @@ export default function Footer() {
         .
       </p>
       <p className="text-sm mt-10">
-        Hecho con{" "}
-        <img className="inline-block h-4 w-4" src={Heart} alt="amor" /> desde PR
-        y la diaspora por{" "}
+        {i18next.t("site.made-with")}{" "}
+        <img className="inline-block h-4 w-4" src={Heart} alt="amor" />{" "}
+        {i18next.t("site.from-pr")}{" "}
         <Link to="https://twitter.com/eluciiano" target="_blank">
           Emmanuel Luciano
         </Link>
         ,{" "}
         <Link to="https://twitter.com/jpadilla1293" target="_blank">
           José Padilla
-        </Link>{" "}
-        &{" "}
+        </Link>
+        ,{" "}
         <Link to="https://twitter.com/LayshiCurbelo" target="_blank">
           Layshi Curbelo
+        </Link>{" "}
+        &{" "}
+        <Link
+          to="https://github.com/Code4PuertoRico/paravotar/graphs/contributors"
+          target="_blank"
+        >
+          {i18next.t("site.other-contributors")}
         </Link>
         .
       </p>
