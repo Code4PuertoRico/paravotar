@@ -1,5 +1,6 @@
 import React from "react"
 import { animated, useSpring } from "react-spring"
+import i18next from "i18next"
 
 import { Reason } from "./SpecialVoterReasons"
 import Typography from "../../typography"
@@ -25,7 +26,8 @@ export default function TabContent(voter: Props) {
         {voter.summary}
       </Typography>
       <Typography tag="p" variant="p" className="mt-4" weight="semibold">
-        Fecha límite para sometera tu solicitud: <br />{" "}
+        {i18next.t("site.special-voters-deadline-text")}
+        <br />
         <span className="text-primary">
           <time>{voter.deadline}</time>
         </span>
@@ -37,21 +39,35 @@ export default function TabContent(voter: Props) {
         {voter.reasons.map(reason => (
           <Reason
             key={reason.summary}
-            summary={reason.summary}
-            details={reason.details}
+            summary={i18next.t(reason.summary)}
+            details={i18next.t(reason.details)}
           />
         ))}
       </ul>
       <Typography tag="p" variant="p" className="mt-4">
-        {voter.exceptions}
+        {i18next.t(voter.exceptions)}
       </Typography>
       {voter.documents.length > 1 ? (
         <ButtonDropdown
-          placeholder="Escoge la solicitud a descargar"
+          placeholder={i18next.t("site.absentee-voter-dropdown")}
           options={voter.documents.map(document => ({
-            value: document.title,
+            value: i18next.t(document.title),
           }))}
           onSelect={(docTitle: string) => {
+            if (docTitle == "Voto Adelantado" || docTitle == "Early Vote")
+              docTitle = "site.absentee-voter-dropdown-01"
+            else if (
+              docTitle == "Voto en el Domicilio" ||
+              docTitle == "Vote at Home"
+            )
+              docTitle = "site.absentee-voter-dropdown-02"
+            else if (
+              docTitle == "Voto por el Teléfono" ||
+              docTitle == "Vote by Phone"
+            )
+              docTitle = "site.absentee-voter-dropdown-03"
+            else docTitle = "none"
+
             const document = voter.documents.find(doc => doc.title === docTitle)
 
             // Open download in a new tab.
@@ -65,8 +81,8 @@ export default function TabContent(voter: Props) {
           variant="primary"
           className="mt-6"
         >
-          <Download className="mr-1 h-5 w-5 inline-block" /> Descarga la
-          solicitud
+          <Download className="mr-1 h-5 w-5 inline-block" />
+          {i18next.t("site.early-voter-dropdown")}
         </Link>
       )}
     </animated.div>

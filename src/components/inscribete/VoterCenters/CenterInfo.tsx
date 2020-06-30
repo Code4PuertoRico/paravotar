@@ -1,4 +1,6 @@
 import React from "react"
+
+import i18next from "i18next"
 import { animated, useSpring } from "react-spring"
 
 import { Town } from "../types"
@@ -34,13 +36,13 @@ const TownInfo: React.FunctionComponent<{ town: Required<Town> }> = ({
       <div className="flex text-base md:text-xl pt-6">
         <p className="font-bold pr-12 align-top w-1/4">Horario</p>
         <p className="w-3/4">
-          Lunes a Sabado <br /> 8:00 am - 4:00 pm
+          {i18next.t("site.enrollment-centers-dates")} <br /> 8:00 am - 4:00 pm
         </p>
       </div>
       <div className="flex text-base md:text-xl pt-6">
         <p className="font-bold pr-12 align-top w-1/4">Servicios</p>
         <p className="w-3/4">
-          Nuevas inscripciones, reactivaciones, reubicaciones y transferencias
+          {i18next.t("site.enrollment-centers-services")}
           {/* {town.servicios.map(s => (
             <span key={s} className="block">
               {s}
@@ -50,10 +52,7 @@ const TownInfo: React.FunctionComponent<{ town: Required<Town> }> = ({
       </div>
     </div>
     {/* {town.JIPIsla ? ( */}
-    <p className="mt-4">
-      * En este centro puede realizar cualquier trámite electoral sin importar
-      el precinto en el cual reside.
-    </p>
+    <p className="mt-4">{i18next.t("site.enrollment-centers-note")}</p>
     {/* ) : null} */}
     <div className="mt-8">
       <Link
@@ -62,7 +61,7 @@ const TownInfo: React.FunctionComponent<{ town: Required<Town> }> = ({
         target="_blank"
         variant="primary"
       >
-        <Location className="mr-1 h-5 w-5" /> Direcciones
+        <Location className="mr-1 h-5 w-5" /> {i18next.t("site.location")}
         <span className="sr-only">
           para esta Junta de Inscripción Permanente
         </span>

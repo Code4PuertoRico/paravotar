@@ -1,6 +1,7 @@
 import React, { useEffect, createRef, useRef } from "react"
 import { Machine, assign } from "xstate"
 import { useMachine } from "@xstate/react"
+import i18next from "i18next"
 
 import { AbsenteeVoter, EarlyVoter } from "../constants"
 import Switch from "../../switch"
@@ -70,7 +71,7 @@ export default function SpecialVoterCards() {
         <Case value="absenteeVoter">
           <SpecialVoterReasons
             icon={AbsenteeVoter.icon}
-            title="Electores con derecho al Voto Ausente"
+            title={i18next.t("site.absentee-voter-title")}
             reasons={AbsenteeVoter.reasons}
             documents={AbsenteeVoter.documents}
             exceptions={AbsenteeVoter.exceptions}
@@ -80,7 +81,7 @@ export default function SpecialVoterCards() {
         <Case value="earlyVoter">
           <SpecialVoterReasons
             icon={EarlyVoter.icon}
-            title="Electores con derecho al Voto Adelantado"
+            title={i18next.t("site.early-voter-title")}
             reasons={EarlyVoter.reasons}
             documents={EarlyVoter.documents}
             exceptions={EarlyVoter.exceptions}
@@ -91,20 +92,20 @@ export default function SpecialVoterCards() {
           <div className="flex flex-row flex-wrap" ref={ref} tabIndex={-1}>
             <SpecialVoterCard
               icon={EarlyVoter.icon}
-              title="Voto por adelantado"
-              summary={EarlyVoter.summary}
-              deadline={EarlyVoter.deadline}
+              title={i18next.t("site.early-voter")}
+              summary={i18next.t("site.early-voter-summary")}
+              deadline={i18next.t(EarlyVoter.deadline)}
               documents={EarlyVoter.documents}
-              detailsTitle="Ver electores cualificados"
+              detailsTitle={i18next.t("site.qualified-voters")}
               onClickRequirements={() => send("EARLY_VOTER_TOGGLED")}
             />
             <SpecialVoterCard
               icon={AbsenteeVoter.icon}
-              title="Voto ausente"
-              summary={AbsenteeVoter.summary}
-              deadline={AbsenteeVoter.deadline}
+              title={i18next.t("site.absentee-voter")}
+              summary={i18next.t(AbsenteeVoter.summary)}
+              deadline={i18next.t(AbsenteeVoter.deadline)}
               documents={AbsenteeVoter.documents}
-              detailsTitle="Ver razones certificadas"
+              detailsTitle={i18next.t("site.certified-reasons")}
               onClickRequirements={() => send("ABSENTEE_VOTER_TOGGLED")}
             />
           </div>

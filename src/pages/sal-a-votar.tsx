@@ -2,12 +2,13 @@ import React from "react"
 
 import { Container, Layout, SEO } from "../components"
 import { SpecialVoters } from "../components/inscribete/SpecialVoters"
+import { withTrans } from "../i18n/withTrans"
 
 type PageProps = {
   location: Location
 }
 
-export default function SalAVotar({ location }: PageProps) {
+const SalAVotar = ({ location }: PageProps) => {
   return (
     <Layout location={location}>
       <SEO title="Sal a votar" />
@@ -17,3 +18,5 @@ export default function SalAVotar({ location }: PageProps) {
     </Layout>
   )
 }
+
+export default withTrans(SalAVotar)

@@ -1,5 +1,7 @@
 import React, { useState, useRef, useEffect } from "react"
+
 import DropdownAria from "react-dropdown-aria"
+import { useTranslation } from "react-i18next"
 
 import { Container, Layout, SEO, Typography, Link } from "../components"
 import { VoterCenters } from "../components/inscribete/VoterCenters"
@@ -8,8 +10,9 @@ import { VoterDocs } from "../components/inscribete/constants"
 import { VoterInfoLeftPanel } from "../components/inscribete/VoterInfo/LeftPanel"
 import { VoterInfoRightPanel } from "../components/inscribete/VoterInfo/RightPanel"
 import { StickyBanner } from "../components/sticky-banner"
+import { withTrans } from "../i18n/withTrans"
 // import MakeAppointment from "../components/inscribete/MakeAppointment"
-import Phone from "../assets/icons/phone.inline.svg"
+// import Phone from "../assets/icons/phone.inline.svg"
 
 const style: { [key: string]: any } = {
   DropdownWrapper: (base: any) => ({
@@ -56,18 +59,32 @@ const style: { [key: string]: any } = {
   },
 }
 
-const options = VoterDocs.map(v => ({
-  value: v.description,
-}))
-
-const getVoterMeta = (v: string) =>
-  VoterDocs.filter(vd => vd.description === v)[0]
-
 type PageProps = {
   location: Location
 }
 
-export default function Inscribete({ location }: PageProps) {
+const Inscribete = ({ location }: PageProps) => {
+  const { t, i18n } = useTranslation()
+
+  const options = VoterDocs.map(v => ({
+    value: t(`${v.description}`),
+  }))
+
+  const getVoterMeta = (v: string) => {
+    if (
+      v === "A foreign country and I reside in Puerto Rico" ||
+      v === "Un país extranjero y resido en Puerto Rico"
+    ) {
+      v = "site.born-in-other-countries"
+      return VoterDocs.filter(vd => vd.description === v)[0]
+    } else if (
+      v === "United States, Continentals, Territories or Possessions" ||
+      v === "Estados Unidos, Continentales, Territorios o Posesiones"
+    ) {
+      v = "site.born-in-territory"
+      return VoterDocs.filter(vd => vd.description === v)[0]
+    } else return VoterDocs.filter(vd => vd.description === v)[0]
+  }
   const [selectedOption, setSelectedOption] = useState(options[0].value)
   const containerRef = useRef<HTMLDivElement>(null)
 
@@ -89,7 +106,7 @@ export default function Inscribete({ location }: PageProps) {
           variant="h3"
           className="uppercase tracking-wide"
         >
-          Inscríbete, conoce cómo obtener tu tarjeta electoral
+          {t("site.tarjeta-electoral-title")}
         </Typography>
         <Typography
           tag="h2"
@@ -97,7 +114,7 @@ export default function Inscribete({ location }: PageProps) {
           weight="base"
           className="font-normal mt-4"
         >
-          ¿Qué debo llevar para obtener mi tarjeta electoral?
+          {t("site.what-bring-registration-card")}
         </Typography>
         <Typography
           tag="h2"
@@ -105,7 +122,7 @@ export default function Inscribete({ location }: PageProps) {
           weight="base"
           className="font-normal mt-4"
         >
-          Yo nací en...
+          {t("site.born-location")}
         </Typography>
       </Container>
       <Container className="w-11/12 mt-4 mb-8 lg:w-10/12">
@@ -139,15 +156,10 @@ export default function Inscribete({ location }: PageProps) {
         <VoterStatus />
       </Container>
       <StickyBanner>
-        <div className="text-center">
-          <p className="font-bold mb-2 text-md md:text-lg">
-            Saca tu tarjeta electoral, sin cita previa, en la JIP más cercana a
-            ti.
-          </p>
-          {/* <p className="font-semibold text-md md:text-lg">
-            Fecha límite para inscribirte: <br className="md:hidden" /> 14 de
-            septiembre 2020.
-          </p> */}
+        <div className="flex flex-col md:flex-row justify-center items-center text-center">
+          <span className="font-bold pr-3 pl-3 mb-4 md:mb-0 md:mr-4 block text-md md:text-lg">
+            {t("site.register-to-vote-today")}
+          </span>
           {/* <Link
             to="tel:+1787-777-8682,2362"
             className="h-12 text-base md:text-lg flex justify-center items-center"
@@ -162,3 +174,5 @@ export default function Inscribete({ location }: PageProps) {
     </Layout>
   )
 }
+
+export default withTrans(Inscribete)

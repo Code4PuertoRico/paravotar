@@ -1,4 +1,6 @@
 import React, { useMemo, useState, useEffect } from "react"
+
+import i18next from "i18next"
 import { animated, useSpring } from "react-spring"
 import useMeasure from "react-use-measure"
 import { ResizeObserver } from "@juggle/resize-observer"
@@ -80,7 +82,7 @@ export function VoterCenters() {
         variant="h3"
         className="uppercase text-center tracking-wide"
       >
-        BUSCA DONDE PUEDES SACAR TU TARJETA ELECTORAL
+        {i18next.t("site.where-voter-card")}
       </Typography>
       <Typography
         tag="h3"
@@ -88,8 +90,7 @@ export function VoterCenters() {
         weight="base"
         className="text-center mt-3"
       >
-        Encuentra la Junta de Inscripción Permanente más cercana a ti e
-        inscríbete.
+        {i18next.t("site.where-voter-card-guide")}
       </Typography>
       <div className="mt-12 bg-white shadow-md rounded">
         <section>

@@ -4,6 +4,7 @@ import { ActiveCenters } from "./constants"
 import Typography from "../../typography"
 import { Link } from "../../../components/index"
 import Location from "../../../assets/icons/location.inline.svg"
+import i18next from "i18next"
 
 export default function MakeAppointment() {
   return (
@@ -15,7 +16,7 @@ export default function MakeAppointment() {
           variant="h3"
           className="uppercase tracking-wide"
         >
-          Saca una cita e inscríbete
+          {i18next.t("site.where-voter-card")}
         </Typography>
         <Typography
           tag="h3"
@@ -23,8 +24,7 @@ export default function MakeAppointment() {
           weight="base"
           className="font-normal mt-4"
         >
-          Encuentra la Junta de Inscripción Permanente más cercana a ti e
-          inscríbete.
+          {i18next.t("site.where-voter-card-guide")}
         </Typography>
       </div>
       <div className="mt-12 mb-32">
@@ -57,7 +57,8 @@ export default function MakeAppointment() {
                 target="_blank"
                 variant="primary"
               >
-                <Location className="mr-1 h-5 w-5" /> Direcciones
+                <Location className="mr-1 h-5 w-5" />
+                Direcciones
                 <span className="sr-only">
                   para esta Junta de Inscripción Permanente
                 </span>

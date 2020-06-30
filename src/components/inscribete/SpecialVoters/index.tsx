@@ -1,4 +1,5 @@
 import React from "react"
+import i18next from "i18next"
 
 import Typography from "../../typography"
 import Tabs from "./Tabs"
@@ -9,7 +10,7 @@ export function SpecialVoters() {
     <>
       <div className="mx-auto text-center">
         <Typography tag="h2" variant="h3" className="uppercase tracking-wide">
-          Aprende qué es el voto por adelantado y el voto ausente
+          {i18next.t("site.special-voters-title")}
         </Typography>
         <Typography
           tag="h3"
@@ -17,8 +18,7 @@ export function SpecialVoters() {
           weight="base"
           className="font-normal mt-4"
         >
-          Identifica si cualificas para el voto ausente o voto adelantado y
-          descarga la solicitud.
+          {i18next.t("site.special-voters-guide")}
         </Typography>
       </div>
       <div className="mt-12 mb-32">

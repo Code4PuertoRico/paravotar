@@ -3,6 +3,7 @@ import React from "react"
 import Code4PR from "../assets/icons/code-4-pr.svg"
 import Heart from "../assets/icons/heart.svg"
 import { Container, Link } from "../components/index"
+import i18next from "i18next"
 
 export default function Footer() {
   return (
@@ -14,20 +15,23 @@ export default function Footer() {
         to="https://github.com/Code4PuertoRico/papeleta-pr/blob/master/CONTRIBUTING.md"
         target="_blank"
       >
-        ¿Cómo puedo contribuir al proyecto?
+        {i18next.t("footer.contribute")}
       </Link>
       <p className="font-bold mt-4">
-        Para Votar no esta afiliado al gobierno ni a ningún partido politico.
-        Para Votar no guarda ningún tipo de información del usuario.
+        {i18next.t("footer.contribute-note1")}
+        <br />
+        {i18next.t("footer.contribute-note2")}
       </p>
       <p className="mt-2">
-        El código de este proyecto es totalmente público y{" "}
+        {i18next.t("footer.contribute-note3")}
         <Link
           to="https://github.com/Code4PuertoRico/papeleta-pr"
           target="_blank"
         >
-          <span className="sr-only">El código de este proyecto</span>
-          puedes verlo en GitHub
+          <span className="sr-only">
+            {i18next.t("footer.contribute-note5")}
+          </span>
+          {i18next.t("footer.contribute-note4")}
         </Link>
         .
       </p>
@@ -48,16 +52,13 @@ export default function Footer() {
         </Link>
         .
       </p>
-      <p className="text-sm mt-2">
-        Gracias a todas las personas que nos han dado su feedback para mejorar
-        esta herramienta.
-      </p>
+      <p className="text-sm mt-2">{i18next.t("footer.contribute-note6")}</p>
       <p className="text-sm">
-        Para sugerencias y comentarios nos puedes contactar por{" "}
+        {i18next.t("footer.support1")}
         <Link to="https://www.twitter.com/paravotarpr" target="_blank">
           Twitter
-        </Link>{" "}
-        o puedes abrir un issue en{" "}
+        </Link>
+        {i18next.t("footer.support2")}
         <Link
           to="https://github.com/Code4PuertoRico/papeleta-pr/issues/new"
           target="_blank"

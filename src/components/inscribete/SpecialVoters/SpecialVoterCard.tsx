@@ -1,4 +1,5 @@
 import React from "react"
+import i18next from "i18next"
 
 import Download from "../../../assets/icons/download.inline.svg"
 import List from "../../../assets/icons/list.inline.svg"
@@ -33,7 +34,8 @@ export default function SpecialVoterCard(voter: Props) {
         {voter.summary}
       </Typography>
       <Typography tag="p" variant="h4" className="mt-3" weight="semibold">
-        Fecha límite para sometera tu solicitud: <br />{" "}
+        {i18next.t("site.special-voters-deadline-text")}
+        <br />
         <span className="text-primary">
           <time>{voter.deadline}</time>
         </span>
@@ -41,9 +43,25 @@ export default function SpecialVoterCard(voter: Props) {
 
       {voter.documents.length > 1 ? (
         <ButtonDropdown
-          placeholder="Escoge la solicitud a descargar"
-          options={voter.documents.map(document => ({ value: document.title }))}
+          placeholder={i18next.t("site.absentee-voter-dropdown")}
+          options={voter.documents.map(document => ({
+            value: i18next.t(document.title),
+          }))}
           onSelect={(docTitle: string) => {
+            if (docTitle == "Voto Adelantado" || docTitle == "Early Vote")
+              docTitle = "site.absentee-voter-dropdown-01"
+            else if (
+              docTitle == "Voto en el Domicilio" ||
+              docTitle == "Vote at Home"
+            )
+              docTitle = "site.absentee-voter-dropdown-02"
+            else if (
+              docTitle == "Voto por el Teléfono" ||
+              docTitle == "Vote by Phone"
+            )
+              docTitle = "site.absentee-voter-dropdown-03"
+            else docTitle = "none"
+
             const document = voter.documents.find(doc => doc.title === docTitle)
 
             // Open download in a new tab.
@@ -57,8 +75,8 @@ export default function SpecialVoterCard(voter: Props) {
           variant="primary"
           className="mt-6"
         >
-          <Download className="mr-1 h-5 w-5 inline-block" /> Descarga la
-          solicitud
+          <Download className="mr-1 h-5 w-5 inline-block" />
+          {i18next.t("site.early-voter-dropdown")}
         </Link>
       )}
       <Button
