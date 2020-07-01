@@ -1,10 +1,9 @@
 import React, { useRef } from "react"
 import { createMachine, assign, DoneEventObject } from "xstate"
+import i18next from "i18next"
 import { useMachine } from "@xstate/react"
 import Button from "../../button"
-import Link from "../../link"
-
-const OPEN_LINK_BASE = "https://www.google.com/maps/search/?api=1&query="
+import Typography from "../../typography"
 
 const EMBED_LINK_BASE =
   "https://maps.google.com/maps?t=&z=13&ie=UTF8&iwloc=&output=embed&q="
@@ -53,7 +52,14 @@ const findYourCenterMachine = createMachine<
       },
       failure: {
         after: {
-          [2000]: "idle",
+          [5000]: "idle",
+        },
+        on: {
+          submit: {
+            target: "fetchingVoterDetails",
+            cond: "hasValidVoterId",
+            actions: "persistVoterId",
+          },
         },
       },
       loadGoogleMapsLinks: {
@@ -93,7 +99,6 @@ export const FindYourCenter: React.FunctionComponent = () => {
 
   const inputRef = useRef<HTMLInputElement>(null)
 
-  let openLink = ""
   let embedUrl = ""
 
   if (current.matches("loadGoogleMapsLinks")) {
@@ -102,37 +107,67 @@ export const FindYourCenter: React.FunctionComponent = () => {
     const query = encodeURIComponent(
       r.centroDeVotacion + " " + r.direccion + " " + r.pueblo
     )
-    openLink = OPEN_LINK_BASE + query
+
     embedUrl = EMBED_LINK_BASE + query
   }
 
   return (
     <>
-      <p>
-        Ingrese su numero de votante que se encuentra en la tarjeta electoral
-      </p>
+      <Typography
+        tag="h4"
+        variant="h4"
+        weight="base"
+        className="font-normal mt-4 text-gray text-center"
+      >
+        {i18next.t("site.enter-voter-id")}
+      </Typography>
+
+      <section className="flex justify-center mt-8 mb-8">
+        <input
+          type="text"
+          ref={inputRef}
+          className="h-16 border-primary border-2 rounded-md p-4 mr-6"
+          placeholder="Número Electoral"
+        />
+
+        <Button
+          onClick={() => send("submit", { voterId: inputRef.current?.value })}
+          disabled={current.matches("fetchingVoterDetails")}
+          className="uppercase pl-12 pr-12"
+        >
+          continuar
+        </Button>
+      </section>
+
       {current.matches("failure") ? (
-        <p className="text-red">Error buscando sus datos</p>
+        <>
+          <Typography
+            tag="h4"
+            variant="h4"
+            weight="base"
+            className="font-normal mt-8 text-red text-center"
+          >
+            Hubo un error buscando su centro de votación.
+          </Typography>
+          <Typography
+            tag="h4"
+            variant="h4"
+            weight="base"
+            className="font-normal mt-2 text-red text-center"
+          >
+            Asegure entrar el número correcto.
+          </Typography>
+        </>
       ) : null}
 
-      <input type="text" ref={inputRef} />
-      <Button
-        onClick={() => send("submit", { voterId: inputRef.current?.value })}
-        disabled={current.matches("loading")}
-      >
-        Submit
-      </Button>
-
       {current.matches("loadGoogleMapsLinks") ? (
-        <p>
-          <Link to={openLink}>Open GMAPS</Link>
-          <iframe
-            title="Directions to voter center"
-            src={embedUrl}
-            width="400"
-            height="400"
-          />
-        </p>
+        <iframe
+          className="mt-16"
+          title="Directions to voter center"
+          src={embedUrl}
+          width="100%"
+          height="400"
+        />
       ) : null}
     </>
   )

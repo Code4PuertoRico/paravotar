@@ -67,7 +67,8 @@
     "from-pr": "desde PR y la diaspora por",
     "other-contributors": "otros contribuyentes",
     "find-your-center-title": "Encuentra tu centro de votación",
-    "find-your-center-sub-title": "Conoce a donde le corresponde ir para votar en las primarias."
+    "find-your-center-sub-title": "Conoce a donde le corresponde ir para votar en las primarias.",
+    "enter-voter-id": "Ingrese su numero de votante que se encuentra en la tarjeta electoral"
   },
   "nav": {
     "sign-up": "Inscríbete",
