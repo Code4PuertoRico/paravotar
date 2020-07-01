@@ -70,7 +70,7 @@
     "find-your-center-sub-title": "Conoce a donde le corresponde ir para votar en las primarias.",
     "enter-voter-id": "Ingrese su numero de votante que se encuentra en la tarjeta electoral",
     "enter-voter-id-placeholder": "Número Electoral",
-    "votar-id-cta": "Continuar",
+    "voter-id-cta": "Continuar",
     "voter-id-error-1": "Hubo un error buscando su centro de votación.",
     "voter-id-error-2": "Asegure entrar el número correcto.",
     "voter-id-results-address-title": "Dirección",

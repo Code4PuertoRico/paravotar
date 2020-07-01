@@ -51,7 +51,7 @@ export const FindYourCenter: React.FunctionComponent = () => {
           disabled={current.matches("fetchingVoterDetails")}
           className="uppercase pl-8 pr-8"
         >
-          {i18next.t("site.votar-id-cta")}
+          {i18next.t("site.voter-id-cta")}
         </Button>
       </section>
 
@@ -63,7 +63,7 @@ export const FindYourCenter: React.FunctionComponent = () => {
             weight="base"
             className="font-normal mt-8 text-red text-center"
           >
-            {i18next.t("site.votar-id-error-1")}
+            {i18next.t("site.voter-id-error-1")}
           </Typography>
           <Typography
             tag="h4"
@@ -71,7 +71,7 @@ export const FindYourCenter: React.FunctionComponent = () => {
             weight="base"
             className="font-normal mt-2 text-red text-center"
           >
-            {i18next.t("site.votar-id-error-2")}
+            {i18next.t("site.voter-id-error-2")}
           </Typography>
         </>
       ) : null}
