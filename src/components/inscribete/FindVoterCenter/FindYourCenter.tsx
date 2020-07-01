@@ -43,7 +43,7 @@ export const FindYourCenter: React.FunctionComponent = () => {
           type="text"
           ref={inputRef}
           className="h-12 border-primary border-2 rounded-md p-4 mr-6"
-          placeholder="Número Electoral"
+          placeholder={i18next.t("site.enter-voter-id-placeholder")}
         />
 
         <Button
@@ -51,7 +51,7 @@ export const FindYourCenter: React.FunctionComponent = () => {
           disabled={current.matches("fetchingVoterDetails")}
           className="uppercase pl-8 pr-8"
         >
-          continuar
+          {i18next.t("site.votar-id-cta")}
         </Button>
       </section>
 
@@ -63,7 +63,7 @@ export const FindYourCenter: React.FunctionComponent = () => {
             weight="base"
             className="font-normal mt-8 text-red text-center"
           >
-            Hubo un error buscando su centro de votación.
+            {i18next.t("site.votar-id-error-1")}
           </Typography>
           <Typography
             tag="h4"
@@ -71,7 +71,7 @@ export const FindYourCenter: React.FunctionComponent = () => {
             weight="base"
             className="font-normal mt-2 text-red text-center"
           >
-            Asegure entrar el número correcto.
+            {i18next.t("site.votar-id-error-2")}
           </Typography>
         </>
       ) : null}
@@ -84,7 +84,7 @@ export const FindYourCenter: React.FunctionComponent = () => {
             weight="base"
             className="font-bold mt-2"
           >
-            Dirección
+            {i18next.t("site.voter-id-results-address-title")}
           </Typography>
           <section className="text-center">
             <Typography
@@ -114,7 +114,7 @@ export const FindYourCenter: React.FunctionComponent = () => {
           </section>
           <iframe
             className="mt-16"
-            title="Directions to voter center"
+            title={i18next.t("site.voter-id-results-iframe-title")}
             src={embedUrl}
             width="100%"
             height="400"

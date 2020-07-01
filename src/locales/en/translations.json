@@ -66,8 +66,15 @@
     "made-with": "Made with",
     "from-pr": "from PR and the diaspora by",
     "other-contributors": "other contributors",
-    "find-your-center-title": "Encuentra tu centro de votación",
-    "find-your-center-sub-title": "Conoce a donde le corresponde ir para votar en las primarias."
+    "find-your-center-title": "Find your voting center",
+    "find-your-center-sub-title": "Know where you should go to vote in the primaries.",
+    "enter-voter-id": "Enter your voter number found on the voter card",
+    "enter-voter-id-placeholder": "Voter number",
+    "votar-id-cta": "Continue",
+    "voter-id-error-1": "There was an error searching for your voter center.",
+    "voter-id-error-2": "Be sure to enter the correct number.",
+    "voter-id-results-address-title": "Address",
+    "voter-id-results-iframe-title": "Directions to your voting center"
   },
   "nav": {
     "sign-up": "Register to vote",
@@ -76,7 +83,8 @@
     "voter-status": "Voter Status",
     "voter-action": "Go out to vote",
     "vote-type1": "Absentee and Early Voting",
-    "enrollment-centers": "Enrollment Centers"
+    "enrollment-centers": "Enrollment Centers",
+    "find-voter-center": "Find your voting center"
   },
   "footer": {
     "contribute": "How can I contribute to the project?",

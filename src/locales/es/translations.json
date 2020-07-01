@@ -68,7 +68,13 @@
     "other-contributors": "otros contribuyentes",
     "find-your-center-title": "Encuentra tu centro de votación",
     "find-your-center-sub-title": "Conoce a donde le corresponde ir para votar en las primarias.",
-    "enter-voter-id": "Ingrese su numero de votante que se encuentra en la tarjeta electoral"
+    "enter-voter-id": "Ingrese su numero de votante que se encuentra en la tarjeta electoral",
+    "enter-voter-id-placeholder": "Número Electoral",
+    "votar-id-cta": "Continuar",
+    "voter-id-error-1": "Hubo un error buscando su centro de votación.",
+    "voter-id-error-2": "Asegure entrar el número correcto.",
+    "voter-id-results-address-title": "Dirección",
+    "voter-id-results-iframe-title": "Direcciónes a tu centro de votación"
   },
   "nav": {
     "sign-up": "Inscríbete",
