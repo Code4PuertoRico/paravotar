@@ -44,6 +44,12 @@ export const FindYourCenter: React.FunctionComponent = () => {
           ref={inputRef}
           className="h-12 border-primary border-2 rounded-md p-4 mr-6"
           placeholder={i18next.t("site.enter-voter-id-placeholder")}
+          onKeyPress={event => {
+            if (event.keyCode == 13 || event.which == 13) {
+              event.preventDefault()
+              send("submit", { voterId: inputRef.current?.value })
+            }
+          }}
         />
 
         <Button
