@@ -77,7 +77,8 @@
     "voter-status": "Estatus Electoral",
     "voter-action": "Sal a votar",
     "vote-type1": "Voto adelantado y voto ausente",
-    "enrollment-centers": "Juntas de Inscripción Permanentes"
+    "enrollment-centers": "Juntas de Inscripción Permanentes",
+    "find-voter-center": "Encuentra tu centro de votación"
   },
   "footer": {
     "contribute": "¿Cómo puedo contribuir al proyecto?",

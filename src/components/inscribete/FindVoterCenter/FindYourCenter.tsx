@@ -114,6 +114,7 @@ export const FindYourCenter: React.FunctionComponent = () => {
   return (
     <>
       <Typography
+        id="tu-centro-de-votacion"
         tag="h4"
         variant="h4"
         weight="base"

@@ -56,6 +56,10 @@ export default function Sidebar({ pathname }: SidebarProps) {
               name={i18next.t("nav.vote-type1")}
               route="/sal-a-votar#voto-ausente-y-adelantado"
             />
+            <SubSection
+              name={i18next.t("nav.find-voter-center")}
+              route="/sal-a-votar#tu-centro-de-votacion"
+            />
           </Section>
           <div className="w-auto text-center">
             <LanguageMenu />
