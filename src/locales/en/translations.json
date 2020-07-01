@@ -65,7 +65,9 @@
     "services": "Services",
     "made-with": "Made with",
     "from-pr": "from PR and the diaspora by",
-    "other-contributors": "other contributors"
+    "other-contributors": "other contributors",
+    "find-your-center-title": "Encuentra tu centro de votación",
+    "find-your-center-sub-title": "Conoce a donde le corresponde ir para votar en las primarias."
   },
   "nav": {
     "sign-up": "Register to vote",
