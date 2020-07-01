@@ -1,98 +1,13 @@
 import React, { useRef } from "react"
-import { createMachine, assign, DoneEventObject } from "xstate"
 import i18next from "i18next"
+import { DoneEventObject } from "xstate"
 import { useMachine } from "@xstate/react"
 import Button from "../../button"
 import Typography from "../../typography"
+import { findYourCenterMachine } from "./findYourCenterMachine"
 
 const EMBED_LINK_BASE =
   "https://maps.google.com/maps?t=&z=13&ie=UTF8&iwloc=&output=embed&q="
-
-const isNumberExpr = new RegExp(/^\d+$/)
-
-const getVoterDetails = (voterId?: string) =>
-  fetch(`https://api.paravotar.org/consulta?voterId=${voterId}`).then(
-    response => {
-      if (!response.ok) {
-        throw new Error("HTTP status code: " + response.status)
-      }
-      return response.json()
-    }
-  )
-
-interface FindYourCenterContext {
-  voterId?: string
-}
-
-type FindYourCenterEvent = { type: "submit"; voterId: string }
-
-const findYourCenterMachine = createMachine<
-  FindYourCenterContext,
-  FindYourCenterEvent
->(
-  {
-    id: "findYourCenterMachine",
-    initial: "idle",
-    states: {
-      idle: {
-        on: {
-          submit: {
-            target: "fetchingVoterDetails",
-            cond: "hasValidVoterId",
-            actions: "persistVoterId",
-          },
-        },
-      },
-      fetchingVoterDetails: {
-        invoke: {
-          src: "fetchVoterDetails",
-          onDone: "loadGoogleMapsLinks",
-          onError: "failure",
-        },
-      },
-      failure: {
-        after: {
-          [5000]: "idle",
-        },
-        on: {
-          submit: {
-            target: "fetchingVoterDetails",
-            cond: "hasValidVoterId",
-            actions: "persistVoterId",
-          },
-        },
-      },
-      loadGoogleMapsLinks: {
-        on: {
-          submit: {
-            target: "fetchingVoterDetails",
-            cond: "hasValidVoterId",
-            actions: "persistVoterId",
-          },
-        },
-      },
-    },
-  },
-  {
-    guards: {
-      hasValidVoterId: (_, { voterId }) => {
-        if (typeof voterId !== "string") {
-          return false
-        }
-
-        return isNumberExpr.test(voterId)
-      },
-    },
-    actions: {
-      persistVoterId: assign((_, { voterId }: FindYourCenterEvent) => ({
-        voterId,
-      })),
-    },
-    services: {
-      fetchVoterDetails: (_, { voterId }) => getVoterDetails(voterId),
-    },
-  }
-)
 
 export const FindYourCenter: React.FunctionComponent = () => {
   const [current, send] = useMachine(findYourCenterMachine)
@@ -105,7 +20,7 @@ export const FindYourCenter: React.FunctionComponent = () => {
 
   if (current.matches("loadGoogleMapsLinks")) {
     const query = encodeURIComponent(
-      r.centroDeVotacion + " " + r.direccion + " " + r.pueblo
+      `${r.centroDeVotacion} ${r.direccion} ${r.pueblo}`
     )
 
     embedUrl = EMBED_LINK_BASE + query
@@ -169,14 +84,14 @@ export const FindYourCenter: React.FunctionComponent = () => {
             weight="base"
             className="font-bold mt-2"
           >
-            Direccion
+            Dirección
           </Typography>
-          <section className="text-left">
+          <section className="text-center">
             <Typography
               tag="p"
               variant="p"
               weight="base"
-              className="font-normal mt-2"
+              className="font-normal mt-1"
             >
               {r.centroDeVotacion}
             </Typography>
@@ -184,7 +99,7 @@ export const FindYourCenter: React.FunctionComponent = () => {
               tag="p"
               variant="p"
               weight="base"
-              className="font-normal mt-2"
+              className="font-normal mt-1"
             >
               {r.direccion}
             </Typography>
@@ -192,7 +107,7 @@ export const FindYourCenter: React.FunctionComponent = () => {
               tag="p"
               variant="p"
               weight="base"
-              className="font-normal mt-2"
+              className="font-normal mt-1"
             >
               {r.pueblo}
             </Typography>
