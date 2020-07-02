@@ -34,8 +34,6 @@ export default function Button({
 }: ButtonProps) {
   const style = getButtonStyle(variant)
 
-  console.log(rest.disabled)
-
   const disabled = rest.disabled ? "opacity-50 cursor-not-allowed" : ""
 
   return (
