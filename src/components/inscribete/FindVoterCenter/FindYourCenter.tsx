@@ -39,11 +39,11 @@ export const FindYourCenter: React.FunctionComponent = () => {
         {i18next.t("site.enter-voter-id")}
       </Typography>
 
-      <section className="flex justify-center mt-4 mb-8">
+      <section className="flex flex-col items-center md:flex-row md:justify-center mt-4 mb-8">
         <input
           type="text"
           ref={inputRef}
-          className="h-12 border-primary border-2 rounded-md p-4 mr-6"
+          className="h-12 border-primary border-2 rounded-md p-4 md:mr-6 mb-6 md:mb-0"
           placeholder={i18next.t("site.enter-voter-id-placeholder")}
           onKeyPress={event => {
             if (event.keyCode == 13 || event.which == 13) {
@@ -56,7 +56,7 @@ export const FindYourCenter: React.FunctionComponent = () => {
         <Button
           onClick={() => send("submit", { voterId: inputRef.current?.value })}
           disabled={current.matches("fetchingVoterDetails")}
-          className="uppercase pl-8 pr-8"
+          className="uppercase pl-8 pr-8 h-12"
         >
           {i18next.t("site.voter-id-cta")}
         </Button>
