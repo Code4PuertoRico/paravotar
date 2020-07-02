@@ -95,6 +95,11 @@ export default function Navbar({ pathname }: SidebarProps) {
               route="/sal-a-votar#voto-ausente-y-adelantado"
               onClick={() => setIsOpen(false)}
             />
+            <SubSection
+              name={i18next.t("nav.find-voter-center")}
+              route="/sal-a-votar#tu-centro-de-votacion"
+              onClick={() => setIsOpen(false)}
+            />
           </Section>
           <div className="w-auto text-center">
             <LanguageMenu />
