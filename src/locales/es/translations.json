@@ -65,7 +65,16 @@
     "services": "Servicios",
     "made-with": "Hecho con",
     "from-pr": "desde PR y la diaspora por",
-    "other-contributors": "otros contribuyentes"
+    "other-contributors": "otros contribuyentes",
+    "find-your-center-title": "Encuentra tu centro de votación",
+    "find-your-center-sub-title": "Conoce a donde le corresponde ir para votar en las primarias.",
+    "enter-voter-id": "Ingrese su numero de votante que se encuentra en la tarjeta electoral",
+    "enter-voter-id-placeholder": "Número Electoral",
+    "voter-id-cta": "Continuar",
+    "voter-id-error-1": "Hubo un error buscando su centro de votación.",
+    "voter-id-error-2": "Asegure entrar el número correcto.",
+    "voter-id-results-address-title": "Dirección",
+    "voter-id-results-iframe-title": "Direcciónes a tu centro de votación"
   },
   "nav": {
     "sign-up": "Inscríbete",
@@ -74,7 +83,8 @@
     "voter-status": "Estatus Electoral",
     "voter-action": "Sal a votar",
     "vote-type1": "Voto adelantado y voto ausente",
-    "enrollment-centers": "Juntas de Inscripción Permanentes"
+    "enrollment-centers": "Juntas de Inscripción Permanentes",
+    "find-voter-center": "Encuentra tu centro de votación"
   },
   "footer": {
     "contribute": "¿Cómo puedo contribuir al proyecto?",

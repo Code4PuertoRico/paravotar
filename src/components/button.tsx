@@ -34,8 +34,14 @@ export default function Button({
 }: ButtonProps) {
   const style = getButtonStyle(variant)
 
+  const disabled = rest.disabled ? "opacity-50 cursor-not-allowed" : ""
+
   return (
-    <button className={`${style} ${className}`} onClick={onClick} {...rest}>
+    <button
+      className={`${style} ${className} ${disabled}`}
+      onClick={onClick}
+      {...rest}
+    >
       {children}
     </button>
   )
