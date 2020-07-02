@@ -5,6 +5,7 @@ import { useMachine } from "@xstate/react"
 import Button from "../../button"
 import Typography from "../../typography"
 import { findYourCenterMachine } from "./findYourCenterMachine"
+import Link from "../../link"
 
 const EMBED_LINK_BASE =
   "https://maps.google.com/maps?t=&z=13&ie=UTF8&iwloc=&output=embed&q="
@@ -33,12 +34,12 @@ export const FindYourCenter: React.FunctionComponent = () => {
         tag="h4"
         variant="h4"
         weight="base"
-        className="font-normal mt-4 text-gray text-center"
+        className="font-normal mt-4 text-center"
       >
         {i18next.t("site.enter-voter-id")}
       </Typography>
 
-      <section className="flex justify-center mt-8 mb-8">
+      <section className="flex justify-center mt-4 mb-8">
         <input
           type="text"
           ref={inputRef}
@@ -60,6 +61,23 @@ export const FindYourCenter: React.FunctionComponent = () => {
           {i18next.t("site.voter-id-cta")}
         </Button>
       </section>
+      <Typography
+        tag="p"
+        variant="p"
+        weight="base"
+        className="font-normal text-sm mt-2 text-center"
+      >
+        * paravotar.org no almacena ni tiene información de los votantes.
+      </Typography>
+      <Typography
+        tag="p"
+        variant="p"
+        weight="base"
+        className="font-normal text-sm text-center"
+      >
+        Toda la información proviene de la{" "}
+        <Link to="http://consulta.ceepur.org">CEE</Link>.
+      </Typography>
 
       {current.matches("failure") ? (
         <>
