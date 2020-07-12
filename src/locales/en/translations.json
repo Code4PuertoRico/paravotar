@@ -76,6 +76,14 @@
     "voter-id-results-address-title": "Address",
     "voter-id-results-iframe-title": "Directions to your voting center"
   },
+  "counter": {
+    "time-is-running-out": "Time is running out, register to vote today!",
+    "last-day": ":Last day",
+    "days": "Days",
+    "hours": "Hours",
+    "minutes": "Minutes",
+    "seconds": "Seconds"
+  },
   "nav": {
     "sign-up": "Register to vote",
     "voter-card": "Voter Card",
