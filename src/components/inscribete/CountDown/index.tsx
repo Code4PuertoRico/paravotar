@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useCallback } from "react"
 
 import i18next from "i18next"
 import useInterval from "@use-it/interval"
@@ -29,20 +29,28 @@ function Counter({ timeLeft, title }: { timeLeft: number; title: string }) {
   )
 }
 
+type TimeLeft = {
+  days: number
+  hours: number
+  minutes: number
+  seconds: number
+}
+
 export function CountDown() {
-  const today = new Date()
-  const [days, setDays] = useState(differenceInDays(LAST_DAY, today))
-  const [hours, setHours] = useState(differenceInHours(LAST_DAY, today))
-  const [minutes, setMinutes] = useState(differenceInMinutes(LAST_DAY, today))
-  const [seconds, setSeconds] = useState(differenceInSeconds(LAST_DAY, today))
+  const getTimeLeft = useCallback(() => {
+    const today = new Date()
+
+    return {
+      days: differenceInDays(LAST_DAY, today),
+      hours: differenceInHours(LAST_DAY, today) % 24,
+      minutes: differenceInMinutes(LAST_DAY, today) % 60,
+      seconds: differenceInSeconds(LAST_DAY, today) % 60,
+    }
+  }, [])
+  const [timeLeft, setTimeLeft] = useState<TimeLeft>(getTimeLeft())
 
   useInterval(() => {
-    const now = new Date()
-
-    setHours(differenceInHours(LAST_DAY, today))
-    setDays(differenceInDays(LAST_DAY, today))
-    setMinutes(differenceInMinutes(LAST_DAY, now))
-    setSeconds(differenceInSeconds(LAST_DAY, now))
+    setTimeLeft(getTimeLeft())
   }, 1000)
 
   return (
@@ -51,10 +59,16 @@ export function CountDown() {
         {i18next.t("counter.time-is-running-out")}
       </Typography>
       <div className="flex justify-between rounded border border-gray px-4 py-2 bg-white mt-4 mx-auto md:w-2/4">
-        <Counter timeLeft={days} title={i18next.t("counter.days")} />
-        <Counter timeLeft={hours % 24} title={i18next.t("counter.hours")} />
-        <Counter timeLeft={minutes % 60} title={i18next.t("counter.minutes")} />
-        <Counter timeLeft={seconds % 60} title={i18next.t("counter.seconds")} />
+        <Counter timeLeft={timeLeft.days} title={i18next.t("counter.days")} />
+        <Counter timeLeft={timeLeft.hours} title={i18next.t("counter.hours")} />
+        <Counter
+          timeLeft={timeLeft.minutes}
+          title={i18next.t("counter.minutes")}
+        />
+        <Counter
+          timeLeft={timeLeft.seconds}
+          title={i18next.t("counter.seconds")}
+        />
       </div>
       <Typography tag="h3" variant="p" className="mt-2">
         {i18next.t("counter.last-day")}: <br className="lg:hidden" />
