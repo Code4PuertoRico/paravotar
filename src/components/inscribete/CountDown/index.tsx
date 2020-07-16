@@ -2,7 +2,7 @@ import React, { useState } from "react"
 
 import i18next from "i18next"
 import useInterval from "@use-it/interval"
-import { en, es } from "date-fns/locale"
+import { enUS, es } from "date-fns/locale"
 import differenceInDays from "date-fns/differenceInDays"
 import differenceInHours from "date-fns/differenceInHours"
 import differenceInMinutes from "date-fns/differenceInMinutes"
@@ -16,7 +16,7 @@ function Counter({ timeLeft, title }: { timeLeft: number; title: string }) {
   return (
     <div className="text-center">
       <Typography tag="h2" variant="h2">
-        {timeLeft}
+        {timeLeft < 10 ? `0${timeLeft}` : timeLeft}
       </Typography>
       <Typography
         tag="p"
@@ -60,7 +60,7 @@ export function CountDown() {
         {i18next.t("counter.last-day")}: <br className="lg:hidden" />
         <span className="font-bold">
           {format(LAST_DAY, "PPPP", {
-            locale: i18next.language === "en" ? en : es,
+            locale: i18next.language === "en" ? enUS : es,
           })}
         </span>
       </Typography>
