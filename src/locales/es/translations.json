@@ -76,6 +76,14 @@
     "voter-id-results-address-title": "Dirección",
     "voter-id-results-iframe-title": "Direcciónes a tu centro de votación"
   },
+  "counter": {
+    "time-is-running-out": "¡Queda poco para inscribirte, saca tu tarjeta electoral hoy!",
+    "last-day": "Fecha límite",
+    "days": "Días",
+    "hours": "Horas",
+    "minutes": "Minutos",
+    "seconds": "Segundos"
+  },
   "nav": {
     "sign-up": "Inscríbete",
     "voter-card": "Tarjeta Electoral",

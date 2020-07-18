@@ -10,6 +10,7 @@ import { VoterStatus } from "../components/inscribete/VoterStatus"
 import { VoterDocs } from "../components/inscribete/constants"
 import { VoterInfoLeftPanel } from "../components/inscribete/VoterInfo/LeftPanel"
 import { VoterInfoRightPanel } from "../components/inscribete/VoterInfo/RightPanel"
+import { CountDown } from "../components/inscribete/CountDown/index"
 
 const style: { [key: string]: any } = {
   DropdownWrapper: (base: any) => ({
@@ -96,7 +97,7 @@ const Inscribete = ({ location }: PageProps) => {
   return (
     <Layout location={location}>
       <SEO title="Inscríbete" />
-      <Container className="w-11/12 text-center pt-5">
+      <Container className="w-11/12 mb-16 text-center pt-5">
         <Typography
           id="tarjeta-electoral"
           tag="h1"
@@ -105,11 +106,14 @@ const Inscribete = ({ location }: PageProps) => {
         >
           {t("site.tarjeta-electoral-title")}
         </Typography>
+        <CountDown />
+      </Container>
+      <Container className="w-11/12 text-center">
         <Typography
           tag="h2"
           variant="h2"
           weight="base"
-          className="font-normal mt-4"
+          className="font-normal mt-8"
         >
           {t("site.what-bring-registration-card")}
         </Typography>
