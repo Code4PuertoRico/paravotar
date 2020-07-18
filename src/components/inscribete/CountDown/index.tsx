@@ -28,6 +28,7 @@ function Counter({ timeLeft, title }: { timeLeft: string; title: string }) {
                   tag="h2"
                   variant="h2"
                   className="text-2xl text-dark lg:text-4xl"
+                  weight="semibold"
                 >
                   {item}
                 </Typography>
@@ -41,7 +42,8 @@ function Counter({ timeLeft, title }: { timeLeft: string; title: string }) {
       <Typography
         tag="p"
         variant="p"
-        className="uppercase font-semibold text-gray text-sm lg:text-normal"
+        className="uppercase text-sm text-dark lg:text-normal"
+        weight="semibold"
       >
         {title}
       </Typography>
