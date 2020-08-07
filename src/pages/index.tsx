@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next"
 
 import { withTrans } from "../i18n/withTrans"
 import { Container, Layout, SEO, Typography } from "../components"
+import { EnrollmentReminder } from "../components/inscribete/EnrollmentReminder"
 import { VoterCenters } from "../components/inscribete/VoterCenters"
 import { VoterStatus } from "../components/inscribete/VoterStatus"
 import { VoterDocs } from "../components/inscribete/constants"
@@ -153,6 +154,9 @@ const Inscribete = ({ location }: PageProps) => {
       {/* <Container className="w-11/12 mb-32 lg:w-10/12">
         <MakeAppointment />
       </Container> */}
+      <Container className="w-11/12 mb-32 lg:w-10/12">
+        <EnrollmentReminder />
+      </Container>
       <Container className="w-11/12 mb-32 lg:w-10/12">
         <VoterStatus />
       </Container>
