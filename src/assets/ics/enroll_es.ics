@@ -1,0 +1,37 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+CALSCALE:GREGORIAN
+PRODID:code4puertorico/paravotar
+METHOD:PUBLISH
+URL:https://paravotar.org
+X-PUBLISHED-TTL:PT1H
+
+BEGIN:VEVENT
+UID:2682c24f-ccf1-4186-aba7-0f8e57287f5a
+SUMMARY:Último día para inscribirse para votar!
+DTSTAMP:20200806T012223Z
+DTSTART;VALUE=DATE:20200914
+DESCRIPTION:Último día para inscribirse para votar! Inscríbete si no lo has hecho!\n\nVisita https://paravotar.org/#juntas-de-inscripcion-permanentes para encontrar tu Junta de Inscripción Permanente más cercana.
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:PT12H
+END:VALARM
+END:VEVENT
+
+BEGIN:VEVENT
+UID:2682c24f-ccf1-4186-aba7-2b2bc5fcdcaa
+SUMMARY:Inscríbete para votar! Te queda una semana!
+DTSTAMP:20200806T012223Z
+DTSTART;VALUE=DATE:20200907
+DESCRIPTION:La fecha límite para inscribirse para votar (14 de septiembre de 2020) es en una semana! Inscríbete si no lo has hecho!\n\nVisita https://paravotar.org/#juntas-de-inscripcion-permanentes para encontrar tu Junta de Inscripción Permanente más cercana.
+END:VEVENT
+
+BEGIN:VEVENT
+UID:2682c24f-ccf1-4186-aba7-5b83db45c6b2
+SUMMARY:Inscríbete para votar! Te quedan dos semanas!
+DTSTAMP:20200806T012223Z
+DTSTART;VALUE=DATE:20200901
+DESCRIPTION:La fecha límite para inscribirse para votar (14 de septiembre de 2020) es en dos semanas! Inscríbete si no lo has hecho!\n\nVisita https://paravotar.org/#juntas-de-inscripcion-permanentes para encontrar tu Junta de Inscripción Permanente más cercana.
+END:VEVENT
+
+END:VCALENDAR

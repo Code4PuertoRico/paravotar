@@ -1,0 +1,37 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+CALSCALE:GREGORIAN
+PRODID:code4puertorico/paravotar
+METHOD:PUBLISH
+URL:https://paravotar.org
+X-PUBLISHED-TTL:PT1H
+
+BEGIN:VEVENT
+UID:3fc60043-c44e-460a-aa71-e1c3ec03f340
+SUMMARY:Last Day to Register to Vote!
+DTSTAMP:20200806T012223Z
+DTSTART;VALUE=DATE:20200914
+DESCRIPTION:Last day to register to vote! Register if you haven't done so!\n\nVisit https://paravotar.org/#juntas-de-inscripcion-permanentes to find your closest Enrollment Center.
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;RELATED=START:PT12H
+END:VALARM
+END:VEVENT
+
+BEGIN:VEVENT
+UID:02999144-0d37-4f82-a5eb-e3ae8c45eec9
+SUMMARY:Register to vote! One week remaining!
+DTSTAMP:20200806T012223Z
+DTSTART;VALUE=DATE:20200907
+DESCRIPTION:The deadline to register to vote (September 14, 2020) is in one week! Register if you haven't done so!\n\nVisit https://paravotar.org/#juntas-de-inscripcion-permanentes to find your closest Enrollment Center
+END:VEVENT
+
+BEGIN:VEVENT
+UID:65430f4c-b1f0-474c-a470-7f59b1cd0b60
+SUMMARY:Register to vote! Two weeks remaining!
+DTSTAMP:20200806T012223Z
+DTSTART;VALUE=DATE:20200901
+DESCRIPTION:The deadline to register to vote (September 14, 2020) is in two weeks! Register if you haven't done so!\n\nVisit https://paravotar.org/#juntas-de-inscripcion-permanentes to find your closest Enrollment Center
+END:VEVENT
+
+END:VCALENDAR
