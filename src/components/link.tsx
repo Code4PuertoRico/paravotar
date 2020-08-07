@@ -7,6 +7,7 @@ type Props = {
   children: ReactNode | string
   target?: string
   className: string
+  download?: boolean
 }
 
 const style = {
@@ -25,17 +26,19 @@ export default function Link({
   target,
   variant,
   className,
+  download,
 }: Props) {
   const isExternalLink =
     to.includes("https") || to.includes("tel") || to.includes("http")
   const classes = style[variant]
 
-  if (isExternalLink) {
+  if (isExternalLink || download === true) {
     return (
       <a
         className={`${classes} ${className}`}
         href={to}
         target={target}
+        download={download}
         rel={target === "_blank" ? "noopener noreferrer" : ""}
       >
         {children}
