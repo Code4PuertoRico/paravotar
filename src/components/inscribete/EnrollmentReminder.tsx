@@ -26,8 +26,8 @@ export function EnrollmentReminder() {
           {i18next.t("site.enrollment-reminder-guide1")}
         </Typography>
       </div>
-      <div className="flex flex-wrap mt-12">
-        <div className="w-full  lg:w-1/2">
+      <div className="flex flex-wrap md:flex-row-reverse items-center mt-12">
+        <div className="w-full lg:w-1/2">
           <img
             className="mx-auto"
             src={ReminderIllustration}
