@@ -149,5 +149,12 @@
     "reason-detail-09": "Personas domiciliadas en Puerto Rico al momento de ser sentenciados por los tribunales de Puerto Rico o en el Tribunal de Distrito de los Estados Unidos para el Distrito de Puerto Rico.",
     "reason-summary-10": "Empleados del servicio diplomático",
     "reason-detail-10": "Personas destacadas en el servicio diplomático o de ayuda exterior del Gobierno de los Estados Unidos de América o en un programa de intercambio de personal entre el Gobierno de Puerto Rico y un gobierno extranjero. Los cónyuges, hijas e hijos o parientes que se encuentren con el elector(a) también podrán ejercer su voto ausente."
+  },
+  "collabs": {
+    "meet-our-collaborators": "Conoce a nuestros colaboradores",
+    "visit-the-initiatives": "Visita las iniciativas que están realizando estas organizaciones",
+    "proyecto-85": "Proyecto 85 es una organización cuya encomienda es fomentar la participación política de mujeres como funcionarias públicas electas en Puerto Rico para lograr una representación equitativa en nuestro gobierno.",
+    "quien-me-representa": "¿Quién me representa? es un proyecto hecho por Espacios Abiertos. Su proposito es presentarle a los ciudadanos sus representantes a nivel federal, estatal y municipal según su lugar de residencia.",
+    "view": "Visitar"
   }
 }

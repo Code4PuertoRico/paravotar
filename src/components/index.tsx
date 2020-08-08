@@ -8,6 +8,7 @@ import Typography from "./typography"
 import Button from "./button"
 import Sidebar from "./sidebar"
 import Navbar from "./navbar"
+import Card from "./card"
 
 export {
   Button,
@@ -20,4 +21,5 @@ export {
   Typography,
   Sidebar,
   Navbar,
+  Card,
 }

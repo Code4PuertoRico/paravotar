@@ -68,12 +68,15 @@ export default function Sidebar({ pathname }: SidebarProps) {
           <Section
             name={i18next.t("nav.collaborations")}
             icon={Collaborations}
-            isActive={pathname === "/colaboradores"}
+            isActive={pathname === "/colaboraciones"}
           >
-            <SubSection name="Proyecto 85" route="/proyecto-85" />
+            <SubSection
+              name="Proyecto 85"
+              route="/colaboraciones#proyecto-85"
+            />
             <SubSection
               name="¿Quién me representa?"
-              route="/quien-me-representa"
+              route="/colaboraciones#quien-me-representa"
             />
           </Section>
         </div>
