@@ -1,5 +1,5 @@
 import React from "react"
-import LanguageMenu from "../components/languageMenu"
+import LanguageMenu from "./language-menu"
 
 import Logo from "../assets/images/logo.svg"
 import Inscribete from "../assets/icons/inscribete.svg"
@@ -14,10 +14,13 @@ type SidebarProps = {
 
 export default function Sidebar({ pathname }: SidebarProps) {
   return (
-    <nav className="hidden lg:grid lg:col-span-1 lg:relative lg:border lg:border-solid lg:border-b-0 lg:border-t-0 lg:border-l-0 lg:border-footer lg:bg-navbar">
+    <nav className="hidden lg:grid lg:col-span-1 lg:relative lg:border lg:border-solid lg:border-b-0 lg:border-t-0 lg:border-l-0 lg:border-footer lg:bg-navbar lg:px-2">
       <aside className="sticky h-screen top-0">
-        <div className="px-4">
+        <div className="relative px-4">
           <img className="h-24" src={Logo} alt="Para Votar" />
+          <div className="sidebar__translate">
+            <LanguageMenu />
+          </div>
         </div>
         <div className="mt-6">
           <Section
@@ -61,9 +64,6 @@ export default function Sidebar({ pathname }: SidebarProps) {
               route="/sal-a-votar#tu-centro-de-votacion"
             />
           </Section>
-          <div className="w-auto text-center">
-            <LanguageMenu />
-          </div>
         </div>
       </aside>
     </nav>

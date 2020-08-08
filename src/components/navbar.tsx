@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from "react"
-import LanguageMenu from "../components/languageMenu"
+import LanguageMenu from "./language-menu"
 
 import Logo from "../assets/images/logo.svg"
 import Inscribete from "../assets/icons/inscribete.svg"
@@ -52,6 +52,9 @@ export default function Navbar({ pathname }: SidebarProps) {
         </button>
         <div className="px-4">
           <img className="mx-auto h-16" src={Logo} alt="Para Votar" />
+          <div className="text-center mt-2">
+            <LanguageMenu />
+          </div>
         </div>
         <div className="mt-10">
           <Section
@@ -101,9 +104,6 @@ export default function Navbar({ pathname }: SidebarProps) {
               onClick={() => setIsOpen(false)}
             />
           </Section>
-          <div className="w-auto text-center">
-            <LanguageMenu />
-          </div>
         </div>
       </div>
     </>

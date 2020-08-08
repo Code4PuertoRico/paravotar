@@ -106,4 +106,10 @@ button:focus {
   animation-iteration-count: infinite;
 }
 
+.sidebar__translate {
+  @apply absolute;
+  bottom: -8px;
+  margin-left: 26%;
+}
+
 /* purgecss end ignore */
