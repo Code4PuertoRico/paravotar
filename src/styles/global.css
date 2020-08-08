@@ -108,8 +108,8 @@ button:focus {
 
 .sidebar__translate {
   @apply absolute;
-  bottom: -8px;
-  margin-left: 26%;
+  bottom: -12px;
+  margin-left: 30%;
 }
 
 /* purgecss end ignore */

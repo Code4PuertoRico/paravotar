@@ -4,6 +4,7 @@ import LanguageMenu from "./language-menu"
 import Logo from "../assets/images/logo.svg"
 import Inscribete from "../assets/icons/inscribete.svg"
 import Practica from "../assets/icons/practica.svg"
+import Collaborations from "../assets/icons/collaborations.svg"
 import SalAVotar from "../assets/icons/sal-a-votar.svg"
 import { Section, SubSection } from "./section"
 import i18next from "i18next"
@@ -14,9 +15,9 @@ type SidebarProps = {
 
 export default function Sidebar({ pathname }: SidebarProps) {
   return (
-    <nav className="hidden lg:grid lg:col-span-1 lg:relative lg:border lg:border-solid lg:border-b-0 lg:border-t-0 lg:border-l-0 lg:border-footer lg:bg-navbar lg:px-2">
+    <nav className="hidden lg:grid lg:col-span-1 lg:relative lg:border lg:border-solid lg:border-b-0 lg:border-t-0 lg:border-l-0 lg:border-footer lg:bg-navbar lg:px-4">
       <aside className="sticky h-screen top-0">
-        <div className="relative px-4">
+        <div className="relative">
           <img className="h-24" src={Logo} alt="Para Votar" />
           <div className="sidebar__translate">
             <LanguageMenu />
@@ -62,6 +63,17 @@ export default function Sidebar({ pathname }: SidebarProps) {
             <SubSection
               name={i18next.t("nav.find-voter-center")}
               route="/sal-a-votar#tu-centro-de-votacion"
+            />
+          </Section>
+          <Section
+            name={i18next.t("nav.collaborations")}
+            icon={Collaborations}
+            isActive={pathname === "/colaboradores"}
+          >
+            <SubSection name="Proyecto 85" route="/proyecto-85" />
+            <SubSection
+              name="¿Quién me representa?"
+              route="/quien-me-representa"
             />
           </Section>
         </div>

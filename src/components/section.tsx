@@ -23,21 +23,17 @@ function Section(props: SectionProps) {
     visibility: isOpen ? "visible" : "hidden",
     opacity: isOpen ? 1 : 0,
     transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
-    backgroundColor: isOpen ? "#E3C094" : "#f5ddc0",
   })
 
   return (
-    <animated.div
-      className="overflow-y-hidden p-2"
-      style={{ backgroundColor: springProps.backgroundColor }}
-    >
+    <animated.div className="overflow-y-hidden border border-b-0 border-l-0 border-r-0 border-footer">
       <button
-        className="flex items-center justify-between py-1 px-4 w-full hover:bg-secondary"
+        className="flex items-center justify-between w-full py-2 hover:bg-secondary"
         onClick={() => setIsOpen(!isOpen)}
       >
         <div className="flex items-center">
           <img className="w-8" src={props.icon} alt="" />
-          <div className="text-left ml-2">{props.name}</div>
+          <div className="text-left ml-2 font-semibold">{props.name}</div>
         </div>
         <Arrows
           className="inline-block ml-1"
@@ -51,7 +47,7 @@ function Section(props: SectionProps) {
           opacity: springProps.opacity,
         }}
       >
-        <ul className="list-disc ml-6" ref={ref}>
+        <ul className="list-disc ml-4" ref={ref}>
           {props.children}
         </ul>
       </animated.div>
@@ -69,7 +65,7 @@ function SubSection(props: SubSectionProps) {
   return (
     <li className="ml-5">
       <Link
-        className="pr-4 py-2 block w-full"
+        className="py-1 block w-full text-sm"
         to={props.route}
         onClick={props.onClick ? props.onClick : undefined}
       >
