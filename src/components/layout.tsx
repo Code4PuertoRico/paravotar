@@ -20,10 +20,10 @@ const Layout = ({ children, location }: Props) => {
       >
         Ir al contenido principal
       </a>
-      <div className="lg:grid lg:grid-flow-col lg:grid-cols-5">
+      <Navbar pathname={`${pathname}${hash}`} />
+      <div className="wrapper">
         <Sidebar pathname={`${pathname}${hash}`} />
-        <Navbar pathname={`${pathname}${hash}`} />
-        <div className="overflow-y-scroll bg-background lg:col-span-4">
+        <div className="main">
           <main id="main-content" className="w-full mx-auto pt-3">
             {children}
           </main>

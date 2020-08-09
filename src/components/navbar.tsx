@@ -40,7 +40,6 @@ export default function Navbar({ pathname }: SidebarProps) {
         <div className="h-6 w-6"></div>
       </nav>
       <div
-        id="testing"
         className={`fixed top-0 bg-navbar h-screen w-screen z-50 pt-12 transform ease-linear duration-300 ${
           isOpen ? "top-0" : "-top-h-screen"
         }`}

@@ -85,7 +85,7 @@ export default function Sidebar({ pathname }: SidebarProps) {
   const sections = useMemo(() => getSections(pathname, t), [pathname, t])
 
   return (
-    <nav className="hidden lg:grid lg:col-span-1 lg:relative lg:border lg:border-solid lg:border-b-0 lg:border-t-0 lg:border-l-0 lg:border-footer lg:bg-navbar">
+    <nav className="sidebar">
       <aside className="sticky h-screen top-0">
         <div className="relative px-4">
           <img className="h-24" src={Logo} alt="Para Votar" />
