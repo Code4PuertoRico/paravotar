@@ -1,15 +1,14 @@
-import React, { useRef, useState, useEffect } from "react"
-import LanguageMenu from "./language-menu"
+import React, { useRef, useState, useEffect, useMemo } from "react"
 
-import Logo from "../assets/images/logo.svg"
-import Inscribete from "../assets/icons/inscribete.svg"
-import Collaborations from "../assets/icons/collaborations.svg"
+import { useTranslation } from "react-i18next"
+
 // import Practica from "../assets/icons/practica.svg"
-import SalAVotar from "../assets/icons/sal-a-votar.svg"
+import Logo from "../assets/images/logo.svg"
 import Close from "../assets/icons/close.svg"
 import Menu from "../assets/icons/menu.svg"
 import { Section, SubSection } from "./section"
-import i18next from "i18next"
+import LanguageMenu from "./language-menu"
+import { getSections } from "./sidebar"
 
 type SidebarProps = {
   pathname: string
@@ -22,6 +21,8 @@ interface HTMLDivElementWithInert extends HTMLDivElement {
 export default function Navbar({ pathname }: SidebarProps) {
   const [isOpen, setIsOpen] = useState(false)
   const menuRef = useRef<HTMLDivElementWithInert>(null)
+  const { t } = useTranslation()
+  const sections = useMemo(() => getSections(pathname, t), [pathname, t])
 
   useEffect(() => {
     if (menuRef && menuRef.current) {
@@ -58,92 +59,28 @@ export default function Navbar({ pathname }: SidebarProps) {
           </div>
         </div>
         <div className="mt-10">
-          <Section
-            name={i18next.t("nav.sign-up")}
-            icon={Inscribete}
-            isActive={
-              pathname.includes("/#tarjeta-electoral") ||
-              pathname.includes("/#juntas-de-inscripcion-permanentes") ||
-              pathname.includes("/#electoral-status")
-            }
-          >
-            <SubSection
-              name={i18next.t("nav.voter-card")}
-              route="/#tarjeta-electoral"
-              onClick={() => setIsOpen(false)}
-              isActive={pathname.includes("/#tarjeta-electoral")}
-            />
-            {/* <SubSection
-              name={i18next.t("nav.make-appointment")}
-              route="/#saca-tu-cita"
-              onClick={() => setIsOpen(false)}
-            /> */}
-            <SubSection
-              name={i18next.t("nav.enrollment-centers")}
-              route="/#juntas-de-inscripcion-permanentes"
-              onClick={() => setIsOpen(false)}
-              isActive={pathname.includes(
-                "/#juntas-de-inscripcion-permanentes"
-              )}
-            />
-            <SubSection
-              name={i18next.t("nav.voter-status")}
-              route="/#electoral-status"
-              onClick={() => setIsOpen(false)}
-              isActive={pathname.includes("/#electoral-status")}
-            />
-          </Section>
-          {/* <Section
-            name="Practica"
-            icon={Practica}
-            isActive={pathname === "/practica"}
-          /> */}
-          <Section
-            name={i18next.t("nav.voter-action")}
-            icon={SalAVotar}
-            isActive={
-              pathname.includes("/sal-a-votar#voto-ausente-y-adelantado") ||
-              pathname.includes("/sal-a-votar#tu-centro-de-votacion")
-            }
-          >
-            <SubSection
-              name={i18next.t("nav.vote-type1")}
-              route="/sal-a-votar#voto-ausente-y-adelantado"
-              onClick={() => setIsOpen(false)}
-              isActive={pathname.includes(
-                "/sal-a-votar#voto-ausente-y-adelantado"
-              )}
-            />
-            <SubSection
-              name={i18next.t("nav.find-voter-center")}
-              route="/sal-a-votar#tu-centro-de-votacion"
-              onClick={() => setIsOpen(false)}
-              isActive={pathname.includes("/sal-a-votar#tu-centro-de-votacion")}
-            />
-          </Section>
-          <Section
-            name={i18next.t("nav.collaborations")}
-            icon={Collaborations}
-            isActive={
-              pathname.includes("/colaboraciones#proyecto-85") ||
-              pathname.includes("/colaboraciones#quien-me-representa")
-            }
-          >
-            <SubSection
-              name="Proyecto 85"
-              route="/colaboraciones#proyecto-85"
-              onClick={() => setIsOpen(false)}
-              isActive={pathname.includes("/colaboraciones#proyecto-85")}
-            />
-            <SubSection
-              name="¿Quién me representa?"
-              route="/colaboraciones#quien-me-representa"
-              onClick={() => setIsOpen(false)}
-              isActive={pathname.includes(
-                "/colaboraciones#quien-me-representa"
-              )}
-            />
-          </Section>
+          {sections.map((section, index) => {
+            return (
+              <Section
+                key={`${section.name}-${index}`}
+                name={section.name}
+                icon={section.icon}
+                isActive={section.isActive}
+              >
+                {section.subsections.map((subsection, index) => {
+                  return (
+                    <SubSection
+                      key={`${section.subsections}-${index}`}
+                      name={subsection.name}
+                      route={subsection.route}
+                      onClick={() => setIsOpen(false)}
+                      isActive={subsection.isActive}
+                    />
+                  )
+                })}
+              </Section>
+            )
+          })}
         </div>
       </div>
     </>
