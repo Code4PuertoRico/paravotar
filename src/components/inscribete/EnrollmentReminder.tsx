@@ -10,7 +10,7 @@ export function EnrollmentReminder() {
     <>
       <div className="text-center">
         <Typography
-          id="electoral-status"
+          id="enrollment-reminder"
           tag="h2"
           variant="h3"
           className="uppercase tracking-wide"
