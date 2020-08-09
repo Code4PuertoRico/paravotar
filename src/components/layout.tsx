@@ -24,7 +24,7 @@ const Layout = ({ children, location }: Props) => {
         <Sidebar pathname={`${pathname}${hash}`} />
         <Navbar pathname={`${pathname}${hash}`} />
         <div className="overflow-y-scroll bg-background lg:col-span-4">
-          <main id="main-content" className="w-full mx-auto mt-3">
+          <main id="main-content" className="w-full mx-auto pt-3">
             {children}
           </main>
           <Footer />

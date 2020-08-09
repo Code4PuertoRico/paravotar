@@ -12,7 +12,7 @@ const Inscribete = ({ location }: PageProps) => {
   return (
     <Layout location={location}>
       <SEO title="Colaboraciones" />
-      <Container className="w-11/12 mb-16 text-center pt-5">
+      <Container className="w-11/12 pt-16 mb-16 text-center lg:w-10/12 lg:mb-32 lg:pt-5">
         <Collabs />
       </Container>
     </Layout>

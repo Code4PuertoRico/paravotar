@@ -96,7 +96,7 @@ const Inscribete = ({ location }: PageProps) => {
     <Layout location={location}>
       <SEO title="Inscríbete" />
       <Container
-        className="w-11/12 mb-16 text-center pt-5"
+        className="w-11/12 pt-16 mb-16 text-center lg:pt-5"
         id="tarjeta-electoral"
       >
         <Typography tag="h1" variant="h3" className="uppercase tracking-wide">
@@ -104,7 +104,7 @@ const Inscribete = ({ location }: PageProps) => {
         </Typography>
         <CountDown />
       </Container>
-      <Container className="w-11/12 text-center" id="tarjeta-electoral">
+      <Container className="w-11/12 text-center">
         <Typography
           tag="h2"
           variant="h2"
@@ -134,7 +134,7 @@ const Inscribete = ({ location }: PageProps) => {
         />
       </Container>
       <Container
-        className="w-11/12 pt-24 pb-8 bg-white shadow-md rounded lg:w-10/12"
+        className="w-11/12  bg-white shadow-md rounded mb-16 lg:mb-32 lg:w-10/12 lg:pt-0 lg:pb-0"
         tabIndex={-1}
         ref={containerRef}
       >
@@ -144,16 +144,16 @@ const Inscribete = ({ location }: PageProps) => {
         </div>
       </Container>
       <Container
-        className="w-11/12 pt-24 pb-8 lg:w-10/12"
+        className="w-11/12 lg:w-10/12 pt-16 mb-16 lg:mb-32 lg:pt-0 lg:pb-0"
         id="juntas-de-inscripcion-permanentes"
       >
         <VoterCenters />
       </Container>
-      {/* <Container className="w-11/12 pt-24 pb-8 lg:w-10/12">
+      {/* <Container className="w-11/12 lg:w-10/12 pt-16 mb-16 lg:mb-32 lg:pt-0 lg:pb-0">
         <MakeAppointment />
       </Container> */}
       <Container
-        className="w-11/12 pt-24 pb-8 lg:w-10/12"
+        className="w-11/12 lg:w-10/12 pt-16 mb-16 lg:mb-32 lg:pt-0 lg:pb-0"
         id="electoral-status"
       >
         <VoterStatus />

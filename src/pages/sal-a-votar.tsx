@@ -14,13 +14,13 @@ const SalAVotar = ({ location }: PageProps) => {
     <Layout location={location}>
       <SEO title="Sal a votar" />
       <Container
-        className="w-11/12 mb-32 pt-5 lg:w-10/12"
+        className="w-11/12 pt-16 lg:w-10/12 lg:mb-32 lg:pt-5"
         id="voto-ausente-y-adelantado"
       >
         <SpecialVoters />
       </Container>
       <Container
-        className="w-11/12 mb-32 pt-5 lg:w-10/12"
+        className="w-11/12 pt-16 lg:w-10/12 lg:mb-32 lg:pt-5"
         id="tu-centro-de-votacion"
       >
         <FindVoterCenter />
