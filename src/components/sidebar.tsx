@@ -38,6 +38,10 @@ export default function Sidebar({ pathname }: SidebarProps) {
               route="/#juntas-de-inscripcion-permanentes"
             />
             <SubSection
+              name={i18next.t("nav.enrollment-reminder")}
+              route="/#enrollment-reminder"
+            />
+            <SubSection
               name={i18next.t("nav.voter-status")}
               route="/#electoral-status"
             />

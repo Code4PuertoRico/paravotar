@@ -75,6 +75,10 @@ export default function Navbar({ pathname }: SidebarProps) {
               onClick={() => setIsOpen(false)}
             />
             <SubSection
+              name={i18next.t("nav.enrollment-reminder")}
+              route="/#enrollment-reminder"
+            />
+            <SubSection
               name={i18next.t("nav.voter-status")}
               route="/#electoral-status"
               onClick={() => setIsOpen(false)}
