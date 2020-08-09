@@ -10,12 +10,7 @@ export function VoterStatus() {
   return (
     <>
       <div className="text-center">
-        <Typography
-          id="electoral-status"
-          tag="h2"
-          variant="h3"
-          className="uppercase tracking-wide"
-        >
+        <Typography tag="h2" variant="h3" className="uppercase tracking-wide">
           {i18next.t("site.voter-status")}
         </Typography>
         <Typography

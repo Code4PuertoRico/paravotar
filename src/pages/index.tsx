@@ -62,12 +62,10 @@ type PageProps = {
 }
 
 const Inscribete = ({ location }: PageProps) => {
-  const { t, i18n } = useTranslation()
-
+  const { t } = useTranslation()
   const options = VoterDocs.map(v => ({
     value: t(`${v.description}`),
   }))
-
   const getVoterMeta = (v: string) => {
     if (
       v === "A foreign country and I reside in Puerto Rico" ||
@@ -97,18 +95,16 @@ const Inscribete = ({ location }: PageProps) => {
   return (
     <Layout location={location}>
       <SEO title="Inscríbete" />
-      <Container className="w-11/12 mb-16 text-center pt-5">
-        <Typography
-          id="tarjeta-electoral"
-          tag="h1"
-          variant="h3"
-          className="uppercase tracking-wide"
-        >
+      <Container
+        className="w-11/12 mb-16 text-center pt-5"
+        id="tarjeta-electoral"
+      >
+        <Typography tag="h1" variant="h3" className="uppercase tracking-wide">
           {t("site.tarjeta-electoral-title")}
         </Typography>
         <CountDown />
       </Container>
-      <Container className="w-11/12 text-center">
+      <Container className="w-11/12 text-center" id="tarjeta-electoral">
         <Typography
           tag="h2"
           variant="h2"
@@ -138,7 +134,7 @@ const Inscribete = ({ location }: PageProps) => {
         />
       </Container>
       <Container
-        className="w-11/12 mt-12 mb-32 bg-white shadow-md rounded lg:w-10/12"
+        className="w-11/12 pt-24 pb-8 bg-white shadow-md rounded lg:w-10/12"
         tabIndex={-1}
         ref={containerRef}
       >
@@ -147,13 +143,19 @@ const Inscribete = ({ location }: PageProps) => {
           <VoterInfoRightPanel voterMetadata={voterMetadata} />
         </div>
       </Container>
-      <Container className="w-11/12 mb-32 lg:w-10/12">
+      <Container
+        className="w-11/12 pt-24 pb-8 lg:w-10/12"
+        id="juntas-de-inscripcion-permanentes"
+      >
         <VoterCenters />
       </Container>
-      {/* <Container className="w-11/12 mb-32 lg:w-10/12">
+      {/* <Container className="w-11/12 pt-24 pb-8 lg:w-10/12">
         <MakeAppointment />
       </Container> */}
-      <Container className="w-11/12 mb-32 lg:w-10/12">
+      <Container
+        className="w-11/12 pt-24 pb-8 lg:w-10/12"
+        id="electoral-status"
+      >
         <VoterStatus />
       </Container>
     </Layout>

@@ -26,12 +26,7 @@ export default function Collabs() {
 
   return (
     <>
-      <Typography
-        id="tarjeta-electoral"
-        tag="h1"
-        variant="h3"
-        className="uppercase tracking-wide"
-      >
+      <Typography tag="h1" variant="h3" className="uppercase tracking-wide">
         {i18next.t("collabs.meet-our-collaborators")}
       </Typography>
       <Typography
