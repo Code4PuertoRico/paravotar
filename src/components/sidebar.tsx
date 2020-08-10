@@ -34,6 +34,11 @@ export const getSections = (pathname = "", t) => [
         isActive: pathname.includes("/#juntas-de-inscripcion-permanentes"),
       },
       {
+        name: t("nav.enrollment-reminder"),
+        route: "/#enrollment-reminder",
+        isActive: pathname.includes("/#enrollment-reminder"),
+      },
+      {
         name: t("nav.voter-status"),
         route: "/#electoral-status",
         isActive: pathname.includes("/#electoral-status"),

@@ -36,6 +36,10 @@
     "voter-status-verify": "Check my status",
     "voter-status-note": "This link will take you to the page of the \"Comisión Estatal de  Elecciones\". There you can fill out the form that will tell you the status of your voter registry.",
     "register-to-vote-today": "Register to vote today at an Enrollment Center near you. No appointment required.",
+    "add-to-calendar": "Add to Calendar",
+    "enrollment-reminder": "Schedule your visit so you don't lose your right to vote",
+    "enrollment-reminder-guide1": "Create an automated reminder so you don't forget to register to vote",
+    "enrollment-reminder-guide2": "Add three events to your calendar to remind you to get your voter card before the deadline. Don't leave it for the last minute. You have three chances to make it. We're rooting for you!",
     "enrollment-centers-dates": "Monday to Saturday",
     "enrollment-centers-services": "New voter registrations, reactivations, relocations and transfers",
     "enrollment-centers-note": "* In this enrollment center you can carry out any electoral process regardless of the precinct in which you reside.",
@@ -92,6 +96,7 @@
     "voter-action": "Go out to vote",
     "vote-type1": "Absentee and Early Voting",
     "enrollment-centers": "Enrollment Centers",
+    "enrollment-reminder": "Create a Reminder",
     "find-voter-center": "Find your voting center",
     "collaborations": "Collaborations"
   },

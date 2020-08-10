@@ -36,6 +36,10 @@
     "voter-status-verify": "Verificar mi estatus",
     "voter-status-note": "Este enlace te llevará a la página de la Comisión Estatal de  Elecciones. Allí podrás llenar el formulario que te dirá cuál es el estatus de tu registro electoral.",
     "register-to-vote-today": "Saca tu tarjeta electoral, sin cita previa, en la JIP más cercana a ti.",
+    "add-to-calendar": "Añadir al Calendario",
+    "enrollment-reminder": "Programa tu visita para que no pierdas tu derecho al voto",
+    "enrollment-reminder-guide1": "Crea un recordatorio automático para que no olvides inscribirte",
+    "enrollment-reminder-guide2": "Añade tres eventos a tu calendario para recordarte hacer la gestión de sacar tu tarjeta electoral antes de la fecha límite para inscribirse. No lo dejes para lo último. Te damos 3 chances para que lo logres. ¡Vamos a ti!",
     "enrollment-centers-dates": "Lunes a Sabado",
     "enrollment-centers-services": "Nuevas inscripciones, reactivaciones, reubicaciones y transferencias",
     "enrollment-centers-note": "* En este centro puede realizar cualquier trámite electoral sin importar el precinto en el cual reside.",
@@ -92,6 +96,7 @@
     "voter-action": "Sal a votar",
     "vote-type1": "Voto adelantado y voto ausente",
     "enrollment-centers": "Juntas de Inscripción Permanentes",
+    "enrollment-reminder": "Crea un recordatorio",
     "find-voter-center": "Encuentra tu centro de votación",
     "collaborations": "Colaboraciones"
   },
