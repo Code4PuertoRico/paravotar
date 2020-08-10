@@ -4,7 +4,6 @@ const {
   URL: NETLIFY_SITE_URL = url,
   DEPLOY_PRIME_URL: NETLIFY_DEPLOY_URL = NETLIFY_SITE_URL,
   CONTEXT: NETLIFY_ENV = NODE_ENV,
-  BUNDLE_ANALYZER_TOKEN: BUNDLE_ANALYZER_TOKEN = false,
 } = process.env
 const isNetlifyProduction = NETLIFY_ENV === "production"
 const siteUrl = isNetlifyProduction ? NETLIFY_SITE_URL : NETLIFY_DEPLOY_URL
@@ -59,8 +58,8 @@ module.exports = {
     `gatsby-plugin-offline`,
     `gatsby-plugin-lodash`,
 
-    BUNDLE_ANALYZER_TOKEN ? `@bundle-analyzer/gatsby-plugin` : false,
+    `@bundle-analyzer/gatsby-plugin`,
 
     `gatsby-plugin-no-sourcemaps`,
-  ].filter(Boolean),
+  ],
 }
