@@ -21,7 +21,7 @@ export function SpecialVoters() {
           {i18next.t("site.special-voters-guide")}
         </Typography>
       </div>
-      <div className="mt-12 mb-32">
+      <div className="mt-12 mb-16 lg:mb-32">
         <div className="md:hidden">
           <Tabs />
         </div>

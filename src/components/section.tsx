@@ -23,21 +23,18 @@ function Section(props: SectionProps) {
     visibility: isOpen ? "visible" : "hidden",
     opacity: isOpen ? 1 : 0,
     transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
-    backgroundColor: isOpen ? "#E3C094" : "#f5ddc0",
   })
 
   return (
-    <animated.div
-      className="overflow-y-hidden p-2"
-      style={{ backgroundColor: springProps.backgroundColor }}
-    >
+    <animated.div className="overflow-y-hidden">
+      <hr className="mx-4 text-footer mt-2" />
       <button
-        className="flex items-center justify-between py-1 px-4 w-full hover:bg-secondary"
+        className="flex items-center justify-between w-full -px-4 mt-2 px-4 overflow-x-visible"
         onClick={() => setIsOpen(!isOpen)}
       >
         <div className="flex items-center">
           <img className="w-8" src={props.icon} alt="" />
-          <div className="text-left ml-2">{props.name}</div>
+          <div className="text-left ml-2 font-semibold">{props.name}</div>
         </div>
         <Arrows
           className="inline-block ml-1"
@@ -51,9 +48,7 @@ function Section(props: SectionProps) {
           opacity: springProps.opacity,
         }}
       >
-        <ul className="list-disc ml-6" ref={ref}>
-          {props.children}
-        </ul>
+        <ul ref={ref}>{props.children}</ul>
       </animated.div>
     </animated.div>
   )
@@ -62,14 +57,19 @@ function Section(props: SectionProps) {
 type SubSectionProps = {
   name: string
   route: string
+  isActive: boolean
   onClick?: () => void
 }
 
 function SubSection(props: SubSectionProps) {
   return (
-    <li className="ml-5">
+    <li
+      className={`px-4 hover:bg-primary hover:text-white hover:font-semibold ${
+        props.isActive ? "bg-primary text-white font-semibold" : ""
+      }`}
+    >
       <Link
-        className="pr-4 py-2 block w-full"
+        className="py-1 block w-full text-sm"
         to={props.route}
         onClick={props.onClick ? props.onClick : undefined}
       >

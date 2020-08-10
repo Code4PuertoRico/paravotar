@@ -92,7 +92,8 @@
     "voter-action": "Go out to vote",
     "vote-type1": "Absentee and Early Voting",
     "enrollment-centers": "Enrollment Centers",
-    "find-voter-center": "Find your voting center"
+    "find-voter-center": "Find your voting center",
+    "collaborations": "Collaborations"
   },
   "footer": {
     "contribute": "How can I contribute to the project?",
@@ -148,5 +149,12 @@
     "reason-detail-09": "Persons domiciled in Puerto Rico at the time of being sentenced by the courts of Puerto Rico or in the United States District Court for the District of Puerto Rico.",
     "reason-summary-10": "Diplomatic service employees",
     "reason-detail-10": "Persons particpating in the diplomatic or foreign aid service of the Government of the United States of America or in a personnel exchange program between the Government of Puerto Rico and a foreign government. Spouses, daughters and sons or relatives who are with the voter may also exercise their absentee vote."
+  },
+  "collabs": {
+    "meet-our-collaborators": "Meet our collaborators",
+    "visit-the-initiatives": "Visit the initiatives that these organizations are carrying out",
+    "proyecto-85": "Proyecto 85 is an organization whose mission is to promote the political participation of women as elected public officials in Puerto Rico to achieve equitable representation in our government.",
+    "quien-me-representa": "¿Quién me representa? is a project made by Espacios Abiertos. Its purpose is to introduce citizens to their representatives at the federal, state and municipal levels according to their place of residence.",
+    "view": "View"
   }
 }
