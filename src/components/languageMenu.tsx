@@ -1,15 +1,16 @@
 import React, { useState } from "react"
 import { useTranslation } from "react-i18next"
+import { Button } from "./index"
 
-const LanguageMenu = () => {
+const LanguageMenu = (props: any) => {
   const { t, i18n } = useTranslation()
 
   const [language, setLanguage] = useState("es")
 
   return (
     <>
-      <button
-        className="text-primary text-xs font-semibold uppercase hover:underline"
+      <Button
+        className="mt-4 mb-4"
         onClick={() => {
           if (language === "es") {
             i18n.changeLanguage("en")
@@ -21,7 +22,7 @@ const LanguageMenu = () => {
         }}
       >
         {t("site.Language-Button")}
-      </button>
+      </Button>
     </>
   )
 }

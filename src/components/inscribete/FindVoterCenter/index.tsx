@@ -8,7 +8,12 @@ export function FindVoterCenter() {
   return (
     <>
       <div className="mx-auto text-center">
-        <Typography tag="h2" variant="h3" className="uppercase tracking-wide">
+        <Typography
+          id="tu-centro-de-votacion"
+          tag="h2"
+          variant="h3"
+          className="uppercase tracking-wide"
+        >
           {i18next.t("site.find-your-center-title")}
         </Typography>
         <Typography

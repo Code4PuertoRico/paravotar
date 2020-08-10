@@ -1,14 +1,14 @@
-import React, { useRef, useState, useEffect, useMemo } from "react"
+import React, { useRef, useState, useEffect } from "react"
+import LanguageMenu from "../components/languageMenu"
 
-import { useTranslation } from "react-i18next"
-
-// import Practica from "../assets/icons/practica.svg"
 import Logo from "../assets/images/logo.svg"
+import Inscribete from "../assets/icons/inscribete.svg"
+// import Practica from "../assets/icons/practica.svg"
+import SalAVotar from "../assets/icons/sal-a-votar.svg"
 import Close from "../assets/icons/close.svg"
 import Menu from "../assets/icons/menu.svg"
 import { Section, SubSection } from "./section"
-import LanguageMenu from "./language-menu"
-import { getSections } from "./sidebar"
+import i18next from "i18next"
 
 type SidebarProps = {
   pathname: string
@@ -21,8 +21,6 @@ interface HTMLDivElementWithInert extends HTMLDivElement {
 export default function Navbar({ pathname }: SidebarProps) {
   const [isOpen, setIsOpen] = useState(false)
   const menuRef = useRef<HTMLDivElementWithInert>(null)
-  const { t } = useTranslation()
-  const sections = useMemo(() => getSections(pathname, t), [pathname, t])
 
   useEffect(() => {
     if (menuRef && menuRef.current) {
@@ -40,6 +38,7 @@ export default function Navbar({ pathname }: SidebarProps) {
         <div className="h-6 w-6"></div>
       </nav>
       <div
+        id="testing"
         className={`fixed top-0 bg-navbar h-screen w-screen z-50 pt-12 transform ease-linear duration-300 ${
           isOpen ? "top-0" : "-top-h-screen"
         }`}
@@ -53,33 +52,58 @@ export default function Navbar({ pathname }: SidebarProps) {
         </button>
         <div className="px-4">
           <img className="mx-auto h-16" src={Logo} alt="Para Votar" />
-          <div className="text-center mt-2">
-            <LanguageMenu />
-          </div>
         </div>
         <div className="mt-10">
-          {sections.map((section, index) => {
-            return (
-              <Section
-                key={`${section.name}-${index}`}
-                name={section.name}
-                icon={section.icon}
-                isActive={section.isActive}
-              >
-                {section.subsections.map((subsection, index) => {
-                  return (
-                    <SubSection
-                      key={`${section.subsections}-${index}`}
-                      name={subsection.name}
-                      route={subsection.route}
-                      onClick={() => setIsOpen(false)}
-                      isActive={subsection.isActive}
-                    />
-                  )
-                })}
-              </Section>
-            )
-          })}
+          <Section
+            name={i18next.t("nav.sign-up")}
+            icon={Inscribete}
+            isActive={pathname === "/"}
+          >
+            <SubSection
+              name={i18next.t("nav.voter-card")}
+              route="/#tarjeta-electoral"
+              onClick={() => setIsOpen(false)}
+            />
+            {/* <SubSection
+              name={i18next.t("nav.make-appointment")}
+              route="/#saca-tu-cita"
+              onClick={() => setIsOpen(false)}
+            /> */}
+            <SubSection
+              name={i18next.t("nav.enrollment-centers")}
+              route="/#juntas-de-inscripcion-permanentes"
+              onClick={() => setIsOpen(false)}
+            />
+            <SubSection
+              name={i18next.t("nav.voter-status")}
+              route="/#electoral-status"
+              onClick={() => setIsOpen(false)}
+            />
+          </Section>
+          {/* <Section
+            name="Practica"
+            icon={Practica}
+            isActive={pathname === "/practica"}
+          /> */}
+          <Section
+            name={i18next.t("nav.voter-action")}
+            icon={SalAVotar}
+            isActive={pathname === "/sal-a-votar"}
+          >
+            <SubSection
+              name={i18next.t("nav.vote-type1")}
+              route="/sal-a-votar#voto-ausente-y-adelantado"
+              onClick={() => setIsOpen(false)}
+            />
+            <SubSection
+              name={i18next.t("nav.find-voter-center")}
+              route="/sal-a-votar#tu-centro-de-votacion"
+              onClick={() => setIsOpen(false)}
+            />
+          </Section>
+          <div className="w-auto text-center">
+            <LanguageMenu />
+          </div>
         </div>
       </div>
     </>

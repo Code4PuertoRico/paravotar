@@ -3,7 +3,7 @@ import React from "react"
 import { Container, Layout, SEO } from "../components"
 import { SpecialVoters } from "../components/inscribete/SpecialVoters"
 import { withTrans } from "../i18n/withTrans"
-// import { FindVoterCenter } from "../components/inscribete/FindVoterCenter"
+import { FindVoterCenter } from "../components/inscribete/FindVoterCenter"
 
 type PageProps = {
   location: Location
@@ -13,18 +13,12 @@ const SalAVotar = ({ location }: PageProps) => {
   return (
     <Layout location={location}>
       <SEO title="Sal a votar" />
-      <Container
-        className="w-11/12 pt-16 lg:w-10/12 lg:mb-32 lg:pt-5"
-        id="voto-ausente-y-adelantado"
-      >
+      <Container className="w-11/12 mb-32 pt-5 lg:w-10/12">
         <SpecialVoters />
       </Container>
-      {/* <Container
-        className="w-11/12 pt-16 lg:w-10/12 lg:mb-32 lg:pt-5"
-        id="tu-centro-de-votacion"
-      >
+      <Container className="w-11/12 mb-32 pt-5 lg:w-10/12">
         <FindVoterCenter />
-      </Container> */}
+      </Container>
     </Layout>
   )
 }

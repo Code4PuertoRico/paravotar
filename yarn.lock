@@ -1907,11 +1907,6 @@
     semver "^6.3.0"
     tsutils "^3.17.1"
 
-"@use-it/interval@^0.1.3":
-  version "0.1.3"
-  resolved "https://registry.yarnpkg.com/@use-it/interval/-/interval-0.1.3.tgz#5d1096b2295d7a5dda8e8022f3abb5f9d9ef27f8"
-  integrity sha512-chshdtDZTFoWA9aszBz1Cc04Ca9NBD2JTi/GMjdJ+HGm4q7Vy1v71+2mm22r7Kfb2nYW+lTRsPcEHdB/VFVHsQ==
-
 "@webassemblyjs/ast@1.8.5":
   version "1.8.5"
   resolved "https://registry.yarnpkg.com/@webassemblyjs/ast/-/ast-1.8.5.tgz#51b1c5fe6576a34953bf4b253df9f0d490d9e359"
@@ -4423,11 +4418,6 @@ date-fns@^1.27.2:
   version "1.30.1"
   resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-1.30.1.tgz#2e71bf0b119153dbb4cc4e88d9ea5acfb50dc05c"
   integrity sha512-hBSVCvSmWC+QypYObzwGOd9wqdDpOt+0wl0KbU+R+uuZBS1jN8VsD1ss3irQDknRj5NvxiTF6oj/nDRnN/UQNw==
-
-date-fns@^2.14.0:
-  version "2.15.0"
-  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.15.0.tgz#424de6b3778e4e69d3ff27046ec136af58ae5d5f"
-  integrity sha512-ZCPzAMJZn3rNUvvQIMlXhDr4A+Ar07eLeGsGREoWU19a3Pqf5oYa+ccd+B3F6XVtQY6HANMFdOQ8A+ipFnvJdQ==
 
 debounce@^1.2.0:
   version "1.2.0"
@@ -12696,6 +12686,11 @@ slugify@^1.3.6:
   version "1.3.6"
   resolved "https://registry.yarnpkg.com/slugify/-/slugify-1.3.6.tgz#ba5fd6159b570fe4811d02ea9b1f4906677638c3"
   integrity sha512-wA9XS475ZmGNlEnYYLPReSfuz/c3VQsEMoU43mi6OnKMCdbnFXd4/Yg7J0lBv8jkPolacMpOrWEaoYxuE1+hoQ==
+
+smooth-scroll@16.0.3:
+  version "16.0.3"
+  resolved "https://registry.yarnpkg.com/smooth-scroll/-/smooth-scroll-16.0.3.tgz#5914e0e4050a5313102d734140ddee0267526fd7"
+  integrity sha512-Wnhk3tWeqVJRrSUxeLQ4r7MNQvc9MNlswyWfKqAQ9cc37D8VqTco/CicWcdHzSFEC4/9/kPPK3uY6oyY+mdRYg==
 
 snapdragon-node@^2.0.1:
   version "2.1.1"

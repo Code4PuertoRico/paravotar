@@ -10,7 +10,12 @@ export function VoterStatus() {
   return (
     <>
       <div className="text-center">
-        <Typography tag="h2" variant="h3" className="uppercase tracking-wide">
+        <Typography
+          id="electoral-status"
+          tag="h2"
+          variant="h3"
+          className="uppercase tracking-wide"
+        >
           {i18next.t("site.voter-status")}
         </Typography>
         <Typography
@@ -39,7 +44,7 @@ export function VoterStatus() {
           <Link
             className="mt-6 w-full pt-2 pb-2 md:w-1/2"
             variant="primary"
-            to="http://consulta.ceepur.org/"
+            to="http://ww2.ceepur.org/es-pr/Paginas/Estatus-del-Elector.aspx"
             target="_blank"
           >
             <OutsideLink className="mr-2 h-5 w-5" />

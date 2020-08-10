@@ -6,7 +6,6 @@ type Props = {
   className?: string
   tabIndex?: number
   ref?: React.RefObject<HTMLElement>
-  id?: string
 }
 
 export default function Container({
@@ -15,12 +14,10 @@ export default function Container({
   tag = "section",
   tabIndex,
   ref,
-  id,
 }: Props) {
   return React.createElement(
     tag,
     {
-      id,
       className: `max-w-6xl mx-auto ${className}`,
       tabIndex,
       ref,

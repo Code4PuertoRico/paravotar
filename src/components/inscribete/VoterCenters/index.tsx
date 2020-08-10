@@ -77,6 +77,7 @@ export function VoterCenters() {
   return (
     <>
       <Typography
+        id="juntas-de-inscripcion-permanentes"
         tag="h2"
         variant="h3"
         className="uppercase text-center tracking-wide"

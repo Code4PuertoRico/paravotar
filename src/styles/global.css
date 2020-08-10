@@ -11,7 +11,6 @@ html {
   @apply text-dark;
   font-size: 16px;
   font-family: "Inter", Helvetica;
-  scroll-behavior: smooth;
 }
 
 svg {
@@ -105,39 +104,6 @@ button:focus {
 
 .animated.infinite {
   animation-iteration-count: infinite;
-}
-
-.sidebar {
-  @apply hidden;
-}
-
-.main {
-  @apply overflow-y-scroll bg-background;
-}
-
-@screen lg {
-  .wrapper {
-    @apply grid;
-    grid-template-columns: 275px auto;
-  }
-
-  .sidebar {
-    @apply grid relative border border-solid border-b-0 border-t-0 border-l-0 border-footer bg-navbar;
-    grid-column-start: 1;
-  }
-
-  .main {
-    @apply grid;
-    grid-column-start: 2;
-  }
-}
-
-@screen xl {}
-
-.sidebar__translate {
-  @apply absolute;
-  bottom: -12px;
-  margin-left: 28%;
 }
 
 /* purgecss end ignore */
