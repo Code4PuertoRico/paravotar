@@ -57,6 +57,11 @@ export const getSections = (pathname = "", t) => [
         route: "/practica#haz-que-tu-voto-cuente",
         isActive: pathname.includes("/practica#haz-que-tu-voto-cuente"),
       },
+      {
+        name: "¿Cómo votar?",
+        route: "/practica#como-votar",
+        isActive: pathname.includes("/practica#como-votar"),
+      },
     ],
   },
   {

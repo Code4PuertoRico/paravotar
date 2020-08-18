@@ -5,27 +5,9 @@ import { useMachine } from "@xstate/react"
 
 import Typography from "../../typography"
 import Card from "../../card"
+import Tab from "../../tab"
 import { EarlyVoter, AbsenteeVoter } from "../constants"
 import TabContent from "./TabContent"
-
-type TabProps = {
-  isActive: boolean
-  onClick: () => void
-  children: ReactNode
-}
-
-function Tab({ isActive, onClick, children }: TabProps) {
-  return (
-    <button
-      className={`w-1/2 pb-2 border border-b-8 border-t-0 border-r-0 border-l-0 transition ease-in-out duration-300 ${
-        isActive ? "border-primary opacity-100" : "border-white opacity-25"
-      }`}
-      onClick={onClick}
-    >
-      {children}
-    </button>
-  )
-}
 
 const tabsState = {
   absenteeVoter: {

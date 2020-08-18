@@ -9,6 +9,7 @@ import Button from "./button"
 import Sidebar from "./sidebar"
 import Navbar from "./navbar"
 import Card from "./card"
+import Tab from "./tab"
 
 export {
   Button,
@@ -22,4 +23,5 @@ export {
   Sidebar,
   Navbar,
   Card,
+  Tab,
 }
