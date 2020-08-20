@@ -10,6 +10,7 @@ import differenceInSeconds from "date-fns/differenceInSeconds"
 import format from "date-fns/format"
 
 import Typography from "../../typography"
+import Card from "../../card"
 
 const LAST_DAY = new Date(2020, 8, 14, 16, 0)
 
@@ -85,23 +86,28 @@ export function CountDown() {
         {i18next.t("counter.time-is-running-out")}
       </Typography>
       <div className="mt-4 mx-auto md:w-9/12">
-        <div className="flex justify-around rounded border border-gray p-2 bg-white">
-          <Counter timeLeft={timeLeft.days} title={i18next.t("counter.days")} />
-          <Counter
-            timeLeft={timeLeft.hours}
-            title={i18next.t("counter.hours")}
-          />
-          <Counter
-            timeLeft={timeLeft.minutes}
-            title={i18next.t("counter.minutes")}
-          />
-          <div className="hidden md:inline">
+        <Card>
+          <div className="flex justify-around">
             <Counter
-              timeLeft={timeLeft.seconds}
-              title={i18next.t("counter.seconds")}
+              timeLeft={timeLeft.days}
+              title={i18next.t("counter.days")}
             />
+            <Counter
+              timeLeft={timeLeft.hours}
+              title={i18next.t("counter.hours")}
+            />
+            <Counter
+              timeLeft={timeLeft.minutes}
+              title={i18next.t("counter.minutes")}
+            />
+            <div className="hidden md:inline">
+              <Counter
+                timeLeft={timeLeft.seconds}
+                title={i18next.t("counter.seconds")}
+              />
+            </div>
           </div>
-        </div>
+        </Card>
       </div>
       <Typography tag="h3" variant="p" className="mt-2">
         {i18next.t("counter.last-day")}: <br className="lg:hidden" />
