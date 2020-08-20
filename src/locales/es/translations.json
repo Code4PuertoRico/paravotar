@@ -161,5 +161,20 @@
     "proyecto-85": "Proyecto 85 es una organización cuya encomienda es fomentar la participación política de mujeres como funcionarias públicas electas en Puerto Rico para lograr una representación equitativa en nuestro gobierno.",
     "quien-me-representa": "¿Quién me representa? es un proyecto hecho por Espacios Abiertos. Su proposito es presentarle a los ciudadanos sus representantes a nivel federal, estatal y municipal según su lugar de residencia.",
     "view": "Visitar"
+  },
+  "practice": {
+    "make-your-vote-count": "Haz que tu voto cuente",
+    "learn-signs": "Conoce cuál es la marca válida que debes usar para votar",
+    "the-only-valid-sign": "Solo se contará como marca válida la equis “X”— que esté dentro de un rectángulo en blanco.",
+    "your-vote-discarded": "No se contará la que esté encima del nombre de un candidato o la que esté sobre su foto.",
+    "how-to-vote": "¿Cómo votar?",
+    "type-of-votes": "Conoce los distintos tipos de votos que puedes ejercer el día de las elecciones",
+    "ballot-example-disclaimer": "Esta papeleta es un modelo que utilizado para ilustrar los tipos de votos. Este recurso se actualizará con la papeleta oficial cuando la Comisión Estatal de Elecciones publique la papeleta oficial.",
+    "undivided": "Íntegro",
+    "undivided-vote-rules": "El voto íntegro será válido cuando se haga una sola marca dentro del rectángulo en blanco bajo la insignia del partido político de preferencia, y no se hagan más marcas en la papeleta.",
+    "mixed": "Mixto",
+    "mixed-vote-rules": "El voto mixto será válido cuando la persona votante coloque una marca válida o equis “X” dentro del rectángulo en blanco que está debajo de la insignia del partido político de preferencia, coloque al menos una equis “X” dentro del rectángulo en blanco que está al lado de un candidato(a) dentro de la columna de esa insignia y coloque también otra equis “X” dentro del rectángulo en blanco al lado de cualquier candidato en la columna de otro partido o candidato independiente.",
+    "candidacy": "Candidatura",
+    "candidacy-vote-rules": "Los votos por candidatura serán válidos cuando se haga una marca válida dentro del rectángulo en blanco al lado del nombre de cada candidato o candidata de su preferencia, o cuando se escriba el nombre completo de un candidato en el encasillado de la columna de nominación directa. Las nominaciones directas también requiren que se haga una marca válida dentro del rectángulo en blanco al lado de cada nombre escrito."
   }
 }

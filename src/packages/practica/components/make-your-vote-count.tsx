@@ -1,5 +1,7 @@
 import React from "react"
 
+import i18next from "i18next"
+
 import { Typography } from "../../../components/index"
 import ValidSign from "../../../assets/images/valid-sign-illustration.svg"
 
@@ -7,7 +9,7 @@ export default function MakeYourVoteCount() {
   return (
     <>
       <Typography tag="h2" variant="h3" className="uppercase">
-        Haz que tu voto cuente
+        {i18next.t("practice.make-your-vote-count")}
       </Typography>
       <Typography
         tag="h3"
@@ -15,16 +17,14 @@ export default function MakeYourVoteCount() {
         weight="base"
         className="font-normal mt-4"
       >
-        Conoce los distintos tipos de votos que puedes ejercer el día de las
-        elecciones
+        {i18next.t("practice.learn-signs")}
       </Typography>
       <div className="flex justify-center mt-8">
         <img className="w-78" src={ValidSign} alt="" />
       </div>
       <Typography tag="p" variant="p" className="mt-6">
-        Solo se contará como marca válida la equis “X”— que esté dentro de un
-        rectángulo en blanco. <br /> No se contará la que esté encima del nombre
-        de un candidato o la que esté sobre su foto.
+        {i18next.t("practice.the-only-valid-sign")} <br />{" "}
+        <b>{i18next.t("practice.your-vote-discarded")}</b>
       </Typography>
     </>
   )
