@@ -49,7 +49,7 @@ export const getSections = (pathname = "", t) => [
     name: "Practica",
     icon: Practica,
     isActive:
-      pathname.includes("/practica#marca-valida") ||
+      pathname.includes("/practica#haz-que-tu-voto-cuente") ||
       pathname.includes("/practica#como-votar"),
     subsections: [
       {

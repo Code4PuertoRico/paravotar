@@ -164,8 +164,8 @@
   },
   "practice": {
     "make-your-vote-count": "Make your vote count",
-    "learn-signs": "Learn which is the valid sign that you should use to vote",
-    "the-only-valid-sign": "The only sign that's considered valid is the X and it should the placed inside the blank rectangle that's placed along side the party or candidate.",
+    "learn-signs": "Learn which is the valid mark that you should use to vote",
+    "the-only-valid-sign": "The only mark that's considered valid is the X and it should the placed inside the blank rectangle that's placed along side the party or candidate.",
     "your-vote-discarded": "Your vote will be discarded if it's placed over the candidate's name or above the candidate's photo.",
     "how-to-vote": "How to vote?",
     "type-of-votes": "Learn the different ways that you can use to cast your vote on the day of the elections",
@@ -181,6 +181,7 @@
     "published-by": "published by",
     "with-the": "with the",
     "aclu-long": "American Civil Liberties Union",
-    "aclu-short": "ACLU"
+    "aclu-short": "ACLU",
+    "valid-mark": "Valid mark"
   }
 }

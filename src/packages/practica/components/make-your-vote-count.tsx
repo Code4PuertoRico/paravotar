@@ -3,7 +3,7 @@ import React from "react"
 import i18next from "i18next"
 
 import { Typography } from "../../../components/index"
-import ValidSign from "../../../assets/images/valid-sign-illustration.svg"
+import ValidMark from "../../../assets/images/valid-mark.svg"
 
 export default function MakeYourVoteCount() {
   return (
@@ -19,8 +19,11 @@ export default function MakeYourVoteCount() {
       >
         {i18next.t("practice.learn-signs")}
       </Typography>
-      <div className="flex justify-center mt-8">
-        <img className="w-78" src={ValidSign} alt="" />
+      <div className="mt-8">
+        <Typography tag="h3" variant="h3" className="uppercase">
+          {i18next.t("practice.valid-mark")}
+        </Typography>
+        <img className="w-78 mx-auto" src={ValidMark} alt="" />
       </div>
       <Typography tag="p" variant="p" className="mt-6">
         {i18next.t("practice.the-only-valid-sign")} <br />{" "}
