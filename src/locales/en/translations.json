@@ -175,6 +175,12 @@
     "mixed": "Mixed",
     "mixed-vote-rules": "The mixed vote will be valid when the voter places a valid mark or X inside the blank rectangle that's below the insignia of the political party of preference, places at least one X within the blank rectangle that is next to a candidate within the column for that insignia and also place another X within the blank rectangle next to any candidate in the column for another party or independent candidate.",
     "candidacy": "Candidacy",
-    "candidacy-vote-rules": "Votes per candidacy will be valid when a valid mark is made within the blank rectangle next to the name of each candidate of your choice, or when the full name of another candidate is written in the box of the direct nomination column and candidates that are written in must hava a valid mark placed within the blank rectangle next to each written name."
+    "candidacy-vote-rules": "Votes per candidacy will be valid when a valid mark is made within the blank rectangle next to the name of each candidate of your choice, or when the full name of another candidate is written in the box of the direct nomination column and candidates that are written in must hava a valid mark placed within the blank rectangle next to each written name.",
+    "the-information-presented": "The information presented here is based on an",
+    "article": "article",
+    "published-by": "published by",
+    "with-the": "with the",
+    "aclu-long": "American Civil Liberties Union",
+    "aclu-short": "ACLU"
   }
 }

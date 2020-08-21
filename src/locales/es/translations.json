@@ -175,6 +175,12 @@
     "mixed": "Mixto",
     "mixed-vote-rules": "El voto mixto será válido cuando la persona votante coloque una marca válida o equis “X” dentro del rectángulo en blanco que está debajo de la insignia del partido político de preferencia, coloque al menos una equis “X” dentro del rectángulo en blanco que está al lado de un candidato(a) dentro de la columna de esa insignia y coloque también otra equis “X” dentro del rectángulo en blanco al lado de cualquier candidato en la columna de otro partido o candidato independiente.",
     "candidacy": "Candidatura",
-    "candidacy-vote-rules": "Los votos por candidatura serán válidos cuando se haga una marca válida dentro del rectángulo en blanco al lado del nombre de cada candidato o candidata de su preferencia, o cuando se escriba el nombre completo de un candidato en el encasillado de la columna de nominación directa. Las nominaciones directas también requiren que se haga una marca válida dentro del rectángulo en blanco al lado de cada nombre escrito."
+    "candidacy-vote-rules": "Los votos por candidatura serán válidos cuando se haga una marca válida dentro del rectángulo en blanco al lado del nombre de cada candidato o candidata de su preferencia, o cuando se escriba el nombre completo de un candidato en el encasillado de la columna de nominación directa. Las nominaciones directas también requiren que se haga una marca válida dentro del rectángulo en blanco al lado de cada nombre escrito.",
+    "the-information-presented": "La información presentada origina de un",
+    "article": "artículo",
+    "published-by": "publicado por",
+    "with-the": "junto a la",
+    "aclu-long": "Unión Estadounidense por las Libertades Civiles",
+    "aclu-short": "ACLU, por sus siglas en inglés"
   }
 }

@@ -5,7 +5,7 @@ import { useMachine } from "@xstate/react"
 import { animated, useSpring } from "react-spring"
 import i18next from "i18next"
 
-import { Typography, Tab, Card } from "../../../components"
+import { Typography, Tab, Card, Link } from "../../../components"
 import VotoIntegro from "../../../assets/images/voto-integro.png"
 import VotoMixto from "../../../assets/images/voto-mixto.png"
 import VotoXCandidatura from "../../../assets/images/voto-x-candidatura.png"
@@ -79,7 +79,7 @@ function VoteType({
           alt=""
         />
       </div>
-      <div className="mx-auto w-2/3">
+      <div className="mx-auto w-full lg:w-2/3">
         <Typography className="italic text-xs mt-2" tag="p" variant="p">
           {i18next.t("practice.ballot-example-disclaimer")}
         </Typography>
@@ -149,6 +149,26 @@ export default function HowToVote() {
           </Switch>
         </animated.div>
       </Card>
+      <div className="w-full mx-auto lg:w-2/3">
+        <Typography tag="p" variant="p" className="mt-4">
+          {i18next.t("practice.the-information-presented")}{" "}
+          <Link
+            to="https://aldia.microjuris.com/2020/07/24/como-se-vota-un-resumen-de-los-cambios-tras-el-nuevo-codigo-electoral/"
+            target="_blank"
+          >
+            {i18next.t("practice.article")}
+          </Link>{" "}
+          {i18next.t("practice.published-by")}{" "}
+          <Link to="https://aldia.microjuris.com/" target="_blank">
+            Microjuris
+          </Link>{" "}
+          {i18next.t("practice.with-the")}{" "}
+          <Link to="https://www.aclu.org/" target="_blank">
+            {i18next.t("practice.aclu-long")}
+          </Link>{" "}
+          ({i18next.t("practice.aclu-short")}).
+        </Typography>
+      </div>
     </>
   )
 }
