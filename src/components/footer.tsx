@@ -40,15 +40,15 @@ export default function Footer() {
         <img className="inline-block h-4 w-4" src={Heart} alt="amor" />{" "}
         {i18next.t("site.from-pr")}{" "}
         <Link to="https://twitter.com/eluciiano" target="_blank">
-          Emmanuel Luciano
+          Emmanuel Luciano Bernal
         </Link>
         ,{" "}
         <Link to="https://twitter.com/jpadilla1293" target="_blank">
-          José Padilla
+          José Padilla Malavé
         </Link>
         ,{" "}
         <Link to="https://twitter.com/LayshiCurbelo" target="_blank">
-          Layshi Curbelo
+          Layshi Curbelo Vega
         </Link>{" "}
         &{" "}
         <Link
