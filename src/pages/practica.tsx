@@ -1,27 +1,33 @@
 import React from "react"
 import "fetch-ponyfill"
 
-import { Container, Highlight, Layout, SEO } from "../components/index"
-import { Flow } from "../packages/practica/components/Flow"
+import { Layout, SEO, Container } from "../components/index"
+import {
+  HowToVote,
+  MakeYourVoteCount,
+} from "../packages/practica/components/index"
+import { withTrans } from "../i18n/withTrans"
 
 type PageProps = {
   location: Location
 }
 
-const IndexPage = ({ location }: PageProps) => (
+const Practica = ({ location }: PageProps) => (
   <Layout location={location}>
     <SEO title="Practica tu voto" />
-    <Highlight>
-      <Container className="text-center">
-        <h1 className="text-9xl uppercase font-bold tracking-wide">
-          Pratica Tu Voto
-        </h1>
-      </Container>
-    </Highlight>
-    <Container className="flex justify-center pt-8 pb-8">
-      <Flow />
+    <Container
+      className="w-11/12 pt-16 mb-16 text-center lg:pt-5"
+      id="haz-que-tu-voto-cuente"
+    >
+      <MakeYourVoteCount />
+    </Container>
+    <Container
+      className="w-11/12 pt-16 mb-16 text-center lg:pt-5"
+      id="como-votar"
+    >
+      <HowToVote />
     </Container>
   </Layout>
 )
 
-export default IndexPage
+export default withTrans(Practica)

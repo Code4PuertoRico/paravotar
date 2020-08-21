@@ -2,7 +2,7 @@ import React, { useMemo } from "react"
 
 import { useTranslation } from "react-i18next"
 
-// import Practica from "../assets/icons/practica.svg"
+import Practica from "../assets/icons/practica.svg"
 import Logo from "../assets/images/logo.svg"
 import Inscribete from "../assets/icons/inscribete.svg"
 import Collaborations from "../assets/icons/collaborations.svg"
@@ -42,6 +42,25 @@ export const getSections = (pathname = "", t) => [
         name: t("nav.voter-status"),
         route: "/#electoral-status",
         isActive: pathname.includes("/#electoral-status"),
+      },
+    ],
+  },
+  {
+    name: "Practica",
+    icon: Practica,
+    isActive:
+      pathname.includes("/practica#haz-que-tu-voto-cuente") ||
+      pathname.includes("/practica#como-votar"),
+    subsections: [
+      {
+        name: "Haz que tu voto cuente",
+        route: "/practica#haz-que-tu-voto-cuente",
+        isActive: pathname.includes("/practica#haz-que-tu-voto-cuente"),
+      },
+      {
+        name: "¿Cómo votar?",
+        route: "/practica#como-votar",
+        isActive: pathname.includes("/practica#como-votar"),
       },
     ],
   },

@@ -160,6 +160,30 @@
     "visit-the-initiatives": "Visit the initiatives that these organizations are carrying out",
     "proyecto-85": "Proyecto 85 is an organization whose mission is to promote the political participation of women as elected public officials in Puerto Rico to achieve equitable representation in our government.",
     "quien-me-representa": "¿Quién me representa? is a project made by Espacios Abiertos. Its purpose is to introduce citizens to their representatives at the federal, state and municipal levels according to their place of residence.",
+    "microjuris": "Microjuris organizes the legal information, to make it useful and accessible through a system of research and education. Its content is focused on legislation, jurisprudence, doctrine, news and events.",
+    "tu-voto-no-se-deja": "Tu Voto No Se Deja arose from the desire of the ACLU of Puerto Rico to empower the people through voter education; their approach is to provide information so that whoever decides to exercise their right to vote, does so with knowledge.",
     "view": "View"
+  },
+  "practice": {
+    "make-your-vote-count": "Make your vote count",
+    "learn-signs": "Learn which is the valid mark that you should use to vote",
+    "the-only-valid-sign": "The only mark that's considered valid is the X and it should the placed inside the blank rectangle that's placed along side the party or candidate.",
+    "your-vote-discarded": "Your vote will be discarded if it's placed over the candidate's name or above the candidate's photo.",
+    "how-to-vote": "How to vote?",
+    "type-of-votes": "Learn the different ways that you can use to cast your vote on the day of the elections",
+    "ballot-example-disclaimer": "This is an example ballot used to illustrate the different types of votes. This resource will be updated with a real ballot once the Comisión Estatal de Elecciones publishes the official ballot.",
+    "undivided": "Undivided",
+    "undivided-vote-rules": "The undivided vote will be considered valid when a single mark is placed under the insignia of the preferred political party, and no more marks are made on the ballot.",
+    "mixed": "Mixed",
+    "mixed-vote-rules": "The mixed vote will be valid when the voter places a valid mark or X inside the blank rectangle that's below the insignia of the political party of preference, places at least one X within the blank rectangle that is next to a candidate within the column for that insignia and also place another X within the blank rectangle next to any candidate in the column for another party or independent candidate.",
+    "candidacy": "Candidacy",
+    "candidacy-vote-rules": "Votes per candidacy will be valid when a valid mark is made within the blank rectangle next to the name of each candidate of your choice, or when the full name of another candidate is written in the box of the direct nomination column and candidates that are written in must hava a valid mark placed within the blank rectangle next to each written name.",
+    "the-information-presented": "The information presented here is based on an",
+    "article": "article",
+    "published-by": "published by",
+    "with-the": "with the",
+    "aclu-long": "American Civil Liberties Union",
+    "aclu-short": "ACLU",
+    "valid-mark": "Valid mark"
   }
 }
