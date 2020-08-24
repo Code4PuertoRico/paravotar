@@ -158,7 +158,7 @@ export const AbsenteeVoter: SpecialVoter = {
     {
       title: "Voto Ausente",
       link:
-        "http://ww2.ceepur.org/es-pr/EducacionyAdiestramiento/Documentos%20de%20JAVA/Solicitud%20Voto%20Ausente.pdf",
+        "http://ww2.ceepur.org/sites/ComisionEE/es-pr/EducacionyAdiestramiento/Solicitudes/Solicitud%20Voto%20Ausente%20Elecciones%20Generales%20y%20Plebiscito%202020.pdf",
     },
   ],
   deadline: "site.absentee-deadline",
