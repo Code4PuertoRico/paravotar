@@ -21,7 +21,7 @@ type Props = {
 
 export default function SpecialVoterCard(voter: Props) {
   return (
-    <Card className="text-center">
+    <Card className="text-center mx-2">
       <img className="w-12 h-auto m-auto" src={voter.icon} alt="" />
       <Typography
         tag="h4"
