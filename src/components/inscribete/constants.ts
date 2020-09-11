@@ -173,17 +173,7 @@ export const EarlyVoter: SpecialVoter = {
     {
       title: "site.absentee-voter-dropdown-01",
       link:
-        "http://ww2.ceepur.org/es-pr/EducacionyAdiestramiento/Documentos%20de%20JAVA/Solicitud%20de%20Voto%20Adelantado.pdf",
-    },
-    {
-      title: "site.absentee-voter-dropdown-02",
-      link:
-        "http://ww2.ceepur.org/es-pr/EducacionyAdiestramiento/Documentos%20de%20JAVA/Solicitud%20para%20Voto%20en%20el%20Domicilio.pdf",
-    },
-    {
-      title: "site.absentee-voter-dropdown-03",
-      link:
-        "http://ww2.ceepur.org/es-pr/EducacionyAdiestramiento/Documentos%20de%20JAVA/Solicitud%20para%20Voto%20por%20Tel%C3%A9fono.pdf",
+        "http://ww2.ceepur.org/sites/ComisionEE/es-pr/EducacionyAdiestramiento/Solicitudes/Solicitud%20de%20Voto%20Adelantado%20y%20Voto%20en%20el%20Domicilio.pdf",
     },
   ],
   deadline: "site.early-deadline",
