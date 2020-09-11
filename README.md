@@ -1,5 +1,7 @@
 # Para Votar
 
+![CI](https://github.com/Code4PuertoRico/paravotar/workflows/CI/badge.svg)
+
 ## Development
 
 ```shell
