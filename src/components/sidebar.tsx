@@ -86,9 +86,11 @@ export const getSections = (pathname = "", t) => [
   {
     name: t("nav.collaborations"),
     icon: Collaborations,
-    isActive:
-      pathname.includes("/colaboraciones#proyecto-85") ||
-      pathname.includes("/colaboraciones#quien-me-representa"),
+    isActive: [
+      "/colaboraciones#proyecto-85",
+      "/colaboraciones#tu-voto-no-se-deja",
+      "/colaboraciones#quien-me-representa",
+    ].includes(pathname),
     subsections: [
       {
         name: "Proyecto 85",
@@ -99,6 +101,16 @@ export const getSections = (pathname = "", t) => [
         name: "¿Quién me representa?",
         route: "/colaboraciones#quien-me-representa",
         isActive: pathname.includes("/colaboraciones#quien-me-representa"),
+      },
+      {
+        name: "Tu Voto No Se Deja",
+        route: "/colaboraciones#tu-voto-no-se-deja",
+        isActive: pathname.includes("/colaboraciones#tu-voto-no-se-deja"),
+      },
+      {
+        name: "Microjuris",
+        route: "/colaboraciones#microjuris",
+        isActive: pathname.includes("/colaboraciones#microjuris"),
       },
     ],
   },
