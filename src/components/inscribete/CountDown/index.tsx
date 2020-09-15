@@ -12,7 +12,7 @@ import format from "date-fns/format"
 import Typography from "../../typography"
 import Card from "../../card"
 
-const LAST_DAY = new Date(2020, 8, 14, 16, 0)
+const LAST_DAY = new Date("September 14, 2020 21:00:00")
 
 function Counter({ timeLeft, title }: { timeLeft: string; title: string }) {
   return (
@@ -62,16 +62,26 @@ type TimeLeft = {
 export function CountDown() {
   const getTimeLeft = useCallback(() => {
     const today = new Date()
-    const days = differenceInDays(LAST_DAY, today)
-    const hours = differenceInHours(LAST_DAY, today) % 24
-    const minutes = differenceInMinutes(LAST_DAY, today) % 60
-    const seconds = differenceInSeconds(LAST_DAY, today) % 60
+
+    if (differenceInSeconds(LAST_DAY, today) % 60 > 0) {
+      const days = differenceInDays(LAST_DAY, today)
+      const hours = differenceInHours(LAST_DAY, today) % 24
+      const minutes = differenceInMinutes(LAST_DAY, today) % 60
+      const seconds = differenceInSeconds(LAST_DAY, today) % 60
+
+      return {
+        days: `${days < 10 ? `0${days}` : `${days}`}`,
+        hours: `${hours < 10 ? `0${hours}` : `${hours}`}`,
+        minutes: `${minutes < 10 ? `0${minutes}` : `${minutes}`}`,
+        seconds: `${seconds < 10 ? `0${seconds}` : `${seconds}`}`,
+      }
+    }
 
     return {
-      days: `${days < 10 ? `0${days}` : `${days}`}`,
-      hours: `${hours < 10 ? `0${hours}` : `${hours}`}`,
-      minutes: `${minutes < 10 ? `0${minutes}` : `${minutes}`}`,
-      seconds: `${seconds < 10 ? `0${seconds}` : `${seconds}`}`,
+      days: "00",
+      hours: "00",
+      minutes: "00",
+      seconds: "00",
     }
   }, [])
   const [timeLeft, setTimeLeft] = useState<TimeLeft>(getTimeLeft())
