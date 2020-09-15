@@ -175,6 +175,11 @@ export const EarlyVoter: SpecialVoter = {
       link:
         "http://ww2.ceepur.org/sites/ComisionEE/es-pr/EducacionyAdiestramiento/Solicitudes/Solicitud%20de%20Voto%20Adelantado%20y%20Voto%20en%20el%20Domicilio.pdf",
     },
+    {
+      title: "site.absentee-voter-dropdown-04",
+      link:
+        "http://www.ceepur.org/Elecciones/docs/Request%20for%20Early%20Vote%20General%20Elections%20and%20Plebiscite%202020.pdf",
+    },
   ],
   deadline: "site.early-deadline",
   reasons: EarlyVoterReasons,
