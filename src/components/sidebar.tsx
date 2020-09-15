@@ -76,11 +76,11 @@ export const getSections = (pathname = "", t) => [
         route: "/sal-a-votar#voto-ausente-y-adelantado",
         isActive: pathname.includes("/sal-a-votar#voto-ausente-y-adelantado"),
       },
-      {
-        name: t("nav.find-voter-center"),
-        route: "/sal-a-votar#tu-centro-de-votacion",
-        isActive: pathname.includes("/sal-a-votar#tu-centro-de-votacion"),
-      },
+      // {
+      //   name: t("nav.find-voter-center"),
+      //   route: "/sal-a-votar#tu-centro-de-votacion",
+      //   isActive: pathname.includes("/sal-a-votar#tu-centro-de-votacion"),
+      // },
     ],
   },
   {
