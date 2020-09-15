@@ -9,6 +9,7 @@ import { Typography, Tab, Card, Link } from "../../../components"
 import VotoIntegro from "../../../assets/images/voto-integro.png"
 import VotoMixto from "../../../assets/images/voto-mixto.png"
 import VotoXCandidatura from "../../../assets/images/voto-x-candidatura.png"
+import VotoXNomiacionDirecta from "../../../assets/images/voto-x-nominacion-directa.png"
 import Switch from "../../../components/switch"
 import Case from "../../../components/case"
 
@@ -32,6 +33,12 @@ const getVoteTypes = () => {
       description: i18next.t("practice.candidacy-vote-rules"),
       example: VotoXCandidatura,
     },
+    {
+      id: "nominacion",
+      name: i18next.t("practice.write-in"),
+      description: i18next.t("practice.write-in-rules"),
+      example: VotoXNomiacionDirecta,
+    },
   ]
 }
 
@@ -43,18 +50,28 @@ const voteTypesMachine = Machine({
       on: {
         MIXTO_VOTE_TOGGLED: "mixto",
         CANDIDATURA_VOTE_TOGGLED: "candidatura",
+        NOMINACION_VOTE_TOGGLED: "nominacion",
       },
     },
     mixto: {
       on: {
         INTEGRO_VOTE_TOGGLED: "integro",
         CANDIDATURA_VOTE_TOGGLED: "candidatura",
+        NOMINACION_VOTE_TOGGLED: "nominacion",
       },
     },
     candidatura: {
       on: {
         INTEGRO_VOTE_TOGGLED: "integro",
         MIXTO_VOTE_TOGGLED: "mixto",
+        NOMINACION_VOTE_TOGGLED: "nominacion",
+      },
+    },
+    nominacion: {
+      on: {
+        INTEGRO_VOTE_TOGGLED: "integro",
+        MIXTO_VOTE_TOGGLED: "mixto",
+        CANDIDATURA_VOTE_TOGGLED: "candidatura",
       },
     },
   },
@@ -144,6 +161,12 @@ export default function HowToVote() {
               <VoteType
                 description={voteTypes[2].description}
                 example={voteTypes[2].example}
+              />
+            </Case>
+            <Case value="nominacion">
+              <VoteType
+                description={voteTypes[3].description}
+                example={voteTypes[3].example}
               />
             </Case>
           </Switch>
