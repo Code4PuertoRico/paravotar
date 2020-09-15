@@ -61,8 +61,8 @@ export default function SpecialVoterCard(voter: Props) {
             )
               docTitle = "site.absentee-voter-dropdown-03"
             else if (
-              docTitle == "Voto por el Teléfono" ||
-              docTitle == "Vote by Phone"
+              docTitle == "Voto Adelantado (Inglés)" ||
+              docTitle == "Early Vote (English)"
             )
               docTitle = "site.absentee-voter-dropdown-04"
             else docTitle = "none"
