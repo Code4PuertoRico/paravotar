@@ -5,3 +5,5 @@ https://wwww.paravotarpr.org/* https://www.paravotar.org/:splat 301!
 
 # Optional: Redirect default Netlify subdomain to primary domain
 https://paravotar.netlify.com/* https://www.paravotar.org/:splat 301!
+
+/ /practica

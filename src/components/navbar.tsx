@@ -65,6 +65,7 @@ export default function Navbar({ pathname }: SidebarProps) {
                 name={section.name}
                 icon={section.icon}
                 isActive={section.isActive}
+                strikeout={section.strikeout}
               >
                 {section.subsections.map((subsection, index) => {
                   return (

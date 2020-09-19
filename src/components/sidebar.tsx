@@ -16,41 +16,12 @@ type SidebarProps = {
 
 export const getSections = (pathname = "", t) => [
   {
-    name: t("nav.sign-up"),
-    icon: Inscribete,
-    isActive:
-      pathname.includes("/#tarjeta-electoral") ||
-      pathname.includes("/#juntas-de-inscripcion-permanentes") ||
-      pathname.includes("/#electoral-status"),
-    subsections: [
-      {
-        name: t("nav.voter-card"),
-        route: "/#tarjeta-electoral",
-        isActive: pathname.includes("/#tarjeta-electoral"),
-      },
-      {
-        name: t("nav.enrollment-centers"),
-        route: "/#juntas-de-inscripcion-permanentes",
-        isActive: pathname.includes("/#juntas-de-inscripcion-permanentes"),
-      },
-      {
-        name: t("nav.enrollment-reminder"),
-        route: "/#enrollment-reminder",
-        isActive: pathname.includes("/#enrollment-reminder"),
-      },
-      {
-        name: t("nav.voter-status"),
-        route: "/#electoral-status",
-        isActive: pathname.includes("/#electoral-status"),
-      },
-    ],
-  },
-  {
     name: "Practica",
     icon: Practica,
     isActive:
       pathname.includes("/practica#haz-que-tu-voto-cuente") ||
       pathname.includes("/practica#como-votar"),
+    strikeout: false,
     subsections: [
       {
         name: "Haz que tu voto cuente",
@@ -70,6 +41,7 @@ export const getSections = (pathname = "", t) => [
     isActive:
       pathname.includes("/sal-a-votar#voto-ausente-y-adelantado") ||
       pathname.includes("/sal-a-votar#tu-centro-de-votacion"),
+    strikeout: false,
     subsections: [
       {
         name: t("nav.vote-type1"),
@@ -84,6 +56,39 @@ export const getSections = (pathname = "", t) => [
     ],
   },
   {
+    name: t("nav.sign-up"),
+    icon: Inscribete,
+    isActive:
+      pathname.includes("/inscribete#tarjeta-electoral") ||
+      pathname.includes("/inscribete#juntas-de-inscripcion-permanentes") ||
+      pathname.includes("/inscribete#electoral-status"),
+    strikeout: true,
+    subsections: [
+      {
+        name: t("nav.voter-card"),
+        route: "/inscribete#tarjeta-electoral",
+        isActive: pathname.includes("/inscribete#tarjeta-electoral"),
+      },
+      {
+        name: t("nav.enrollment-centers"),
+        route: "/inscribete#juntas-de-inscripcion-permanentes",
+        isActive: pathname.includes(
+          "/inscribete#juntas-de-inscripcion-permanentes"
+        ),
+      },
+      {
+        name: t("nav.enrollment-reminder"),
+        route: "/inscribete#enrollment-reminder",
+        isActive: pathname.includes("/inscribete#enrollment-reminder"),
+      },
+      {
+        name: t("nav.voter-status"),
+        route: "/inscribete#electoral-status",
+        isActive: pathname.includes("/inscribete#electoral-status"),
+      },
+    ],
+  },
+  {
     name: t("nav.collaborations"),
     icon: Collaborations,
     isActive: [
@@ -91,6 +96,7 @@ export const getSections = (pathname = "", t) => [
       "/colaboraciones#tu-voto-no-se-deja",
       "/colaboraciones#quien-me-representa",
     ].includes(pathname),
+    strikeout: false,
     subsections: [
       {
         name: "Proyecto 85",
@@ -137,6 +143,7 @@ export default function Sidebar({ pathname }: SidebarProps) {
                 name={section.name}
                 icon={section.icon}
                 isActive={section.isActive}
+                strikeout={section.strikeout}
               >
                 {section.subsections.map((subsection, index) => {
                   return (
