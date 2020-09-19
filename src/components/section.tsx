@@ -11,6 +11,7 @@ type SectionProps = {
   icon: string
   children?: ReactNode
   isActive: boolean
+  strikeout: boolean
 }
 
 function Section(props: SectionProps) {
@@ -34,7 +35,13 @@ function Section(props: SectionProps) {
       >
         <div className="flex items-center">
           <img className="w-8" src={props.icon} alt="" />
-          <div className="text-left ml-2 font-semibold">{props.name}</div>
+          <div
+            className={`text-left ml-2 font-semibold ${
+              props.strikeout ? "line-through" : ""
+            }`}
+          >
+            {props.name}
+          </div>
         </div>
         <Arrows
           className="inline-block ml-1"
