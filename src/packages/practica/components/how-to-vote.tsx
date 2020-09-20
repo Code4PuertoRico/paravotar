@@ -10,6 +10,14 @@ import VotoIntegro from "../../../assets/images/voto-integro.png"
 import VotoMixto from "../../../assets/images/voto-mixto.png"
 import VotoXCandidatura from "../../../assets/images/voto-x-candidatura.png"
 import VotoXNomiacionDirecta from "../../../assets/images/voto-x-nominacion-directa.png"
+import LegislativaVotoIntegro from "../../../assets/images/legislativa-voto-integro.png"
+import LegislativaVotoMixto from "../../../assets/images/legislativa-voto-mixto.png"
+import LegislativaVotoXCandidatura from "../../../assets/images/legislativa-voto-x-candidatura.png"
+import LegislativaVotoXNominacionDirecta from "../../../assets/images/legislativa-voto-x-nominacion-directa.png"
+import MunicipalVotoIntegro from "../../../assets/images/municipal-voto-integro.png"
+import MunicipalVotoMixto from "../../../assets/images/municipal-voto-mixto.png"
+import MunicipalVotoXCandidatura from "../../../assets/images/municipal-voto-x-candidatura.png"
+import MunicipalVotoXNominacionDirecta from "../../../assets/images/municipal-voto-x-nominacion-directa.png"
 import Switch from "../../../components/switch"
 import Case from "../../../components/case"
 
@@ -55,25 +63,25 @@ const getBallotTypes = () => {
           id: "integro",
           name: i18next.t("practice.undivided"),
           description: i18next.t("practice.undivided-vote-rules"),
-          example: VotoIntegro,
+          example: LegislativaVotoIntegro,
         },
         {
           id: "mixto",
           name: i18next.t("practice.mixed"),
           description: i18next.t("practice.mixed-vote-rules"),
-          example: VotoMixto,
+          example: LegislativaVotoMixto,
         },
         {
           id: "candidatura",
           name: i18next.t("practice.candidacy"),
           description: i18next.t("practice.candidacy-vote-rules"),
-          example: VotoXCandidatura,
+          example: LegislativaVotoXCandidatura,
         },
         {
           id: "nominacion",
           name: i18next.t("practice.write-in"),
           description: i18next.t("practice.write-in-rules"),
-          example: VotoXNomiacionDirecta,
+          example: LegislativaVotoXNominacionDirecta,
         },
       ],
     },
@@ -86,25 +94,25 @@ const getBallotTypes = () => {
           id: "integro",
           name: i18next.t("practice.undivided"),
           description: i18next.t("practice.undivided-vote-rules"),
-          example: VotoIntegro,
+          example: MunicipalVotoIntegro,
         },
         {
           id: "mixto",
           name: i18next.t("practice.mixed"),
           description: i18next.t("practice.mixed-vote-rules"),
-          example: VotoMixto,
+          example: MunicipalVotoMixto,
         },
         {
           id: "candidatura",
           name: i18next.t("practice.candidacy"),
           description: i18next.t("practice.candidacy-vote-rules"),
-          example: VotoXCandidatura,
+          example: MunicipalVotoXCandidatura,
         },
         {
           id: "nominacion",
           name: i18next.t("practice.write-in"),
           description: i18next.t("practice.write-in-rules"),
-          example: VotoXNomiacionDirecta,
+          example: MunicipalVotoXNominacionDirecta,
         },
       ],
     },
