@@ -26,7 +26,7 @@ const getBallotTypes = () => {
     {
       id: "estatal",
       name: i18next.t("practice.governmental"),
-      description: i18next.t("practice.undivided-vote-rules"),
+      description: i18next.t("practice.governmental-description"),
       votes: [
         {
           id: "integro",
@@ -57,7 +57,7 @@ const getBallotTypes = () => {
     {
       id: "legislativa",
       name: i18next.t("practice.legislative"),
-      description: i18next.t("practice.mixed-vote-rules"),
+      description: i18next.t("practice.legislative-description"),
       votes: [
         {
           id: "integro",
@@ -88,7 +88,7 @@ const getBallotTypes = () => {
     {
       id: "municipal",
       name: i18next.t("practice.municipal"),
-      description: i18next.t("practice.candidacy-vote-rules"),
+      description: i18next.t("practice.municipal-description"),
       votes: [
         {
           id: "integro",

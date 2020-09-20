@@ -189,7 +189,10 @@
     "write-in": "Nomicación Directa",
     "write-in-rules": "Los votos por nominación directa serán válidos cuando se escriba el nombre completo de un candidato o candidata en el encasillado de la columna de nominación directa y se haga una marca válida dentro del rectángulo en blanco al lado de cada nombre escrito.",
     "governmental": "Estatal",
+    "governmental-description": "En la papeleta estatal usted podrá votar por los siguientes puestos electivos: gobernador o gobernadora y comisionado o comisionada residente. En esta papeleta usted puede emitir un total de dos (2) votos. Usted tiene derecho a votar por un (1) candidato o candidata a la gobernación y un (1) candidato o candidata a comisionado residente en Washington, DC.",
     "legislative": "Legislativa",
-    "municipal": "Municipal"
+    "legislative-description": "En la papeleta legislativa usted podrá votar por los siguientes puestos electivos: representantes por distrito, senadores por distrito, representantes por acumulación y senadores o senadoras por acumulación. En esta papeleta usted puede emitir un total de cinco (5) votos. Usted tiene derecho a votar por un (1) representante por distrito, dos (2) senadores por distrito, un (1) representante por acumulación y un (1) senador o senadora por acumulación.",
+    "municipal": "Municipal",
+    "municipal-description": "En la papeleta municipal usted podrá votar por los siguientes puestos electivos: alcalde o alcaldesa y legisladores o legisladoras municipales. En esta papeleta usted puede emitir un total de catorce (14) (este número varía dependiendo de la cantidad de legisladores o legisladoras municipales que tenga su pueblo). Usted tiene derecho a votar por un (1) alcalde o alcaldesa y por trece (13) senadores o senadoras municipales."
   }
 }
