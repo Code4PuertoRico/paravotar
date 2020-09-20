@@ -187,6 +187,9 @@
     "aclu-short": "ACLU",
     "valid-mark": "Valid mark",
     "write-in": "Write-in",
-    "write-in-rules": "Write-in votes will be valid when the full name of a candidate is written on the write-in column and a valid mark is made within the blank rectangle next to each write-in candidate."
+    "write-in-rules": "Write-in votes will be valid when the full name of a candidate is written on the write-in column and a valid mark is made within the blank rectangle next to each write-in candidate.",
+    "governmental": "Governmental",
+    "legislative": "Legislative",
+    "municipal": "Municipal"
   }
 }
