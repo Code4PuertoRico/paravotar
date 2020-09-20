@@ -219,13 +219,13 @@ function VoteTypes({ votes }: { votes: Vote[] }) {
   const props = useSpring({ opacity: 1, from: { opacity: 0 } })
 
   return (
-    <div>
-      <div className="grid grid-cols-4 mt-8 gap-4 overflow-y-scroll">
+    <div className="mt-8">
+      <div className="flex overflow-y-scroll md:grid md:grid-cols-4 md:gap-4">
         {votes.map((vote, index) => {
           return (
             <button
               key={`${vote.id}-${index}`}
-              className={`px-4 py-2 rounded text-center font-semibold tracking-wide hover:bg-primary hover:text-white ${
+              className={`px-4 py-2 rounded text-center font-semibold tracking-wide mr-4 md:mr-0 hover:bg-primary hover:text-white ${
                 state.matches(vote.id.toLowerCase())
                   ? "bg-primary text-white"
                   : "border border-primary text-primary bg-white"
