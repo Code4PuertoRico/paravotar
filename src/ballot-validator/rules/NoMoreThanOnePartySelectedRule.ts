@@ -1,4 +1,3 @@
-import _ from "lodash"
 import { RuleOutcomeType, Ballot, Selection } from "../types"
 import BaseRule from "./BaseRule"
 
