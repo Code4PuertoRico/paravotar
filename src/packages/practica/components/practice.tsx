@@ -10,12 +10,33 @@ import {
 import Switch from "../../../components/switch"
 import Case from "../../../components/case"
 import Default from "../../../components/default"
-import { Button } from "../../../components/index"
+import { Button, Card, Typography } from "../../../components/index"
 
 const getBallotsByVoterId = async (_, { voterId }) => {
-  const res = await fetch(
+  const voterInfoRes = await fetch(
     `https://api.paravotar.org/consulta?voterId=${voterId}`
   )
+  const voterInfoJson = await voterInfoRes.json()
+  // Prefetch ballot data
+  const ballots = Object.keys(voterInfoJson.papeletas).map(async key => {
+    const ballotRes = await fetch(voterInfoJson.papeletas[key])
+    const ballotJson = await ballotRes.json()
+
+    return [key, ballotJson]
+  })
+  const ballotsJson = await Promise.all(ballots)
+  const transformedBallots = {}
+  ballotsJson.forEach(([type, data]) => {
+    transformedBallots[type] = data
+  })
+
+  console.log({ transformedBallots })
+
+  return transformedBallots
+}
+
+const fetchBallot = async (_, { url }) => {
+  const res = await fetch(url)
   const json = await res.json()
 
   return json
@@ -83,6 +104,10 @@ const PracticeMachine = Machine({
       },
     },
     governmental: {
+      invoke: {
+        id: "fetchGovernmentalBallot",
+        src: fetchBallot,
+      },
       on: {
         SUMBIT: "validate",
       },
@@ -124,81 +149,95 @@ const PracticeMachine = Machine({
 export default function Practice() {
   const [state, send] = useMachine(PracticeMachine)
   const inputRef = useRef<HTMLInputElement>(null)
-  const [currBallot, setCurrBallot] = useState(null)
-  const fetchBallotData = async url => {
-    const res = await fetch(url)
-    const json = await res.json()
-
-    console.log(json)
-
-    setCurrBallot(json)
-  }
-
-  console.log({ state })
 
   return (
-    <Switch state={state}>
-      <Case value="enterVoterId">
-        <form
-          onSubmit={() =>
-            send("FIND_VOTER_ID", {
-              voterId: inputRef.current ? inputRef.current.value : "",
-            })
-          }
-        >
-          <input type="text" ref={inputRef} />
-        </form>
-      </Case>
-      <Case value="findingVoterId">
-        <div>Loading...</div>
-      </Case>
-      <Case value="selectBallot">
-        <div className="w-1/2">
-          <Button
-            className="w-full block my-2"
-            onClick={() => {
-              console.log("test")
-              send("SELECTED_GOVERNMENTAL")
-            }}
-          >
-            Estatal
-          </Button>
-          <Button
-            className="w-full block my-2"
-            onClick={() => send("SELECTED_LEGISLATIVA")}
-          >
-            Legislativa
-          </Button>
-          <Button
-            className="w-full block my-2"
-            onClick={() => send("SELECTED_MUNICIPAL")}
-          >
-            Municipal
-          </Button>
-        </div>
-      </Case>
-      <Case value="governmental">
-        <GovernmentalBallot
-          path="/papeletas/2016/gobernador-y-comisionado-residente"
-          structure={currBallot}
-          votes={[]}
-        />
-      </Case>
-      <Case value="legislative">
-        <LegislativeBallot
-          path="/papeletas/2016/gobernador-y-comisionado-residente"
-          structure={currBallot}
-          votes={[]}
-        />
-      </Case>
-      <Case value="municipal">
-        <MunicipalBallot
-          path="/papeletas/2016/gobernador-y-comisionado-residente"
-          structure={currBallot}
-          votes={[]}
-        />
-      </Case>
-      <Default>Shit</Default>
-    </Switch>
+    <Card>
+      <Switch state={state}>
+        <Case value="enterVoterId">
+          <div className="mx-auto lg:w-1/3">
+            <Typography tag="p" variant="h4">
+              Entre su número electoral
+            </Typography>
+            <form
+              className="mt-4"
+              onSubmit={() =>
+                send("FIND_VOTER_ID", {
+                  voterId: inputRef.current ? inputRef.current.value : "",
+                })
+              }
+            >
+              <input
+                className="border border-primary px-3 py-2 rounded w-full"
+                type="text"
+                ref={inputRef}
+                placeholder="Número electoral"
+              />
+              <Button className="mt-2 block w-full">Continuar</Button>
+            </form>
+            <p className="text-xs italic mt-2">
+              * La utilización de su número electoral es solo para propósitos de
+              práctica, paravotar.org no guarda ninguna información personal de
+              usuarios que utilicen la página web.
+            </p>
+          </div>
+        </Case>
+        <Case value="findingVoterId">
+          <div>Loading...</div>
+        </Case>
+        <Case value="selectBallot">
+          <div className="mx-auto lg:w-1/3">
+            <Typography tag="p" variant="h4">
+              Escoge por cuál papeleta comenzar
+            </Typography>
+            <Button
+              className="w-full block mt-4 mb-2"
+              onClick={() => send("SELECTED_GOVERNMENTAL")}
+            >
+              Estatal
+            </Button>
+            <Button
+              className="w-full block my-2"
+              onClick={() => send("SELECTED_LEGISLATIVA")}
+            >
+              Legislativa
+            </Button>
+            <Button
+              className="w-full block my-2"
+              onClick={() => send("SELECTED_MUNICIPAL")}
+            >
+              Municipal
+            </Button>
+          </div>
+        </Case>
+        <Case value="governmental">
+          <div className="overflow-scroll">
+            <GovernmentalBallot
+              path="/papeletas/2016/gobernador-y-comisionado-residente"
+              structure={state.context.ballots.estatal}
+              votes={[]}
+            />
+          </div>
+        </Case>
+        <Case value="legislative">
+          <div className="overflow-scroll">
+            <LegislativeBallot
+              path="/papeletas/2016/gobernador-y-comisionado-residente"
+              structure={state.context.ballots.legislativa}
+              votes={[]}
+            />
+          </div>
+        </Case>
+        <Case value="municipal">
+          <div className="overflow-scroll">
+            <MunicipalBallot
+              path="/papeletas/2016/gobernador-y-comisionado-residente"
+              structure={state.context.ballots.municipal}
+              votes={[]}
+            />
+          </div>
+        </Case>
+        <Default>Shit</Default>
+      </Switch>
+    </Card>
   )
 }
