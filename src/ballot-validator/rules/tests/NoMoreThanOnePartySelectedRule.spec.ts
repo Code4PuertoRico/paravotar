@@ -8,7 +8,12 @@ describe("NoMoreThanOnePartySelectedRule", () => {
     const stateBallot: StateBallot = {
       parties: [selected, selected, notSelected, notSelected],
       governor: [notSelected, notSelected, notSelected, notSelected],
-      residentComisioner: [notSelected, notSelected, notSelected, notSelected],
+      residentCommissioner: [
+        notSelected,
+        notSelected,
+        notSelected,
+        notSelected,
+      ],
     }
 
     expect(new NoMoreThanOnePartySelectedRule().outcome(stateBallot)).toEqual({
@@ -20,7 +25,12 @@ describe("NoMoreThanOnePartySelectedRule", () => {
     const stateBallot: StateBallot = {
       parties: [notSelected, notSelected, notSelected, notSelected],
       governor: [notSelected, notSelected, notSelected, notSelected],
-      residentComisioner: [notSelected, notSelected, notSelected, notSelected],
+      residentCommissioner: [
+        notSelected,
+        notSelected,
+        notSelected,
+        notSelected,
+      ],
     }
 
     expect(new NoMoreThanOnePartySelectedRule().outcome(stateBallot)).toEqual({
@@ -32,7 +42,12 @@ describe("NoMoreThanOnePartySelectedRule", () => {
     const stateBallot: StateBallot = {
       parties: [selected, notSelected, notSelected, notSelected],
       governor: [notSelected, notSelected, notSelected, notSelected],
-      residentComisioner: [notSelected, notSelected, notSelected, notSelected],
+      residentCommissioner: [
+        notSelected,
+        notSelected,
+        notSelected,
+        notSelected,
+      ],
     }
 
     expect(new NoMoreThanOnePartySelectedRule().outcome(stateBallot)).toEqual({

@@ -11,7 +11,7 @@ export interface BaseBallot {
 
 export interface StateBallot extends BaseBallot {
   governor: Selection[]
-  residentComisioner: Selection[]
+  residentCommissioner: Selection[]
 }
 
 export interface MunicipalBallot extends BaseBallot {
