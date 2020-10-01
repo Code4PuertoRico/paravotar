@@ -1,5 +1,4 @@
-import React, { useRef, useState } from "react"
-import { Machine, assign } from "xstate"
+import React, { useRef } from "react"
 import { useMachine } from "@xstate/react"
 
 import {
@@ -11,143 +10,10 @@ import Switch from "../../../components/switch"
 import Case from "../../../components/case"
 import Default from "../../../components/default"
 import { Button, Card, Typography } from "../../../components/index"
-
-const getBallotsByVoterId = async (_, { voterId }) => {
-  const voterInfoRes = await fetch(
-    `https://api.paravotar.org/consulta?voterId=${voterId}`
-  )
-  const voterInfoJson = await voterInfoRes.json()
-  // Prefetch ballot data
-  const ballots = Object.keys(voterInfoJson.papeletas).map(async key => {
-    const ballotRes = await fetch(voterInfoJson.papeletas[key])
-    const ballotJson = await ballotRes.json()
-
-    return [key, ballotJson]
-  })
-  const ballotsJson = await Promise.all(ballots)
-  const transformedBallots = {}
-  ballotsJson.forEach(([type, data]) => {
-    transformedBallots[type] = data
-  })
-
-  console.log({ transformedBallots })
-
-  return transformedBallots
-}
-
-const fetchBallot = async (_, { url }) => {
-  const res = await fetch(url)
-  const json = await res.json()
-
-  return json
-}
-
-const PracticeMachine = Machine({
-  id: "practiceMachine",
-  initial: "enterVoterId",
-  context: {
-    ballots: {},
-  },
-  states: {
-    enterVoterId: {
-      on: {
-        FIND_VOTER_ID: "findingVoterId",
-      },
-    },
-    findingVoterId: {
-      invoke: {
-        id: "findVoterId",
-        src: getBallotsByVoterId,
-        onDone: {
-          target: "selectBallot",
-          actions: assign({ ballots: (_, event) => event.data }),
-        },
-        onError: {
-          target: "noVoterIdFound",
-          actions: assign({ ballots: (_, event) => event.data }),
-        },
-      },
-    },
-    noVoterIdFound: {
-      on: {
-        RETRY: "enterVoterId",
-        ENTER_VOTING_CENTER: "enterVotingCenter",
-      },
-    },
-    enterVotingCenter: {
-      on: {
-        FIND_VOTING_CENTER_INFO: "findingVotingCenterInfo",
-      },
-    },
-    findingVotingCenterInfo: {
-      invoke: {
-        id: "findingVotingCenterInfo",
-        src: getBallotsByVoterId,
-        onDone: {
-          target: "selectBallot",
-        },
-        onError: {
-          target: "noVotingCenterFound",
-        },
-      },
-    },
-    noVotingCenterFound: {
-      on: {
-        RETRY: "enterVotingCenter",
-      },
-    },
-    selectBallot: {
-      on: {
-        SELECTED_GOVERNMENTAL: "governmental",
-        SELECTED_LEGISLATIVE: "legislative",
-        SELECTED_MUNICIPAL: "municipal",
-      },
-    },
-    governmental: {
-      invoke: {
-        id: "fetchGovernmentalBallot",
-        src: fetchBallot,
-      },
-      on: {
-        SUMBIT: "validate",
-      },
-    },
-    legislative: {
-      on: {
-        SUMBIT: "validate",
-      },
-    },
-    municipal: {
-      on: {
-        SUMBIT: "validate",
-      },
-    },
-    validate: {
-      on: {
-        VALIDATION_SUCCESS: "showResults",
-        VALIDATION_FAILED: "showErrors",
-        NOTIFY_MISSING_VOTES: "missingVotes",
-      },
-    },
-    missingVotes: {
-      on: {
-        PROCEED_WITH_SUBMISSION: "showResults",
-      },
-    },
-    showErrors: {
-      on: {
-        // TODO: This should be the selected ballot.
-        FIX_ERRORS: "governmental",
-      },
-    },
-    showResults: {
-      type: "final",
-    },
-  },
-})
+import { practiceMachine } from "../machines/practice"
 
 export default function Practice() {
-  const [state, send] = useMachine(PracticeMachine)
+  const [state, send] = useMachine(practiceMachine)
   const inputRef = useRef<HTMLInputElement>(null)
 
   return (
