@@ -1,9 +1,5 @@
-import NoEmptyBallotRule from "../rules/NoEmptyBallotRule"
-import NoMoreThanOnePartySelectedRule from "../rules/NoMoreThanOnePartySelectedRule"
+import { SharedRules } from "./shared"
 
-const StateBallotRuleGroup = [
-  new NoEmptyBallotRule(),
-  new NoMoreThanOnePartySelectedRule(),
-]
+const StateBallotRuleGroup = [...SharedRules]
 
 export default StateBallotRuleGroup
