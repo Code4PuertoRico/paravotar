@@ -3,18 +3,18 @@ import {
   ResultStatus,
   Rule,
   RuleOutcomeType,
-  Selections,
+  Ballot,
 } from "./types"
 
 import RuleGroups from "./ruleGroups"
 
-const validate = (selections: Selections, ballotType: BallotType) => {
+const validate = (ballotSelections: Ballot, ballotType: BallotType) => {
   // Get rules to execute for a ballot
   const rules: Rule[] = RuleGroups[ballotType]
 
   // Execute rules for ballot
   const outcomes = rules.map(rule => ({
-    ...rule.outcome(selections),
+    ...rule.outcome(ballotSelections),
     ruleName: rule.getClassName(),
   }))
 

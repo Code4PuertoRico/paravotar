@@ -1,4 +1,4 @@
-import NoEmptyBallotRule from "../rules/NoEmptyBallot"
+import NoEmptyBallotRule from "../rules/NoEmptyBallotRule"
 
 const StateBallotRuleGroup = [new NoEmptyBallotRule()]
 

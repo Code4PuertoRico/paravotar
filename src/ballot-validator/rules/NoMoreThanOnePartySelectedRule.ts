@@ -1,7 +1,7 @@
 import { RuleOutcomeType, Selections } from "../types"
 import BaseRule from "./BaseRule"
 
-class NoEmptyBallotRule extends BaseRule {
+class NoMoreThanOnePartySelectedRule extends BaseRule {
   outcome(selections: Selections) {
     const outcome = !selections.every(row => row.every(cell => cell === 0))
 
@@ -11,4 +11,4 @@ class NoEmptyBallotRule extends BaseRule {
   }
 }
 
-export default NoEmptyBallotRule
+export default NoMoreThanOnePartySelectedRule
