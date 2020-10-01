@@ -50,6 +50,9 @@ describe("StateMixedVoteSelectionRule", () => {
 
     expect(new StateMixedVoteSelectionRule().outcome(stateBallot)).toEqual({
       outcome: RuleOutcomeType.deny,
+      metadata: {
+        section: "all",
+      },
     })
   })
 
