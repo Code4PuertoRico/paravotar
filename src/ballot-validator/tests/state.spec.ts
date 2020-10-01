@@ -53,7 +53,7 @@ describe("State Ballot", () => {
       },
     ],
     [
-      "mixt vote with same column governor selected",
+      "mixed vote with same column governor selected",
       {
         parties: [selected, notSelected, notSelected, notSelected],
         governor: [selected, notSelected, notSelected, notSelected],
@@ -66,7 +66,7 @@ describe("State Ballot", () => {
       },
     ],
     [
-      "mixt vote with same column candidate selected",
+      "mixed vote with same column candidate selected",
       {
         parties: [selected, notSelected, notSelected, notSelected],
         governor: [notSelected, notSelected, notSelected, notSelected],
@@ -74,7 +74,7 @@ describe("State Ballot", () => {
       },
     ],
     [
-      "mixt vote with different column candidates selected",
+      "mixed vote with different column candidates selected",
       {
         parties: [selected, notSelected, notSelected, notSelected],
         governor: [notSelected, notSelected, selected, notSelected],
@@ -151,6 +151,14 @@ describe("State Ballot", () => {
           notSelected,
           notSelected,
         ],
+      },
+    ],
+    [
+      "1 party selected & 1 resident commissioner selected",
+      {
+        parties: [selected, notSelected, notSelected, notSelected],
+        governor: [notSelected, notSelected, notSelected, notSelected],
+        residentCommissioner: [notSelected, notSelected, selected, notSelected],
       },
     ],
   ])("should not error on %s", (_: string, stateBallot: StateBallot) => {

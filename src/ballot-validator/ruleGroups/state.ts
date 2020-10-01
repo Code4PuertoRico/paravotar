@@ -1,13 +1,13 @@
 import NoMoreThanOneGovernorSelectedRule from "../rules/NoMoreThanOneGovernorSelectedRule"
 import NoMoreThanOneResidentCommissionerRule from "../rules/NoMoreThanOneResidentCommissionerRule"
-import StateMixtVoteSelectionRule from "../rules/StateMixtVoteSelectionRule"
+import StateMixedVoteSelectionRule from "../rules/StateMixedVoteSelectionRule"
 import { SharedRules } from "./shared"
 
 const StateBallotRuleGroup = [
   ...SharedRules,
   new NoMoreThanOneGovernorSelectedRule(),
   new NoMoreThanOneResidentCommissionerRule(),
-  new StateMixtVoteSelectionRule(),
+  new StateMixedVoteSelectionRule(),
 ]
 
 export default StateBallotRuleGroup

@@ -1,9 +1,9 @@
 import { RuleOutcomeType, StateBallot, Selection } from "../../types"
-import StateMixtVoteSelectionRule from "../StateMixtVoteSelectionRule"
+import StateMixedVoteSelectionRule from "../StateMixedVoteSelectionRule"
 
 const { selected, notSelected } = Selection
 
-describe("StateMixtVoteSelectionRule", () => {
+describe("StateMixedVoteSelectionRule", () => {
   it("should error on same party and governor selection", () => {
     const stateBallot: StateBallot = {
       parties: [selected, notSelected, notSelected, notSelected],
@@ -16,7 +16,7 @@ describe("StateMixtVoteSelectionRule", () => {
       ],
     }
 
-    expect(new StateMixtVoteSelectionRule().outcome(stateBallot)).toEqual({
+    expect(new StateMixedVoteSelectionRule().outcome(stateBallot)).toEqual({
       outcome: RuleOutcomeType.deny,
       metadata: {
         section: "governor",
@@ -32,7 +32,7 @@ describe("StateMixtVoteSelectionRule", () => {
       residentCommissioner: [selected, notSelected, notSelected, notSelected],
     }
 
-    expect(new StateMixtVoteSelectionRule().outcome(stateBallot)).toEqual({
+    expect(new StateMixedVoteSelectionRule().outcome(stateBallot)).toEqual({
       outcome: RuleOutcomeType.deny,
       metadata: {
         section: "residentCommissioner",
@@ -48,7 +48,7 @@ describe("StateMixtVoteSelectionRule", () => {
       residentCommissioner: [notSelected, notSelected, selected, notSelected],
     }
 
-    expect(new StateMixtVoteSelectionRule().outcome(stateBallot)).toEqual({
+    expect(new StateMixedVoteSelectionRule().outcome(stateBallot)).toEqual({
       outcome: RuleOutcomeType.deny,
     })
   })
@@ -65,7 +65,7 @@ describe("StateMixtVoteSelectionRule", () => {
       ],
     }
 
-    expect(new StateMixtVoteSelectionRule().outcome(stateBallot)).toEqual({
+    expect(new StateMixedVoteSelectionRule().outcome(stateBallot)).toEqual({
       outcome: RuleOutcomeType.allow,
     })
   })
