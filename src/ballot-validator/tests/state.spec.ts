@@ -1,5 +1,6 @@
 import { StateBallot, Selection, BallotType, ResultStatus } from "../types"
 import ballotValidator from "../index"
+import { State } from "react-spring"
 
 const { selected, notSelected } = Selection
 
@@ -89,18 +90,71 @@ describe("State Ballot", () => {
     )
   })
 
-  it("should not error on 1 selection", () => {
-    const stateBallot: StateBallot = {
-      parties: [selected, notSelected, notSelected, notSelected],
-      governor: [notSelected, notSelected, notSelected, notSelected],
-      residentCommissioner: [
-        notSelected,
-        notSelected,
-        notSelected,
-        notSelected,
-      ],
-    }
-
+  it.each([
+    [
+      "1 selection",
+      {
+        parties: [selected, notSelected, notSelected, notSelected],
+        governor: [notSelected, notSelected, notSelected, notSelected],
+        residentCommissioner: [
+          notSelected,
+          notSelected,
+          notSelected,
+          notSelected,
+        ],
+      },
+    ],
+    [
+      "1 governor selected",
+      {
+        parties: [notSelected, notSelected, notSelected, notSelected],
+        governor: [notSelected, notSelected, selected, notSelected],
+        residentCommissioner: [
+          notSelected,
+          notSelected,
+          notSelected,
+          notSelected,
+        ],
+      },
+    ],
+    [
+      "1 resident commissioner selected",
+      {
+        parties: [notSelected, notSelected, notSelected, notSelected],
+        governor: [notSelected, notSelected, notSelected, notSelected],
+        residentCommissioner: [notSelected, notSelected, notSelected, selected],
+      },
+    ],
+    [
+      "1 governor & 1 resident commissioner selected",
+      {
+        parties: [notSelected, notSelected, notSelected, notSelected],
+        governor: [notSelected, selected, notSelected, notSelected],
+        residentCommissioner: [notSelected, notSelected, notSelected, selected],
+      },
+    ],
+    [
+      "1 party selected & 1 resident commissioner selected",
+      {
+        parties: [selected, notSelected, notSelected, notSelected],
+        governor: [notSelected, notSelected, notSelected, notSelected],
+        residentCommissioner: [notSelected, notSelected, notSelected, selected],
+      },
+    ],
+    [
+      "1 party selected & 1 governor selected",
+      {
+        parties: [selected, notSelected, notSelected, notSelected],
+        governor: [notSelected, notSelected, notSelected, selected],
+        residentCommissioner: [
+          notSelected,
+          notSelected,
+          notSelected,
+          notSelected,
+        ],
+      },
+    ],
+  ])("should not error on %s", (_: string, stateBallot: StateBallot) => {
     expect(ballotValidator(stateBallot, BallotType.state)).toEqual(
       expect.objectContaining({
         status: ResultStatus.success,
