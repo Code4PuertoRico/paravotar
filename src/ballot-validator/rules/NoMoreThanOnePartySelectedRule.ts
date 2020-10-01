@@ -1,9 +1,13 @@
-import { RuleOutcomeType, Selections } from "../types"
+import _ from "lodash"
+import { RuleOutcomeType, Ballot, Selection } from "../types"
 import BaseRule from "./BaseRule"
 
 class NoMoreThanOnePartySelectedRule extends BaseRule {
-  outcome(selections: Selections) {
-    const outcome = !selections.every(row => row.every(cell => cell === 0))
+  outcome(ballotSelections: Ballot) {
+    const outcome =
+      ballotSelections.parties.reduce((counter, value) => {
+        return value === Selection.selected ? counter + 1 : counter
+      }, 0) <= 1
 
     return {
       outcome: outcome ? RuleOutcomeType.allow : RuleOutcomeType.deny,

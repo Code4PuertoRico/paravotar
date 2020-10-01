@@ -25,14 +25,20 @@ const validate = (ballotSelections: Ballot, ballotType: BallotType) => {
   if (!hasFailures) {
     return {
       status: ResultStatus.success,
-      outcomes,
+      outcomes: {
+        allowed: outcomes,
+        denied: [],
+      },
     }
   }
 
   // Otherwise the ballot is in valid
   return {
     status: ResultStatus.failure,
-    outcomes,
+    outcomes: {
+      allowed: outcomes.filter(o => o.outcome === RuleOutcomeType.allow),
+      denied: outcomes.filter(o => o.outcome === RuleOutcomeType.deny),
+    },
   }
 }
 

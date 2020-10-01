@@ -1,6 +1,9 @@
 import BaseRule from "./rules/BaseRule"
 
-export type Selection = 0 | 1
+export enum Selection {
+  selected = "selected",
+  notSelected = "notSelected",
+}
 
 export interface BaseBallot {
   parties: Selection[]
