@@ -66,7 +66,7 @@ describe("State Ballot", () => {
       },
     ],
     [
-      "mixed vote with same column candidate selected",
+      "mixed vote with same column resident commissioner selected",
       {
         parties: [selected, notSelected, notSelected, notSelected],
         governor: [notSelected, notSelected, notSelected, notSelected],

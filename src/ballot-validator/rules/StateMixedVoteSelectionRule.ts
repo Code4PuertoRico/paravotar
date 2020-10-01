@@ -45,14 +45,12 @@ class StateMixedVoteSelectionRule extends BaseRule {
       }
     }
 
-    if (
-      governorIndex !== -1 &&
-      partyIndex !== governorIndex &&
-      residentCommissioner !== -1 &&
-      partyIndex !== residentCommissioner
-    ) {
+    if (governorIndex !== -1 && residentCommissioner !== -1) {
       return {
         outcome: RuleOutcomeType.deny,
+        metadata: {
+          section: "all",
+        },
       }
     }
 
