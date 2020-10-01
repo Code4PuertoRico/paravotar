@@ -1,6 +1,5 @@
 import { StateBallot, Selection, BallotType, ResultStatus } from "../types"
 import ballotValidator from "../index"
-import { State } from "react-spring"
 
 const { selected, notSelected } = Selection
 
