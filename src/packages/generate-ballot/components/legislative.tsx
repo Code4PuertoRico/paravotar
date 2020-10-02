@@ -8,12 +8,14 @@ type BallotProps = {
   path: string
   structure: BallotContent[][]
   votes: VotesCoordinates[]
+  toggleVote?: ({ row, column }: VotesCoordinates) => void
 }
 
 export default function LegislativeBallot({
   path,
   structure,
   votes,
+  toggleVote,
 }: BallotProps) {
   const url = `${CDN_URL}${path}`
 
@@ -41,6 +43,9 @@ export default function LegislativeBallot({
                     logo={col.logoImg}
                     ocrResult={col.ocrResult}
                     hasVote={vote}
+                    toggleVote={() =>
+                      toggleVote({ row: rowIndex, column: colIndex })
+                    }
                   />
                 )
               }
@@ -53,6 +58,9 @@ export default function LegislativeBallot({
                     img={col.logoImg}
                     ocrResult={col.ocrResult}
                     hasVote={vote}
+                    toggleVote={() =>
+                      toggleVote({ row: rowIndex, column: colIndex })
+                    }
                   />
                 )
               }

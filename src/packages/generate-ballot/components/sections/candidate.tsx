@@ -7,7 +7,7 @@ type CandidateProps = {
   img: string
   ocrResult: string
   hasVote: boolean
-  toggleVote: () => void
+  toggleVote?: () => void
 }
 
 export default function Candidate({

@@ -9,7 +9,7 @@ type BallotProps = {
   path: string
   structure: BallotContent[][]
   votes: VotesCoordinates[]
-  toggleVote: ({ row, column }: { row: number; column: number }) => void
+  toggleVote: ({ row, column }: VotesCoordinates) => void
 }
 
 export default function GovernmentalBallot({

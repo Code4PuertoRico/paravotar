@@ -11,15 +11,14 @@ import Case from "../../../components/case"
 import Default from "../../../components/default"
 import { Button, Card, Typography } from "../../../components/index"
 import { practiceMachine } from "../machines/practice"
+import { VotesCoordinates } from "../../generate-ballot/types/ballot-machine"
 
-type Coordinates = {
-  row: number
-  column: number
-}
-
-function useVoteCoordinates() {
-  const [coordinates, setCoordinates] = useState<Coordinates[]>([])
-  const setVoteCoordinates = ({ row, column }: Coordinates) => {
+function useVoteCoordinates(): [
+  VotesCoordinates[],
+  ({ row, column }: VotesCoordinates) => void
+] {
+  const [coordinates, setCoordinates] = useState<VotesCoordinates[]>([])
+  const setVoteCoordinates = ({ row, column }: VotesCoordinates) => {
     setCoordinates(prevCoordinates => {
       const hasVote = prevCoordinates.some(
         vote => vote.row === row && vote.column === column
@@ -42,6 +41,8 @@ export default function Practice() {
   const [state, send] = useMachine(practiceMachine)
   const inputRef = useRef<HTMLInputElement>(null)
   const [stateVotes, setStateVotes] = useVoteCoordinates()
+  const [legislativeVotes, setLegislativeVotes] = useVoteCoordinates()
+  const [municipalVotes, setMunicipalVotes] = useVoteCoordinates()
 
   return (
     <Card>
@@ -90,7 +91,7 @@ export default function Practice() {
             </Button>
             <Button
               className="w-full block my-2"
-              onClick={() => send("SELECTED_LEGISLATIVA")}
+              onClick={() => send("SELECTED_LEGISLATIVE")}
             >
               Legislativa
             </Button>
@@ -117,7 +118,8 @@ export default function Practice() {
             <LegislativeBallot
               path="/papeletas/2016/gobernador-y-comisionado-residente"
               structure={state.context.ballots.legislativa}
-              votes={[]}
+              votes={legislativeVotes}
+              toggleVote={setLegislativeVotes}
             />
           </div>
         </Case>
@@ -126,7 +128,8 @@ export default function Practice() {
             <MunicipalBallot
               path="/papeletas/2016/gobernador-y-comisionado-residente"
               structure={state.context.ballots.municipal}
-              votes={[]}
+              votes={municipalVotes}
+              toggleVote={setMunicipalVotes}
             />
           </div>
         </Case>
