@@ -9,12 +9,14 @@ type BallotProps = {
   path: string
   structure: BallotContent[][]
   votes: VotesCoordinates[]
+  toggleVote: ({ row, column }: { row: number; column: number }) => void
 }
 
 export default function GovernmentalBallot({
   path,
   structure,
   votes,
+  toggleVote,
 }: BallotProps) {
   const url = `${CDN_URL}${path}`
 
@@ -42,6 +44,9 @@ export default function GovernmentalBallot({
                     logo={col.logoImg}
                     ocrResult={col.ocrResult}
                     hasVote={vote}
+                    toggleVote={() =>
+                      toggleVote({ row: rowIndex, column: colIndex })
+                    }
                   />
                 )
               }
@@ -54,6 +59,9 @@ export default function GovernmentalBallot({
                     img={col.logoImg}
                     ocrResult={col.ocrResult}
                     hasVote={vote}
+                    toggleVote={() =>
+                      toggleVote({ row: rowIndex, column: colIndex })
+                    }
                   />
                 )
               }

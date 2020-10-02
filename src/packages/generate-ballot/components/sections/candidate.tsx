@@ -7,6 +7,7 @@ type CandidateProps = {
   img: string
   ocrResult: string
   hasVote: boolean
+  toggleVote: () => void
 }
 
 export default function Candidate({
@@ -14,6 +15,7 @@ export default function Candidate({
   img,
   ocrResult,
   hasVote,
+  toggleVote,
 }: CandidateProps) {
   const splitOcrResult = ocrResult
     .trim()
@@ -35,6 +37,7 @@ export default function Candidate({
             type="candidate"
             id={name.replace(" ", "-").toLowerCase()}
             checked={hasVote}
+            onClick={toggleVote}
           />
           <img
             className="h-10 w-10"

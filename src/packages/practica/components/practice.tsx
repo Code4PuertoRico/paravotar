@@ -1,4 +1,4 @@
-import React, { useRef } from "react"
+import React, { useRef, useState } from "react"
 import { useMachine } from "@xstate/react"
 
 import {
@@ -12,9 +12,36 @@ import Default from "../../../components/default"
 import { Button, Card, Typography } from "../../../components/index"
 import { practiceMachine } from "../machines/practice"
 
+type Coordinates = {
+  row: number
+  column: number
+}
+
+function useVoteCoordinates() {
+  const [coordinates, setCoordinates] = useState<Coordinates[]>([])
+  const setVoteCoordinates = ({ row, column }: Coordinates) => {
+    setCoordinates(prevCoordinates => {
+      const hasVote = prevCoordinates.some(
+        vote => vote.row === row && vote.column === column
+      )
+
+      if (hasVote) {
+        return prevCoordinates.filter(vote => {
+          return !(row === vote.row && column === vote.column)
+        })
+      }
+
+      return [...prevCoordinates, { row, column }]
+    })
+  }
+
+  return [coordinates, setVoteCoordinates]
+}
+
 export default function Practice() {
   const [state, send] = useMachine(practiceMachine)
   const inputRef = useRef<HTMLInputElement>(null)
+  const [stateVotes, setStateVotes] = useVoteCoordinates()
 
   return (
     <Card>
@@ -80,7 +107,8 @@ export default function Practice() {
             <GovernmentalBallot
               path="/papeletas/2016/gobernador-y-comisionado-residente"
               structure={state.context.ballots.estatal}
-              votes={[]}
+              votes={stateVotes}
+              toggleVote={setStateVotes}
             />
           </div>
         </Case>
