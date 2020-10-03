@@ -37,49 +37,54 @@ const getBallotsByVoterId = async (_, { voterId }: VoterIdData) => {
   const voterInfoJson: VoterInfo = await voterInfoRes.json()
 
   // Prefetch ballot data
-  const ballots = Object.keys(voterInfoJson.papeletas).map(async key => {
-    const ballotRes = await fetch(
-      `${PUBLIC_S3_BUCKET}${
-        voterInfoJson.papeletas[key as "estatal" | "municipal" | "legislativa"]
-      }/data.json`
-    )
-    const ballotJson: OcrResult[][] = await ballotRes.json()
+  const ballots = Object.entries(voterInfoJson.papeletas).map(
+    async ([key, value]) => {
+      const ballotRes = await fetch(`${PUBLIC_S3_BUCKET}${value}/data.json`)
+      const ballotJson: OcrResult[][] = await ballotRes.json()
 
-    return [key, ballotJson]
-  })
-  const ballotsJson = await Promise.all(ballots)
-  const transformedBallots: {
-    estatal: StateBallotConfig
-    municipal: MunicipalBallotConfig
-    legislativa: LegislativeBallotConfig
-  } = {}
-
-  ballotsJson.forEach(([type, data]) => {
-    if (type === "estatal") {
-      transformedBallots.estatal = new StateBallotConfig(
-        data,
-        voterInfoJson.papeletas.estatal
-      )
-    } else if (type === "municipal") {
-      transformedBallots.municipal = new MunicipalBallotConfig(
-        data,
-        voterInfoJson.papeletas.municipal
-      )
-    } else {
-      transformedBallots.legislativa = new LegislativeBallotConfig(
-        data,
-        voterInfoJson.papeletas.legislativa
-      )
+      if (key === "estatal") {
+        return {
+          [key]: new StateBallotConfig(
+            ballotJson,
+            voterInfoJson.papeletas.estatal
+          ),
+        }
+      } else if (key === "municipal") {
+        return {
+          [key]: new MunicipalBallotConfig(
+            ballotJson,
+            voterInfoJson.papeletas.municipal
+          ),
+        }
+      } else {
+        return {
+          [key]: new LegislativeBallotConfig(
+            ballotJson,
+            voterInfoJson.papeletas.legislativa
+          ),
+        }
+      }
     }
-  })
+  )
+  const ballotsJson = await Promise.all(ballots)
+  const initialValue: {
+    estatal?: StateBallotConfig
+    municipal?: MunicipalBallotConfig
+    legislativa?: LegislativeBallotConfig
+  } = {
+    estatal: undefined,
+    municipal: undefined,
+    legislativa: undefined,
+  }
 
-  console.log({
-    estatal: transformedBallots.estatal,
-    municipal: transformedBallots.municipal,
-    legislative: transformedBallots.legislativa,
-  })
+  return ballotsJson.reduce((prev, curr) => {
+    console.log({ curr, prev })
 
-  return transformedBallots
+    return {
+      ...prev,
+      ...curr,
+    }
+  }, initialValue)
 }
 
 type PracticeContext = {
