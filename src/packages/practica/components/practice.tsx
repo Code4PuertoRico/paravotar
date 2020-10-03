@@ -9,7 +9,7 @@ import { Button, Card, Typography } from "../../../components/index"
 import { practiceMachine } from "../machines/practice"
 import { VotesCoordinates } from "../../generate-ballot/types/ballot-machine"
 import BallotValidator from "../../../ballot-validator/index"
-import { BallotType, Selection } from "../../../ballot-validator/types"
+import { BallotType } from "../../../ballot-validator/types"
 
 function useVoteCoordinates(): [
   VotesCoordinates[],
@@ -33,16 +33,6 @@ function useVoteCoordinates(): [
   }
 
   return [coordinates, setVoteCoordinates]
-}
-
-type TransformArgs = {
-  votes: VotesCoordinates[]
-  ballotType: BallotType
-}
-
-type MarkAsSelectedArgs = {
-  votes: Selection[]
-  position: number
 }
 
 export default function Practice() {
