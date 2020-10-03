@@ -310,8 +310,7 @@ export default function Practice() {
           <div>
             <div className="overflow-scroll">
               <GovernmentalBallot
-                path="/papeletas/2016/gobernador-y-comisionado-residente"
-                structure={state.context.ballots.estatal}
+                structure={state.context.ballots.estatal?.structure}
                 votes={stateVotes}
                 toggleVote={setStateVotes}
               />

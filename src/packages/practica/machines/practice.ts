@@ -1,13 +1,11 @@
 import { createMachine, assign } from "xstate"
-import { Ballot } from "../../../papeleta/Form/components/Ballot"
+
+import { PUBLIC_S3_BUCKET } from "../services/constants"
+import { OcrResult } from "../services/types"
+import { StateBallot } from "../services/ballot-structures"
 
 type VoterIdData = {
   voterId: string
-}
-
-type OcrResult = {
-  ocrResult: string
-  logoImg?: string
 }
 
 type Ballots = {
@@ -37,24 +35,32 @@ const getBallotsByVoterId = async (_, { voterId }: VoterIdData) => {
   // Prefetch ballot data
   const ballots = Object.keys(voterInfoJson.papeletas).map(async key => {
     const ballotRes = await fetch(
-      voterInfoJson.papeletas[key as "estatal" | "municipal" | "legislativa"]
+      `${PUBLIC_S3_BUCKET}${
+        voterInfoJson.papeletas[key as "estatal" | "municipal" | "legislativa"]
+      }/data.json`
     )
-    const ballotJson: OcrResult[] = await ballotRes.json()
+    const ballotJson: OcrResult[][] = await ballotRes.json()
 
     return [key, ballotJson]
   })
   const ballotsJson = await Promise.all(ballots)
   const transformedBallots: {
-    estatal?: OcrResult[]
-    municipal?: OcrResult[]
-    legislativa?: OcrResult[]
+    estatal: StateBallot
+    municipal: OcrResult[][]
+    legislativa: OcrResult[][]
   } = {}
 
   ballotsJson.forEach(([type, data]) => {
-    transformedBallots[type] = data
+    if (type === "estatal") {
+      transformedBallots.estatal = new StateBallot(data)
+    } else if (type === "municipal") {
+      transformedBallots.municipal = data
+    } else {
+      transformedBallots.legislativa = data
+    }
   })
 
-  console.log({ transformedBallots })
+  console.log({ estatal: transformedBallots.estatal })
 
   return transformedBallots
 }

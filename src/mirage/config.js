@@ -13,12 +13,9 @@ export function makeServer({ environment = "test" } = {}) {
           unidad: "10",
           estatus: "Activo",
           papeletas: {
-            estatal:
-              "https://paravotar.s3.amazonaws.com/papeletas/2016/gobernador-y-comisionado-residente/data.json",
-            legislativa:
-              "https://paravotar.s3.amazonaws.com/papeletas/2016/091-patillas/data.json",
-            municipal:
-              "https://paravotar.s3.amazonaws.com/papeletas/2016/patillas/data.json",
+            estatal: "/papeletas/2016/gobernador-y-comisionado-residente",
+            legislativa: "/papeletas/2016/091-patillas",
+            municipal: "/papeletas/2016/patillas",
           },
         }
       })

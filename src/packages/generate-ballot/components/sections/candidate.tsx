@@ -3,15 +3,13 @@ import React from "react"
 import Checkbox from "./checkbox"
 
 type CandidateProps = {
-  url: string
-  img: string
+  img?: string
   ocrResult: string
   hasVote: boolean
   toggleVote?: () => void
 }
 
 export default function Candidate({
-  url,
   img,
   ocrResult,
   hasVote,
@@ -39,11 +37,7 @@ export default function Candidate({
             checked={hasVote}
             onClick={toggleVote}
           />
-          <img
-            className="h-10 w-10"
-            src={`${url}/${img}`}
-            alt={`Foto de ${name}`}
-          />
+          <img className="h-10 w-10" src={img} alt={`Foto de ${name}`} />
           <p className="whitespace-pre-wrap ml-1">{name}</p>
         </div>
       </div>
