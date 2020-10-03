@@ -37,7 +37,9 @@ export default function Candidate({
             checked={hasVote}
             onClick={toggleVote}
           />
-          <img className="h-10 w-10" src={img} alt={`Foto de ${name}`} />
+          {img && (
+            <img className="h-10 w-10" src={img} alt={`Foto de ${name}`} />
+          )}
           <p className="whitespace-pre-wrap ml-1">{name}</p>
         </div>
       </div>

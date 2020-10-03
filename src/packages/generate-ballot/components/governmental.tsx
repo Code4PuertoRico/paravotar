@@ -8,7 +8,7 @@ import {
 
 import { VotesCoordinates } from "../types/ballot-machine"
 import {
-  StateBallotStructure,
+  BallotStructure,
   Party,
   Candidate,
   Header,
@@ -16,7 +16,7 @@ import {
 } from "../../practica/services/ballot-structures"
 
 type BallotProps = {
-  structure: StateBallotStructure
+  structure: BallotStructure
   votes: VotesCoordinates[]
   toggleVote: ({ row, column }: VotesCoordinates) => void
 }

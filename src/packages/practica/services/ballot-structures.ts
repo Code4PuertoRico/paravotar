@@ -6,7 +6,7 @@ export class Party {
   name
 
   constructor(name: string, insignia: string) {
-    this.insignia = `${CDN_URL}/papeletas/2016/gobernador-y-comisionado-residente/${insignia}`
+    this.insignia = insignia
     this.name = name
   }
 }
@@ -32,14 +32,12 @@ export class Candidate {
   name
 
   constructor(name: string, img?: string) {
-    this.img = img
-      ? `${CDN_URL}/papeletas/2016/gobernador-y-comisionado-residente/${img}`
-      : undefined
+    this.img = img ? img : undefined
     this.name = name
   }
 }
 
-export type StateBallotStructure = [
+export type BallotStructure = [
   (Party | Rule)[],
   Header[],
   Candidate[],
@@ -47,13 +45,15 @@ export type StateBallotStructure = [
   Candidate[]
 ]
 
-export class StateBallot {
-  structure: StateBallotStructure
+export class StateBallotStructure {
+  structure: BallotStructure
 
-  constructor(ballot: OcrResult[][]) {
+  constructor(ballot: OcrResult[][], path: string) {
+    const url = `${CDN_URL}${path}`
+
     const parties: (Party | Rule)[] = ballot[0].map((ocrResult: OcrResult) => {
       if (ocrResult.logoImg) {
-        return new Party(ocrResult.ocrResult, ocrResult.logoImg || "")
+        return new Party(ocrResult.ocrResult, `${url}/${ocrResult.logoImg}`)
       }
 
       return new Rule(ocrResult.ocrResult)
@@ -63,14 +63,14 @@ export class StateBallot {
     )
     const candidatesForGorvernor: Candidate[] = ballot[2].map(
       (ocrResult: OcrResult) =>
-        new Candidate(ocrResult.ocrResult, ocrResult.logoImg)
+        new Candidate(ocrResult.ocrResult, `${url}/${ocrResult.logoImg}`)
     )
     const commissionerResidentHeader: Header[] = ballot[3].map(
       (ocrResult: OcrResult) => new Header(ocrResult.ocrResult)
     )
     const candidatesForComissionerResident: Candidate[] = ballot[4].map(
       (ocrResult: OcrResult) =>
-        new Candidate(ocrResult.ocrResult, ocrResult.logoImg)
+        new Candidate(ocrResult.ocrResult, `${url}/${ocrResult.logoImg}`)
     )
 
     this.structure = [
@@ -79,6 +79,48 @@ export class StateBallot {
       candidatesForGorvernor,
       commissionerResidentHeader,
       candidatesForComissionerResident,
+    ]
+  }
+}
+
+export class MunicipalBallotStructure {
+  structure: BallotStructure
+
+  constructor(ballot: OcrResult[][], path: string) {
+    const url = `${CDN_URL}${path}`
+
+    const parties: (Party | Rule)[] = ballot[0].map((ocrResult: OcrResult) => {
+      if (ocrResult.logoImg) {
+        return new Party(ocrResult.ocrResult, `${url}/${ocrResult.logoImg}`)
+      }
+
+      return new Rule(ocrResult.ocrResult)
+    })
+    const mayorHeader: Header[] = ballot[1].map(
+      (ocrResult: OcrResult) => new Header(ocrResult.ocrResult)
+    )
+    const candidatesForMayor: Candidate[] = ballot[2].map(
+      (ocrResult: OcrResult) =>
+        new Candidate(ocrResult.ocrResult, `${url}/${ocrResult.logoImg}`)
+    )
+    const municipalLegislatorHeader: Header[] = ballot[3].map(
+      (ocrResult: OcrResult) => new Header(ocrResult.ocrResult)
+    )
+
+    const municipalLegislators = ballot.slice(4)
+    const candidatesForMunicipalLegislator: Candidate[][] = municipalLegislators.map(
+      (ocrResult: OcrResult[]) =>
+        ocrResult.map((result: OcrResult) => new Candidate(result.ocrResult))
+    )
+
+    console.log(candidatesForMunicipalLegislator)
+
+    this.structure = [
+      parties,
+      mayorHeader,
+      candidatesForMayor,
+      municipalLegislatorHeader,
+      ...candidatesForMunicipalLegislator,
     ]
   }
 }
