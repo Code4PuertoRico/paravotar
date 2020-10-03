@@ -1,11 +1,7 @@
 import React, { useRef, useState } from "react"
 import { useMachine } from "@xstate/react"
 
-import {
-  GovernmentalBallot,
-  LegislativeBallot,
-  MunicipalBallot,
-} from "../../generate-ballot/components"
+import { Ballot } from "../../generate-ballot/components"
 import Switch from "../../../components/switch"
 import Case from "../../../components/case"
 import Default from "../../../components/default"
@@ -133,7 +129,8 @@ export default function Practice() {
         <Case value="governmental">
           <div>
             <div className="overflow-scroll">
-              <GovernmentalBallot
+              <Ballot
+                type={BallotType.state}
                 structure={state.context.ballots.estatal?.structure}
                 votes={stateVotes}
                 toggleVote={setStateVotes}
@@ -155,7 +152,8 @@ export default function Practice() {
         <Case value="legislative">
           <div>
             <div className="overflow-scroll">
-              <LegislativeBallot
+              <Ballot
+                type={BallotType.legislative}
                 structure={state.context.ballots.legislativa?.structure}
                 votes={legislativeVotes}
                 toggleVote={setLegislativeVotes}
@@ -177,7 +175,8 @@ export default function Practice() {
         <Case value="municipal">
           <div>
             <div className="overflow-scroll">
-              <MunicipalBallot
+              <Ballot
+                type={BallotType.municipality}
                 structure={state.context.ballots.municipal?.structure}
                 votes={municipalVotes}
                 toggleVote={setMunicipalVotes}

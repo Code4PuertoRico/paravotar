@@ -3,45 +3,71 @@ import {
   StateBallot as IStateBallot,
   MunicipalBallot as IMunicipalBallot,
   LegislativeBallot as ILegislativeBallot,
-  BallotType,
 } from "../../../ballot-validator/types"
 import { CDN_URL } from "./constants"
 import { OcrResult } from "./types"
 import { VotesCoordinates } from "../../generate-ballot/types/ballot-machine"
+import { uniqueId } from "lodash"
 
 export class Party {
+  id
   insignia
   name
 
   constructor(name: string, insignia: string) {
+    this.id = uniqueId()
     this.insignia = insignia
     this.name = name
   }
 }
 
 export class Rule {
+  id
   rule
 
   constructor(rule: string) {
+    this.id = uniqueId()
     this.rule = rule
   }
 }
 
 export class Header {
+  id
   info
 
   constructor(info: string) {
+    this.id = uniqueId()
     this.info = info
   }
 }
 
 export class Candidate {
+  id
   img
   name
 
   constructor(name: string, img?: string) {
+    this.id = uniqueId()
     this.img = img ? img : undefined
     this.name = name
+  }
+}
+
+export class WriteInCandidate {
+  id
+  name
+
+  constructor(name?: string) {
+    this.id = uniqueId()
+    this.name = name
+  }
+}
+
+export class EmptyCandidacy {
+  id
+
+  constructor() {
+    this.id = uniqueId()
   }
 }
 
@@ -56,6 +82,29 @@ function markAsSelected({ votes, position }: MarkAsSelectedArgs) {
     Selection.selected,
     ...votes.slice(position + 1),
   ]
+}
+
+function generateCandidates(
+  section: OcrResult[],
+  url?: string,
+  votes = 1
+): (Candidate | WriteInCandidate | EmptyCandidacy)[] {
+  let writeInVotes = 0
+
+  return section.map((ocrResult: OcrResult, index) => {
+    console.log(section.length - 1 === index)
+    if (section.length - 1 === index && writeInVotes < votes) {
+      writeInVotes++
+      return new WriteInCandidate()
+    } else if (ocrResult.ocrResult) {
+      return new Candidate(
+        ocrResult.ocrResult,
+        url ? `${url}/${ocrResult.logoImg}` : undefined
+      )
+    }
+
+    return new EmptyCandidacy()
+  })
 }
 
 export type BallotStructure = [
@@ -83,17 +132,11 @@ export class StateBallotStructure {
     const governorHeader: Header[] = ballot[1].map(
       (ocrResult: OcrResult) => new Header(ocrResult.ocrResult)
     )
-    const candidatesForGorvernor: Candidate[] = ballot[2].map(
-      (ocrResult: OcrResult) =>
-        new Candidate(ocrResult.ocrResult, `${url}/${ocrResult.logoImg}`)
-    )
+    const candidatesForGorvernor = generateCandidates(ballot[2], url)
     const commissionerResidentHeader: Header[] = ballot[3].map(
       (ocrResult: OcrResult) => new Header(ocrResult.ocrResult)
     )
-    const candidatesForComissionerResident: Candidate[] = ballot[4].map(
-      (ocrResult: OcrResult) =>
-        new Candidate(ocrResult.ocrResult, `${url}/${ocrResult.logoImg}`)
-    )
+    const candidatesForComissionerResident = generateCandidates(ballot[4], url)
 
     this.numberOfCols = parties.length
     this.structure = [
@@ -167,18 +210,14 @@ export class MunicipalBallotStructure {
     const mayorHeader: Header[] = ballot[1].map(
       (ocrResult: OcrResult) => new Header(ocrResult.ocrResult)
     )
-    const candidatesForMayor: Candidate[] = ballot[2].map(
-      (ocrResult: OcrResult) =>
-        new Candidate(ocrResult.ocrResult, `${url}/${ocrResult.logoImg}`)
-    )
+    const candidatesForMayor = generateCandidates(ballot[2], url)
     const municipalLegislatorHeader: Header[] = ballot[3].map(
       (ocrResult: OcrResult) => new Header(ocrResult.ocrResult)
     )
 
     const municipalLegislators = ballot.slice(4)
-    const candidatesForMunicipalLegislator: Candidate[][] = municipalLegislators.map(
-      (ocrResult: OcrResult[]) =>
-        ocrResult.map((result: OcrResult) => new Candidate(result.ocrResult))
+    const candidatesForMunicipalLegislator = municipalLegislators.map(
+      (ocrResult: OcrResult[]) => generateCandidates(ocrResult)
     )
 
     this.numberOfCols = parties.length
@@ -269,18 +308,17 @@ export class LegislativeBallotStructure {
     const districtRepresentativeHeader: Header[] = ballot[1].map(
       (ocrResult: OcrResult) => new Header(ocrResult.ocrResult)
     )
-    const candidatesForDistrictRepresentative: Candidate[] = ballot[2].map(
-      (ocrResult: OcrResult) =>
-        new Candidate(ocrResult.ocrResult, `${url}/${ocrResult.logoImg}`)
+    const candidatesForDistrictRepresentative = generateCandidates(
+      ballot[2],
+      url
     )
 
     const districtSenatorHeader: Header[] = ballot[3].map(
       (ocrResult: OcrResult) => new Header(ocrResult.ocrResult)
     )
     const districtSenators = ballot.slice(4, 6)
-    const candidatesForDistrictSenators: Candidate[][] = districtSenators.map(
-      (ocrResult: OcrResult[]) =>
-        ocrResult.map((result: OcrResult) => new Candidate(result.ocrResult))
+    const candidatesForDistrictSenators = districtSenators.map(
+      (ocrResult: OcrResult[]) => generateCandidates(ocrResult, url)
     )
 
     const atLargeRepresentativeHeader: Header[] = ballot[6].map(
@@ -288,8 +326,7 @@ export class LegislativeBallotStructure {
     )
     const atLargeRepresentatives = ballot.slice(7, 14)
     const candidatesForAtLargeRepresentatives: Candidate[][] = atLargeRepresentatives.map(
-      (ocrResult: OcrResult[]) =>
-        ocrResult.map((result: OcrResult) => new Candidate(result.ocrResult))
+      (ocrResult: OcrResult[]) => generateCandidates(ocrResult, url, 1)
     )
 
     // TODO: Uncomment, legislative is incomplete
@@ -300,7 +337,7 @@ export class LegislativeBallotStructure {
     // const atLargeSenators = ballot.slice(15)
     // const candidatesForAtLargeSenators: Candidate[][] = atLargeSenators.map(
     //   (ocrResult: OcrResult[]) =>
-    //     ocrResult.map((result: OcrResult) => new Candidate(result.ocrResult))
+    //     generateCandidates(ocrResult, url, 1)
     // )
 
     this.numberOfCols = parties.length

@@ -12,18 +12,28 @@ import {
   WriteInCandidate,
   EmptyCandidacy,
 } from "../../practica/services/ballot-structures"
+import { BallotType } from "../../../ballot-validator/types"
 
 type BallotProps = {
+  type: BallotType
   structure: BallotStructure
   votes: VotesCoordinates[]
   toggleVote: ({ row, column }: VotesCoordinates) => void
 }
 
 export default function GovernmentalBallot({
+  type,
   structure,
   votes,
   toggleVote,
 }: BallotProps) {
+  const ballotBg =
+    type === BallotType.state
+      ? "bg-ballots-governmental"
+      : type === BallotType.municipality
+      ? "bg-ballots-municipal"
+      : "bg-ballots-legislative"
+
   return (
     <div className="bg-black" style={{ width: 2200 }}>
       {structure.map(
@@ -32,7 +42,7 @@ export default function GovernmentalBallot({
             <div
               key={`state-ballot-${rowIndex}`}
               className={`grid grid-cols-${row.length} ${
-                rowIndex !== 0 ? "bg-ballots-governmental" : ""
+                rowIndex !== 0 ? ballotBg : ""
               }`}
             >
               {row.map(
