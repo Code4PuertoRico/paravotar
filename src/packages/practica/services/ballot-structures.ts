@@ -124,3 +124,68 @@ export class MunicipalBallotStructure {
     ]
   }
 }
+
+export class LegislativeBallotStructure {
+  structure: BallotStructure
+
+  constructor(ballot: OcrResult[][], path: string) {
+    const url = `${CDN_URL}${path}`
+
+    const parties: (Party | Rule)[] = ballot[0].map((ocrResult: OcrResult) => {
+      if (ocrResult.logoImg) {
+        return new Party(ocrResult.ocrResult, `${url}/${ocrResult.logoImg}`)
+      }
+
+      return new Rule(ocrResult.ocrResult)
+    })
+
+    const districtRepresentativeHeader: Header[] = ballot[1].map(
+      (ocrResult: OcrResult) => new Header(ocrResult.ocrResult)
+    )
+    const candidatesForDistrictRepresentative: Candidate[] = ballot[2].map(
+      (ocrResult: OcrResult) =>
+        new Candidate(ocrResult.ocrResult, `${url}/${ocrResult.logoImg}`)
+    )
+
+    const districtSenatorHeader: Header[] = ballot[3].map(
+      (ocrResult: OcrResult) => new Header(ocrResult.ocrResult)
+    )
+    const districtSenators = ballot.slice(4, 6)
+    const candidatesForDistrictSenators: Candidate[][] = districtSenators.map(
+      (ocrResult: OcrResult[]) =>
+        ocrResult.map((result: OcrResult) => new Candidate(result.ocrResult))
+    )
+
+    const atLargeRepresentativeHeader: Header[] = ballot[6].map(
+      (ocrResult: OcrResult) => new Header(ocrResult.ocrResult)
+    )
+    const atLargeRepresentatives = ballot.slice(7, 14)
+    const candidatesForAtLargeRepresentatives: Candidate[][] = atLargeRepresentatives.map(
+      (ocrResult: OcrResult[]) =>
+        ocrResult.map((result: OcrResult) => new Candidate(result.ocrResult))
+    )
+
+    // TODO: Uncomment, legislative is incomplete
+
+    // const atLargeSenatorHeader: Header[] = ballot[14].map(
+    //   (ocrResult: OcrResult) => new Header(ocrResult.ocrResult)
+    // )
+    // const atLargeSenators = ballot.slice(15)
+    // const candidatesForAtLargeSenators: Candidate[][] = atLargeSenators.map(
+    //   (ocrResult: OcrResult[]) =>
+    //     ocrResult.map((result: OcrResult) => new Candidate(result.ocrResult))
+    // )
+
+    this.structure = [
+      parties,
+      districtRepresentativeHeader,
+      candidatesForDistrictRepresentative,
+      districtSenatorHeader,
+      ...candidatesForDistrictSenators,
+      atLargeRepresentativeHeader,
+      ...candidatesForAtLargeRepresentatives,
+      // atLargeSenatorHeader,
+      // ...candidatesForAtLargeSenators,
+    ]
+  }
+}

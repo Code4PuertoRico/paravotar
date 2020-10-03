@@ -331,8 +331,7 @@ export default function Practice() {
           <div>
             <div className="overflow-scroll">
               <LegislativeBallot
-                path="/papeletas/2016/091-patillas"
-                structure={state.context.ballots.legislativa}
+                structure={state.context.ballots.legislativa?.structure}
                 votes={legislativeVotes}
                 toggleVote={setLegislativeVotes}
               />
