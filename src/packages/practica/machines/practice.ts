@@ -3,10 +3,10 @@ import { createMachine, assign } from "xstate"
 import { PUBLIC_S3_BUCKET } from "../services/constants"
 import { OcrResult } from "../services/types"
 import {
-  StateBallotStructure,
-  MunicipalBallotStructure,
-  LegislativeBallotStructure,
-} from "../services/ballot-structures"
+  StateBallotConfig,
+  MunicipalBallotConfig,
+  LegislativeBallotConfig,
+} from "../services/ballot-configs"
 
 type VoterIdData = {
   voterId: string
@@ -49,24 +49,24 @@ const getBallotsByVoterId = async (_, { voterId }: VoterIdData) => {
   })
   const ballotsJson = await Promise.all(ballots)
   const transformedBallots: {
-    estatal: StateBallotStructure
-    municipal: MunicipalBallotStructure
-    legislativa: LegislativeBallotStructure
+    estatal: StateBallotConfig
+    municipal: MunicipalBallotConfig
+    legislativa: LegislativeBallotConfig
   } = {}
 
   ballotsJson.forEach(([type, data]) => {
     if (type === "estatal") {
-      transformedBallots.estatal = new StateBallotStructure(
+      transformedBallots.estatal = new StateBallotConfig(
         data,
         voterInfoJson.papeletas.estatal
       )
     } else if (type === "municipal") {
-      transformedBallots.municipal = new MunicipalBallotStructure(
+      transformedBallots.municipal = new MunicipalBallotConfig(
         data,
         voterInfoJson.papeletas.municipal
       )
     } else {
-      transformedBallots.legislativa = new LegislativeBallotStructure(
+      transformedBallots.legislativa = new LegislativeBallotConfig(
         data,
         voterInfoJson.papeletas.legislativa
       )

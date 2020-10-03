@@ -3,73 +3,24 @@ import {
   StateBallot as IStateBallot,
   MunicipalBallot as IMunicipalBallot,
   LegislativeBallot as ILegislativeBallot,
-} from "../../../ballot-validator/types"
-import { CDN_URL } from "./constants"
-import { OcrResult } from "./types"
-import { VotesCoordinates } from "../../generate-ballot/types/ballot-machine"
-import { uniqueId } from "lodash"
-
-export class Party {
-  id
-  insignia
-  name
-
-  constructor(name: string, insignia: string) {
-    this.id = uniqueId()
-    this.insignia = insignia
-    this.name = name
-  }
-}
-
-export class Rule {
-  id
-  rule
-
-  constructor(rule: string) {
-    this.id = uniqueId()
-    this.rule = rule
-  }
-}
-
-export class Header {
-  id
-  info
-
-  constructor(info: string) {
-    this.id = uniqueId()
-    this.info = info
-  }
-}
-
-export class Candidate {
-  id
-  img
-  name
-
-  constructor(name: string, img?: string) {
-    this.id = uniqueId()
-    this.img = img ? img : undefined
-    this.name = name
-  }
-}
-
-export class WriteInCandidate {
-  id
-  name
-
-  constructor(name?: string) {
-    this.id = uniqueId()
-    this.name = name
-  }
-}
-
-export class EmptyCandidacy {
-  id
-
-  constructor() {
-    this.id = uniqueId()
-  }
-}
+} from "../../../../ballot-validator/types"
+import { CDN_URL } from "../constants"
+import {
+  CandidatesRow,
+  LegislativeBallotStructure,
+  MunicipalBallotStructure,
+  StateBallotStructure,
+} from "./types"
+import { OcrResult } from "../types"
+import { VotesCoordinates } from "../../../generate-ballot/types/ballot-machine"
+import {
+  Candidate,
+  EmptyCandidacy,
+  Header,
+  Party,
+  Rule,
+  WriteInCandidate,
+} from "./base"
 
 type MarkAsSelectedArgs = {
   votes: Selection[]
@@ -88,7 +39,7 @@ function generateCandidates(
   section: OcrResult[],
   url?: string,
   votes = 1
-): (Candidate | WriteInCandidate | EmptyCandidacy)[] {
+): CandidatesRow {
   let writeInVotes = 0
 
   return section.map((ocrResult: OcrResult, index) => {
@@ -107,16 +58,8 @@ function generateCandidates(
   })
 }
 
-export type BallotStructure = [
-  (Party | Rule)[],
-  Header[],
-  Candidate[],
-  Header[],
-  Candidate[]
-]
-
-export class StateBallotStructure {
-  structure: BallotStructure
+export class StateBallotConfig {
+  structure: StateBallotStructure
   numberOfCols: number
 
   constructor(ballot: OcrResult[][], path: string) {
@@ -192,8 +135,8 @@ export class StateBallotStructure {
   }
 }
 
-export class MunicipalBallotStructure {
-  structure: BallotStructure
+export class MunicipalBallotConfig {
+  structure: MunicipalBallotStructure
   numberOfCols: number
   numberOfMunicipalLegislators: number
 
@@ -290,8 +233,8 @@ export class MunicipalBallotStructure {
   }
 }
 
-export class LegislativeBallotStructure {
-  structure: BallotStructure
+export class LegislativeBallotConfig {
+  structure: LegislativeBallotStructure
   numberOfCols: number
 
   constructor(ballot: OcrResult[][], path: string) {
@@ -325,7 +268,7 @@ export class LegislativeBallotStructure {
       (ocrResult: OcrResult) => new Header(ocrResult.ocrResult)
     )
     const atLargeRepresentatives = ballot.slice(7, 14)
-    const candidatesForAtLargeRepresentatives: Candidate[][] = atLargeRepresentatives.map(
+    const candidatesForAtLargeRepresentatives = atLargeRepresentatives.map(
       (ocrResult: OcrResult[]) => generateCandidates(ocrResult, url, 1)
     )
 
