@@ -4,15 +4,19 @@ import * as Ballot from "./sections/index"
 
 import { VotesCoordinates } from "../types/ballot-machine"
 import {
-  BallotStructure,
   Party,
   Candidate,
   Header,
   Rule,
   WriteInCandidate,
   EmptyCandidacy,
-} from "../../practica/services/ballot-structures"
+} from "../../practica/services/ballot-configs/base"
 import { BallotType } from "../../../ballot-validator/types"
+import {
+  BallotStructure,
+  CandidatesRow,
+  PartyRow,
+} from "../../practica/services/ballot-configs/types"
 
 type BallotProps = {
   type: BallotType
@@ -37,7 +41,7 @@ export default function GovernmentalBallot({
   return (
     <div className="bg-black" style={{ width: 2200 }}>
       {structure.map(
-        (row: Party[] | Rule[] | Candidate[] | Header[], rowIndex: number) => {
+        (row: CandidatesRow | PartyRow | Header[], rowIndex: number) => {
           return (
             <div
               key={`state-ballot-${rowIndex}`}
