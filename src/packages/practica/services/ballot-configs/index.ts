@@ -43,9 +43,9 @@ function generateCandidates(
   let writeInVotes = 0
 
   return section.map((ocrResult: OcrResult, index) => {
-    console.log(section.length - 1 === index)
     if (section.length - 1 === index && writeInVotes < votes) {
       writeInVotes++
+
       return new WriteInCandidate()
     } else if (ocrResult.ocrResult) {
       return new Candidate(

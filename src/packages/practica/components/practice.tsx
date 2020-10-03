@@ -1,39 +1,17 @@
-import React, { useRef, useState } from "react"
+import React, { useRef } from "react"
 import { useMachine } from "@xstate/react"
 
-import { Ballot } from "../../generate-ballot/components"
-import Switch from "../../../components/switch"
-import Case from "../../../components/case"
-import Default from "../../../components/default"
 import { Button, Card, Typography } from "../../../components/index"
-import { practiceMachine } from "../machines/practice"
-import { VotesCoordinates } from "../../generate-ballot/types/ballot-machine"
 import BallotValidator from "../../../ballot-validator/index"
 import { BallotType } from "../../../ballot-validator/types"
+import { Ballot } from "../../generate-ballot/components"
+import Default from "../../../components/default"
+import Switch from "../../../components/switch"
+import Case from "../../../components/case"
+import { VotesCoordinates } from "../../generate-ballot/types/ballot-machine"
+import { practiceMachine } from "../machines/practice"
 
-function useVoteCoordinates(): [
-  VotesCoordinates[],
-  ({ row, column }: VotesCoordinates) => void
-] {
-  const [coordinates, setCoordinates] = useState<VotesCoordinates[]>([])
-  const setVoteCoordinates = ({ row, column }: VotesCoordinates) => {
-    setCoordinates(prevCoordinates => {
-      const hasVote = prevCoordinates.some(
-        vote => vote.row === row && vote.column === column
-      )
-
-      if (hasVote) {
-        return prevCoordinates.filter(vote => {
-          return !(row === vote.row && column === vote.column)
-        })
-      }
-
-      return [...prevCoordinates, { row, column }]
-    })
-  }
-
-  return [coordinates, setVoteCoordinates]
-}
+import useVoteCoordinates from "../hooks/use-vote-coordinates"
 
 export default function Practice() {
   const [state, send] = useMachine(practiceMachine)
