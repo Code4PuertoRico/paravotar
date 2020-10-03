@@ -2,7 +2,8 @@ import {
   Selection,
   StateBallot as IStateBallot,
   MunicipalBallot as IMunicipalBallot,
-  LegislativeBallot as ILegislativeBallot,, BallotType
+  LegislativeBallot as ILegislativeBallot,
+  BallotType,
 } from "../../../ballot-validator/types"
 import { CDN_URL } from "./constants"
 import { OcrResult } from "./types"
@@ -196,10 +197,14 @@ export class MunicipalBallotStructure {
     const parties = new Array(this.numberOfCols).fill(Selection.notSelected)
     const mayor = new Array(this.numberOfCols).fill(Selection.notSelected)
     // TODO: We need to specify the amount of municipal legislators that a town can select.
-    const municipalLegislator = new Array(this.numberOfMunicipalLegislators).fill(null)
+    const municipalLegislator = new Array(
+      this.numberOfMunicipalLegislators
+    ).fill(null)
 
     municipalLegislator.forEach((_, index) => {
-      municipalLegislator[index] = new Array(this.numberOfCols).fill(Selection.notSelected)
+      municipalLegislator[index] = new Array(this.numberOfCols).fill(
+        Selection.notSelected
+      )
     })
 
     const initialValue: IMunicipalBallot = {
@@ -231,8 +236,8 @@ export class MunicipalBallotStructure {
       // If my coordinate is on row 4 I have to subtract 4 - (3 + 1) to target the first row of the municipal legislator array.
       return {
         ...prev,
-        municipalLegislator: prev.municipalLegislator.map(row => {
-          if (curr.row - 4) {
+        municipalLegislator: prev.municipalLegislator.map((row, index) => {
+          if (curr.row - 4 === index) {
             return markAsSelected({
               votes: row,
               position: curr.column,
@@ -320,7 +325,9 @@ export class LegislativeBallotStructure {
     const municipalLegislator = new Array(5).fill(null)
 
     municipalLegislator.forEach((_, index) => {
-      municipalLegislator[index] = new Array(this.numberOfCols).fill(Selection.notSelected)
+      municipalLegislator[index] = new Array(this.numberOfCols).fill(
+        Selection.notSelected
+      )
     })
 
     const initialValue: IMunicipalBallot = {
