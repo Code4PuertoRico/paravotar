@@ -12,6 +12,7 @@ import { VotesCoordinates } from "../../generate-ballot/types/ballot-machine"
 import { practiceMachine } from "../machines/practice"
 
 import useVoteCoordinates from "../hooks/use-vote-coordinates"
+import coordinatesToSections from "../services/coordinates-to-sections"
 
 export default function Practice() {
   const [state, send] = useMachine(practiceMachine)
@@ -26,7 +27,7 @@ export default function Practice() {
   ) => {
     console.log({ votes })
 
-    const transformedVotes = ballot.convertVotes(votes)
+    const transformedVotes = coordinatesToSections(votes, ballot, ballotType)
 
     console.log({ transformedVotes })
 
