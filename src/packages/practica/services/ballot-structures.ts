@@ -1,5 +1,12 @@
+import {
+  Selection,
+  StateBallot as IStateBallot,
+  MunicipalBallot as IMunicipalBallot,
+  LegislativeBallot as ILegislativeBallot,, BallotType
+} from "../../../ballot-validator/types"
 import { CDN_URL } from "./constants"
 import { OcrResult } from "./types"
+import { VotesCoordinates } from "../../generate-ballot/types/ballot-machine"
 
 export class Party {
   insignia
@@ -37,6 +44,19 @@ export class Candidate {
   }
 }
 
+type MarkAsSelectedArgs = {
+  votes: Selection[]
+  position: number
+}
+
+function markAsSelected({ votes, position }: MarkAsSelectedArgs) {
+  return [
+    ...votes.slice(0, position),
+    Selection.selected,
+    ...votes.slice(position + 1),
+  ]
+}
+
 export type BallotStructure = [
   (Party | Rule)[],
   Header[],
@@ -47,6 +67,7 @@ export type BallotStructure = [
 
 export class StateBallotStructure {
   structure: BallotStructure
+  numberOfCols: number
 
   constructor(ballot: OcrResult[][], path: string) {
     const url = `${CDN_URL}${path}`
@@ -73,6 +94,7 @@ export class StateBallotStructure {
         new Candidate(ocrResult.ocrResult, `${url}/${ocrResult.logoImg}`)
     )
 
+    this.numberOfCols = parties.length
     this.structure = [
       parties,
       governorHeader,
@@ -81,10 +103,55 @@ export class StateBallotStructure {
       candidatesForComissionerResident,
     ]
   }
+
+  convertVotes(votes: VotesCoordinates[]): IStateBallot {
+    const parties = new Array(this.numberOfCols).fill(Selection.notSelected)
+    const governor = new Array(this.numberOfCols).fill(Selection.notSelected)
+    const residentCommissioner = Array(this.numberOfCols).fill(
+      Selection.notSelected
+    )
+    const initialValue: IStateBallot = {
+      parties,
+      governor,
+      residentCommissioner,
+    }
+
+    return votes.reduce((prev, curr): IStateBallot => {
+      if (curr.row === 0) {
+        return {
+          ...prev,
+          parties: markAsSelected({
+            votes: prev.parties,
+            position: curr.column,
+          }),
+        }
+      } else if (curr.row === 2) {
+        return {
+          ...prev,
+          governor: markAsSelected({
+            votes: prev.governor,
+            position: curr.column,
+          }),
+        }
+      } else if (curr.row === 4) {
+        return {
+          ...prev,
+          residentCommissioner: markAsSelected({
+            votes: prev.residentCommissioner,
+            position: curr.column,
+          }),
+        }
+      }
+
+      return prev
+    }, initialValue)
+  }
 }
 
 export class MunicipalBallotStructure {
   structure: BallotStructure
+  numberOfCols: number
+  numberOfMunicipalLegislators: number
 
   constructor(ballot: OcrResult[][], path: string) {
     const url = `${CDN_URL}${path}`
@@ -113,8 +180,8 @@ export class MunicipalBallotStructure {
         ocrResult.map((result: OcrResult) => new Candidate(result.ocrResult))
     )
 
-    console.log(candidatesForMunicipalLegislator)
-
+    this.numberOfCols = parties.length
+    this.numberOfMunicipalLegislators = candidatesForMunicipalLegislator.length
     this.structure = [
       parties,
       mayorHeader,
@@ -123,10 +190,65 @@ export class MunicipalBallotStructure {
       ...candidatesForMunicipalLegislator,
     ]
   }
+
+  convertVotes(votes: VotesCoordinates[]): IMunicipalBallot {
+    // TODO: The columns in a municipal ballot can change depending on the town.
+    const parties = new Array(this.numberOfCols).fill(Selection.notSelected)
+    const mayor = new Array(this.numberOfCols).fill(Selection.notSelected)
+    // TODO: We need to specify the amount of municipal legislators that a town can select.
+    const municipalLegislator = new Array(this.numberOfMunicipalLegislators).fill(null)
+
+    municipalLegislator.forEach((_, index) => {
+      municipalLegislator[index] = new Array(this.numberOfCols).fill(Selection.notSelected)
+    })
+
+    const initialValue: IMunicipalBallot = {
+      parties,
+      mayor,
+      municipalLegislator,
+    }
+
+    return votes.reduce((prev, curr): IMunicipalBallot => {
+      if (curr.row === 0) {
+        return {
+          ...prev,
+          parties: markAsSelected({
+            votes: prev.parties,
+            position: curr.column,
+          }),
+        }
+      } else if (curr.row === 2) {
+        return {
+          ...prev,
+          mayor: markAsSelected({
+            votes: prev.mayor,
+            position: curr.column,
+          }),
+        }
+      }
+
+      // Municipal legislators come after row 3.
+      // If my coordinate is on row 4 I have to subtract 4 - (3 + 1) to target the first row of the municipal legislator array.
+      return {
+        ...prev,
+        municipalLegislator: prev.municipalLegislator.map(row => {
+          if (curr.row - 4) {
+            return markAsSelected({
+              votes: row,
+              position: curr.column,
+            })
+          }
+
+          return row
+        }),
+      }
+    }, initialValue)
+  }
 }
 
 export class LegislativeBallotStructure {
   structure: BallotStructure
+  numberOfCols: number
 
   constructor(ballot: OcrResult[][], path: string) {
     const url = `${CDN_URL}${path}`
@@ -176,6 +298,7 @@ export class LegislativeBallotStructure {
     //     ocrResult.map((result: OcrResult) => new Candidate(result.ocrResult))
     // )
 
+    this.numberOfCols = parties.length
     this.structure = [
       parties,
       districtRepresentativeHeader,
@@ -187,5 +310,59 @@ export class LegislativeBallotStructure {
       // atLargeSenatorHeader,
       // ...candidatesForAtLargeSenators,
     ]
+  }
+
+  convertVotes(votes: VotesCoordinates[]): IMunicipalBallot {
+    // TODO: The columns in a municipal ballot can change depending on the town.
+    const parties = new Array(this.numberOfCols).fill(Selection.notSelected)
+    const mayor = new Array(this.numberOfCols).fill(Selection.notSelected)
+    // TODO: We need to specify the amount of municipal legislators that a town can select.
+    const municipalLegislator = new Array(5).fill(null)
+
+    municipalLegislator.forEach((_, index) => {
+      municipalLegislator[index] = new Array(this.numberOfCols).fill(Selection.notSelected)
+    })
+
+    const initialValue: IMunicipalBallot = {
+      parties,
+      mayor,
+      municipalLegislator,
+    }
+
+    return votes.reduce((prev, curr): IMunicipalBallot => {
+      if (curr.row === 0) {
+        return {
+          ...prev,
+          parties: markAsSelected({
+            votes: prev.parties,
+            position: curr.column,
+          }),
+        }
+      } else if (curr.row === 2) {
+        return {
+          ...prev,
+          mayor: markAsSelected({
+            votes: prev.mayor,
+            position: curr.column,
+          }),
+        }
+      }
+
+      // Municipal legislators come after row 3.
+      // If my coordinate is on row 4 I have to subtract 4 - (3 + 1) to target the first row of the municipal legislator array.
+      return {
+        ...prev,
+        municipalLegislator: prev.municipalLegislator.map(row => {
+          if (curr.row - 4) {
+            return markAsSelected({
+              votes: row,
+              position: curr.column,
+            })
+          }
+
+          return row
+        }),
+      }
+    }, initialValue)
   }
 }
