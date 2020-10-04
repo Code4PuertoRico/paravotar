@@ -1,14 +1,14 @@
-import React, { useEffect } from "react"
+import React from "react"
 import "fetch-ponyfill"
 
 import { Layout, SEO, Container } from "../components/index"
 import {
   HowToVote,
   MakeYourVoteCount,
-  Practice,
+  // Practice,
 } from "../packages/practica/components/index"
 import { withTrans } from "../i18n/withTrans"
-import { makeServer } from "../mirage/config.js"
+// import { makeServer } from "../mirage/config.js"
 import { SidebarProvider } from "../context/sidebar-context"
 
 type PageProps = {
@@ -16,9 +16,9 @@ type PageProps = {
 }
 
 const Practica = ({ location }: PageProps) => {
-  useEffect(() => {
-    makeServer()
-  }, [])
+  // useEffect(() => {
+  //   makeServer()
+  // }, [])
 
   return (
     <SidebarProvider>
@@ -37,12 +37,12 @@ const Practica = ({ location }: PageProps) => {
           <HowToVote />
         </Container>
 
-        <Container
+        {/* <Container
           className="w-11/12 pt-16 mb-16 text-center lg:pt-5"
           id="haz-que-tu-voto-cuente"
         >
           <Practice />
-        </Container>
+        </Container> */}
       </Layout>
     </SidebarProvider>
   )
