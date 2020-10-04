@@ -1,4 +1,4 @@
-import React, { useRef } from "react"
+import React, { ReactNode, useRef } from "react"
 import { useMachine } from "@xstate/react"
 
 import { Button, Card, Typography } from "../../../components/index"
@@ -14,6 +14,22 @@ import { practiceMachine } from "../machines/practice"
 import useVoteCoordinates from "../hooks/use-vote-coordinates"
 import coordinatesToSections from "../services/coordinates-to-sections"
 import { BallotConfigs } from "../services/ballot-configs"
+
+function BallotStatus({ children }: { children: ReactNode }) {
+  return (
+    <div>
+      <Typography tag="h3" variant="h3" className="mb-4">
+        Para esta papeleta usted puede votar por...
+      </Typography>
+      {children}
+      <hr className="mt-2" />
+      <Typography tag="p" variant="p" className="text-xs italic mt-2 mb-6">
+        *Para ver otros partidos realiza un scroll hacia tu derecha y para ver
+        más candidatos realiza scroll hacia abajo.
+      </Typography>
+    </div>
+  )
+}
 
 export default function Practice() {
   const [state, send] = useMachine(practiceMachine)
@@ -36,6 +52,8 @@ export default function Practice() {
 
     console.log({ test })
   }
+
+  console.log(state.context.ballots)
 
   return (
     <Card>
@@ -100,6 +118,20 @@ export default function Practice() {
           <div>
             {state.context.ballots.estatal ? (
               <>
+                <BallotStatus>
+                  <Typography tag="p" variant="p">
+                    0/
+                    {state.context.ballots.estatal.votesForGovernor}{" "}
+                    candidato(a) a Gobernador(a)
+                  </Typography>
+                  <Typography tag="p" variant="p">
+                    0/
+                    {
+                      state.context.ballots.estatal.votesForCommissionerResident
+                    }{" "}
+                    candidato(a) a Comisionado(a) Residente
+                  </Typography>
+                </BallotStatus>
                 <div className="overflow-scroll">
                   <Ballot
                     type={BallotType.state}
@@ -127,6 +159,38 @@ export default function Practice() {
           <div>
             {state.context.ballots.legislativa ? (
               <>
+                <BallotStatus>
+                  <Typography tag="p" variant="p">
+                    0/
+                    {
+                      state.context.ballots.legislativa
+                        .votesForDistrictRepresentatives
+                    }{" "}
+                    candidato(a) a Representante por Distrito
+                  </Typography>
+                  <Typography tag="p" variant="p">
+                    0/
+                    {
+                      state.context.ballots.legislativa.votesForDistrictSenators
+                    }{" "}
+                    candidato(a) a Senador por Distrito
+                  </Typography>
+                  <Typography tag="p" variant="p">
+                    0/
+                    {
+                      state.context.ballots.legislativa
+                        .votesForAtLargeRepresentatives
+                    }{" "}
+                    candidato(a) a Representante por Acumulación
+                  </Typography>
+                  <Typography tag="p" variant="p">
+                    0/
+                    {
+                      state.context.ballots.legislativa.votesForAtLargeSenators
+                    }{" "}
+                    candidato(a) a Senador por Acumulación
+                  </Typography>
+                </BallotStatus>
                 <div className="overflow-scroll">
                   <Ballot
                     type={BallotType.legislative}
@@ -154,6 +218,18 @@ export default function Practice() {
           <div>
             {state.context.ballots.municipal ? (
               <>
+                <BallotStatus>
+                  <Typography tag="p" variant="p">
+                    0/
+                    {state.context.ballots.municipal.votesForMayor} candidato(a)
+                    a Alcalde(sa)
+                  </Typography>
+                  <Typography tag="p" variant="p">
+                    0/
+                    {state.context.ballots.municipal.legislators} candidato(a) a
+                    Legisladores(as) municipales
+                  </Typography>
+                </BallotStatus>
                 <div className="overflow-scroll">
                   <Ballot
                     type={BallotType.municipality}

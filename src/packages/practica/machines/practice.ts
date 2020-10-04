@@ -72,8 +72,6 @@ const getBallotsByVoterId = async (_, { voterId }: VoterIdData) => {
   }
 
   return ballotsJson.reduce((prev, curr) => {
-    console.log({ curr, prev })
-
     return {
       ...prev,
       ...curr,

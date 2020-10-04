@@ -39,6 +39,9 @@ function generateCandidates(
 }
 
 export class StateBallotConfig {
+  private totalVotesForGovernor = 1
+  private totalVotesForCommissionerResident = 1
+
   structure: StateBallotStructure
   cols: number
 
@@ -70,12 +73,22 @@ export class StateBallotConfig {
       candidatesForComissionerResident,
     ]
   }
+
+  get votesForGovernor() {
+    return this.totalVotesForGovernor
+  }
+
+  get votesForCommissionerResident() {
+    return this.totalVotesForCommissionerResident
+  }
 }
 
 export class MunicipalBallotConfig {
+  private totalVotesForMayor = 1
+  private totalVotesForLegislators
+
   structure: MunicipalBallotStructure
   cols: number
-  legislators: number
 
   constructor(ballot: OcrResult[][], path: string) {
     const url = `${CDN_URL}${path}`
@@ -101,7 +114,7 @@ export class MunicipalBallotConfig {
     )
 
     this.cols = parties.length
-    this.legislators = candidatesForMunicipalLegislator.length
+    this.totalVotesForLegislators = candidatesForMunicipalLegislator.length
     this.structure = [
       parties,
       mayorHeader,
@@ -110,9 +123,22 @@ export class MunicipalBallotConfig {
       ...candidatesForMunicipalLegislator,
     ]
   }
+
+  get votesForMayor() {
+    return this.totalVotesForMayor
+  }
+
+  get legislators() {
+    return this.totalVotesForLegislators
+  }
 }
 
 export class LegislativeBallotConfig {
+  private totalVotesForDistrictRepresentative = 1
+  private totalVotesForDistrictSenators = 2
+  private totalVotesForAtLargeRepresentatives = 1
+  private totalVotesForAtLargeSenators = 1
+
   structure: LegislativeBallotStructure
   cols: number
 
@@ -174,6 +200,22 @@ export class LegislativeBallotConfig {
       // atLargeSenatorHeader,
       // ...candidatesForAtLargeSenators,
     ]
+  }
+
+  get votesForDistrictRepresentatives() {
+    return this.totalVotesForDistrictRepresentative
+  }
+
+  get votesForDistrictSenators() {
+    return this.totalVotesForDistrictSenators
+  }
+
+  get votesForAtLargeRepresentatives() {
+    return this.totalVotesForAtLargeRepresentatives
+  }
+
+  get votesForAtLargeSenators() {
+    return this.totalVotesForAtLargeSenators
   }
 }
 
