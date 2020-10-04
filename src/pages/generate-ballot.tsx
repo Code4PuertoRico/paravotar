@@ -3,16 +3,13 @@ import React, { useEffect } from "react"
 import { EventObject } from "xstate"
 import { useMachine } from "@xstate/react"
 
-import {
-  GovernmentalBallot,
-  LegislativeBallot,
-  MunicipalBallot,
-} from "../packages/generate-ballot/components/index"
 import Switch from "../components/switch"
 import Case from "../components/case"
 import Default from "../components/default"
 import { BallotMachine } from "../packages/generate-ballot/machines/ballot-machine"
 import { BallotMachineContext } from "../packages/generate-ballot/types/ballot-machine"
+import { BallotType } from "../ballot-validator/types"
+import { Ballot } from "../packages/generate-ballot/components"
 
 type PageProps = {
   location: Location
@@ -29,8 +26,8 @@ export default function GenerateBallot({ location }: PageProps) {
     BallotMachine,
     {
       context: {
-        type: ballotType,
-        path: ballotPath,
+        type: ballotType as string,
+        path: ballotPath as string,
         votes,
       },
     }
@@ -45,23 +42,23 @@ export default function GenerateBallot({ location }: PageProps) {
       <div data-state="success">
         <Switch state={state}>
           <Case value={{ success: "governmental" }}>
-            <GovernmentalBallot
-              path={state.context.path}
-              structure={state.context.ballot}
+            <Ballot
+              type={BallotType.state}
+              structure={state.context.ballot || []}
               votes={votes}
             />
           </Case>
           <Case value={{ success: "legislative" }}>
-            <LegislativeBallot
-              path={state.context.path}
-              structure={state.context.ballot}
+            <Ballot
+              type={BallotType.legislative}
+              structure={state.context.ballot || []}
               votes={votes}
             />
           </Case>
           <Case value={{ success: "municipal" }}>
-            <MunicipalBallot
-              path={state.context.path}
-              structure={state.context.ballot}
+            <Ballot
+              type={BallotType.municipality}
+              structure={state.context.ballot || []}
               votes={votes}
             />
           </Case>

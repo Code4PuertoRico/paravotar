@@ -25,7 +25,7 @@ type BallotProps = {
   toggleVote: ({ row, column }: VotesCoordinates) => void
 }
 
-export default function GovernmentalBallot({
+export default function BaseBallot({
   type,
   structure,
   votes,

@@ -1,3 +1,5 @@
+import { BallotStructure } from "../../practica/services/ballot-configs/types"
+
 export type BallotContent = {
   ocrResult: string
   logoImg?: string
@@ -9,8 +11,8 @@ export type VotesCoordinates = {
 }
 
 export type BallotMachineContext = {
-  type: string | null
-  path: string | null
+  type: string
+  path: string
   votes: VotesCoordinates[]
-  ballot: BallotContent[][]
+  ballot?: BallotStructure
 }
