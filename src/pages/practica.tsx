@@ -9,6 +9,7 @@ import {
 } from "../packages/practica/components/index"
 import { withTrans } from "../i18n/withTrans"
 import { makeServer } from "../mirage/config.js"
+import { SidebarProvider } from "../context/sidebar-context"
 
 type PageProps = {
   location: Location
@@ -20,28 +21,30 @@ const Practica = ({ location }: PageProps) => {
   }, [])
 
   return (
-    <Layout location={location}>
-      <SEO title="Practica tu voto" />
-      <Container
-        className="w-11/12 pt-16 mb-16 text-center lg:pt-5"
-        id="haz-que-tu-voto-cuente"
-      >
-        <MakeYourVoteCount />
-      </Container>
-      <Container
-        className="w-11/12 pt-16 mb-16 text-center lg:pt-5"
-        id="como-votar"
-      >
-        <HowToVote />
-      </Container>
+    <SidebarProvider>
+      <Layout location={location}>
+        <SEO title="Practica tu voto" />
+        <Container
+          className="w-11/12 pt-16 mb-16 text-center lg:pt-5"
+          id="haz-que-tu-voto-cuente"
+        >
+          <MakeYourVoteCount />
+        </Container>
+        <Container
+          className="w-11/12 pt-16 mb-16 text-center lg:pt-5"
+          id="como-votar"
+        >
+          <HowToVote />
+        </Container>
 
-      <Container
-        className="w-11/12 pt-16 mb-16 text-center lg:pt-5"
-        id="haz-que-tu-voto-cuente"
-      >
-        <Practice />
-      </Container>
-    </Layout>
+        <Container
+          className="w-11/12 pt-16 mb-16 text-center lg:pt-5"
+          id="haz-que-tu-voto-cuente"
+        >
+          <Practice />
+        </Container>
+      </Layout>
+    </SidebarProvider>
   )
 }
 

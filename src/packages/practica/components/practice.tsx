@@ -14,6 +14,7 @@ import { practiceMachine } from "../machines/practice"
 import useVoteCoordinates from "../hooks/use-vote-coordinates"
 import coordinatesToSections from "../services/coordinates-to-sections"
 import { BallotConfigs } from "../services/ballot-configs"
+import { useSidebar } from "../../../context/sidebar-context"
 
 function BallotStatus({ children }: { children: ReactNode }) {
   return (
@@ -37,6 +38,7 @@ export default function Practice() {
   const [stateVotes, setStateVotes] = useVoteCoordinates()
   const [legislativeVotes, setLegislativeVotes] = useVoteCoordinates()
   const [municipalVotes, setMunicipalVotes] = useVoteCoordinates()
+  const { setSidebarIsVisible } = useSidebar()
   const handleSubmit = (
     ballot: BallotConfigs,
     votes: VotesCoordinates[],
@@ -51,6 +53,12 @@ export default function Practice() {
     const test = BallotValidator(transformedVotes, ballotType)
 
     console.log({ test })
+  }
+
+  const selectBallot = (selectedBallot: string) => {
+    setSidebarIsVisible(false)
+
+    send(selectedBallot)
   }
 
   console.log(state.context.ballots)
@@ -96,19 +104,19 @@ export default function Practice() {
             </Typography>
             <Button
               className="w-full block mt-4 mb-2"
-              onClick={() => send("SELECTED_GOVERNMENTAL")}
+              onClick={() => selectBallot("SELECTED_GOVERNMENTAL")}
             >
               Estatal
             </Button>
             <Button
               className="w-full block my-2"
-              onClick={() => send("SELECTED_LEGISLATIVE")}
+              onClick={() => selectBallot("SELECTED_LEGISLATIVE")}
             >
               Legislativa
             </Button>
             <Button
               className="w-full block my-2"
-              onClick={() => send("SELECTED_MUNICIPAL")}
+              onClick={() => selectBallot("SELECTED_MUNICIPAL")}
             >
               Municipal
             </Button>

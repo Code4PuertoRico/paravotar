@@ -99,7 +99,9 @@
     "enrollment-centers": "Enrollment Centers",
     "enrollment-reminder": "Create a Reminder",
     "find-voter-center": "Find your voting center",
-    "collaborations": "Collaborations"
+    "collaborations": "Collaborations",
+    "hide-menu": "Hide menu",
+    "show-menu": "Show menu"
   },
   "footer": {
     "contribute": "How can I contribute to the project?",

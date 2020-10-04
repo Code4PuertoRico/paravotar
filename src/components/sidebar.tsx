@@ -7,8 +7,10 @@ import Logo from "../assets/images/logo.svg"
 import Inscribete from "../assets/icons/inscribete.svg"
 import Collaborations from "../assets/icons/collaborations.svg"
 import SalAVotar from "../assets/icons/sal-a-votar.svg"
+import { useSidebar } from "../context/sidebar-context"
 import { Section, SubSection } from "./section"
 import LanguageMenu from "./language-menu"
+import Arrows from "./arrows"
 
 type SidebarProps = {
   pathname: string
@@ -125,6 +127,7 @@ export const getSections = (pathname = "", t) => [
 export default function Sidebar({ pathname }: SidebarProps) {
   const { t } = useTranslation()
   const sections = useMemo(() => getSections(pathname, t), [pathname, t])
+  const { setSidebarIsVisible } = useSidebar()
 
   return (
     <nav className="sidebar">
@@ -159,6 +162,14 @@ export default function Sidebar({ pathname }: SidebarProps) {
             )
           })}
         </div>
+        <button
+          className="flex items-center absolute bottom-0 border border-footer border-b-0 border-r-0 border-l-0 py-3 px-4"
+          style={{ width: 275 }}
+          onClick={() => setSidebarIsVisible(false)}
+        >
+          <Arrows className="mr-4" style={{ transform: "rotate(90deg)" }} />
+          {t("nav.hide-menu")}
+        </button>
       </aside>
     </nav>
   )

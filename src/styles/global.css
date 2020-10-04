@@ -115,17 +115,7 @@ button:focus {
   @apply overflow-y-scroll bg-background w-full;
 }
 
-.sidebar-toggler {
-  @apply hidden;
-}
-
 @screen lg {
-  .sidebar-toggler {
-    @apply block absolute;
-    top: 10px;
-    left: 10px;
-  }
-
   .wrapper {
     @apply grid;
   }
