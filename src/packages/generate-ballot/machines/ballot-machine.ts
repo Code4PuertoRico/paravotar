@@ -1,4 +1,9 @@
 import { Machine, assign } from "xstate"
+import {
+  LegislativeBallotConfig,
+  MunicipalBallotConfig,
+  StateBallotConfig,
+} from "../../practica/services/ballot-configs"
 
 import { PUBLIC_S3_BUCKET } from "../../practica/services/constants"
 import { BallotMachineContext } from "../types/ballot-machine"
@@ -20,8 +25,8 @@ export const BallotMachine = Machine<BallotMachineContext>({
   context: {
     type: "",
     path: "",
-    ballot: [],
     votes: [],
+    ballot: undefined,
   },
   states: {
     idle: {
@@ -35,7 +40,19 @@ export const BallotMachine = Machine<BallotMachineContext>({
         src: (context: BallotMachineContext) => fetchBallot(context.path),
         onDone: {
           target: "success",
-          actions: assign({ ballot: (_, event) => event.data }),
+          actions: assign({
+            ballot: (context, event) => {
+              if (context.type === "estatal") {
+                return new StateBallotConfig(event.data, context.path).structure
+              } else if (context.type === "municipal") {
+                return new MunicipalBallotConfig(event.data, context.path)
+                  .structure
+              } else {
+                return new LegislativeBallotConfig(event.data, context.path)
+                  .structure
+              }
+            },
+          }),
         },
         onError: {
           target: "failure",

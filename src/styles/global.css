@@ -112,13 +112,12 @@ button:focus {
 }
 
 .main {
-  @apply overflow-y-scroll bg-background;
+  @apply overflow-y-scroll bg-background w-full;
 }
 
 @screen lg {
   .wrapper {
     @apply grid;
-    grid-template-columns: 275px auto;
   }
 
   .sidebar {
@@ -127,8 +126,12 @@ button:focus {
   }
 
   .main {
-    @apply grid;
+    @apply grid w-full;
     grid-column-start: 2;
+  }
+
+  .main-content {
+    @apply mx-auto pt-3 relative;
   }
 }
 

@@ -99,7 +99,9 @@
     "enrollment-centers": "Juntas de Inscripción Permanentes",
     "enrollment-reminder": "Crea un recordatorio",
     "find-voter-center": "Encuentra tu centro de votación",
-    "collaborations": "Colaboraciones"
+    "collaborations": "Colaboraciones",
+    "hide-menu": "Ocultar el menú",
+    "show-menu": "Mostrar menú"
   },
   "footer": {
     "contribute": "¿Cómo puedo contribuir al proyecto?",

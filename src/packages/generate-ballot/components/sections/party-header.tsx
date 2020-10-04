@@ -3,20 +3,21 @@ import React from "react"
 import Checkbox from "./checkbox"
 
 type HeaderProps = {
-  url: string
   ocrResult: string
   hasVote: boolean
   logo?: string
+  toggleVote?: () => void
 }
 
-function PoliticalParty({ url, logo, ocrResult, hasVote }: HeaderProps) {
+function PoliticalParty({ logo, ocrResult, hasVote, toggleVote }: HeaderProps) {
   return (
     <div className="p-2 text-center border border-white" key={ocrResult}>
-      <img className="mx-auto" src={`${url}/${logo}`} alt={ocrResult} />
+      <img className="mx-auto" src={logo} alt={ocrResult} />
       <Checkbox
         type="party"
         id={ocrResult.replace(" ", "-").toLowerCase()}
         checked={hasVote}
+        onClick={toggleVote}
       />
       <p className="whitespace-pre-line text-white font-semibold">
         {ocrResult}
@@ -92,21 +93,21 @@ function IndependentCandidate({ ocrResult }: { ocrResult: string }) {
 }
 
 export default function PartyHeader({
-  url,
   logo,
   ocrResult,
   hasVote,
+  toggleVote,
 }: HeaderProps) {
   if (logo) {
     return (
       <PoliticalParty
-        url={url}
         logo={logo}
         ocrResult={ocrResult}
         hasVote={hasVote}
+        toggleVote={toggleVote}
       />
     )
   }
 
-  return <IndependentCandidate ocrResult={ocrResult} />
+  return <IndependentCandidate ocrResult={ocrResult} toggleVote={toggleVote} />
 }

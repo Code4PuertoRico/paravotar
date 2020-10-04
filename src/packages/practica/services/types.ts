@@ -17,3 +17,8 @@ export type VoterDetailsResponse = {
 }
 
 export type BallotResponse = { ocrResult: string; logoImg?: string }[][]
+
+export type OcrResult = {
+  ocrResult: string
+  logoImg?: string
+}

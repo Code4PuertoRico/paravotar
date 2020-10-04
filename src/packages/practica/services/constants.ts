@@ -7,6 +7,7 @@ export enum APIPaths {
 }
 
 export const PUBLIC_S3_BUCKET = "https://paravotar.s3.amazonaws.com"
+export const CDN_URL = "https://cdn.paravotar.org"
 
 export enum BALLOT_SECTION_TITLES {
   GOBERNADOR = "GOBERNADOR",
