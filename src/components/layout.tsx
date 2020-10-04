@@ -24,7 +24,7 @@ const Layout = ({ children, location }: Props) => {
       <div className="wrapper">
         <Sidebar pathname={`${pathname}${hash}`} />
         <div className="main">
-          <main id="main-content" className="w-full mx-auto pt-3">
+          <main id="main-content" className="main-content">
             {children}
           </main>
           <Footer />
