@@ -13,6 +13,7 @@ import { practiceMachine } from "../machines/practice"
 
 import useVoteCoordinates from "../hooks/use-vote-coordinates"
 import coordinatesToSections from "../services/coordinates-to-sections"
+import { BallotConfigs } from "../services/ballot-configs"
 
 export default function Practice() {
   const [state, send] = useMachine(practiceMachine)
@@ -21,7 +22,7 @@ export default function Practice() {
   const [legislativeVotes, setLegislativeVotes] = useVoteCoordinates()
   const [municipalVotes, setMunicipalVotes] = useVoteCoordinates()
   const handleSubmit = (
-    ballot,
+    ballot: BallotConfigs,
     votes: VotesCoordinates[],
     ballotType: BallotType
   ) => {
@@ -97,71 +98,83 @@ export default function Practice() {
         </Case>
         <Case value="governmental">
           <div>
-            <div className="overflow-scroll">
-              <Ballot
-                type={BallotType.state}
-                structure={state.context.ballots.estatal?.structure}
-                votes={stateVotes}
-                toggleVote={setStateVotes}
-              />
-            </div>
-            <Button
-              onClick={() => {
-                handleSubmit(
-                  state.context.ballots.estatal,
-                  stateVotes,
-                  BallotType.state
-                )
-              }}
-            >
-              Submit
-            </Button>
+            {state.context.ballots.estatal ? (
+              <>
+                <div className="overflow-scroll">
+                  <Ballot
+                    type={BallotType.state}
+                    structure={state.context.ballots.estatal.structure}
+                    votes={stateVotes}
+                    toggleVote={setStateVotes}
+                  />
+                </div>
+                <Button
+                  onClick={() => {
+                    handleSubmit(
+                      state.context.ballots.estatal,
+                      stateVotes,
+                      BallotType.state
+                    )
+                  }}
+                >
+                  Submit
+                </Button>
+              </>
+            ) : null}
           </div>
         </Case>
         <Case value="legislative">
           <div>
-            <div className="overflow-scroll">
-              <Ballot
-                type={BallotType.legislative}
-                structure={state.context.ballots.legislativa?.structure}
-                votes={legislativeVotes}
-                toggleVote={setLegislativeVotes}
-              />
-            </div>
-            <Button
-              onClick={() => {
-                handleSubmit(
-                  state.context.ballots.legislativa,
-                  legislativeVotes,
-                  BallotType.legislative
-                )
-              }}
-            >
-              Submit
-            </Button>
+            {state.context.ballots.legislativa ? (
+              <>
+                <div className="overflow-scroll">
+                  <Ballot
+                    type={BallotType.legislative}
+                    structure={state.context.ballots.legislativa.structure}
+                    votes={legislativeVotes}
+                    toggleVote={setLegislativeVotes}
+                  />
+                </div>
+                <Button
+                  onClick={() => {
+                    handleSubmit(
+                      state.context.ballots.legislativa,
+                      legislativeVotes,
+                      BallotType.legislative
+                    )
+                  }}
+                >
+                  Submit
+                </Button>
+              </>
+            ) : null}
           </div>
         </Case>
         <Case value="municipal">
           <div>
-            <div className="overflow-scroll">
-              <Ballot
-                type={BallotType.municipality}
-                structure={state.context.ballots.municipal?.structure}
-                votes={municipalVotes}
-                toggleVote={setMunicipalVotes}
-              />
-            </div>
-            <Button
-              onClick={() => {
-                handleSubmit(
-                  state.context.ballots.municipal,
-                  municipalVotes,
-                  BallotType.municipality
-                )
-              }}
-            >
-              Submit
-            </Button>
+            {state.context.ballots.municipal ? (
+              <>
+                <div className="overflow-scroll">
+                  <Ballot
+                    type={BallotType.municipality}
+                    structure={state.context.ballots.municipal.structure}
+                    votes={municipalVotes}
+                    toggleVote={setMunicipalVotes}
+                  />
+                </div>
+                <Button
+                  onClick={() => {
+                    handleSubmit(
+                      state.context.ballots.municipal,
+                      municipalVotes,
+                      BallotType.municipality
+                    )
+                  }}
+                >
+                  Submit
+                </Button>
+              </>
+            ) : null}
           </div>
         </Case>
         <Default>Shit</Default>

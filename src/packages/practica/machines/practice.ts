@@ -12,12 +12,6 @@ type VoterIdData = {
   voterId: string
 }
 
-type Ballots = {
-  estatal?: OcrResult[]
-  municipal?: OcrResult[]
-  legislativa?: OcrResult[]
-}
-
 type VoterInfo = {
   estatus: string
   numeroElectoral: string
@@ -88,7 +82,11 @@ const getBallotsByVoterId = async (_, { voterId }: VoterIdData) => {
 }
 
 type PracticeContext = {
-  ballots: Ballots
+  ballots: {
+    estatal?: StateBallotConfig
+    municipal?: MunicipalBallotConfig
+    legislativa?: LegislativeBallotConfig
+  }
 }
 
 export const practiceMachine = createMachine<PracticeContext>({
