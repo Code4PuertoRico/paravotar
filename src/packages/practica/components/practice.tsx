@@ -18,6 +18,7 @@ import { useSidebar } from "../../../context/sidebar-context"
 import BallotStatus from "./ballot-status"
 import useVotesTransform from "../hooks/use-votes-transform"
 import useBallotValidation from "../hooks/use-ballot-validation"
+import useVotesCount from "../hooks/use-votes-count"
 
 export default function Practice() {
   const [state, send] = useMachine(practiceMachine)
@@ -27,6 +28,7 @@ export default function Practice() {
   const { ballotStatus, setBallotStatus } = useBallotValidation(
     transformedVotes
   )
+  const { votesCount, setVotesCount } = useVotesCount(transformedVotes)
   const { setSidebarIsVisible } = useSidebar()
   const handleSubmit = (
     votes: VotesCoordinates[],
@@ -43,9 +45,12 @@ export default function Practice() {
     setSidebarIsVisible(false)
     setVotesToEmpty()
     setBallotStatus(null)
+    setVotesCount(null)
 
     send(selectedBallot)
   }
+
+  console.log(votes, transformedVotes)
 
   return (
     <Card>
@@ -112,16 +117,11 @@ export default function Practice() {
               <>
                 <BallotStatus status={ballotStatus}>
                   <Typography tag="p" variant="p">
-                    0/
-                    {state.context.ballots.estatal.votesForGovernor}{" "}
-                    candidato(a) a Gobernador(a)
+                    {votesCount?.governor} candidato(a) a Gobernador(a)
                   </Typography>
                   <Typography tag="p" variant="p">
-                    0/
-                    {
-                      state.context.ballots.estatal.votesForCommissionerResident
-                    }{" "}
-                    candidato(a) a Comisionado(a) Residente
+                    {votesCount?.commissionerResident} candidato(a) a
+                    Comisionado(a) Residente
                   </Typography>
                 </BallotStatus>
                 <div className="overflow-scroll">
@@ -153,34 +153,20 @@ export default function Practice() {
               <>
                 <BallotStatus status={ballotStatus}>
                   <Typography tag="p" variant="p">
-                    0/
-                    {
-                      state.context.ballots.legislativa
-                        .votesForDistrictRepresentatives
-                    }{" "}
-                    candidato(a) a Representante por Distrito
+                    {votesCount?.districtRepresentative} candidato(a) a
+                    Representante por Distrito
                   </Typography>
                   <Typography tag="p" variant="p">
-                    0/
-                    {
-                      state.context.ballots.legislativa.votesForDistrictSenators
-                    }{" "}
-                    candidato(a) a Senador por Distrito
+                    {votesCount?.districtSenators} candidato(a) a Senador por
+                    Distrito
                   </Typography>
                   <Typography tag="p" variant="p">
-                    0/
-                    {
-                      state.context.ballots.legislativa
-                        .votesForAtLargeRepresentatives
-                    }{" "}
-                    candidato(a) a Representante por Acumulación
+                    {votesCount?.atLargeRepresentative} candidato(a) a
+                    Representante por Acumulación
                   </Typography>
                   <Typography tag="p" variant="p">
-                    0/
-                    {
-                      state.context.ballots.legislativa.votesForAtLargeSenators
-                    }{" "}
-                    candidato(a) a Senador por Acumulación
+                    {votesCount?.atLargeSenator} candidato(a) a Senador por
+                    Acumulación
                   </Typography>
                 </BallotStatus>
                 <div className="overflow-scroll">
@@ -212,13 +198,10 @@ export default function Practice() {
               <>
                 <BallotStatus status={ballotStatus}>
                   <Typography tag="p" variant="p">
-                    0/
-                    {state.context.ballots.municipal.votesForMayor} candidato(a)
-                    a Alcalde(sa)
+                    {votesCount?.mayor} a Alcalde(sa)
                   </Typography>
                   <Typography tag="p" variant="p">
-                    0/
-                    {state.context.ballots.municipal.legislators} candidato(a) a
+                    {votesCount?.municipalLegislators} candidato(a) a
                     Legisladores(as) municipales
                   </Typography>
                 </BallotStatus>

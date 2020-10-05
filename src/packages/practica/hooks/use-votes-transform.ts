@@ -42,7 +42,11 @@ export default function useVotesTransform(votes: VotesCoordinates[], state) {
       const { ballot, ballotType } = res
       const transformedVotes = coordinatesToSections(votes, ballot, ballotType)
 
-      setTransformedVotes({ votes: transformedVotes, ballot, ballotType })
+      setTransformedVotes({
+        votes: transformedVotes,
+        ballotConfig: ballot,
+        ballotType,
+      })
     }
   }, [votes, state.value])
 

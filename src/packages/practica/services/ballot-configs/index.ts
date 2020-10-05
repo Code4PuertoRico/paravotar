@@ -14,6 +14,12 @@ import {
   Rule,
   WriteInCandidate,
 } from "./base"
+import {
+  MunicipalBallot,
+  Selection,
+  StateBallot,
+  LegislativeBallot,
+} from "../../../../ballot-validator/types"
 
 function generateCandidates(
   section: OcrResult[],
@@ -36,6 +42,19 @@ function generateCandidates(
 
     return new EmptyCandidacy()
   })
+}
+
+function countSelected(accum: number, curr: Selection) {
+  if (curr === Selection.selected) {
+    return accum + 1
+  }
+
+  return accum
+}
+
+type StateVotesCount = {
+  governor: string
+  commissionerResident: string
 }
 
 export class StateBallotConfig {
@@ -81,6 +100,24 @@ export class StateBallotConfig {
   get votesForCommissionerResident() {
     return this.totalVotesForCommissionerResident
   }
+
+  countVotes(votes: StateBallot): StatesVoteCount {
+    const governor = votes.governor.reduce(countSelected, 0)
+    const commissionerResident = votes.residentCommissioner.reduce(
+      countSelected,
+      0
+    )
+
+    return {
+      governor: `${governor}/${this.votesForGovernor}`,
+      commissionerResident: `${commissionerResident}/${this.votesForCommissionerResident}`,
+    }
+  }
+}
+
+type MunicipalVotesCount = {
+  mayor: string
+  municipalLegislators: string
 }
 
 export class MunicipalBallotConfig {
@@ -131,6 +168,30 @@ export class MunicipalBallotConfig {
   get legislators() {
     return this.totalVotesForLegislators
   }
+
+  countVotes(votes: MunicipalBallot): MunicipalVotesCount {
+    const mayor = votes.mayor.reduce(countSelected, 0)
+    const municipalLegislators = votes.municipalLegislator.reduce(
+      (accum, curr) => {
+        const rowResults = curr.reduce(countSelected, 0)
+
+        return accum + rowResults
+      },
+      0
+    )
+
+    return {
+      mayor: `${mayor}/${this.votesForMayor}`,
+      municipalLegislators: `${municipalLegislators}/${this.legislators}`,
+    }
+  }
+}
+
+type LegislativeVotesCount = {
+  districtRepresentative: string
+  districtSenators: string
+  atLargeRepresentative: string
+  atLargeSenator: string
 }
 
 export class LegislativeBallotConfig {
@@ -217,7 +278,46 @@ export class LegislativeBallotConfig {
   get votesForAtLargeSenators() {
     return this.totalVotesForAtLargeSenators
   }
+
+  countVotes(votes: LegislativeBallot): LegislativeVotesCount {
+    const districtRepresentative = votes.districtRepresentative.reduce(
+      countSelected,
+      0
+    )
+    const districtSenators = votes.districtSenator.reduce((accum, curr) => {
+      const rowResults = curr.reduce(countSelected, 0)
+
+      return accum + rowResults
+    }, 0)
+    const atLargeRepresentative = votes.atLargeRepresentative.reduce(
+      (accum, curr) => {
+        const rowResults = curr.reduce(countSelected, 0)
+
+        console.log({ votes, rowResults })
+
+        return accum + rowResults
+      },
+      0
+    )
+    const atLargeSenator = votes.atLargeSenator.reduce((accum, curr) => {
+      const rowResults = curr.reduce(countSelected, 0)
+
+      return accum + rowResults
+    }, 0)
+
+    return {
+      districtRepresentative: `${districtRepresentative}/${this.votesForDistrictRepresentatives}`,
+      districtSenators: `${districtSenators}/${this.votesForDistrictSenators}`,
+      atLargeRepresentative: `${atLargeRepresentative}/${this.votesForAtLargeRepresentatives}`,
+      atLargeSenator: `${atLargeSenator}/${this.votesForAtLargeSenators}`,
+    }
+  }
 }
+
+export type VoteCounts =
+  | StateVotesCount
+  | MunicipalVotesCount
+  | LegislativeVotesCount
 
 export type BallotConfigs =
   | StateBallotConfig

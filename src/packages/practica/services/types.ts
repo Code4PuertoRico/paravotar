@@ -28,6 +28,6 @@ export type OcrResult = {
 
 export type TransformedVotes = {
   votes: Ballot
-  ballot: BallotConfigs
+  ballotConfig: BallotConfigs
   ballotType: BallotType
 }
