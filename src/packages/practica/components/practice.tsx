@@ -1,9 +1,9 @@
-import React, { ReactNode, useRef } from "react"
+import React, { useRef, useState } from "react"
 import { useMachine } from "@xstate/react"
 
 import { Button, Card, Typography } from "../../../components/index"
 import BallotValidator from "../../../ballot-validator/index"
-import { BallotType } from "../../../ballot-validator/types"
+import { BallotType, ResultStatus } from "../../../ballot-validator/types"
 import { Ballot } from "../../generate-ballot/components"
 import Default from "../../../components/default"
 import Switch from "../../../components/switch"
@@ -15,41 +15,21 @@ import useVoteCoordinates from "../hooks/use-vote-coordinates"
 import coordinatesToSections from "../services/coordinates-to-sections"
 import { BallotConfigs } from "../services/ballot-configs"
 import { useSidebar } from "../../../context/sidebar-context"
-
-function BallotStatus({ children }: { children: ReactNode }) {
-  return (
-    <div>
-      <Typography tag="h3" variant="h3" className="mb-4">
-        Para esta papeleta usted puede votar por...
-      </Typography>
-      {children}
-      <hr className="mt-2" />
-      <Typography tag="p" variant="p" className="text-xs italic mt-2 mb-6">
-        *Para ver otros partidos realiza un scroll hacia tu derecha y para ver
-        más candidatos realiza scroll hacia abajo.
-      </Typography>
-    </div>
-  )
-}
+import useDeepCompareEffect from "../hooks/use-deep-compare-effect"
+import BallotStatus from "./ballot-status"
 
 export default function Practice() {
   const [state, send] = useMachine(practiceMachine)
   const inputRef = useRef<HTMLInputElement>(null)
-  const [stateVotes, setStateVotes] = useVoteCoordinates()
-  const [legislativeVotes, setLegislativeVotes] = useVoteCoordinates()
-  const [municipalVotes, setMunicipalVotes] = useVoteCoordinates()
+  const [votes, setVotes, setVotesToEmpty] = useVoteCoordinates()
+  const [ballotStatus, setBallotStatus] = useState<ResultStatus | null>(null)
   const { setSidebarIsVisible } = useSidebar()
   const handleSubmit = (
-    ballot: BallotConfigs,
     votes: VotesCoordinates[],
-    ballotType: BallotType
+    ballotType: BallotType,
+    ballot?: BallotConfigs
   ) => {
-    console.log({ votes })
-
     const transformedVotes = coordinatesToSections(votes, ballot, ballotType)
-
-    console.log({ transformedVotes })
-
     const test = BallotValidator(transformedVotes, ballotType)
 
     console.log({ test })
@@ -57,11 +37,36 @@ export default function Practice() {
 
   const selectBallot = (selectedBallot: string) => {
     setSidebarIsVisible(false)
+    setVotesToEmpty()
+    setBallotStatus("")
 
     send(selectedBallot)
   }
 
-  console.log(state.context.ballots)
+  useDeepCompareEffect<VotesCoordinates[]>(() => {
+    if (state.matches("governmental")) {
+      const ballot = state.context.ballots.estatal
+      const ballotType = BallotType.state
+      const transformedVotes = coordinatesToSections(votes, ballot, ballotType)
+      const results = BallotValidator(transformedVotes, ballotType)
+
+      setBallotStatus(results.status)
+    } else if (state.matches("legislative")) {
+      const ballot = state.context.ballots.legislativa
+      const ballotType = BallotType.legislative
+      const transformedVotes = coordinatesToSections(votes, ballot, ballotType)
+      const results = BallotValidator(transformedVotes, ballotType)
+
+      setBallotStatus(results.status)
+    } else if (state.matches("municipal")) {
+      const ballot = state.context.ballots.municipal
+      const ballotType = BallotType.municipality
+      const transformedVotes = coordinatesToSections(votes, ballot, ballotType)
+      const results = BallotValidator(transformedVotes, ballotType)
+
+      setBallotStatus(results.status)
+    }
+  }, [votes])
 
   return (
     <Card>
@@ -126,7 +131,7 @@ export default function Practice() {
           <div>
             {state.context.ballots.estatal ? (
               <>
-                <BallotStatus>
+                <BallotStatus status={ballotStatus}>
                   <Typography tag="p" variant="p">
                     0/
                     {state.context.ballots.estatal.votesForGovernor}{" "}
@@ -144,16 +149,16 @@ export default function Practice() {
                   <Ballot
                     type={BallotType.state}
                     structure={state.context.ballots.estatal.structure}
-                    votes={stateVotes}
-                    toggleVote={setStateVotes}
+                    votes={votes}
+                    toggleVote={setVotes}
                   />
                 </div>
                 <Button
                   onClick={() => {
                     handleSubmit(
-                      state.context.ballots.estatal,
-                      stateVotes,
-                      BallotType.state
+                      votes,
+                      BallotType.state,
+                      state.context.ballots.estatal
                     )
                   }}
                 >
@@ -167,7 +172,7 @@ export default function Practice() {
           <div>
             {state.context.ballots.legislativa ? (
               <>
-                <BallotStatus>
+                <BallotStatus status={ballotStatus}>
                   <Typography tag="p" variant="p">
                     0/
                     {
@@ -203,16 +208,16 @@ export default function Practice() {
                   <Ballot
                     type={BallotType.legislative}
                     structure={state.context.ballots.legislativa.structure}
-                    votes={legislativeVotes}
-                    toggleVote={setLegislativeVotes}
+                    votes={votes}
+                    toggleVote={setVotes}
                   />
                 </div>
                 <Button
                   onClick={() => {
                     handleSubmit(
-                      state.context.ballots.legislativa,
-                      legislativeVotes,
-                      BallotType.legislative
+                      votes,
+                      BallotType.legislative,
+                      state.context.ballots.legislativa
                     )
                   }}
                 >
@@ -226,7 +231,7 @@ export default function Practice() {
           <div>
             {state.context.ballots.municipal ? (
               <>
-                <BallotStatus>
+                <BallotStatus status={ballotStatus}>
                   <Typography tag="p" variant="p">
                     0/
                     {state.context.ballots.municipal.votesForMayor} candidato(a)
@@ -242,16 +247,16 @@ export default function Practice() {
                   <Ballot
                     type={BallotType.municipality}
                     structure={state.context.ballots.municipal.structure}
-                    votes={municipalVotes}
-                    toggleVote={setMunicipalVotes}
+                    votes={votes}
+                    toggleVote={setVotes}
                   />
                 </div>
                 <Button
                   onClick={() => {
                     handleSubmit(
-                      state.context.ballots.municipal,
-                      municipalVotes,
-                      BallotType.municipality
+                      votes,
+                      BallotType.municipality,
+                      state.context.ballots.municipal
                     )
                   }}
                 >
