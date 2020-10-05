@@ -1,9 +1,9 @@
-import React, { useRef, useState } from "react"
+import React, { useRef } from "react"
 import { useMachine } from "@xstate/react"
 
 import { Button, Card, Typography } from "../../../components/index"
 import BallotValidator from "../../../ballot-validator/index"
-import { BallotType, ResultStatus } from "../../../ballot-validator/types"
+import { BallotType } from "../../../ballot-validator/types"
 import { Ballot } from "../../generate-ballot/components"
 import Default from "../../../components/default"
 import Switch from "../../../components/switch"
@@ -15,14 +15,18 @@ import useVoteCoordinates from "../hooks/use-vote-coordinates"
 import coordinatesToSections from "../services/coordinates-to-sections"
 import { BallotConfigs } from "../services/ballot-configs"
 import { useSidebar } from "../../../context/sidebar-context"
-import useDeepCompareEffect from "../hooks/use-deep-compare-effect"
 import BallotStatus from "./ballot-status"
+import useVotesTransform from "../hooks/use-votes-transform"
+import useBallotValidation from "../hooks/use-ballot-validation"
 
 export default function Practice() {
   const [state, send] = useMachine(practiceMachine)
   const inputRef = useRef<HTMLInputElement>(null)
   const [votes, setVotes, setVotesToEmpty] = useVoteCoordinates()
-  const [ballotStatus, setBallotStatus] = useState<ResultStatus | null>(null)
+  const transformedVotes = useVotesTransform(votes, state)
+  const { ballotStatus, setBallotStatus } = useBallotValidation(
+    transformedVotes
+  )
   const { setSidebarIsVisible } = useSidebar()
   const handleSubmit = (
     votes: VotesCoordinates[],
@@ -38,35 +42,10 @@ export default function Practice() {
   const selectBallot = (selectedBallot: string) => {
     setSidebarIsVisible(false)
     setVotesToEmpty()
-    setBallotStatus("")
+    setBallotStatus(null)
 
     send(selectedBallot)
   }
-
-  useDeepCompareEffect<VotesCoordinates[]>(() => {
-    if (state.matches("governmental")) {
-      const ballot = state.context.ballots.estatal
-      const ballotType = BallotType.state
-      const transformedVotes = coordinatesToSections(votes, ballot, ballotType)
-      const results = BallotValidator(transformedVotes, ballotType)
-
-      setBallotStatus(results.status)
-    } else if (state.matches("legislative")) {
-      const ballot = state.context.ballots.legislativa
-      const ballotType = BallotType.legislative
-      const transformedVotes = coordinatesToSections(votes, ballot, ballotType)
-      const results = BallotValidator(transformedVotes, ballotType)
-
-      setBallotStatus(results.status)
-    } else if (state.matches("municipal")) {
-      const ballot = state.context.ballots.municipal
-      const ballotType = BallotType.municipality
-      const transformedVotes = coordinatesToSections(votes, ballot, ballotType)
-      const results = BallotValidator(transformedVotes, ballotType)
-
-      setBallotStatus(results.status)
-    }
-  }, [votes])
 
   return (
     <Card>
