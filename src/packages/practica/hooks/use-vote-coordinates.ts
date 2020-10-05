@@ -3,7 +3,8 @@ import { VotesCoordinates } from "../../generate-ballot/types/ballot-machine"
 
 export default function useVoteCoordinates(): [
   VotesCoordinates[],
-  ({ row, column }: VotesCoordinates) => void
+  ({ row, column }: VotesCoordinates) => void,
+  () => void
 ] {
   const [coordinates, setCoordinates] = useState<VotesCoordinates[]>([])
   const setVoteCoordinates = ({ row, column }: VotesCoordinates) => {
@@ -22,5 +23,7 @@ export default function useVoteCoordinates(): [
     })
   }
 
-  return [coordinates, setVoteCoordinates]
+  const setVotesToEmpty = () => setCoordinates([])
+
+  return [coordinates, setVoteCoordinates, setVotesToEmpty]
 }
