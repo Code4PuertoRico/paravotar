@@ -13,10 +13,6 @@ class StateMixedVoteSelectionRule extends BaseRule {
       }
     }
 
-    const partyIndex = ballotSelections.parties.findIndex(
-      p => p === Selection.selected
-    )
-
     const governorIndex = ballotSelections.governor.findIndex(
       g => g === Selection.selected
     )
@@ -24,26 +20,6 @@ class StateMixedVoteSelectionRule extends BaseRule {
     const residentCommissioner = ballotSelections.residentCommissioner.findIndex(
       rc => rc === Selection.selected
     )
-
-    if (partyIndex === governorIndex) {
-      return {
-        outcome: RuleOutcomeType.deny,
-        metadata: {
-          section: "governor",
-          index: governorIndex,
-        },
-      }
-    }
-
-    if (partyIndex === residentCommissioner) {
-      return {
-        outcome: RuleOutcomeType.deny,
-        metadata: {
-          section: "residentCommissioner",
-          index: residentCommissioner,
-        },
-      }
-    }
 
     if (governorIndex !== -1 && residentCommissioner !== -1) {
       return {
