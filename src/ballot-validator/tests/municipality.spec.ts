@@ -62,48 +62,6 @@ describe("Municipal Ballot", () => {
       },
     ],
     [
-      "mixed vote with same column mayor selected",
-      {
-        parties: [notSelected, notSelected, notSelected, selected],
-        mayor: [notSelected, notSelected, notSelected, selected],
-        municipalLegislator: [
-          [notSelected, notSelected, notSelected, notSelected],
-          [notSelected, notSelected, notSelected, notSelected],
-          [notSelected, notSelected, notSelected, notSelected],
-          [notSelected, notSelected, notSelected, notSelected],
-          [notSelected, notSelected, notSelected, notSelected],
-        ],
-      },
-    ],
-    [
-      "mixed vote with same column legislator selected",
-      {
-        parties: [notSelected, notSelected, notSelected, selected],
-        mayor: [notSelected, notSelected, notSelected, notSelected],
-        municipalLegislator: [
-          [notSelected, notSelected, notSelected, selected],
-          [notSelected, notSelected, notSelected, notSelected],
-          [notSelected, notSelected, notSelected, notSelected],
-          [notSelected, notSelected, notSelected, notSelected],
-          [notSelected, notSelected, notSelected, notSelected],
-        ],
-      },
-    ],
-    [
-      "mixed vote with same column legislator & mayor selected",
-      {
-        parties: [notSelected, notSelected, notSelected, selected],
-        mayor: [notSelected, notSelected, notSelected, selected],
-        municipalLegislator: [
-          [notSelected, notSelected, notSelected, selected],
-          [notSelected, notSelected, notSelected, notSelected],
-          [notSelected, notSelected, notSelected, notSelected],
-          [notSelected, notSelected, notSelected, notSelected],
-          [notSelected, notSelected, notSelected, notSelected],
-        ],
-      },
-    ],
-    [
       "mixed vote with different column legislator & mayor selected",
       {
         parties: [notSelected, selected, notSelected, notSelected],
