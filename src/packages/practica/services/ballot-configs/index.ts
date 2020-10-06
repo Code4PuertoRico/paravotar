@@ -30,7 +30,7 @@ function generateCandidates(
     } else if (ocrResult.ocrResult) {
       return new Candidate(
         ocrResult.ocrResult,
-        url ? `${url}/${ocrResult.logoImg}` : undefined
+        url ? `${url}${ocrResult.logoImg}` : undefined
       )
     }
 
@@ -46,11 +46,11 @@ export class StateBallotConfig {
   cols: number
 
   constructor(ballot: OcrResult[][], path: string) {
-    const url = `${CDN_URL}${path}`
+    const url = `${CDN_URL}/${path}`
 
     const parties: (Party | Rule)[] = ballot[0].map((ocrResult: OcrResult) => {
       if (ocrResult.logoImg) {
-        return new Party(ocrResult.ocrResult, `${url}/${ocrResult.logoImg}`)
+        return new Party(ocrResult.ocrResult, `${url}${ocrResult.logoImg}`)
       }
 
       return new Rule(ocrResult.ocrResult)
@@ -91,11 +91,11 @@ export class MunicipalBallotConfig {
   cols: number
 
   constructor(ballot: OcrResult[][], path: string) {
-    const url = `${CDN_URL}${path}`
+    const url = `${CDN_URL}/${path}`
 
     const parties: (Party | Rule)[] = ballot[0].map((ocrResult: OcrResult) => {
       if (ocrResult.logoImg) {
-        return new Party(ocrResult.ocrResult, `${url}/${ocrResult.logoImg}`)
+        return new Party(ocrResult.ocrResult, `${url}${ocrResult.logoImg}`)
       }
 
       return new Rule(ocrResult.ocrResult)
@@ -143,11 +143,11 @@ export class LegislativeBallotConfig {
   cols: number
 
   constructor(ballot: OcrResult[][], path: string) {
-    const url = `${CDN_URL}${path}`
+    const url = `${CDN_URL}/${path}`
 
     const parties: (Party | Rule)[] = ballot[0].map((ocrResult: OcrResult) => {
       if (ocrResult.logoImg) {
-        return new Party(ocrResult.ocrResult, `${url}/${ocrResult.logoImg}`)
+        return new Party(ocrResult.ocrResult, `${url}${ocrResult.logoImg}`)
       }
 
       return new Rule(ocrResult.ocrResult)
