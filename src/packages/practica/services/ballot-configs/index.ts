@@ -28,14 +28,10 @@ import VotesDetector from "../../../../ballot-validator/detector/index"
 function generateCandidates(
   section: OcrResult[],
   url?: string,
-  votes = 1
+  hasWriteInColumn = true
 ): CandidatesRow {
-  let writeInVotes = 0
-
   return section.map((ocrResult: OcrResult, index) => {
-    if (section.length - 1 === index && writeInVotes < votes) {
-      writeInVotes++
-
+    if (section.length - 1 === index && hasWriteInColumn) {
       return new WriteInCandidate()
     } else if (ocrResult.ocrResult) {
       return new Candidate(
@@ -372,7 +368,11 @@ export class LegislativeBallotConfig {
     )
     const districtSenators = ballot.slice(4, 6)
     const candidatesForDistrictSenators = districtSenators.map(
-      (ocrResult: OcrResult[]) => generateCandidates(ocrResult, url)
+      (ocrResult: OcrResult[], index: number) => {
+        const hasWriteColumn = index + 1 <= this.totalVotesForDistrictSenators
+
+        return generateCandidates(ocrResult, url, hasWriteColumn)
+      }
     )
 
     const atLargeRepresentativeHeader: Header[] = ballot[6].map(
@@ -380,16 +380,24 @@ export class LegislativeBallotConfig {
     )
     const atLargeRepresentatives = ballot.slice(7, 13)
     const candidatesForAtLargeRepresentatives = atLargeRepresentatives.map(
-      (ocrResult: OcrResult[]) => generateCandidates(ocrResult, url, 1)
+      (ocrResult: OcrResult[], index: number) => {
+        const hasWriteColumn =
+          index + 1 <= this.totalVotesForAtLargeRepresentatives
+
+        return generateCandidates(ocrResult, url, hasWriteColumn)
+      }
     )
 
     const atLargeSenatorHeader: Header[] = ballot[13].map(
       (ocrResult: OcrResult) => new Header(ocrResult.ocrResult)
     )
-    const atLargeSenators = ballot.slice(15)
-
+    const atLargeSenators = ballot.slice(14)
     const candidatesForAtLargeSenators = atLargeSenators.map(
-      (ocrResult: OcrResult[]) => generateCandidates(ocrResult, url, 1)
+      (ocrResult: OcrResult[], index: number) => {
+        const hasWriteColumn = index + 1 <= this.totalVotesForAtLargeSenators
+
+        return generateCandidates(ocrResult, url, hasWriteColumn)
+      }
     )
 
     this.cols = parties.length
