@@ -24,43 +24,55 @@ type VoterInfo = {
   unidad: string
 }
 
+const API_URL = "https://api.paravotar.org"
+
+/**
+ *
+ * /ballots/all
+
+  /ballots/ByTown?townId=
+
+  /ballots/ByPrecint?precintId=
+
+  /consulta ya no devuelve las papeletas
+ */
+
 const getBallotsByVoterId = async (_, { voterId }: VoterIdData) => {
-  const voterInfoRes = await fetch(
-    `https://api.paravotar.org/consulta?voterId=${voterId}`
-  )
+  const voterInfoRes = await fetch(`${API_URL}/consulta?voterId=${voterId}`)
   const voterInfoJson: VoterInfo = await voterInfoRes.json()
+  const ballotsRes = await fetch(
+    `${API_URL}/ballots/ByPrecint?precintId=${voterInfoJson.precinto}`
+  )
+  const ballotsJson = await ballotsRes.json()
 
   // Prefetch ballot data
-  const ballots = Object.entries(voterInfoJson.papeletas).map(
-    async ([key, value]) => {
-      const ballotRes = await fetch(`${PUBLIC_S3_BUCKET}${value}/data.json`)
+  const ballots = Object.entries(ballotsJson).map(async ([key, value]) => {
+    try {
+      const ballotRes = await fetch(`${PUBLIC_S3_BUCKET}/${value}data.json`)
       const ballotJson: OcrResult[][] = await ballotRes.json()
 
       if (key === "estatal") {
         return {
-          [key]: new StateBallotConfig(
-            ballotJson,
-            voterInfoJson.papeletas.estatal
-          ),
+          [key]: new StateBallotConfig(ballotJson, ballotsJson.estatal),
         }
       } else if (key === "municipal") {
         return {
-          [key]: new MunicipalBallotConfig(
-            ballotJson,
-            voterInfoJson.papeletas.municipal
-          ),
+          [key]: new MunicipalBallotConfig(ballotJson, ballotsJson.municipal),
         }
       } else {
         return {
           [key]: new LegislativeBallotConfig(
             ballotJson,
-            voterInfoJson.papeletas.legislativa
+            ballotsJson.legislativa
           ),
         }
       }
+    } catch (err) {
+      console.log(err)
     }
-  )
-  const ballotsJson = await Promise.all(ballots)
+  })
+
+  const allBallotsJson = await Promise.all(ballots)
   const initialValue: {
     estatal?: StateBallotConfig
     municipal?: MunicipalBallotConfig
@@ -71,7 +83,7 @@ const getBallotsByVoterId = async (_, { voterId }: VoterIdData) => {
     legislativa: undefined,
   }
 
-  return ballotsJson.reduce((prev, curr) => {
+  return allBallotsJson.reduce((prev, curr) => {
     return {
       ...prev,
       ...curr,
