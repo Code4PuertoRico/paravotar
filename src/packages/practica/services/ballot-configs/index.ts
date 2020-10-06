@@ -172,21 +172,25 @@ export class LegislativeBallotConfig {
     const atLargeRepresentativeHeader: Header[] = ballot[6].map(
       (ocrResult: OcrResult) => new Header(ocrResult.ocrResult)
     )
-    const atLargeRepresentatives = ballot.slice(7, 14)
+    const atLargeRepresentatives = ballot.slice(7, 13)
     const candidatesForAtLargeRepresentatives = atLargeRepresentatives.map(
       (ocrResult: OcrResult[]) => generateCandidates(ocrResult, url, 1)
     )
 
     // TODO: Uncomment, legislative is incomplete
+    const atLargeSenatorHeader: Header[] = ballot[13].map(
+      (ocrResult: OcrResult) => new Header(ocrResult.ocrResult)
+    )
 
-    // const atLargeSenatorHeader: Header[] = ballot[14].map(
-    //   (ocrResult: OcrResult) => new Header(ocrResult.ocrResult)
-    // )
-    // const atLargeSenators = ballot.slice(15)
-    // const candidatesForAtLargeSenators: Candidate[][] = atLargeSenators.map(
-    //   (ocrResult: OcrResult[]) =>
-    //     generateCandidates(ocrResult, url, 1)
-    // )
+    console.log({ atLargeSenatorHeader })
+
+    const atLargeSenators = ballot.slice(15)
+
+    console.log({ atLargeSenators })
+
+    const candidatesForAtLargeSenators = atLargeSenators.map(
+      (ocrResult: OcrResult[]) => generateCandidates(ocrResult, url, 1)
+    )
 
     this.cols = parties.length
     this.structure = [
@@ -197,8 +201,8 @@ export class LegislativeBallotConfig {
       ...candidatesForDistrictSenators,
       atLargeRepresentativeHeader,
       ...candidatesForAtLargeRepresentatives,
-      // atLargeSenatorHeader,
-      // ...candidatesForAtLargeSenators,
+      atLargeSenatorHeader,
+      ...candidatesForAtLargeSenators,
     ]
   }
 
