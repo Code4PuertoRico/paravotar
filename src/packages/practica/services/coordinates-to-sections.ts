@@ -210,8 +210,8 @@ function transformLegislativeVotes(
     // At large senator
     return {
       ...prev,
-      atLargeSenator: prev.atLargeSenator.map(row => {
-        if (curr.row - 14) {
+      atLargeSenator: prev.atLargeSenator.map((row, index) => {
+        if (curr.row - 14 === index) {
           return markAsSelected({
             votes: row,
             position: curr.column,
