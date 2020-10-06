@@ -55,34 +55,6 @@ function IndependentCandidate({ ocrResult }: { ocrResult: string }) {
         </p>
       </div>
     )
-  } else if (ocrResult.includes("NOMINACIÓN DIRECTA")) {
-    const esHeader = "NOMINACIÓN DIRECTA"
-    const enHeader = "WRITE IN CANDIDATES"
-    const esParagraph = ocrResult
-      .substring(esHeader.length, ocrResult.indexOf(enHeader))
-      .trim()
-      .replace(/\n/g, "")
-    const enParagraph = ocrResult
-      .substring(ocrResult.indexOf(enHeader) + enHeader.length)
-      .trim()
-      .replace(/\n/g, "")
-
-    return (
-      <div className="p-2 text-center border border-white">
-        <p className="whitespace-pre-line text-white font-semibold">
-          {esHeader}
-        </p>
-        <p className="whitespace-pre-line text-white text-xs mt-1">
-          {esParagraph}
-        </p>
-        <p className="whitespace-pre-line text-white font-semibold mt-2">
-          {enHeader}
-        </p>
-        <p className="whitespace-pre-line text-white text-xs mt-1">
-          {enParagraph}
-        </p>
-      </div>
-    )
   }
 
   return (

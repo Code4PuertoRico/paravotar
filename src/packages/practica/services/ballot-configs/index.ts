@@ -3,6 +3,7 @@ import {
   CandidatesRow,
   LegislativeBallotStructure,
   MunicipalBallotStructure,
+  PartyRow,
   StateBallotStructure,
 } from "./types"
 import { OcrResult } from "../types"
@@ -13,6 +14,7 @@ import {
   Party,
   Rule,
   WriteInCandidate,
+  WriteInRules,
 } from "./base"
 import {
   MunicipalBallot,
@@ -36,7 +38,7 @@ function generateCandidates(
     } else if (ocrResult.ocrResult) {
       return new Candidate(
         ocrResult.ocrResult,
-        url ? `${url}/${ocrResult.logoImg}` : undefined
+        url ? `${url}${ocrResult.logoImg}` : undefined
       )
     }
 
@@ -57,6 +59,20 @@ type StateVotesCount = {
   commissionerResident: string
 }
 
+function generateHeaders(section: OcrResult[], url: string) {
+  return section.map((ocrResult: OcrResult, index) => {
+    if (ocrResult.logoImg) {
+      return new Party(ocrResult.ocrResult, `${url}${ocrResult.logoImg}`)
+    }
+
+    if (index + 1 === section.length) {
+      return new WriteInRules()
+    }
+
+    return new Rule(ocrResult.ocrResult)
+  })
+}
+
 export class StateBallotConfig {
   private totalVotesForGovernor = 1
   private totalVotesForCommissionerResident = 1
@@ -65,15 +81,9 @@ export class StateBallotConfig {
   cols: number
 
   constructor(ballot: OcrResult[][], path: string) {
-    const url = `${CDN_URL}${path}`
+    const url = `${CDN_URL}/${path}`
 
-    const parties: (Party | Rule)[] = ballot[0].map((ocrResult: OcrResult) => {
-      if (ocrResult.logoImg) {
-        return new Party(ocrResult.ocrResult, `${url}/${ocrResult.logoImg}`)
-      }
-
-      return new Rule(ocrResult.ocrResult)
-    })
+    const parties: PartyRow = generateHeaders(ballot[0], url)
     const governorHeader: Header[] = ballot[1].map(
       (ocrResult: OcrResult) => new Header(ocrResult.ocrResult)
     )
@@ -101,7 +111,7 @@ export class StateBallotConfig {
     return this.totalVotesForCommissionerResident
   }
 
-  countVotes(votes: StateBallot): StatesVoteCount {
+  countVotes(votes: StateBallot): StateVotesCount {
     const governor = votes.governor.reduce(countSelected, 0)
     const commissionerResident = votes.residentCommissioner.reduce(
       countSelected,
@@ -128,15 +138,9 @@ export class MunicipalBallotConfig {
   cols: number
 
   constructor(ballot: OcrResult[][], path: string) {
-    const url = `${CDN_URL}${path}`
+    const url = `${CDN_URL}/${path}`
 
-    const parties: (Party | Rule)[] = ballot[0].map((ocrResult: OcrResult) => {
-      if (ocrResult.logoImg) {
-        return new Party(ocrResult.ocrResult, `${url}/${ocrResult.logoImg}`)
-      }
-
-      return new Rule(ocrResult.ocrResult)
-    })
+    const parties: PartyRow = generateHeaders(ballot[0], url)
     const mayorHeader: Header[] = ballot[1].map(
       (ocrResult: OcrResult) => new Header(ocrResult.ocrResult)
     )
@@ -204,16 +208,9 @@ export class LegislativeBallotConfig {
   cols: number
 
   constructor(ballot: OcrResult[][], path: string) {
-    const url = `${CDN_URL}${path}`
+    const url = `${CDN_URL}/${path}`
 
-    const parties: (Party | Rule)[] = ballot[0].map((ocrResult: OcrResult) => {
-      if (ocrResult.logoImg) {
-        return new Party(ocrResult.ocrResult, `${url}/${ocrResult.logoImg}`)
-      }
-
-      return new Rule(ocrResult.ocrResult)
-    })
-
+    const parties: PartyRow = generateHeaders(ballot[0], url)
     const districtRepresentativeHeader: Header[] = ballot[1].map(
       (ocrResult: OcrResult) => new Header(ocrResult.ocrResult)
     )
@@ -233,21 +230,25 @@ export class LegislativeBallotConfig {
     const atLargeRepresentativeHeader: Header[] = ballot[6].map(
       (ocrResult: OcrResult) => new Header(ocrResult.ocrResult)
     )
-    const atLargeRepresentatives = ballot.slice(7, 14)
+    const atLargeRepresentatives = ballot.slice(7, 13)
     const candidatesForAtLargeRepresentatives = atLargeRepresentatives.map(
       (ocrResult: OcrResult[]) => generateCandidates(ocrResult, url, 1)
     )
 
     // TODO: Uncomment, legislative is incomplete
+    const atLargeSenatorHeader: Header[] = ballot[13].map(
+      (ocrResult: OcrResult) => new Header(ocrResult.ocrResult)
+    )
 
-    // const atLargeSenatorHeader: Header[] = ballot[14].map(
-    //   (ocrResult: OcrResult) => new Header(ocrResult.ocrResult)
-    // )
-    // const atLargeSenators = ballot.slice(15)
-    // const candidatesForAtLargeSenators: Candidate[][] = atLargeSenators.map(
-    //   (ocrResult: OcrResult[]) =>
-    //     generateCandidates(ocrResult, url, 1)
-    // )
+    console.log({ atLargeSenatorHeader })
+
+    const atLargeSenators = ballot.slice(15)
+
+    console.log({ atLargeSenators })
+
+    const candidatesForAtLargeSenators = atLargeSenators.map(
+      (ocrResult: OcrResult[]) => generateCandidates(ocrResult, url, 1)
+    )
 
     this.cols = parties.length
     this.structure = [
@@ -258,8 +259,8 @@ export class LegislativeBallotConfig {
       ...candidatesForDistrictSenators,
       atLargeRepresentativeHeader,
       ...candidatesForAtLargeRepresentatives,
-      // atLargeSenatorHeader,
-      // ...candidatesForAtLargeSenators,
+      atLargeSenatorHeader,
+      ...candidatesForAtLargeSenators,
     ]
   }
 
