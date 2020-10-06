@@ -3,6 +3,7 @@ import {
   CandidatesRow,
   LegislativeBallotStructure,
   MunicipalBallotStructure,
+  PartyRow,
   StateBallotStructure,
 } from "./types"
 import { OcrResult } from "../types"
@@ -13,6 +14,7 @@ import {
   Party,
   Rule,
   WriteInCandidate,
+  WriteInRules,
 } from "./base"
 
 function generateCandidates(
@@ -38,6 +40,20 @@ function generateCandidates(
   })
 }
 
+function generateHeaders(section: OcrResult[], url: string) {
+  return section.map((ocrResult: OcrResult, index) => {
+    if (ocrResult.logoImg) {
+      return new Party(ocrResult.ocrResult, `${url}${ocrResult.logoImg}`)
+    }
+
+    if (index + 1 === section.length) {
+      return new WriteInRules(ocrResult.ocrResult)
+    }
+
+    return new Rule(ocrResult.ocrResult)
+  })
+}
+
 export class StateBallotConfig {
   private totalVotesForGovernor = 1
   private totalVotesForCommissionerResident = 1
@@ -48,13 +64,7 @@ export class StateBallotConfig {
   constructor(ballot: OcrResult[][], path: string) {
     const url = `${CDN_URL}/${path}`
 
-    const parties: (Party | Rule)[] = ballot[0].map((ocrResult: OcrResult) => {
-      if (ocrResult.logoImg) {
-        return new Party(ocrResult.ocrResult, `${url}${ocrResult.logoImg}`)
-      }
-
-      return new Rule(ocrResult.ocrResult)
-    })
+    const parties: PartyRow = generateHeaders(ballot[0], url)
     const governorHeader: Header[] = ballot[1].map(
       (ocrResult: OcrResult) => new Header(ocrResult.ocrResult)
     )
@@ -93,13 +103,7 @@ export class MunicipalBallotConfig {
   constructor(ballot: OcrResult[][], path: string) {
     const url = `${CDN_URL}/${path}`
 
-    const parties: (Party | Rule)[] = ballot[0].map((ocrResult: OcrResult) => {
-      if (ocrResult.logoImg) {
-        return new Party(ocrResult.ocrResult, `${url}${ocrResult.logoImg}`)
-      }
-
-      return new Rule(ocrResult.ocrResult)
-    })
+    const parties: PartyRow = generateHeaders(ballot[0], url)
     const mayorHeader: Header[] = ballot[1].map(
       (ocrResult: OcrResult) => new Header(ocrResult.ocrResult)
     )
@@ -145,14 +149,7 @@ export class LegislativeBallotConfig {
   constructor(ballot: OcrResult[][], path: string) {
     const url = `${CDN_URL}/${path}`
 
-    const parties: (Party | Rule)[] = ballot[0].map((ocrResult: OcrResult) => {
-      if (ocrResult.logoImg) {
-        return new Party(ocrResult.ocrResult, `${url}${ocrResult.logoImg}`)
-      }
-
-      return new Rule(ocrResult.ocrResult)
-    })
-
+    const parties: PartyRow = generateHeaders(ballot[0], url)
     const districtRepresentativeHeader: Header[] = ballot[1].map(
       (ocrResult: OcrResult) => new Header(ocrResult.ocrResult)
     )

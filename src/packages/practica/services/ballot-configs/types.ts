@@ -5,10 +5,11 @@ import {
   WriteInCandidate,
   Rule,
   Header,
+  WriteInRules,
 } from "./base"
 
 export type CandidatesRow = (Candidate | WriteInCandidate | EmptyCandidacy)[]
-export type PartyRow = (Party | Rule)[]
+export type PartyRow = (Party | Rule | WriteInRules)[]
 
 export type StateBallotStructure = [
   PartyRow,

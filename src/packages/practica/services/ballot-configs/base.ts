@@ -30,6 +30,29 @@ export class Rule extends BallotSection {
   }
 }
 
+export class WriteInRules extends BallotSection {
+  esTitle = "COMO VOTAR NOMINACIÓN DIRECTA"
+  enTitle = "HOW TO VOTE FOR WRITE W CANDIDATES"
+  esRules: string
+  enRules: string
+
+  constructor(rule: string) {
+    super()
+
+    const esRules = rule
+      .substring(this.esTitle.length, rule.indexOf(this.enTitle))
+      .trim()
+      .replace(/\n/g, "")
+    const enRules = rule
+      .substring(rule.indexOf(this.enTitle) + this.enTitle.length)
+      .trim()
+      .replace(/\n/g, "")
+
+    this.esRules = esRules
+    this.enRules = enRules
+  }
+}
+
 export class Header extends BallotSection {
   info
 
@@ -43,12 +66,18 @@ export class Header extends BallotSection {
 export class Candidate extends BallotSection {
   img
   name
+  placement: string
 
   constructor(name: string, img?: string) {
     super()
 
+    const regex = /\d\.?/
+    const placement = name.match(regex)
+    const cleanedName = name.replace(regex, "")
+
     this.img = img ? img : undefined
-    this.name = name
+    this.name = cleanedName
+    this.placement = placement ? placement[0] : ""
   }
 }
 
