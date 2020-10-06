@@ -391,7 +391,7 @@ export class LegislativeBallotConfig {
     const atLargeSenatorHeader: Header[] = ballot[13].map(
       (ocrResult: OcrResult) => new Header(ocrResult.ocrResult)
     )
-    const atLargeSenators = ballot.slice(15)
+    const atLargeSenators = ballot.slice(14)
     const candidatesForAtLargeSenators = atLargeSenators.map(
       (ocrResult: OcrResult[], index: number) => {
         const hasWriteColumn = index + 1 <= this.totalVotesForAtLargeSenators
