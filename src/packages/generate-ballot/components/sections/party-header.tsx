@@ -81,5 +81,5 @@ export default function PartyHeader({
     )
   }
 
-  return <IndependentCandidate ocrResult={ocrResult} toggleVote={toggleVote} />
+  return <IndependentCandidate ocrResult={ocrResult} />
 }

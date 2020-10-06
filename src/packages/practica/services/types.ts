@@ -1,3 +1,6 @@
+import { Ballot, BallotType } from "../../../ballot-validator/types"
+import { BallotConfigs } from "./ballot-configs"
+
 export type VoterDetailsResponse = {
   numeroElectoral: string
   precinto: string
@@ -21,4 +24,10 @@ export type BallotResponse = { ocrResult: string; logoImg?: string }[][]
 export type OcrResult = {
   ocrResult: string
   logoImg?: string
+}
+
+export type TransformedVotes = {
+  votes: Ballot
+  ballotConfig: BallotConfigs
+  ballotType: BallotType
 }

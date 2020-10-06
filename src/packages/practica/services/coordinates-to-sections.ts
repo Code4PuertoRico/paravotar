@@ -174,12 +174,12 @@ function transformLegislativeVotes(
         }),
       }
     } else if (curr.row > 3 && curr.row < 6) {
-      // District Senator
+      // District Senators
 
       return {
         ...prev,
-        districtSenator: prev.districtSenator.map(row => {
-          if (curr.row - 4) {
+        districtSenator: prev.districtSenator.map((row, index) => {
+          if (curr.row - 4 === index) {
             return markAsSelected({
               votes: row,
               position: curr.column,
@@ -194,8 +194,8 @@ function transformLegislativeVotes(
 
       return {
         ...prev,
-        atLargeRepresentative: prev.atLargeRepresentative.map(row => {
-          if (curr.row - 4) {
+        atLargeRepresentative: prev.atLargeRepresentative.map((row, index) => {
+          if (curr.row - 7 === index) {
             return markAsSelected({
               votes: row,
               position: curr.column,
