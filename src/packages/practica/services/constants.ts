@@ -6,6 +6,7 @@ export enum APIPaths {
   GET_VOTER_DETAILS = "/voterStatus",
 }
 
+export const API_URL = "https://api.paravotar.org"
 export const PUBLIC_S3_BUCKET = "https://paravotar.s3.amazonaws.com"
 export const CDN_URL = "https://cdn.paravotar.org"
 

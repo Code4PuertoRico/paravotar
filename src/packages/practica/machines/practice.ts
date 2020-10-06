@@ -1,6 +1,6 @@
 import { createMachine, assign } from "xstate"
 
-import { PUBLIC_S3_BUCKET } from "../services/constants"
+import { API_URL, PUBLIC_S3_BUCKET } from "../services/constants"
 import { OcrResult } from "../services/types"
 import {
   StateBallotConfig,
@@ -23,8 +23,6 @@ type VoterInfo = {
   precinto: string
   unidad: string
 }
-
-const API_URL = "https://api.paravotar.org"
 
 /**
  *
