@@ -10,6 +10,7 @@ import {
   Rule,
   WriteInCandidate,
   EmptyCandidacy,
+  WriteInRules,
 } from "../../practica/services/ballot-configs/base"
 import { BallotType } from "../../../ballot-validator/types"
 import {
@@ -65,6 +66,18 @@ export default function BaseBallot({
                         toggleVote={() =>
                           toggleVote({ row: rowIndex, column: colIndex })
                         }
+                      />
+                    )
+                  }
+
+                  if (col instanceof WriteInRules) {
+                    return (
+                      <Ballot.WriteInRules
+                        key={col.id}
+                        esTitle={col.esTitle}
+                        esRules={col.esRules}
+                        enTitle={col.enTitle}
+                        enRules={col.enRules}
                       />
                     )
                   }
