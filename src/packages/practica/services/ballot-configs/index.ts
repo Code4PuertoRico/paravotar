@@ -143,9 +143,53 @@ export class StateBallotConfig {
       }
     }
 
+    // Mixed vote
+    const selectedParties: number[] = votes.parties.reduce(
+      (accum: number[], vote: Selection, index: number) => {
+        if (vote === Selection.selected) {
+          return [...accum, index]
+        }
+
+        return accum
+      },
+      []
+    )
+
+    // Assume that the user has selected every candidate with it's party vote.
+    const votesWithoutParties: StateBallot = {
+      governor: votes.governor.reduce(
+        (accum: Selection[], vote: Selection, index: number) => {
+          if (selectedParties.includes(index)) {
+            return accum
+          }
+
+          return [...accum, vote]
+        },
+        []
+      ),
+      residentCommissioner: votes.residentCommissioner.reduce(
+        (accum: Selection[], vote: Selection, index: number) => {
+          if (selectedParties.includes(index)) {
+            return accum
+          }
+
+          return [...accum, vote]
+        },
+        []
+      ),
+    }
+    const governor = votesWithoutParties.governor.reduce(countSelected, 0)
+    const residentCommissioner = votesWithoutParties.residentCommissioner.reduce(
+      countSelected,
+      0
+    )
+
     return {
-      governor: `?/${this.votesForGovernor}`,
-      commissionerResident: `?/${this.votesForCommissionerResident}`,
+      governor: `${governor || this.votesForGovernor}/${this.votesForGovernor}`,
+      commissionerResident: `${residentCommissioner ||
+        this.votesForCommissionerResident}/${
+        this.votesForCommissionerResident
+      }`,
     }
   }
 }
@@ -232,9 +276,65 @@ export class MunicipalBallotConfig {
       }
     }
 
+    // Mixed vote
+    const selectedParties: number[] = votes.parties.reduce(
+      (accum: number[], vote: Selection, index: number) => {
+        if (vote === Selection.selected) {
+          return [...accum, index]
+        }
+
+        return accum
+      },
+      []
+    )
+
+    // Assume that the user has selected every candidate with it's party vote.
+    const votesWithoutParties: MunicipalBallot = {
+      mayor: votes.mayor.reduce(
+        (accum: Selection[], vote: Selection, index: number) => {
+          if (selectedParties.includes(index)) {
+            return accum
+          }
+
+          return [...accum, vote]
+        },
+        []
+      ),
+      municipalLegislator: votes.municipalLegislator.reduce(
+        (rows: Selection[][], votes: Selection[]) => {
+          const result = votes.reduce(
+            (accum: Selection[], vote: Selection, index: number) => {
+              if (selectedParties.includes(index)) {
+                return accum
+              }
+
+              return [...accum, vote]
+            },
+            []
+          )
+
+          return [...rows, result]
+        },
+        []
+      ),
+    }
+    const mayor = votesWithoutParties.mayor.reduce(countSelected, 0)
+    const municipalLegislators = votesWithoutParties.municipalLegislator.reduce(
+      (accum, curr) => {
+        const rowResults = curr.reduce(countSelected, 0)
+
+        return accum + rowResults
+      },
+      0
+    )
+
     return {
-      mayor: `?/${this.votesForMayor}`,
-      municipalLegislators: `?/${this.legislators}`,
+      mayor: `${mayor || this.votesForMayor}/${this.votesForMayor}`,
+      municipalLegislators: `${
+        this.legislators - 1 - municipalLegislators >= 0
+          ? this.legislators
+          : municipalLegislators
+      }/${this.legislators}`,
     }
   }
 }
@@ -283,16 +383,10 @@ export class LegislativeBallotConfig {
       (ocrResult: OcrResult[]) => generateCandidates(ocrResult, url, 1)
     )
 
-    // TODO: Uncomment, legislative is incomplete
     const atLargeSenatorHeader: Header[] = ballot[13].map(
       (ocrResult: OcrResult) => new Header(ocrResult.ocrResult)
     )
-
-    console.log({ atLargeSenatorHeader })
-
     const atLargeSenators = ballot.slice(15)
-
-    console.log({ atLargeSenators })
 
     const candidatesForAtLargeSenators = atLargeSenators.map(
       (ocrResult: OcrResult[]) => generateCandidates(ocrResult, url, 1)
@@ -387,11 +481,126 @@ export class LegislativeBallotConfig {
       }
     }
 
+    // Mixed vote
+    const selectedParties: number[] = votes.parties.reduce(
+      (accum: number[], vote: Selection, index: number) => {
+        if (vote === Selection.selected) {
+          return [...accum, index]
+        }
+
+        return accum
+      },
+      []
+    )
+
+    // Assume that the user has selected every candidate with it's party vote.
+    const votesWithoutParties: LegislativeBallot = {
+      districtRepresentative: votes.districtRepresentative.reduce(
+        (accum: Selection[], vote: Selection, index: number) => {
+          if (selectedParties.includes(index)) {
+            return accum
+          }
+
+          return [...accum, vote]
+        },
+        []
+      ),
+      districtSenator: votes.districtSenator.reduce(
+        (rows: Selection[][], votes: Selection[]) => {
+          const result = votes.reduce(
+            (accum: Selection[], vote: Selection, index: number) => {
+              if (selectedParties.includes(index)) {
+                return accum
+              }
+
+              return [...accum, vote]
+            },
+            []
+          )
+
+          return [...rows, result]
+        },
+        []
+      ),
+      atLargeRepresentative: votes.atLargeRepresentative.reduce(
+        (rows: Selection[][], votes: Selection[]) => {
+          const result = votes.reduce(
+            (accum: Selection[], vote: Selection, index: number) => {
+              if (selectedParties.includes(index)) {
+                return accum
+              }
+
+              return [...accum, vote]
+            },
+            []
+          )
+
+          return [...rows, result]
+        },
+        []
+      ),
+      atLargeSenator: votes.atLargeSenator.reduce(
+        (rows: Selection[][], votes: Selection[]) => {
+          const result = votes.reduce(
+            (accum: Selection[], vote: Selection, index: number) => {
+              if (selectedParties.includes(index)) {
+                return accum
+              }
+
+              return [...accum, vote]
+            },
+            []
+          )
+
+          return [...rows, result]
+        },
+        []
+      ),
+    }
+    const districtRepresentative = votesWithoutParties.districtRepresentative.reduce(
+      countSelected,
+      0
+    )
+    const districtSenators = votesWithoutParties.districtSenator.reduce(
+      (accum, curr) => {
+        const rowResults = curr.reduce(countSelected, 0)
+
+        return accum + rowResults
+      },
+      0
+    )
+    const atLargeRepresentative = votesWithoutParties.atLargeRepresentative.reduce(
+      (accum, curr) => {
+        const rowResults = curr.reduce(countSelected, 0)
+
+        return accum + rowResults
+      },
+      0
+    )
+    const atLargeSenator = votesWithoutParties.atLargeSenator.reduce(
+      (accum, curr) => {
+        const rowResults = curr.reduce(countSelected, 0)
+
+        return accum + rowResults
+      },
+      0
+    )
+
     return {
-      districtRepresentative: `?/${this.votesForDistrictRepresentatives}`,
-      districtSenators: `?/${this.votesForDistrictSenators}`,
-      atLargeRepresentative: `?/${this.votesForAtLargeRepresentatives}`,
-      atLargeSenator: `?/${this.votesForAtLargeSenators}`,
+      districtRepresentative: `${districtRepresentative ||
+        this.votesForDistrictRepresentatives}/${
+        this.votesForAtLargeRepresentatives
+      }`,
+      districtSenators: `${districtSenators || this.votesForDistrictSenators}/${
+        this.votesForDistrictSenators
+      }`,
+      atLargeRepresentative: `${atLargeRepresentative ||
+        this.totalVotesForAtLargeRepresentatives}/${
+        this.totalVotesForAtLargeRepresentatives
+      }`,
+      atLargeSenator: `${atLargeSenator || this.votesForAtLargeSenators}/${
+        this.votesForAtLargeSenators
+      }`,
     }
   }
 }
