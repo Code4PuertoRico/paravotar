@@ -3,32 +3,27 @@ import React from "react"
 import Checkbox from "./checkbox"
 
 type CandidateProps = {
-  img?: string
-  ocrResult: string
+  name: string
+  placement: string
   hasVote: boolean
+  img?: string
   toggleVote?: () => void
 }
 
 export default function Candidate({
   img,
-  ocrResult,
+  name,
+  placement,
   hasVote,
   toggleVote,
 }: CandidateProps) {
-  const splitOcrResult = ocrResult
-    .trim()
-    .replace(/\n/g, " ")
-    .split(".")
-  const number = splitOcrResult[0]
-  const name = splitOcrResult[splitOcrResult.length - 1]
-
   return (
     <div className="border">
       <div className="flex items-center mx-auto py-1 px-3">
-        {isNaN(Number(number)) ? (
+        {!placement ? (
           <div className="h-5 w-4"></div>
         ) : (
-          <p className="h-5 w-4">{number}.</p>
+          <p className="h-5 w-4">{placement}</p>
         )}
         <Checkbox
           type="candidate"

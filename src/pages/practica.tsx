@@ -8,7 +8,6 @@ import {
   // Practice,
 } from "../packages/practica/components/index"
 import { withTrans } from "../i18n/withTrans"
-// import { makeServer } from "../mirage/config.js"
 import { SidebarProvider } from "../context/sidebar-context"
 
 type PageProps = {
@@ -16,10 +15,6 @@ type PageProps = {
 }
 
 const Practica = ({ location }: PageProps) => {
-  // useEffect(() => {
-  //   makeServer()
-  // }, [])
-
   return (
     <SidebarProvider>
       <Layout location={location}>
