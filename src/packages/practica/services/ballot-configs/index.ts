@@ -21,7 +21,9 @@ import {
   Selection,
   StateBallot,
   LegislativeBallot,
+  BallotType,
 } from "../../../../ballot-validator/types"
+import VotesDetector from "../../../../ballot-validator/detector/index"
 
 function generateCandidates(
   section: OcrResult[],
@@ -112,15 +114,38 @@ export class StateBallotConfig {
   }
 
   countVotes(votes: StateBallot): StateVotesCount {
-    const governor = votes.governor.reduce(countSelected, 0)
-    const commissionerResident = votes.residentCommissioner.reduce(
-      countSelected,
-      0
-    )
+    const voteType = VotesDetector(votes, BallotType.state)
+
+    if (voteType === "integro") {
+      const parties = votes.parties.reduce(countSelected, 0)
+
+      return {
+        governor: `${this.votesForGovernor * parties}/${this.votesForGovernor}`,
+        commissionerResident: `${this.votesForCommissionerResident * parties}/${
+          this.votesForCommissionerResident
+        }`,
+      }
+    } else if (voteType === "candidatura") {
+      const governor = votes.governor.reduce(countSelected, 0)
+      const commissionerResident = votes.residentCommissioner.reduce(
+        countSelected,
+        0
+      )
+
+      return {
+        governor: `${governor}/${this.votesForGovernor}`,
+        commissionerResident: `${commissionerResident}/${this.votesForCommissionerResident}`,
+      }
+    } else if (voteType === "empty") {
+      return {
+        governor: `0/${this.votesForGovernor}`,
+        commissionerResident: `0/${this.votesForCommissionerResident}`,
+      }
+    }
 
     return {
-      governor: `${governor}/${this.votesForGovernor}`,
-      commissionerResident: `${commissionerResident}/${this.votesForCommissionerResident}`,
+      governor: `?/${this.votesForGovernor}`,
+      commissionerResident: `?/${this.votesForCommissionerResident}`,
     }
   }
 }
@@ -174,19 +199,42 @@ export class MunicipalBallotConfig {
   }
 
   countVotes(votes: MunicipalBallot): MunicipalVotesCount {
-    const mayor = votes.mayor.reduce(countSelected, 0)
-    const municipalLegislators = votes.municipalLegislator.reduce(
-      (accum, curr) => {
-        const rowResults = curr.reduce(countSelected, 0)
+    const voteType = VotesDetector(votes, BallotType.municipality)
 
-        return accum + rowResults
-      },
-      0
-    )
+    if (voteType === "integro") {
+      const parties = votes.parties.reduce(countSelected, 0)
+
+      return {
+        mayor: `${this.votesForMayor * parties}/${this.votesForMayor}`,
+        municipalLegislators: `${this.legislators * parties}/${
+          this.legislators
+        }`,
+      }
+    } else if (voteType === "candidatura") {
+      const mayor = votes.mayor.reduce(countSelected, 0)
+      const municipalLegislators = votes.municipalLegislator.reduce(
+        (accum, curr) => {
+          const rowResults = curr.reduce(countSelected, 0)
+
+          return accum + rowResults
+        },
+        0
+      )
+
+      return {
+        mayor: `${mayor}/${this.votesForMayor}`,
+        municipalLegislators: `${municipalLegislators}/${this.legislators}`,
+      }
+    } else if (voteType === "empty") {
+      return {
+        mayor: `0/${this.votesForMayor}`,
+        municipalLegislators: `0/${this.legislators}`,
+      }
+    }
 
     return {
-      mayor: `${mayor}/${this.votesForMayor}`,
-      municipalLegislators: `${municipalLegislators}/${this.legislators}`,
+      mayor: `?/${this.votesForMayor}`,
+      municipalLegislators: `?/${this.legislators}`,
     }
   }
 }
@@ -281,36 +329,69 @@ export class LegislativeBallotConfig {
   }
 
   countVotes(votes: LegislativeBallot): LegislativeVotesCount {
-    const districtRepresentative = votes.districtRepresentative.reduce(
-      countSelected,
-      0
-    )
-    const districtSenators = votes.districtSenator.reduce((accum, curr) => {
-      const rowResults = curr.reduce(countSelected, 0)
+    const voteType = VotesDetector(votes, BallotType.legislative)
 
-      return accum + rowResults
-    }, 0)
-    const atLargeRepresentative = votes.atLargeRepresentative.reduce(
-      (accum, curr) => {
+    if (voteType === "integro") {
+      const parties = votes.parties.reduce(countSelected, 0)
+
+      return {
+        districtRepresentative: `${this.votesForDistrictRepresentatives *
+          parties}/${this.votesForDistrictRepresentatives}`,
+        districtSenators: `${this.votesForDistrictSenators * parties}/${
+          this.votesForDistrictSenators
+        }`,
+        atLargeRepresentative: `${this.votesForAtLargeRepresentatives *
+          parties}/${this.votesForAtLargeRepresentatives}`,
+        atLargeSenator: `${this.votesForAtLargeSenators * parties}/${
+          this.votesForAtLargeSenators
+        }`,
+      }
+    } else if (voteType === "candidatura") {
+      const districtRepresentative = votes.districtRepresentative.reduce(
+        countSelected,
+        0
+      )
+      const districtSenators = votes.districtSenator.reduce((accum, curr) => {
         const rowResults = curr.reduce(countSelected, 0)
 
-        console.log({ votes, rowResults })
+        return accum + rowResults
+      }, 0)
+      const atLargeRepresentative = votes.atLargeRepresentative.reduce(
+        (accum, curr) => {
+          const rowResults = curr.reduce(countSelected, 0)
+
+          console.log({ votes, rowResults })
+
+          return accum + rowResults
+        },
+        0
+      )
+      const atLargeSenator = votes.atLargeSenator.reduce((accum, curr) => {
+        const rowResults = curr.reduce(countSelected, 0)
 
         return accum + rowResults
-      },
-      0
-    )
-    const atLargeSenator = votes.atLargeSenator.reduce((accum, curr) => {
-      const rowResults = curr.reduce(countSelected, 0)
+      }, 0)
 
-      return accum + rowResults
-    }, 0)
+      return {
+        districtRepresentative: `${districtRepresentative}/${this.votesForDistrictRepresentatives}`,
+        districtSenators: `${districtSenators}/${this.votesForDistrictSenators}`,
+        atLargeRepresentative: `${atLargeRepresentative}/${this.votesForAtLargeRepresentatives}`,
+        atLargeSenator: `${atLargeSenator}/${this.votesForAtLargeSenators}`,
+      }
+    } else if (voteType === "empty") {
+      return {
+        districtRepresentative: `0/${this.votesForDistrictRepresentatives}`,
+        districtSenators: `0/${this.votesForDistrictSenators}`,
+        atLargeRepresentative: `0/${this.votesForAtLargeRepresentatives}`,
+        atLargeSenator: `0/${this.votesForAtLargeSenators}`,
+      }
+    }
 
     return {
-      districtRepresentative: `${districtRepresentative}/${this.votesForDistrictRepresentatives}`,
-      districtSenators: `${districtSenators}/${this.votesForDistrictSenators}`,
-      atLargeRepresentative: `${atLargeRepresentative}/${this.votesForAtLargeRepresentatives}`,
-      atLargeSenator: `${atLargeSenator}/${this.votesForAtLargeSenators}`,
+      districtRepresentative: `?/${this.votesForDistrictRepresentatives}`,
+      districtSenators: `?/${this.votesForDistrictSenators}`,
+      atLargeRepresentative: `?/${this.votesForAtLargeRepresentatives}`,
+      atLargeSenator: `?/${this.votesForAtLargeSenators}`,
     }
   }
 }
