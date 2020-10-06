@@ -43,12 +43,18 @@ export class Header extends BallotSection {
 export class Candidate extends BallotSection {
   img
   name
+  placement: string
 
   constructor(name: string, img?: string) {
     super()
 
+    const regex = /\d\.?/
+    const placement = name.match(regex)
+    const cleanedName = name.replace(regex, "")
+
     this.img = img ? img : undefined
-    this.name = name
+    this.name = cleanedName
+    this.placement = placement ? placement[0] : ""
   }
 }
 

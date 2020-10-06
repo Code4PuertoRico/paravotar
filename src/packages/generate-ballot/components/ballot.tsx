@@ -87,7 +87,8 @@ export default function BaseBallot({
                       <Ballot.Candidate
                         key={col.id}
                         img={col.img}
-                        ocrResult={col.name}
+                        name={col.name}
+                        placement={col.placement}
                         hasVote={vote}
                         toggleVote={() =>
                           toggleVote({ row: rowIndex, column: colIndex })
