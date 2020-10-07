@@ -37,24 +37,21 @@ const Layout = ({ children, location }: Props) => {
         </nav>
       )}
       <div
-        className="wrapper"
-        style={{
-          gridTemplateColumns: sidebarIsVisible ? "275px auto" : "auto",
-        }}
+        className={`wrapper ${
+          sidebarIsVisible ? "wrapper-with-sidebar" : "wrapper-without-sidebar"
+        }`}
       >
         {sidebarIsVisible && <Sidebar pathname={`${pathname}${hash}`} />}
         <div
-          className="main"
-          style={{
-            gridColumnStart: sidebarIsVisible ? "2" : "1",
-          }}
+          className={`main ${
+            sidebarIsVisible ? "main-with-sidebar" : "main-without-sidebar"
+          }`}
         >
           <main
             id="main-content"
-            className="main-content"
-            style={{
-              maxWidth: sidebarIsVisible ? "calc(100vw - 275px)" : "100%",
-            }}
+            className={`main-content ${
+              sidebarIsVisible ? "main-content-with-sidebar" : "max-w-full"
+            }`}
           >
             {children}
           </main>

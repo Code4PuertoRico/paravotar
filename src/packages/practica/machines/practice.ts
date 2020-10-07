@@ -1,15 +1,16 @@
+import { StringMap } from "i18next"
 import { createMachine, assign } from "xstate"
 
-import { API_URL, PUBLIC_S3_BUCKET } from "../services/constants"
-import { OcrResult } from "../services/types"
 import {
   StateBallotConfig,
   MunicipalBallotConfig,
   LegislativeBallotConfig,
 } from "../services/ballot-configs"
+import BallotFinder, { FindByType } from "../services/ballot-finder-service"
 
 type VoterIdData = {
-  voterId: string
+  userInput: string
+  findBy: FindByType
 }
 
 type VoterInfo = {
@@ -24,72 +25,69 @@ type VoterInfo = {
   unidad: string
 }
 
-/**
- *
- * /ballots/all
+const getBallotsByVoterId = async (_, { userInput, findBy }: VoterIdData) => {
+  console.log({ userInput, findBy })
 
-  /ballots/ByTown?townId=
+  const ballots = await BallotFinder(userInput, findBy)
 
-  /ballots/ByPrecint?precintId=
+  console.log({ ballots })
 
-  /consulta ya no devuelve las papeletas
- */
+  // const voterInfoRes = await fetch(`${API_URL}/consulta?voterId=${voterId}`)
+  // const voterInfoJson: VoterInfo = await voterInfoRes.json()
+  // const ballotsRes = await fetch(
+  //   `${API_URL}/ballots/ByPrecint?precintId=${voterInfoJson.precinto}`
+  // )
+  // const ballotsJson = await ballotsRes.json()
 
-const getBallotsByVoterId = async (_, { voterId }: VoterIdData) => {
-  const voterInfoRes = await fetch(`${API_URL}/consulta?voterId=${voterId}`)
-  const voterInfoJson: VoterInfo = await voterInfoRes.json()
-  const ballotsRes = await fetch(
-    `${API_URL}/ballots/ByPrecint?precintId=${voterInfoJson.precinto}`
-  )
-  const ballotsJson = await ballotsRes.json()
+  // // Prefetch ballot data
+  // const ballots = Object.entries(ballotsJson).map(async ([key, value]) => {
+  //   try {
+  //     const ballotRes = await fetch(`${PUBLIC_S3_BUCKET}/${value}data.json`)
+  //     const ballotJson: OcrResult[][] = await ballotRes.json()
 
-  // Prefetch ballot data
-  const ballots = Object.entries(ballotsJson).map(async ([key, value]) => {
-    try {
-      const ballotRes = await fetch(`${PUBLIC_S3_BUCKET}/${value}data.json`)
-      const ballotJson: OcrResult[][] = await ballotRes.json()
+  //     if (key === "estatal") {
+  //       return {
+  //         [key]: new StateBallotConfig(ballotJson, ballotsJson.estatal),
+  //       }
+  //     } else if (key === "municipal") {
+  //       return {
+  //         [key]: new MunicipalBallotConfig(ballotJson, ballotsJson.municipal),
+  //       }
+  //     } else {
+  //       return {
+  //         [key]: new LegislativeBallotConfig(
+  //           ballotJson,
+  //           ballotsJson.legislativa
+  //         ),
+  //       }
+  //     }
+  //   } catch (err) {
+  //     console.log(err)
+  //   }
+  // })
 
-      if (key === "estatal") {
-        return {
-          [key]: new StateBallotConfig(ballotJson, ballotsJson.estatal),
-        }
-      } else if (key === "municipal") {
-        return {
-          [key]: new MunicipalBallotConfig(ballotJson, ballotsJson.municipal),
-        }
-      } else {
-        return {
-          [key]: new LegislativeBallotConfig(
-            ballotJson,
-            ballotsJson.legislativa
-          ),
-        }
-      }
-    } catch (err) {
-      console.log(err)
-    }
-  })
+  // const allBallotsJson = await Promise.all(ballots)
+  // const initialValue: {
+  //   estatal?: StateBallotConfig
+  //   municipal?: MunicipalBallotConfig
+  //   legislativa?: LegislativeBallotConfig
+  // } = {
+  //   estatal: undefined,
+  //   municipal: undefined,
+  //   legislativa: undefined,
+  // }
 
-  const allBallotsJson = await Promise.all(ballots)
-  const initialValue: {
-    estatal?: StateBallotConfig
-    municipal?: MunicipalBallotConfig
-    legislativa?: LegislativeBallotConfig
-  } = {
-    estatal: undefined,
-    municipal: undefined,
-    legislativa: undefined,
-  }
-
-  return allBallotsJson.reduce((prev, curr) => {
-    return {
-      ...prev,
-      ...curr,
-    }
-  }, initialValue)
+  // return allBallotsJson.reduce((prev, curr) => {
+  //   return {
+  //     ...prev,
+  //     ...curr,
+  //   }
+  // }, initialValue)
 }
 
 type PracticeContext = {
+  userInput: string | null
+  findBy: FindByType | null
   ballots: {
     estatal?: StateBallotConfig
     municipal?: MunicipalBallotConfig
@@ -99,19 +97,38 @@ type PracticeContext = {
 
 export const practiceMachine = createMachine<PracticeContext>({
   id: "practiceMachine",
-  initial: "enterVoterId",
+  initial: "ballotFinderPicker",
   context: {
+    userInput: null,
+    findBy: null,
     ballots: {},
   },
   states: {
-    enterVoterId: {
+    ballotFinderPicker: {
       on: {
-        FIND_VOTER_ID: "findingVoterId",
+        SELECTED_VOTER_ID: "enterVoterId",
+        SELECTED_PRECINT: "enterPrecint",
+        SELECTED_TOWN: "enterTown",
       },
     },
-    findingVoterId: {
+    enterVoterId: {
+      on: {
+        ADDED_VOTING_NUMBER: "fetchBallots",
+      },
+    },
+    enterPrecint: {
+      on: {
+        ADDED_PRECINT: "fetchBallots",
+      },
+    },
+    enterTown: {
+      on: {
+        ADDED_TOWN: "fetchBallots",
+      },
+    },
+    fetchBallots: {
       invoke: {
-        id: "findVoterId",
+        id: "fetchBallots",
         src: getBallotsByVoterId,
         onDone: {
           target: "selectBallot",
