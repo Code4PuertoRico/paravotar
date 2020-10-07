@@ -27,15 +27,17 @@ import VotesDetector from "../../../../ballot-validator/detector/index"
 
 function generateCandidates(
   section: OcrResult[],
+  accumulationNumber?: number,
   url?: string,
   hasWriteInColumn = true
 ): CandidatesRow {
   return section.map((ocrResult: OcrResult, index) => {
     if (section.length - 1 === index && hasWriteInColumn) {
-      return new WriteInCandidate()
+      return new WriteInCandidate(accumulationNumber)
     } else if (ocrResult.ocrResult) {
       return new Candidate(
         ocrResult.ocrResult,
+        accumulationNumber,
         url ? `${url}${ocrResult.logoImg}` : undefined
       )
     }
@@ -85,11 +87,15 @@ export class StateBallotConfig {
     const governorHeader: Header[] = ballot[1].map(
       (ocrResult: OcrResult) => new Header(ocrResult.ocrResult)
     )
-    const candidatesForGorvernor = generateCandidates(ballot[2], url)
+    const candidatesForGorvernor = generateCandidates(ballot[2], 1, url)
     const commissionerResidentHeader: Header[] = ballot[3].map(
       (ocrResult: OcrResult) => new Header(ocrResult.ocrResult)
     )
-    const candidatesForComissionerResident = generateCandidates(ballot[4], url)
+    const candidatesForComissionerResident = generateCandidates(
+      ballot[4],
+      2,
+      url
+    )
 
     this.cols = parties.length
     this.structure = [
@@ -209,14 +215,15 @@ export class MunicipalBallotConfig {
     const mayorHeader: Header[] = ballot[1].map(
       (ocrResult: OcrResult) => new Header(ocrResult.ocrResult)
     )
-    const candidatesForMayor = generateCandidates(ballot[2], url)
+    const candidatesForMayor = generateCandidates(ballot[2], undefined, url)
     const municipalLegislatorHeader: Header[] = ballot[3].map(
       (ocrResult: OcrResult) => new Header(ocrResult.ocrResult)
     )
 
     const municipalLegislators = ballot.slice(4)
     const candidatesForMunicipalLegislator = municipalLegislators.map(
-      (ocrResult: OcrResult[]) => generateCandidates(ocrResult)
+      (ocrResult: OcrResult[], index: number) =>
+        generateCandidates(ocrResult, index + 1)
     )
 
     this.cols = parties.length
@@ -360,6 +367,7 @@ export class LegislativeBallotConfig {
     )
     const candidatesForDistrictRepresentative = generateCandidates(
       ballot[2],
+      1,
       url
     )
 
@@ -371,7 +379,7 @@ export class LegislativeBallotConfig {
       (ocrResult: OcrResult[], index: number) => {
         const hasWriteColumn = index + 1 <= this.totalVotesForDistrictSenators
 
-        return generateCandidates(ocrResult, url, hasWriteColumn)
+        return generateCandidates(ocrResult, index + 2, url, hasWriteColumn)
       }
     )
 
@@ -384,7 +392,7 @@ export class LegislativeBallotConfig {
         const hasWriteColumn =
           index + 1 <= this.totalVotesForAtLargeRepresentatives
 
-        return generateCandidates(ocrResult, url, hasWriteColumn)
+        return generateCandidates(ocrResult, index + 4, url, hasWriteColumn)
       }
     )
 
@@ -396,7 +404,7 @@ export class LegislativeBallotConfig {
       (ocrResult: OcrResult[], index: number) => {
         const hasWriteColumn = index + 1 <= this.totalVotesForAtLargeSenators
 
-        return generateCandidates(ocrResult, url, hasWriteColumn)
+        return generateCandidates(ocrResult, index + 10, url, hasWriteColumn)
       }
     )
 

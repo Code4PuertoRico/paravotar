@@ -52,28 +52,27 @@ export class Header extends BallotSection {
 export class Candidate extends BallotSection {
   img
   name
-  placement: string
+  accumulationNumber
 
-  constructor(name: string, img?: string) {
+  constructor(name: string, accumulationNumber?: number, img?: string) {
     super()
 
     const regex = /\d\.?\r?\n?/g
-    const placement = name.match(regex)
     const cleanedName = name.replace(regex, "").trim()
 
     this.img = img ? img : undefined
     this.name = cleanedName
-    this.placement = placement ? placement[0] : ""
+    this.accumulationNumber = accumulationNumber ? `${accumulationNumber}.` : ""
   }
 }
 
 export class WriteInCandidate extends BallotSection {
-  name
+  accumulationNumber
 
-  constructor(name?: string) {
+  constructor(accumulationNumber?: number) {
     super()
 
-    this.name = name
+    this.accumulationNumber = accumulationNumber ? `${accumulationNumber}.` : ""
   }
 }
 
