@@ -2,17 +2,26 @@ import React from "react"
 
 import Checkbox from "./checkbox"
 
-type CandidateProps = {
+type WriteInProps = {
   img?: string
-  ocrResult: string
   hasVote: boolean
+  accumulationNumber: string
   toggleVote?: () => void
 }
 
-export default function WriteIn({ hasVote, toggleVote }: CandidateProps) {
+export default function WriteIn({
+  hasVote,
+  accumulationNumber,
+  toggleVote,
+}: WriteInProps) {
   return (
     <div className="border">
       <div className="flex items-center mx-auto py-1 px-3">
+        {!accumulationNumber ? (
+          <div className="h-5 w-4"></div>
+        ) : (
+          <p className="h-5 w-4">{accumulationNumber}</p>
+        )}
         <Checkbox
           type="candidate"
           id={"id2121"}

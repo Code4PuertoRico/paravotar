@@ -101,7 +101,7 @@ export default function BaseBallot({
                         key={col.id}
                         img={col.img}
                         name={col.name}
-                        placement={col.placement}
+                        accumulationNumber={col.accumulationNumber}
                         hasVote={vote}
                         toggleVote={() =>
                           toggleVote({ row: rowIndex, column: colIndex })
@@ -114,6 +114,7 @@ export default function BaseBallot({
                     return (
                       <Ballot.WriteIn
                         key={col.id}
+                        accumulationNumber={col.accumulationNumber}
                         toggleVote={() =>
                           toggleVote({ row: rowIndex, column: colIndex })
                         }

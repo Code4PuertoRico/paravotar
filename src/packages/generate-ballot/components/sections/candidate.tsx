@@ -4,7 +4,7 @@ import Checkbox from "./checkbox"
 
 type CandidateProps = {
   name: string
-  placement: string
+  accumulationNumber: string
   hasVote: boolean
   img?: string
   toggleVote?: () => void
@@ -13,17 +13,17 @@ type CandidateProps = {
 export default function Candidate({
   img,
   name,
-  placement,
+  accumulationNumber,
   hasVote,
   toggleVote,
 }: CandidateProps) {
   return (
     <div className="border">
       <div className="flex items-center mx-auto py-1 px-3">
-        {!placement ? (
+        {!accumulationNumber ? (
           <div className="h-5 w-4"></div>
         ) : (
-          <p className="h-5 w-4">{placement}</p>
+          <p className="h-5 w-4">{accumulationNumber}</p>
         )}
         <Checkbox
           type="candidate"
