@@ -361,20 +361,28 @@ export class LegislativeBallotConfig {
   constructor(ballot: OcrResult[][], path: string) {
     const url = `${CDN_URL}/${path}`
 
-    const parties: PartyRow = generateHeaders(ballot[0], url)
-    const districtRepresentativeHeader: Header[] = ballot[1].map(
+    // HACK: Add one item to every ocr result to we can generate the correct amount of columns
+    const fixedBallots: OcrResult[][] = ballot.map((result: OcrResult[]) => {
+      result.push({ ocrResult: "" })
+      console.log(result)
+
+      return result
+    })
+
+    const parties: PartyRow = generateHeaders(fixedBallots[0], url)
+    const districtRepresentativeHeader: Header[] = fixedBallots[1].map(
       (ocrResult: OcrResult) => new Header(ocrResult.ocrResult)
     )
     const candidatesForDistrictRepresentative = generateCandidates(
-      ballot[2],
+      fixedBallots[2],
       1,
       url
     )
 
-    const districtSenatorHeader: Header[] = ballot[3].map(
+    const districtSenatorHeader: Header[] = fixedBallots[3].map(
       (ocrResult: OcrResult) => new Header(ocrResult.ocrResult)
     )
-    const districtSenators = ballot.slice(4, 6)
+    const districtSenators = fixedBallots.slice(4, 6)
     const candidatesForDistrictSenators = districtSenators.map(
       (ocrResult: OcrResult[], index: number) => {
         const hasWriteColumn = index + 1 <= this.totalVotesForDistrictSenators
@@ -383,10 +391,10 @@ export class LegislativeBallotConfig {
       }
     )
 
-    const atLargeRepresentativeHeader: Header[] = ballot[6].map(
+    const atLargeRepresentativeHeader: Header[] = fixedBallots[6].map(
       (ocrResult: OcrResult) => new Header(ocrResult.ocrResult)
     )
-    const atLargeRepresentatives = ballot.slice(7, 13)
+    const atLargeRepresentatives = fixedBallots.slice(7, 13)
     const candidatesForAtLargeRepresentatives = atLargeRepresentatives.map(
       (ocrResult: OcrResult[], index: number) => {
         const hasWriteColumn =
@@ -396,10 +404,10 @@ export class LegislativeBallotConfig {
       }
     )
 
-    const atLargeSenatorHeader: Header[] = ballot[13].map(
+    const atLargeSenatorHeader: Header[] = fixedBallots[13].map(
       (ocrResult: OcrResult) => new Header(ocrResult.ocrResult)
     )
-    const atLargeSenators = ballot.slice(14)
+    const atLargeSenators = fixedBallots.slice(14)
     const candidatesForAtLargeSenators = atLargeSenators.map(
       (ocrResult: OcrResult[], index: number) => {
         const hasWriteColumn = index + 1 <= this.totalVotesForAtLargeSenators
