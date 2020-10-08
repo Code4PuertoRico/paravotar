@@ -115,6 +115,10 @@ button:focus {
   @apply overflow-y-scroll bg-background w-full;
 }
 
+.practice-card {
+  min-height: 350px;
+}
+
 @screen lg {
   .wrapper {
     @apply grid;
@@ -132,6 +136,10 @@ button:focus {
 
   .main-content {
     @apply mx-auto pt-3 relative;
+  }
+
+  .practice-card {
+    min-height: 300px;
   }
 
   .main-content-with-sidebar {

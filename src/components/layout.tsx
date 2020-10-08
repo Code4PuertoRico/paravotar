@@ -38,26 +38,19 @@ const Layout = ({ children, location }: Props) => {
       )}
       <div
         className={`wrapper ${
-          sidebarIsVisible
-            ? "lg:wrapper-with-sidebar"
-            : "lg:wrapper-without-sidebar"
+          sidebarIsVisible ? "wrapper-with-sidebar" : "wrapper-without-sidebar"
         }`}
       >
         {sidebarIsVisible && <Sidebar pathname={`${pathname}${hash}`} />}
         <div
           className={`main ${
-            sidebarIsVisible
-              ? "lg:main-with-sidebar"
-              : "lg:main-without-sidebar"
+            sidebarIsVisible ? "main-with-sidebar" : "main-without-sidebar"
           }`}
-          style={{
-            gridColumnStart: sidebarIsVisible ? "2" : "1",
-          }}
         >
           <main
             id="main-content"
             className={`main-content ${
-              sidebarIsVisible ? "lg:main-content-with-sidebar" : "max-w-full"
+              sidebarIsVisible ? "main-content-with-sidebar" : "max-w-full"
             }`}
           >
             {children}
