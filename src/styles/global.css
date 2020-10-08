@@ -141,6 +141,26 @@ button:focus {
   .practice-card {
     min-height: 300px;
   }
+
+  .main-content-with-sidebar {
+    max-width: calc(100vw - 275px);
+  }
+
+  .main-with-sidebar {
+    grid-column-start: 2;
+  }
+
+  .main-without-sidebar {
+    grid-column-start: 1;
+  }
+
+  .wrapper-with-sidebar {
+    grid-template-columns: 275px auto;
+  }
+
+  .wrapper-without-sidebar {
+    grid-template-columns: "auto";
+  }
 }
 
 @screen xl {}
