@@ -1,7 +1,7 @@
-import React, { useRef } from "react"
+import React from "react"
 import { useMachine } from "@xstate/react"
 
-import { Button, Card, Link, Typography } from "../../../components/index"
+import { Button, Card, Typography } from "../../../components/index"
 import BallotValidator from "../../../ballot-validator/index"
 import { BallotType } from "../../../ballot-validator/types"
 import { Ballot } from "../../generate-ballot/components"
@@ -19,22 +19,12 @@ import BallotStatus from "./ballot-status"
 import useVotesTransform from "../hooks/use-votes-transform"
 import useBallotValidation from "../hooks/use-ballot-validation"
 import useVotesCount from "../hooks/use-votes-count"
-import { towns } from "../services/constants"
-import Dropdown from "react-dropdown-aria"
-import { FindByType } from "../services/ballot-finder-service"
-
-const convertedTowns = towns.map(town => {
-  return {
-    areaLabel: town,
-    title: town,
-    value: town,
-  }
-})
+import BallotFinderPicker from "./ballot-finder-picker"
+import PrecintNumberForm from "./precint-number-form"
+import EnterVoterIdForm from "./enter-voter-id-form"
 
 export default function Practice() {
   const [state, send] = useMachine(practiceMachine)
-  const inputRef = useRef<HTMLInputElement>(null)
-  const precintInputRef = useRef<HTMLInputElement>(null)
   const [votes, setVotes, setVotesToEmpty] = useVoteCoordinates()
   const transformedVotes = useVotesTransform(votes, state)
   const { ballotStatus, setBallotStatus } = useBallotValidation(
@@ -78,143 +68,39 @@ export default function Practice() {
       <Card className="practice-card flex justify-center mt-8">
         <Switch state={state}>
           <Case value="ballotFinderPicker">
-            <div>
-              <Typography tag="p" variant="h3" className="uppercase">
-                Busquemos tus papeletas
-              </Typography>
-              <Typography tag="p" variant="p" className="mt-1">
-                Selecciona una de las siguientes maneras para ver tus papeletas
-              </Typography>
-              <div className="grid grid-cols-1 gap-2 mt-6 lg:grid-cols-2">
-                <div className="w-full my-1">
-                  <Button
-                    className="block w-full"
-                    onClick={() => send("SELECTED_VOTER_ID")}
-                  >
-                    Número de tarjeta electoral
-                  </Button>
-                </div>
-                <div className="w-full my-1">
-                  <Button
-                    className="block w-full"
-                    onClick={() => send("SELECTED_PRECINT")}
-                  >
-                    Número de precinto
-                  </Button>
-                </div>
-              </div>
-            </div>
+            <BallotFinderPicker
+              selectVoterId={() => send("SELECTED_VOTER_ID")}
+              selectPrecint={() => send("SELECTED_PRECINT")}
+            />
           </Case>
           <Case value="enterPrecint">
-            <div className="mx-auto lg:w-1/2">
-              <Typography tag="p" variant="h4">
-                Busquemos tus papeletas
-              </Typography>
-              <Typography tag="p" variant="p">
-                Entre el número de precinto de su pueblo
-              </Typography>
-              <form
-                className="mt-4"
-                onSubmit={event => {
-                  event.preventDefault()
-
-                  const input =
-                    precintInputRef.current && precintInputRef.current.value
-                      ? precintInputRef.current.value
-                      : ""
-
-                  send("ADDED_PRECINT", {
-                    userInput: input.replace("e", ""),
-                    findBy: FindByType.precint,
-                  })
-                }}
-              >
-                <input
-                  className="border border-primary px-3 py-2 rounded w-full"
-                  type="number"
-                  ref={precintInputRef}
-                  placeholder="Número de precinto"
-                />
-                {state.matches({ enterPrecint: "empty" }) ? (
-                  <Typography
-                    tag="p"
-                    variant="p"
-                    className="italic text-xs text-red text-left mt-1"
-                  >
-                    Favor un número de precinto.
-                  </Typography>
-                ) : state.matches({ enterPrecint: "invalidLength" }) ? (
-                  <Typography
-                    tag="p"
-                    variant="p"
-                    className="italic text-xs text-red text-left mt-1"
-                  >
-                    Su precinto debe tener 3 caracteres o menos.
-                  </Typography>
-                ) : (
-                  <div className="h-4"></div>
-                )}
-                <Button className="mt-4 block w-full">Continuar</Button>
-              </form>
-              <Typography tag="p" variant="p" className="text-xs italic mt-2">
-                Para encontrar su número de precinto debe ir a{" "}
-                <Link to="https://consulta.ceepur.org/" target="_blank">
-                  Consulta CEE
-                </Link>
-                , entrar su número electoral, presionar el botón de "Buscar" y
-                usar el número que aparece en el encasillado de Precinto.
-              </Typography>
-            </div>
+            <PrecintNumberForm
+              errorMessage={
+                state.matches({ enterPrecint: "empty" })
+                  ? "Favor un número de precinto."
+                  : state.matches({ enterPrecint: "invalidLength" })
+                  ? "Su precinto debe tener 3 caracteres o menos."
+                  : null
+              }
+              onSubmit={({ userInput, findBy }) =>
+                send("ADDED_PRECINT", {
+                  userInput,
+                  findBy,
+                })
+              }
+            />
           </Case>
           <Case value="enterVoterId">
-            <div className="mx-auto lg:w-1/2">
-              <Typography tag="p" variant="h4">
-                Busquemos tus papeletas
-              </Typography>
-              <Typography tag="p" variant="p">
-                Entre su número electoral
-              </Typography>
-              <form
-                className="mt-4"
-                onSubmit={event => {
-                  event.preventDefault()
-
-                  const input =
-                    inputRef.current && inputRef.current.value
-                      ? inputRef.current.value
-                      : ""
-
-                  send("ADDED_VOTING_NUMBER", {
-                    userInput: input.replace("e", ""),
-                    findBy: FindByType.voterId,
-                  })
-                }}
-              >
-                <input
-                  className="border border-primary px-3 py-2 rounded w-full"
-                  type="number"
-                  ref={inputRef}
-                  placeholder="Número electoral"
-                />
-                {state.matches({ enterVoterId: "empty" }) ? (
-                  <Typography
-                    tag="p"
-                    variant="p"
-                    className="italic text-xs text-red text-left mt-1"
-                  >
-                    Favor entre un número electoral.
-                  </Typography>
-                ) : (
-                  <div className="h-4"></div>
-                )}
-                <Button className="mt-4 block w-full">Continuar</Button>
-              </form>
-              <p className="text-xs italic mt-2">
-                * La utilización de su número electoral es solo para propósitos
-                de práctica, paravotar.org no guarda ninguna información
-                personal de usuarios que utilicen la página web.
-              </p>
-            </div>
+            <EnterVoterIdForm
+              errorMessage={
+                state.matches({ enterVoterId: "empty" })
+                  ? "Favor entre un número electoral."
+                  : null
+              }
+              onSubmit={({ userInput, findBy }) =>
+                send("SELECTED_PRECINT", { userInput, findBy })
+              }
+            />
           </Case>
           <Case value="fetchBallots">
             <div>Loading...</div>
