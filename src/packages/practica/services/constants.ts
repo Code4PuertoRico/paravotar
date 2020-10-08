@@ -50,6 +50,8 @@ export const SECTION_METADATA: { [key: string]: SectionMetadata } = {
   },
 }
 
+export const MAX_PRECINT_LENGTH = 3
+
 export const towns = [
   "Adjuntas",
   "Aguada",

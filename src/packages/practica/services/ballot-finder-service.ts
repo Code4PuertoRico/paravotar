@@ -69,9 +69,28 @@ async function getBallotsByVoterId(voterId: string) {
 //   }
 // }, initialValue)
 
+function prefixPrecint(precint: string) {
+  let input = precint
+  const inputSize = precint.length
+  const missingChars = 3 - inputSize
+
+  if (missingChars > 0) {
+    let count = 0
+
+    while (count < missingChars) {
+      input = `0${input}`
+
+      count++
+    }
+  }
+
+  return input
+}
+
 async function getBallotsByPrecint(precint: string) {
+  const prefixedPrecint = prefixPrecint(precint)
   const ballotsByPrecintRes = await fetch(
-    `${API_URL}/ballots/ByPrecint?precintId=${precint}`
+    `${API_URL}/ballots/ByPrecint?precintId=${prefixedPrecint}`
   )
   const ballotsJson: BallotsResponse = await ballotsByPrecintRes.json()
 

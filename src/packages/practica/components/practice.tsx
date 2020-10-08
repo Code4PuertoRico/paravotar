@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react"
+import React, { useRef } from "react"
 import { useMachine } from "@xstate/react"
 
 import { Button, Card, Link, Typography } from "../../../components/index"
@@ -34,6 +34,7 @@ const convertedTowns = towns.map(town => {
 export default function Practice() {
   const [state, send] = useMachine(practiceMachine)
   const inputRef = useRef<HTMLInputElement>(null)
+  const precintInputRef = useRef<HTMLInputElement>(null)
   const [votes, setVotes, setVotesToEmpty] = useVoteCoordinates()
   const transformedVotes = useVotesTransform(votes, state)
   const { ballotStatus, setBallotStatus } = useBallotValidation(
@@ -41,7 +42,6 @@ export default function Practice() {
   )
   const { votesCount, setVotesCount } = useVotesCount(transformedVotes)
   const { setSidebarIsVisible } = useSidebar()
-  const [town, setTown] = useState("")
   const handleSubmit = (
     votes: VotesCoordinates[],
     ballotType: BallotType,
@@ -123,19 +123,46 @@ export default function Practice() {
               </Typography>
               <form
                 className="mt-4"
-                onSubmit={() =>
+                onSubmit={event => {
+                  event.preventDefault()
+
+                  const input =
+                    precintInputRef.current && precintInputRef.current.value
+                      ? precintInputRef.current.value
+                      : ""
+
                   send("ADDED_PRECINT", {
-                    precint: inputRef.current ? inputRef.current.value : "",
+                    userInput: input.replace("e", ""),
+                    findBy: FindByType.precint,
                   })
-                }
+                }}
               >
                 <input
                   className="border border-primary px-3 py-2 rounded w-full"
-                  type="text"
-                  ref={inputRef}
+                  type="number"
+                  ref={precintInputRef}
                   placeholder="Número de precinto"
                 />
-                <Button className="mt-2 block w-full">Continuar</Button>
+                {state.matches({ enterPrecint: "empty" }) ? (
+                  <Typography
+                    tag="p"
+                    variant="p"
+                    className="italic text-xs text-red text-left mt-1"
+                  >
+                    Favor un número de precinto.
+                  </Typography>
+                ) : state.matches({ enterPrecint: "invalidLength" }) ? (
+                  <Typography
+                    tag="p"
+                    variant="p"
+                    className="italic text-xs text-red text-left mt-1"
+                  >
+                    Su precinto debe tener 3 caracteres o menos.
+                  </Typography>
+                ) : (
+                  <div className="h-4"></div>
+                )}
+                <Button className="mt-4 block w-full">Continuar</Button>
               </form>
               <Typography tag="p" variant="p" className="text-xs italic mt-2">
                 Para encontrar su número de precinto debe ir a{" "}
@@ -157,20 +184,38 @@ export default function Practice() {
               </Typography>
               <form
                 className="mt-4"
-                onSubmit={() =>
+                onSubmit={event => {
+                  event.preventDefault()
+
+                  const input =
+                    inputRef.current && inputRef.current.value
+                      ? inputRef.current.value
+                      : ""
+
                   send("ADDED_VOTING_NUMBER", {
-                    userInput: inputRef.current ? inputRef.current.value : "",
+                    userInput: input.replace("e", ""),
                     findBy: FindByType.voterId,
                   })
-                }
+                }}
               >
                 <input
                   className="border border-primary px-3 py-2 rounded w-full"
-                  type="text"
+                  type="number"
                   ref={inputRef}
                   placeholder="Número electoral"
                 />
-                <Button className="mt-2 block w-full">Continuar</Button>
+                {state.matches({ enterVoterId: "empty" }) ? (
+                  <Typography
+                    tag="p"
+                    variant="p"
+                    className="italic text-xs text-red text-left mt-1"
+                  >
+                    Favor entre un número electoral.
+                  </Typography>
+                ) : (
+                  <div className="h-4"></div>
+                )}
+                <Button className="mt-4 block w-full">Continuar</Button>
               </form>
               <p className="text-xs italic mt-2">
                 * La utilización de su número electoral es solo para propósitos
@@ -204,7 +249,7 @@ export default function Practice() {
               </div>
             </div>
           </Case>
-          <Case value="findingVoterId">
+          <Case value="fetchBallots">
             <div>Loading...</div>
           </Case>
           <Case value="selectBallot">
