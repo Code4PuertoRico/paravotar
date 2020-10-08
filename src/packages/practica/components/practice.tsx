@@ -75,7 +75,7 @@ export default function Practice() {
       >
         Pon en práctica lo aprendido cuantas veces necesites
       </Typography>
-      <Card className="mt-8">
+      <Card className="practice-card flex justify-center mt-8">
         <Switch state={state}>
           <Case value="ballotFinderPicker">
             <div>
@@ -85,8 +85,8 @@ export default function Practice() {
               <Typography tag="p" variant="p" className="mt-1">
                 Selecciona una de las siguientes maneras para ver tus papeletas
               </Typography>
-              <div className="grid grid-cols-1 gap-2 mt-6 lg:grid-cols-3">
-                <div className="w-full my-2">
+              <div className="grid grid-cols-1 gap-2 mt-6 lg:grid-cols-2">
+                <div className="w-full my-1">
                   <Button
                     className="block w-full"
                     onClick={() => send("SELECTED_VOTER_ID")}
@@ -94,20 +94,12 @@ export default function Practice() {
                     Número de tarjeta electoral
                   </Button>
                 </div>
-                <div className="w-full my-2">
+                <div className="w-full my-1">
                   <Button
                     className="block w-full"
                     onClick={() => send("SELECTED_PRECINT")}
                   >
                     Número de precinto
-                  </Button>
-                </div>
-                <div className="w-full my-2">
-                  <Button
-                    className="block w-full"
-                    onClick={() => send("SELECTED_TOWN")}
-                  >
-                    Nombre del pueblo
                   </Button>
                 </div>
               </div>
@@ -224,36 +216,11 @@ export default function Practice() {
               </p>
             </div>
           </Case>
-          <Case value="enterTown">
-            <div className="mx-auto lg:w-1/2">
-              <Typography tag="p" variant="h4">
-                Busquemos tus papeletas
-              </Typography>
-              <Typography tag="p" variant="p" className="mt-2">
-                Selecciona el pueblo donde vives
-              </Typography>
-              <div className="mt-4">
-                <Dropdown
-                  placeholder="Escoge tu pueblo"
-                  id="town-selector"
-                  searchable={true}
-                  options={convertedTowns}
-                  ariaLabel="Selecciona tu pueblo"
-                  setSelected={(t: string) =>
-                    send("ADDED_TOWN", {
-                      userInput: t,
-                      findBy: FindByType.town,
-                    })
-                  }
-                />
-              </div>
-            </div>
-          </Case>
           <Case value="fetchBallots">
             <div>Loading...</div>
           </Case>
           <Case value="selectBallot">
-            <div className="mx-auto lg:w-1/3">
+            <div className="mx-auto lg:w-1/2">
               <Typography tag="p" variant="h4">
                 Escoge por cuál papeleta comenzar
               </Typography>

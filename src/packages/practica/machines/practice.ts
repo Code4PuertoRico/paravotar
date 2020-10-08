@@ -89,7 +89,6 @@ export const practiceMachine = createMachine<PracticeContext>({
       on: {
         SELECTED_VOTER_ID: "enterVoterId",
         SELECTED_PRECINT: "enterPrecint",
-        SELECTED_TOWN: "enterTown",
       },
     },
     enterVoterId: {
@@ -134,11 +133,6 @@ export const practiceMachine = createMachine<PracticeContext>({
       states: {
         empty: {},
         invalidLength: {},
-      },
-    },
-    enterTown: {
-      on: {
-        ADDED_TOWN: "fetchBallots",
       },
     },
     fetchBallots: {
