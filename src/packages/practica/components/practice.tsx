@@ -73,6 +73,18 @@ export default function Practice() {
               selectPrecint={() => send("SELECTED_PRECINT")}
             />
           </Case>
+          <Case value="enterVoterId">
+            <EnterVoterIdForm
+              errorMessage={
+                state.matches({ enterVoterId: "empty" })
+                  ? "Favor entre un número electoral."
+                  : null
+              }
+              onSubmit={({ userInput, findBy }) => {
+                send("ADDED_VOTER_ID", { userInput, findBy })
+              }}
+            />
+          </Case>
           <Case value="enterPrecint">
             <PrecintNumberForm
               errorMessage={
@@ -87,18 +99,6 @@ export default function Practice() {
                   userInput,
                   findBy,
                 })
-              }
-            />
-          </Case>
-          <Case value="enterVoterId">
-            <EnterVoterIdForm
-              errorMessage={
-                state.matches({ enterVoterId: "empty" })
-                  ? "Favor entre un número electoral."
-                  : null
-              }
-              onSubmit={({ userInput, findBy }) =>
-                send("SELECTED_PRECINT", { userInput, findBy })
               }
             />
           </Case>
@@ -247,7 +247,7 @@ export default function Practice() {
               ) : null}
             </div>
           </Case>
-          <Default>Shit</Default>
+          <Default>FAILURE</Default>
         </Switch>
       </Card>
     </div>

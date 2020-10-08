@@ -16,8 +16,6 @@ type FindByEventParams = {
 }
 
 const fetchBallots = async (_, { userInput, findBy }: FindByEventParams) => {
-  console.log({ userInput, findBy })
-
   const ballots = await BallotFinder(userInput, findBy)
 
   // Prefetch ballot data
@@ -93,7 +91,7 @@ export const practiceMachine = createMachine<PracticeContext>({
     },
     enterVoterId: {
       on: {
-        ADDED_VOTING_NUMBER: [
+        ADDED_VOTER_ID: [
           {
             target: ".empty",
             cond: (_, event: FindByEventParams) => {
