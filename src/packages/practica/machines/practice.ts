@@ -1,18 +1,33 @@
 import { isEmpty, isNil } from "lodash"
 import { createMachine, assign } from "xstate"
+import { Selection } from "../../../ballot-validator/types"
+import { VotesCoordinates } from "../../generate-ballot/types/ballot-machine"
 
 import {
   StateBallotConfig,
   MunicipalBallotConfig,
   LegislativeBallotConfig,
 } from "../services/ballot-configs"
+import { ElectiveField } from "../services/ballot-configs/base"
 import BallotFinder, { FindByType } from "../services/ballot-finder-service"
 import { MAX_PRECINT_LENGTH, PUBLIC_S3_BUCKET } from "../services/constants"
 import { OcrResult } from "../services/types"
+import { Vote } from "../services/vote-service"
 
 type FindByEventParams = {
   userInput: string
   findBy: FindByType
+}
+
+type PracticeContext = {
+  userInput: string | null
+  findBy: FindByType | null
+  ballots: {
+    estatal?: StateBallotConfig
+    municipal?: MunicipalBallotConfig
+    legislativa?: LegislativeBallotConfig
+  }
+  votes: Vote[]
 }
 
 const fetchBallots = async (_, { userInput, findBy }: FindByEventParams) => {
@@ -64,14 +79,34 @@ const fetchBallots = async (_, { userInput, findBy }: FindByEventParams) => {
   }, initialValue)
 }
 
-type PracticeContext = {
-  userInput: string | null
-  findBy: FindByType | null
-  ballots: {
-    estatal?: StateBallotConfig
-    municipal?: MunicipalBallotConfig
-    legislativa?: LegislativeBallotConfig
+type VoteEvent = {
+  candidate: ElectiveField
+  position: VotesCoordinates
+}
+
+function updateVotes(
+  context: PracticeContext,
+  { candidate, position }: VoteEvent
+) {
+  const prevVotes = context.votes
+  const hasVote = prevVotes.some(
+    vote =>
+      vote.position.row === position.row &&
+      vote.position.column === position.column
+  )
+
+  if (hasVote) {
+    return prevVotes.filter(vote => {
+      return !(
+        position.row === vote.position.row &&
+        position.column === vote.position.column
+      )
+    })
   }
+
+  const vote = new Vote(candidate, position, Selection.selected)
+
+  return [...prevVotes, vote]
 }
 
 export const practiceMachine = createMachine<PracticeContext>({
@@ -81,6 +116,7 @@ export const practiceMachine = createMachine<PracticeContext>({
     userInput: null,
     findBy: null,
     ballots: {},
+    votes: [],
   },
   states: {
     ballotFinderPicker: {
@@ -184,6 +220,10 @@ export const practiceMachine = createMachine<PracticeContext>({
     },
     governmental: {
       on: {
+        SELETED_ELECTIVE_FIELD: {
+          target: "governmental",
+          actions: assign({ votes: updateVotes }),
+        },
         SUMBIT: "validate",
       },
     },
