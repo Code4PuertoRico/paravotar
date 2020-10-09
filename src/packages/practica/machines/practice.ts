@@ -229,11 +229,19 @@ export const practiceMachine = createMachine<PracticeContext>({
     },
     legislative: {
       on: {
+        SELETED_ELECTIVE_FIELD: {
+          target: "legislative",
+          actions: assign({ votes: updateVotes }),
+        },
         SUMBIT: "validate",
       },
     },
     municipal: {
       on: {
+        SELETED_ELECTIVE_FIELD: {
+          target: "municipal",
+          actions: assign({ votes: updateVotes }),
+        },
         SUMBIT: "validate",
       },
     },
