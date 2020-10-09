@@ -24,6 +24,7 @@ import {
   BallotType,
 } from "../../../../ballot-validator/types"
 import VotesDetector from "../../../../ballot-validator/detector/index"
+import { BallotPositions } from "./constants"
 
 function generateCandidates(
   section: OcrResult[],
@@ -87,12 +88,16 @@ export class StateBallotConfig {
     const governorHeader: Header[] = ballot[1].map(
       (ocrResult: OcrResult) => new Header(ocrResult.ocrResult)
     )
-    const candidatesForGorvernor = generateCandidates(ballot[2], 1, url)
+    const candidatesForGorvernor = generateCandidates(
+      ballot[BallotPositions.state.governors.start],
+      1,
+      url
+    )
     const commissionerResidentHeader: Header[] = ballot[3].map(
       (ocrResult: OcrResult) => new Header(ocrResult.ocrResult)
     )
     const candidatesForComissionerResident = generateCandidates(
-      ballot[4],
+      ballot[BallotPositions.state.commissionerResident.start],
       2,
       url
     )
@@ -215,12 +220,18 @@ export class MunicipalBallotConfig {
     const mayorHeader: Header[] = ballot[1].map(
       (ocrResult: OcrResult) => new Header(ocrResult.ocrResult)
     )
-    const candidatesForMayor = generateCandidates(ballot[2], undefined, url)
+    const candidatesForMayor = generateCandidates(
+      ballot[BallotPositions.municipal.mayors.start],
+      undefined,
+      url
+    )
     const municipalLegislatorHeader: Header[] = ballot[3].map(
       (ocrResult: OcrResult) => new Header(ocrResult.ocrResult)
     )
 
-    const municipalLegislators = ballot.slice(4)
+    const municipalLegislators = ballot.slice(
+      BallotPositions.municipal.municipalLegislators.start
+    )
     const candidatesForMunicipalLegislator = municipalLegislators.map(
       (ocrResult: OcrResult[], index: number) =>
         generateCandidates(ocrResult, index + 1)
@@ -374,7 +385,7 @@ export class LegislativeBallotConfig {
       (ocrResult: OcrResult) => new Header(ocrResult.ocrResult)
     )
     const candidatesForDistrictRepresentative = generateCandidates(
-      fixedBallots[2],
+      fixedBallots[BallotPositions.legislative.districtRepresentatives.start],
       1,
       url
     )
@@ -382,7 +393,10 @@ export class LegislativeBallotConfig {
     const districtSenatorHeader: Header[] = fixedBallots[3].map(
       (ocrResult: OcrResult) => new Header(ocrResult.ocrResult)
     )
-    const districtSenators = fixedBallots.slice(4, 6)
+    const districtSenators = fixedBallots.slice(
+      BallotPositions.legislative.districtSenators.start,
+      BallotPositions.legislative.districtSenators.end
+    )
     const candidatesForDistrictSenators = districtSenators.map(
       (ocrResult: OcrResult[], index: number) => {
         const hasWriteColumn = index + 1 <= this.totalVotesForDistrictSenators
@@ -394,7 +408,10 @@ export class LegislativeBallotConfig {
     const atLargeRepresentativeHeader: Header[] = fixedBallots[6].map(
       (ocrResult: OcrResult) => new Header(ocrResult.ocrResult)
     )
-    const atLargeRepresentatives = fixedBallots.slice(7, 13)
+    const atLargeRepresentatives = fixedBallots.slice(
+      BallotPositions.legislative.atLargeRepresentatives.start,
+      BallotPositions.legislative.atLargeRepresentatives.end
+    )
     const candidatesForAtLargeRepresentatives = atLargeRepresentatives.map(
       (ocrResult: OcrResult[], index: number) => {
         const hasWriteColumn =
@@ -407,7 +424,9 @@ export class LegislativeBallotConfig {
     const atLargeSenatorHeader: Header[] = fixedBallots[13].map(
       (ocrResult: OcrResult) => new Header(ocrResult.ocrResult)
     )
-    const atLargeSenators = fixedBallots.slice(14)
+    const atLargeSenators = fixedBallots.slice(
+      BallotPositions.legislative.atLargeSenators.start
+    )
     const candidatesForAtLargeSenators = atLargeSenators.map(
       (ocrResult: OcrResult[], index: number) => {
         const hasWriteColumn = index + 1 <= this.totalVotesForAtLargeSenators
