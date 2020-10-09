@@ -18,6 +18,7 @@ import {
   CandidatesRow,
   PartyRow,
 } from "../../practica/services/ballot-configs/types"
+import { useColumnHighlight } from "../../../context/column-highlight-context"
 
 type BallotProps = {
   type: BallotType
@@ -38,6 +39,7 @@ export default function BaseBallot({
       : type === BallotType.municipality
       ? "bg-ballots-municipal"
       : "bg-ballots-legislative"
+  const { highlightedColumn } = useColumnHighlight()
 
   return (
     <div className="bg-black" style={{ width: 2200 }}>
@@ -58,7 +60,7 @@ export default function BaseBallot({
 
                   if (col instanceof Party) {
                     return (
-                      <Ballot.PartyHeader
+                      <Ballot.PoliticalParty
                         key={col.id}
                         logo={col.insignia}
                         ocrResult={col.name}
@@ -66,6 +68,8 @@ export default function BaseBallot({
                         toggleVote={() =>
                           toggleVote({ row: rowIndex, column: colIndex })
                         }
+                        isHighlighted={colIndex === highlightedColumn}
+                        position={colIndex}
                       />
                     )
                   }
@@ -83,16 +87,7 @@ export default function BaseBallot({
                   }
 
                   if (col instanceof Rule) {
-                    return (
-                      <Ballot.PartyHeader
-                        key={col.id}
-                        ocrResult={col.rule}
-                        hasVote={vote}
-                        toggleVote={() =>
-                          toggleVote({ row: rowIndex, column: colIndex })
-                        }
-                      />
-                    )
+                    return <Ballot.Rule key={col.id} ocrResult={col.rule} />
                   }
 
                   if (col instanceof Candidate) {
@@ -102,6 +97,7 @@ export default function BaseBallot({
                         img={col.img}
                         name={col.name}
                         accumulationNumber={col.accumulationNumber}
+                        isPartyHighlighted={colIndex === highlightedColumn}
                         hasVote={vote}
                         toggleVote={() =>
                           toggleVote({ row: rowIndex, column: colIndex })
@@ -115,6 +111,7 @@ export default function BaseBallot({
                       <Ballot.WriteIn
                         key={col.id}
                         accumulationNumber={col.accumulationNumber}
+                        hasVote={vote}
                         toggleVote={() =>
                           toggleVote({ row: rowIndex, column: colIndex })
                         }

@@ -22,6 +22,7 @@ import useVotesCount from "../hooks/use-votes-count"
 import BallotFinderPicker from "./ballot-finder-picker"
 import PrecintNumberForm from "./precint-number-form"
 import EnterVoterIdForm from "./enter-voter-id-form"
+import { ColumnHighlightProvider } from "../../../context/column-highlight-context"
 
 export default function Practice() {
   const [state, send] = useMachine(practiceMachine)
@@ -144,12 +145,14 @@ export default function Practice() {
                     </Typography>
                   </BallotStatus>
                   <div className="overflow-scroll">
-                    <Ballot
-                      type={BallotType.state}
-                      structure={state.context.ballots.estatal.structure}
-                      votes={votes}
-                      toggleVote={setVotes}
-                    />
+                    <ColumnHighlightProvider>
+                      <Ballot
+                        type={BallotType.state}
+                        structure={state.context.ballots.estatal.structure}
+                        votes={votes}
+                        toggleVote={setVotes}
+                      />
+                    </ColumnHighlightProvider>
                   </div>
                   <Button
                     onClick={() => {
@@ -189,12 +192,14 @@ export default function Practice() {
                     </Typography>
                   </BallotStatus>
                   <div className="overflow-scroll">
-                    <Ballot
-                      type={BallotType.legislative}
-                      structure={state.context.ballots.legislativa.structure}
-                      votes={votes}
-                      toggleVote={setVotes}
-                    />
+                    <ColumnHighlightProvider>
+                      <Ballot
+                        type={BallotType.legislative}
+                        structure={state.context.ballots.legislativa.structure}
+                        votes={votes}
+                        toggleVote={setVotes}
+                      />
+                    </ColumnHighlightProvider>
                   </div>
                   <Button
                     onClick={() => {
@@ -225,12 +230,14 @@ export default function Practice() {
                     </Typography>
                   </BallotStatus>
                   <div className="overflow-scroll">
-                    <Ballot
-                      type={BallotType.municipality}
-                      structure={state.context.ballots.municipal.structure}
-                      votes={votes}
-                      toggleVote={setVotes}
-                    />
+                    <ColumnHighlightProvider>
+                      <Ballot
+                        type={BallotType.municipality}
+                        structure={state.context.ballots.municipal.structure}
+                        votes={votes}
+                        toggleVote={setVotes}
+                      />
+                    </ColumnHighlightProvider>
                   </div>
                   <Button
                     onClick={() => {

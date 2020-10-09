@@ -1,32 +1,10 @@
 import React from "react"
 
-import Checkbox from "./checkbox"
-
 type HeaderProps = {
   ocrResult: string
-  hasVote: boolean
-  logo?: string
-  toggleVote?: () => void
 }
 
-function PoliticalParty({ logo, ocrResult, hasVote, toggleVote }: HeaderProps) {
-  return (
-    <div className="p-2 text-center border border-white" key={ocrResult}>
-      <img className="mx-auto" src={logo} alt={ocrResult} />
-      <Checkbox
-        type="party"
-        id={ocrResult.replace(" ", "-").toLowerCase()}
-        checked={hasVote}
-        onClick={toggleVote}
-      />
-      <p className="whitespace-pre-line text-white font-semibold">
-        {ocrResult}
-      </p>
-    </div>
-  )
-}
-
-function IndependentCandidate({ ocrResult }: { ocrResult: string }) {
+export default function Rule({ ocrResult }: HeaderProps) {
   if (ocrResult.includes("CANDIDATOS(AS) INDEPENDIENTES")) {
     const esHeader = "CANDIDATOS(AS) INDEPENDIENTES"
     const enHeader = "INDEPENDENT CANDIDATES"
@@ -62,24 +40,4 @@ function IndependentCandidate({ ocrResult }: { ocrResult: string }) {
       <p className="whitespace-pre-line text-white">{ocrResult}</p>
     </div>
   )
-}
-
-export default function PartyHeader({
-  logo,
-  ocrResult,
-  hasVote,
-  toggleVote,
-}: HeaderProps) {
-  if (logo) {
-    return (
-      <PoliticalParty
-        logo={logo}
-        ocrResult={ocrResult}
-        hasVote={hasVote}
-        toggleVote={toggleVote}
-      />
-    )
-  }
-
-  return <IndependentCandidate ocrResult={ocrResult} />
 }
