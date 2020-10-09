@@ -24,7 +24,7 @@ import {
   BallotType,
 } from "../../../../ballot-validator/types"
 import VotesDetector from "../../../../ballot-validator/detector/index"
-import { BallotPositions } from "./constants"
+import { BallotPositions, ValidMarkLimits } from "./constants"
 
 function generateCandidates(
   section: OcrResult[],
@@ -75,9 +75,6 @@ function generateHeaders(section: OcrResult[], url: string) {
 }
 
 export class StateBallotConfig {
-  private totalVotesForGovernor = 1
-  private totalVotesForCommissionerResident = 1
-
   structure: StateBallotStructure
   cols: number
 
@@ -110,14 +107,6 @@ export class StateBallotConfig {
       commissionerResidentHeader,
       candidatesForComissionerResident,
     ]
-  }
-
-  get votesForGovernor() {
-    return this.totalVotesForGovernor
-  }
-
-  get votesForCommissionerResident() {
-    return this.totalVotesForCommissionerResident
   }
 
   countVotes(votes: StateBallot): StateVotesCount {
@@ -192,10 +181,12 @@ export class StateBallotConfig {
     )
 
     return {
-      governor: `${governor || this.votesForGovernor}/${this.votesForGovernor}`,
+      governor: `${governor || ValidMarkLimits.state.governors}/${
+        ValidMarkLimits.state.governors
+      }`,
       commissionerResident: `${residentCommissioner ||
-        this.votesForCommissionerResident}/${
-        this.votesForCommissionerResident
+        ValidMarkLimits.state.commissionerResident}/${
+        ValidMarkLimits.state.commissionerResident
       }`,
     }
   }
@@ -207,11 +198,9 @@ type MunicipalVotesCount = {
 }
 
 export class MunicipalBallotConfig {
-  private totalVotesForMayor = 1
-  private totalVotesForLegislators
-
   structure: MunicipalBallotStructure
   cols: number
+  amountOfMunicipalLegislators: number
 
   constructor(ballot: OcrResult[][], path: string) {
     const url = `${CDN_URL}/${path}`
@@ -238,7 +227,7 @@ export class MunicipalBallotConfig {
     )
 
     this.cols = parties.length
-    this.totalVotesForLegislators = candidatesForMunicipalLegislator.length
+    this.amountOfMunicipalLegislators = candidatesForMunicipalLegislator.length
     this.structure = [
       parties,
       mayorHeader,
@@ -246,14 +235,6 @@ export class MunicipalBallotConfig {
       municipalLegislatorHeader,
       ...candidatesForMunicipalLegislator,
     ]
-  }
-
-  get votesForMayor() {
-    return this.totalVotesForMayor
-  }
-
-  get legislators() {
-    return this.totalVotesForLegislators
   }
 
   countVotes(votes: MunicipalBallot): MunicipalVotesCount {
@@ -343,12 +324,14 @@ export class MunicipalBallotConfig {
     )
 
     return {
-      mayor: `${mayor || this.votesForMayor}/${this.votesForMayor}`,
+      mayor: `${mayor || ValidMarkLimits.municipal.mayors}/${
+        ValidMarkLimits.municipal.mayors
+      }`,
       municipalLegislators: `${
-        this.legislators - 1 - municipalLegislators >= 0
-          ? this.legislators
+        this.amountOfMunicipalLegislators - 1 - municipalLegislators >= 0
+          ? this.amountOfMunicipalLegislators
           : municipalLegislators
-      }/${this.legislators}`,
+      }/${this.amountOfMunicipalLegislators}`,
     }
   }
 }
@@ -361,11 +344,6 @@ type LegislativeVotesCount = {
 }
 
 export class LegislativeBallotConfig {
-  private totalVotesForDistrictRepresentative = 1
-  private totalVotesForDistrictSenators = 2
-  private totalVotesForAtLargeRepresentatives = 1
-  private totalVotesForAtLargeSenators = 1
-
   structure: LegislativeBallotStructure
   cols: number
 
@@ -447,22 +425,6 @@ export class LegislativeBallotConfig {
       atLargeSenatorHeader,
       ...candidatesForAtLargeSenators,
     ]
-  }
-
-  get votesForDistrictRepresentatives() {
-    return this.totalVotesForDistrictRepresentative
-  }
-
-  get votesForDistrictSenators() {
-    return this.totalVotesForDistrictSenators
-  }
-
-  get votesForAtLargeRepresentatives() {
-    return this.totalVotesForAtLargeRepresentatives
-  }
-
-  get votesForAtLargeSenators() {
-    return this.totalVotesForAtLargeSenators
   }
 
   countVotes(votes: LegislativeBallot): LegislativeVotesCount {
@@ -631,18 +593,20 @@ export class LegislativeBallotConfig {
 
     return {
       districtRepresentative: `${districtRepresentative ||
-        this.votesForDistrictRepresentatives}/${
-        this.votesForAtLargeRepresentatives
+        ValidMarkLimits.legislative.districtRepresentatives}/${
+        ValidMarkLimits.legislative.districtRepresentatives
       }`,
-      districtSenators: `${districtSenators || this.votesForDistrictSenators}/${
-        this.votesForDistrictSenators
+      districtSenators: `${districtSenators ||
+        ValidMarkLimits.legislative.districtSenators}/${
+        ValidMarkLimits.legislative.districtSenators
       }`,
       atLargeRepresentative: `${atLargeRepresentative ||
-        this.totalVotesForAtLargeRepresentatives}/${
-        this.totalVotesForAtLargeRepresentatives
+        ValidMarkLimits.legislative.atLargeRepresentatives}/${
+        ValidMarkLimits.legislative.atLargeRepresentatives
       }`,
-      atLargeSenator: `${atLargeSenator || this.votesForAtLargeSenators}/${
-        this.votesForAtLargeSenators
+      atLargeSenator: `${atLargeSenator ||
+        ValidMarkLimits.legislative.atLargeSenators}/${
+        ValidMarkLimits.legislative.atLargeSenators
       }`,
     }
   }

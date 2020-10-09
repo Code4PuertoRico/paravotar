@@ -32,3 +32,22 @@ export const BallotPositions = {
     },
   },
 }
+
+export const ValidMarkLimits = {
+  state: {
+    governors: 1,
+    commissionerResident: 1,
+  },
+  municipal: {
+    mayors: 1,
+    municipalLegislators: {
+      start: 4,
+    },
+  },
+  legislative: {
+    districtRepresentatives: 1,
+    districtSenators: 1,
+    atLargeRepresentatives: 1,
+    atLargeSenators: 1,
+  },
+}
