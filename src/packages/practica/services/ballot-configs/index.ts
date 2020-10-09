@@ -28,6 +28,7 @@ import { BallotPositions, ValidMarkLimits } from "./constants"
 
 function generateCandidates(
   section: OcrResult[],
+  receivesImplicitVote: boolean,
   accumulationNumber?: number,
   url?: string,
   hasWriteInColumn = true
@@ -38,6 +39,7 @@ function generateCandidates(
     } else if (ocrResult.ocrResult) {
       return new Candidate(
         ocrResult.ocrResult,
+        receivesImplicitVote,
         accumulationNumber,
         url ? `${url}${ocrResult.logoImg}` : undefined
       )
@@ -87,6 +89,7 @@ export class StateBallotConfig {
     )
     const candidatesForGorvernor = generateCandidates(
       ballot[BallotPositions.state.governors.start],
+      true,
       1,
       url
     )
@@ -95,6 +98,7 @@ export class StateBallotConfig {
     )
     const candidatesForComissionerResident = generateCandidates(
       ballot[BallotPositions.state.commissionerResident.start],
+      true,
       2,
       url
     )
@@ -211,6 +215,7 @@ export class MunicipalBallotConfig {
     )
     const candidatesForMayor = generateCandidates(
       ballot[BallotPositions.municipal.mayors.start],
+      true,
       undefined,
       url
     )
@@ -223,7 +228,7 @@ export class MunicipalBallotConfig {
     )
     const candidatesForMunicipalLegislator = municipalLegislators.map(
       (ocrResult: OcrResult[], index: number) =>
-        generateCandidates(ocrResult, index + 1)
+        generateCandidates(ocrResult, true, index + 1)
     )
 
     this.cols = parties.length
@@ -364,6 +369,7 @@ export class LegislativeBallotConfig {
     )
     const candidatesForDistrictRepresentative = generateCandidates(
       fixedBallots[BallotPositions.legislative.districtRepresentatives.start],
+      true,
       1,
       url
     )
@@ -377,9 +383,16 @@ export class LegislativeBallotConfig {
     )
     const candidatesForDistrictSenators = districtSenators.map(
       (ocrResult: OcrResult[], index: number) => {
-        const hasWriteColumn = index + 1 <= this.totalVotesForDistrictSenators
+        const hasWriteColumn =
+          index + 1 <= ValidMarkLimits.legislative.districtSenators
 
-        return generateCandidates(ocrResult, index + 2, url, hasWriteColumn)
+        return generateCandidates(
+          ocrResult,
+          true,
+          index + 2,
+          url,
+          hasWriteColumn
+        )
       }
     )
 
@@ -393,9 +406,15 @@ export class LegislativeBallotConfig {
     const candidatesForAtLargeRepresentatives = atLargeRepresentatives.map(
       (ocrResult: OcrResult[], index: number) => {
         const hasWriteColumn =
-          index + 1 <= this.totalVotesForAtLargeRepresentatives
+          index + 1 <= ValidMarkLimits.legislative.atLargeRepresentatives
 
-        return generateCandidates(ocrResult, index + 4, url, hasWriteColumn)
+        return generateCandidates(
+          ocrResult,
+          index === 0,
+          index + 4,
+          url,
+          hasWriteColumn
+        )
       }
     )
 
@@ -407,9 +426,16 @@ export class LegislativeBallotConfig {
     )
     const candidatesForAtLargeSenators = atLargeSenators.map(
       (ocrResult: OcrResult[], index: number) => {
-        const hasWriteColumn = index + 1 <= this.totalVotesForAtLargeSenators
+        const hasWriteColumn =
+          index + 1 <= ValidMarkLimits.legislative.districtSenators
 
-        return generateCandidates(ocrResult, index + 10, url, hasWriteColumn)
+        return generateCandidates(
+          ocrResult,
+          index === 0,
+          index + 10,
+          url,
+          hasWriteColumn
+        )
       }
     )
 

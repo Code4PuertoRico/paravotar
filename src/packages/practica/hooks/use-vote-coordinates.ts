@@ -1,25 +1,38 @@
 import { useState } from "react"
+import { Selection } from "../../../ballot-validator/types"
 import { VotesCoordinates } from "../../generate-ballot/types/ballot-machine"
+import { ElectiveField } from "../services/ballot-configs/base"
+import { Vote } from "../services/vote-service"
 
 export default function useVoteCoordinates(): [
-  VotesCoordinates[],
-  ({ row, column }: VotesCoordinates) => void,
+  Vote[],
+  (candidate: ElectiveField, position: VotesCoordinates) => void,
   () => void
 ] {
-  const [coordinates, setCoordinates] = useState<VotesCoordinates[]>([])
-  const setVoteCoordinates = ({ row, column }: VotesCoordinates) => {
+  const [coordinates, setCoordinates] = useState<Vote[]>([])
+  const setVoteCoordinates = (
+    candidate: ElectiveField,
+    position: VotesCoordinates
+  ) => {
     setCoordinates(prevCoordinates => {
       const hasVote = prevCoordinates.some(
-        vote => vote.row === row && vote.column === column
+        vote =>
+          vote.position.row === position.row &&
+          vote.position.column === position.column
       )
 
       if (hasVote) {
         return prevCoordinates.filter(vote => {
-          return !(row === vote.row && column === vote.column)
+          return !(
+            position.row === vote.position.row &&
+            position.column === vote.position.column
+          )
         })
       }
 
-      return [...prevCoordinates, { row, column }]
+      const vote = new Vote(candidate, position, Selection.selected)
+
+      return [...prevCoordinates, vote]
     })
   }
 

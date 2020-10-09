@@ -53,8 +53,14 @@ export class Candidate extends BallotSection {
   img
   name
   accumulationNumber
+  receivesImpicitVote
 
-  constructor(name: string, accumulationNumber?: number, img?: string) {
+  constructor(
+    name: string,
+    receivesImpicitVote = true,
+    accumulationNumber?: number,
+    img?: string
+  ) {
     super()
 
     const regex = /\d\.?\r?\n?/g
@@ -63,6 +69,7 @@ export class Candidate extends BallotSection {
     this.img = img ? img : undefined
     this.name = cleanedName
     this.accumulationNumber = accumulationNumber ? `${accumulationNumber}.` : ""
+    this.receivesImpicitVote = receivesImpicitVote
   }
 }
 
@@ -77,3 +84,5 @@ export class WriteInCandidate extends BallotSection {
 }
 
 export class EmptyCandidacy extends BallotSection {}
+
+export type ElectiveField = Candidate | WriteInCandidate | Party

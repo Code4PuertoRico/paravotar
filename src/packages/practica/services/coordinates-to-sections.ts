@@ -5,8 +5,8 @@ import {
   Selection,
   StateBallot,
 } from "../../../ballot-validator/types"
-import { VotesCoordinates } from "../../generate-ballot/types/ballot-machine"
 import { BallotConfigs } from "./ballot-configs"
+import { Vote } from "./vote-service"
 
 type MarkAsSelectedArgs = {
   votes: Selection[]
@@ -21,10 +21,7 @@ function markAsSelected({ votes, position }: MarkAsSelectedArgs) {
   ]
 }
 
-function transformStateVotes(
-  votes: VotesCoordinates[],
-  cols: number
-): StateBallot {
+function transformStateVotes(votes: Vote[], cols: number): StateBallot {
   const parties = new Array(cols).fill(Selection.notSelected)
   const governor = new Array(cols).fill(Selection.notSelected)
   const residentCommissioner = Array(cols).fill(Selection.notSelected)
@@ -43,20 +40,20 @@ function transformStateVotes(
           position: curr.column,
         }),
       }
-    } else if (curr.row === 2) {
+    } else if (curr.position.row === 2) {
       return {
         ...prev,
         governor: markAsSelected({
           votes: prev.governor,
-          position: curr.column,
+          position: curr.position.column,
         }),
       }
-    } else if (curr.row === 4) {
+    } else if (curr.position.row === 4) {
       return {
         ...prev,
         residentCommissioner: markAsSelected({
           votes: prev.residentCommissioner,
-          position: curr.column,
+          position: curr.position.column,
         }),
       }
     }
@@ -66,7 +63,7 @@ function transformStateVotes(
 }
 
 function transformMunicipalVotes(
-  votes: VotesCoordinates[],
+  votes: Vote[],
   cols: number,
   legislators: number
 ): MunicipalBallot {
@@ -85,20 +82,20 @@ function transformMunicipalVotes(
   }
 
   return votes.reduce((prev, curr): MunicipalBallot => {
-    if (curr.row === 0) {
+    if (curr.position.row === 0) {
       return {
         ...prev,
         parties: markAsSelected({
           votes: prev.parties,
-          position: curr.column,
+          position: curr.position.column,
         }),
       }
-    } else if (curr.row === 2) {
+    } else if (curr.position.row === 2) {
       return {
         ...prev,
         mayor: markAsSelected({
           votes: prev.mayor,
-          position: curr.column,
+          position: curr.position.column,
         }),
       }
     }
@@ -108,10 +105,10 @@ function transformMunicipalVotes(
     return {
       ...prev,
       municipalLegislator: prev.municipalLegislator.map((row, index) => {
-        if (curr.row - 4 === index) {
+        if (curr.position.row - 4 === index) {
           return markAsSelected({
             votes: row,
-            position: curr.column,
+            position: curr.position.column,
           })
         }
 
@@ -122,7 +119,7 @@ function transformMunicipalVotes(
 }
 
 function transformLegislativeVotes(
-  votes: VotesCoordinates[],
+  votes: Vote[],
   cols: number
 ): LegislativeBallot {
   // TODO: The columns in a municipal ballot can change depending on the town.
@@ -153,52 +150,52 @@ function transformLegislativeVotes(
   }
 
   return votes.reduce((prev, curr): LegislativeBallot => {
-    if (curr.row === 0) {
+    if (curr.position.row === 0) {
       // Party
 
       return {
         ...prev,
         parties: markAsSelected({
           votes: prev.parties,
-          position: curr.column,
+          position: curr.position.column,
         }),
       }
-    } else if (curr.row === 2) {
+    } else if (curr.position.row === 2) {
       // District Representative
 
       return {
         ...prev,
         districtRepresentative: markAsSelected({
           votes: prev.districtRepresentative,
-          position: curr.column,
+          position: curr.position.column,
         }),
       }
-    } else if (curr.row > 3 && curr.row < 6) {
+    } else if (curr.position.row > 3 && curr.position.row < 6) {
       // District Senators
 
       return {
         ...prev,
         districtSenator: prev.districtSenator.map((row, index) => {
-          if (curr.row - 4 === index) {
+          if (curr.position.row - 4 === index) {
             return markAsSelected({
               votes: row,
-              position: curr.column,
+              position: curr.position.column,
             })
           }
 
           return row
         }),
       }
-    } else if (curr.row > 6 && curr.row < 13) {
+    } else if (curr.position.row > 6 && curr.position.row < 13) {
       // At large representative
 
       return {
         ...prev,
         atLargeRepresentative: prev.atLargeRepresentative.map((row, index) => {
-          if (curr.row - 7 === index) {
+          if (curr.position.row - 7 === index) {
             return markAsSelected({
               votes: row,
-              position: curr.column,
+              position: curr.position.column,
             })
           }
 
@@ -211,10 +208,10 @@ function transformLegislativeVotes(
     return {
       ...prev,
       atLargeSenator: prev.atLargeSenator.map((row, index) => {
-        if (curr.row - 14 === index) {
+        if (curr.position.row - 14 === index) {
           return markAsSelected({
             votes: row,
-            position: curr.column,
+            position: curr.position.column,
           })
         }
 
@@ -225,7 +222,7 @@ function transformLegislativeVotes(
 }
 
 export default function coordinatesToSections(
-  votes: VotesCoordinates[],
+  votes: Vote[],
   ballot: BallotConfigs,
   ballotType: BallotType
 ) {
@@ -234,7 +231,11 @@ export default function coordinatesToSections(
       return transformStateVotes(votes, ballot.cols)
 
     case BallotType.municipality:
-      return transformMunicipalVotes(votes, ballot.cols, ballot.legislators)
+      return transformMunicipalVotes(
+        votes,
+        ballot.cols,
+        ballot.amountOfMunicipalLegislators
+      )
 
     default:
       return transformLegislativeVotes(votes, ballot.cols)
