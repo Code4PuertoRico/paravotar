@@ -140,6 +140,7 @@ const BallotService = {
     context: PracticeContext,
     { candidate, position, ballotType }: VoteEvent
   ) {
+    const ballots = context.ballots
     const prevVotes = context.votes
     const storedVote = prevVotes.find(
       vote =>
@@ -192,7 +193,6 @@ const BallotService = {
     // Party votes will trigger implicit votes for candidates.
     if (position.row === PARTY_ROW) {
       // Find the ballot that's currently used.
-      const { ballots } = context
       const ballot = getBallot(ballots, ballotType)
 
       // Get the sections that have candidates.
@@ -233,74 +233,82 @@ const BallotService = {
 
     // Manage mixed vote
     if (hasVotesForParty) {
-      const { ballots } = context
       const ballot = getBallot(ballots, ballotType)
       const electivePosition = getElectivePositionForVote(vote, ballotType)
       const ballotPosition = BallotPositions[ballotType]
       const validMarkLimitsOnBallot = ValidMarkLimits[ballotType]
 
       const implicitVotesForPosition = prevVotes.filter(vote => {
+        const start = ballotPosition[electivePosition].start
+        const end =
+          ballotType === BallotType.municipality
+            ? (ballot as MunicipalBallotConfig).amountOfMunicipalLegislators + 3
+            : ballotPosition[electivePosition].end
+
+        console.log({ row: vote.position.row, start, end })
+
         return (
-          vote.position.row >= ballotPosition[electivePosition].start &&
-          vote.position.row <= ballotPosition[electivePosition].end &&
+          vote.position.row >= start &&
+          vote.position.row <= end &&
           vote.selection === Selection.selectedImplicitly
         )
       })
 
       const explicitVotesForPosition = prevVotes.filter(vote => {
+        const start = ballotPosition[electivePosition].start
+        const end =
+          ballotType === BallotType.municipality
+            ? (ballot as MunicipalBallotConfig).amountOfMunicipalLegislators + 3
+            : ballotPosition[electivePosition].end
+
         return (
-          vote.position.row >= ballotPosition[electivePosition].start &&
-          vote.position.row <= ballotPosition[electivePosition].end &&
+          vote.position.row >= start &&
+          vote.position.row <= end &&
           vote.selection === Selection.selected
         )
       })
 
       const votesOutsideOfThePosition = prevVotes.filter(vote => {
-        return (
-          vote.position.row !== ballotPosition[electivePosition].start &&
-          vote.position.row !== ballotPosition[electivePosition].end
-        )
+        const start = ballotPosition[electivePosition].start
+        const end =
+          ballotType === BallotType.municipality
+            ? (ballot as MunicipalBallotConfig).amountOfMunicipalLegislators + 3
+            : ballotPosition[electivePosition].end
+
+        return vote.position.row < start || vote.position.row > end
       })
 
       console.log({ votesOutsideOfThePosition, implicitVotesForPosition })
 
-      // const implicitPartyVotes = partyVotes.reduce((counter, partyVote) => {
-      //   const votesForParty = findVotesForParty(prevVotes, partyVote.position)
-      //   const implicitVotes = votesForParty.filter(
-      //     vote => vote.selection === Selection.selectedImplicitly
-      //   )
-
-      //   return counter + implicitVotes.length
-      // }, 0)
-
-      // const votesForCandidates = prevVotes.filter(
-      //   vote => vote.position.row !== PARTY_ROW
-      // )
-      // const explicitVotesForCandidates = votesForCandidates.reduce(
-      //   (counter, vote) => {
-      //     if (vote.selection === Selection.selected) {
-      //       return counter + 1
-      //     }
-
-      //     return counter
-      //   },
-      //   0
-      // )
-
       const totalVotesForPosition =
         implicitVotesForPosition.length + explicitVotesForPosition.length + 1
-      const voteLimit = validMarkLimitsOnBallot[electivePosition]
+      const voteLimit =
+        ballotType === BallotType.municipality
+          ? (ballot as MunicipalBallotConfig).amountOfMunicipalLegislators
+          : validMarkLimitsOnBallot[electivePosition]
 
       // Get the section of the vote to determine how we should were we should subtract an implicit vote
       if (totalVotesForPosition > voteLimit) {
-        const difference = totalVotesForPosition - voteLimit + 1
-        // const filteredImplicitVotesForPosition = implicitVotesForPosition.filter(() => )
+        const difference = totalVotesForPosition - voteLimit
+        const filteredImplicitVotesForPosition = implicitVotesForPosition.filter(
+          (vote, index) => {
+            return index + 1 < difference
+          }
+        )
+
+        console.log({
+          explicitVotesForPosition: explicitVotesForPosition,
+          vote,
+          filteredImplicitVotesForPosition: filteredImplicitVotesForPosition,
+          votesOutsideOfThePosition: votesOutsideOfThePosition,
+        })
 
         // Remove the votes for the position completely.
-        if (difference >= implicitVotesForPosition.length) {
+        if (difference >= filteredImplicitVotesForPosition.length) {
           return [
             ...explicitVotesForPosition,
             vote,
+            ...filteredImplicitVotesForPosition,
             ...votesOutsideOfThePosition,
           ]
         }
