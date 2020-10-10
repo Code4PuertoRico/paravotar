@@ -8,6 +8,7 @@ type HeaderProps = {
   hasVote: boolean
   position: number
   isHighlighted: boolean
+  voteOpacity: string
   logo?: string
   toggleVote?: () => void
 }
@@ -24,6 +25,7 @@ export default function PoliticalParty(props: HeaderProps) {
         checked={props.hasVote}
         onClick={props.toggleVote}
         isHighlighted={props.isHighlighted}
+        voteOpacity={props.voteOpacity}
         onMouseEnter={() => {
           setHighlightedColumn(props.position)
         }}

@@ -6,6 +6,7 @@ type CheckboxProps = {
   type: "candidate" | "party"
   id: string
   isHighlighted: boolean
+  voteOpacity: string
   checked?: boolean
   onClick?: () => void
   onMouseEnter?: () => void
@@ -28,7 +29,7 @@ export default function Checkbox(props: CheckboxProps) {
       >
         {props.checked || props.isHighlighted ? (
           <img
-            className={`h-6 w-8 ${props.isHighlighted ? "opacity-75" : ""}`}
+            className={`h-6 w-8 ${props.voteOpacity}`}
             src={VoteCross}
             alt=""
           />

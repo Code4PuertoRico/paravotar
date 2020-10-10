@@ -55,12 +55,25 @@ export default function BaseBallot(props: BallotProps) {
             >
               {row.map(
                 (col: Party | Rule | Candidate | Header, colIndex: number) => {
-                  const vote = !!props.votes.find(vote => {
+                  const vote = props.votes.find(vote => {
                     return (
                       vote.position.row === rowIndex &&
                       vote.position.column === colIndex
                     )
                   })
+                  const hasVote = !!vote
+                  const isExplicitVote = hasVote
+                    ? (vote as Vote).wasSelectedExplictly()
+                    : false
+                  const isImplicitVote = hasVote
+                    ? (vote as Vote).wasSelectedImplicitly()
+                    : false
+                  const isHighlighted = colIndex === highlightedColumn
+                  const voteOpacity = isExplicitVote
+                    ? "opacity-100"
+                    : isImplicitVote
+                    ? "opacity-50"
+                    : "opacity-25"
 
                   if (col instanceof Party) {
                     return (
@@ -68,15 +81,16 @@ export default function BaseBallot(props: BallotProps) {
                         key={col.id}
                         logo={col.insignia}
                         ocrResult={col.name}
-                        hasVote={vote}
+                        hasVote={hasVote}
+                        voteOpacity={voteOpacity}
+                        position={colIndex}
+                        isHighlighted={isHighlighted}
                         toggleVote={() =>
                           props.toggleVote(col, {
                             row: rowIndex,
                             column: colIndex,
                           })
                         }
-                        isHighlighted={colIndex === highlightedColumn}
-                        position={colIndex}
                       />
                     )
                   }
@@ -103,14 +117,15 @@ export default function BaseBallot(props: BallotProps) {
                         key={col.id}
                         img={col.img}
                         name={col.name}
+                        hasVote={hasVote}
+                        voteOpacity={voteOpacity}
                         accumulationNumber={col.accumulationNumber}
+                        isHighlighted={isHighlighted}
                         isPartyHighlighted={
                           isLegislativeBallot
-                            ? col.receivesImpicitVote &&
-                              colIndex === highlightedColumn
-                            : colIndex === highlightedColumn
+                            ? col.receivesImpicitVote && isHighlighted
+                            : isHighlighted
                         }
-                        hasVote={vote}
                         toggleVote={() =>
                           props.toggleVote(col, {
                             row: rowIndex,
@@ -126,7 +141,8 @@ export default function BaseBallot(props: BallotProps) {
                       <Ballot.WriteIn
                         key={col.id}
                         accumulationNumber={col.accumulationNumber}
-                        hasVote={vote}
+                        hasVote={hasVote}
+                        voteOpacity={voteOpacity}
                         toggleVote={() =>
                           props.toggleVote(col, {
                             row: rowIndex,
