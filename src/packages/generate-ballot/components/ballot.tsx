@@ -11,6 +11,7 @@ import {
   WriteInCandidate,
   EmptyCandidacy,
   WriteInRules,
+  ElectiveField,
 } from "../../practica/services/ballot-configs/base"
 import { BallotType } from "../../../ballot-validator/types"
 import {
@@ -19,31 +20,31 @@ import {
   PartyRow,
 } from "../../practica/services/ballot-configs/types"
 import { useColumnHighlight } from "../../../context/column-highlight-context"
+import { Vote } from "../../practica/services/vote-service"
 
 type BallotProps = {
   type: BallotType
   structure: BallotStructure
-  votes: VotesCoordinates[]
-  toggleVote: ({ row, column }: VotesCoordinates) => void
+  votes: Vote[]
+  toggleVote: (
+    candidate: ElectiveField,
+    { row, column }: VotesCoordinates
+  ) => void
 }
 
-export default function BaseBallot({
-  type,
-  structure,
-  votes,
-  toggleVote,
-}: BallotProps) {
+export default function BaseBallot(props: BallotProps) {
   const ballotBg =
-    type === BallotType.state
+    props.type === BallotType.state
       ? "bg-ballots-governmental"
-      : type === BallotType.municipality
+      : props.type === BallotType.municipality
       ? "bg-ballots-municipal"
       : "bg-ballots-legislative"
   const { highlightedColumn } = useColumnHighlight()
+  const isLegislativeBallot = props.type === BallotType.legislative
 
   return (
     <div className="bg-black" style={{ width: 2200 }}>
-      {structure.map(
+      {props.structure.map(
         (row: CandidatesRow | PartyRow | Header[], rowIndex: number) => {
           return (
             <div
@@ -54,8 +55,11 @@ export default function BaseBallot({
             >
               {row.map(
                 (col: Party | Rule | Candidate | Header, colIndex: number) => {
-                  const vote = !!votes.find(vote => {
-                    return vote.row === rowIndex && vote.column === colIndex
+                  const vote = !!props.votes.find(vote => {
+                    return (
+                      vote.position.row === rowIndex &&
+                      vote.position.column === colIndex
+                    )
                   })
 
                   if (col instanceof Party) {
@@ -66,7 +70,10 @@ export default function BaseBallot({
                         ocrResult={col.name}
                         hasVote={vote}
                         toggleVote={() =>
-                          toggleVote({ row: rowIndex, column: colIndex })
+                          props.toggleVote(col, {
+                            row: rowIndex,
+                            column: colIndex,
+                          })
                         }
                         isHighlighted={colIndex === highlightedColumn}
                         position={colIndex}
@@ -97,10 +104,18 @@ export default function BaseBallot({
                         img={col.img}
                         name={col.name}
                         accumulationNumber={col.accumulationNumber}
-                        isPartyHighlighted={colIndex === highlightedColumn}
+                        isPartyHighlighted={
+                          isLegislativeBallot
+                            ? col.receivesImpicitVote &&
+                              colIndex === highlightedColumn
+                            : colIndex === highlightedColumn
+                        }
                         hasVote={vote}
                         toggleVote={() =>
-                          toggleVote({ row: rowIndex, column: colIndex })
+                          props.toggleVote(col, {
+                            row: rowIndex,
+                            column: colIndex,
+                          })
                         }
                       />
                     )
@@ -113,7 +128,10 @@ export default function BaseBallot({
                         accumulationNumber={col.accumulationNumber}
                         hasVote={vote}
                         toggleVote={() =>
-                          toggleVote({ row: rowIndex, column: colIndex })
+                          props.toggleVote(col, {
+                            row: rowIndex,
+                            column: colIndex,
+                          })
                         }
                       />
                     )

@@ -3,6 +3,7 @@ import BaseRule from "./rules/BaseRule"
 export enum Selection {
   selected = "selected",
   notSelected = "notSelected",
+  selectedImplicitly = "selectedImplicitly",
 }
 
 export interface BaseBallot {

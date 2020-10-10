@@ -28,6 +28,7 @@ import { BallotPositions, ValidMarkLimits } from "./constants"
 
 function generateCandidates(
   section: OcrResult[],
+  receivesImplicitVote: boolean,
   accumulationNumber?: number,
   url?: string,
   hasWriteInColumn = true
@@ -38,6 +39,7 @@ function generateCandidates(
     } else if (ocrResult.ocrResult) {
       return new Candidate(
         ocrResult.ocrResult,
+        receivesImplicitVote,
         accumulationNumber,
         url ? `${url}${ocrResult.logoImg}` : undefined
       )
@@ -87,6 +89,7 @@ export class StateBallotConfig {
     )
     const candidatesForGorvernor = generateCandidates(
       ballot[BallotPositions.state.governors.start],
+      true,
       1,
       url
     )
@@ -95,6 +98,7 @@ export class StateBallotConfig {
     )
     const candidatesForComissionerResident = generateCandidates(
       ballot[BallotPositions.state.commissionerResident.start],
+      true,
       2,
       url
     )
@@ -116,10 +120,11 @@ export class StateBallotConfig {
       const parties = votes.parties.reduce(countSelected, 0)
 
       return {
-        governor: `${this.votesForGovernor * parties}/${this.votesForGovernor}`,
-        commissionerResident: `${this.votesForCommissionerResident * parties}/${
-          this.votesForCommissionerResident
+        governor: `${ValidMarkLimits.state.governors * parties}/${
+          ValidMarkLimits.state.governors
         }`,
+        commissionerResident: `${ValidMarkLimits.state.commissionerResident *
+          parties}/${ValidMarkLimits.state.commissionerResident}`,
       }
     } else if (voteType === "candidatura") {
       const governor = votes.governor.reduce(countSelected, 0)
@@ -129,13 +134,13 @@ export class StateBallotConfig {
       )
 
       return {
-        governor: `${governor}/${this.votesForGovernor}`,
-        commissionerResident: `${commissionerResident}/${this.votesForCommissionerResident}`,
+        governor: `${governor}/${ValidMarkLimits.state.governors}`,
+        commissionerResident: `${commissionerResident}/${ValidMarkLimits.state.commissionerResident}`,
       }
     } else if (voteType === "empty") {
       return {
-        governor: `0/${this.votesForGovernor}`,
-        commissionerResident: `0/${this.votesForCommissionerResident}`,
+        governor: `0/${ValidMarkLimits.state.governors}`,
+        commissionerResident: `0/${ValidMarkLimits.state.commissionerResident}`,
       }
     }
 
@@ -211,6 +216,7 @@ export class MunicipalBallotConfig {
     )
     const candidatesForMayor = generateCandidates(
       ballot[BallotPositions.municipal.mayors.start],
+      true,
       undefined,
       url
     )
@@ -223,7 +229,7 @@ export class MunicipalBallotConfig {
     )
     const candidatesForMunicipalLegislator = municipalLegislators.map(
       (ocrResult: OcrResult[], index: number) =>
-        generateCandidates(ocrResult, index + 1)
+        generateCandidates(ocrResult, true, index + 1)
     )
 
     this.cols = parties.length
@@ -244,9 +250,11 @@ export class MunicipalBallotConfig {
       const parties = votes.parties.reduce(countSelected, 0)
 
       return {
-        mayor: `${this.votesForMayor * parties}/${this.votesForMayor}`,
-        municipalLegislators: `${this.legislators * parties}/${
-          this.legislators
+        mayor: `${ValidMarkLimits.municipal.mayors * parties}/${
+          ValidMarkLimits.municipal.mayors
+        }`,
+        municipalLegislators: `${this.amountOfMunicipalLegislators * parties}/${
+          this.amountOfMunicipalLegislators
         }`,
       }
     } else if (voteType === "candidatura") {
@@ -261,13 +269,13 @@ export class MunicipalBallotConfig {
       )
 
       return {
-        mayor: `${mayor}/${this.votesForMayor}`,
-        municipalLegislators: `${municipalLegislators}/${this.legislators}`,
+        mayor: `${mayor}/${ValidMarkLimits.municipal.mayors}`,
+        municipalLegislators: `${municipalLegislators}/${this.amountOfMunicipalLegislators}`,
       }
     } else if (voteType === "empty") {
       return {
-        mayor: `0/${this.votesForMayor}`,
-        municipalLegislators: `0/${this.legislators}`,
+        mayor: `0/${ValidMarkLimits.municipal.mayors}`,
+        municipalLegislators: `0/${this.amountOfMunicipalLegislators}`,
       }
     }
 
@@ -364,6 +372,7 @@ export class LegislativeBallotConfig {
     )
     const candidatesForDistrictRepresentative = generateCandidates(
       fixedBallots[BallotPositions.legislative.districtRepresentatives.start],
+      true,
       1,
       url
     )
@@ -377,9 +386,16 @@ export class LegislativeBallotConfig {
     )
     const candidatesForDistrictSenators = districtSenators.map(
       (ocrResult: OcrResult[], index: number) => {
-        const hasWriteColumn = index + 1 <= this.totalVotesForDistrictSenators
+        const hasWriteColumn =
+          index + 1 <= ValidMarkLimits.legislative.districtSenators
 
-        return generateCandidates(ocrResult, index + 2, url, hasWriteColumn)
+        return generateCandidates(
+          ocrResult,
+          true,
+          index + 2,
+          url,
+          hasWriteColumn
+        )
       }
     )
 
@@ -393,9 +409,15 @@ export class LegislativeBallotConfig {
     const candidatesForAtLargeRepresentatives = atLargeRepresentatives.map(
       (ocrResult: OcrResult[], index: number) => {
         const hasWriteColumn =
-          index + 1 <= this.totalVotesForAtLargeRepresentatives
+          index + 1 <= ValidMarkLimits.legislative.atLargeRepresentatives
 
-        return generateCandidates(ocrResult, index + 4, url, hasWriteColumn)
+        return generateCandidates(
+          ocrResult,
+          index === 0,
+          index + 4,
+          url,
+          hasWriteColumn
+        )
       }
     )
 
@@ -407,9 +429,16 @@ export class LegislativeBallotConfig {
     )
     const candidatesForAtLargeSenators = atLargeSenators.map(
       (ocrResult: OcrResult[], index: number) => {
-        const hasWriteColumn = index + 1 <= this.totalVotesForAtLargeSenators
+        const hasWriteColumn =
+          index + 1 <= ValidMarkLimits.legislative.districtSenators
 
-        return generateCandidates(ocrResult, index + 10, url, hasWriteColumn)
+        return generateCandidates(
+          ocrResult,
+          index === 0,
+          index + 10,
+          url,
+          hasWriteColumn
+        )
       }
     )
 
@@ -434,16 +463,18 @@ export class LegislativeBallotConfig {
       const parties = votes.parties.reduce(countSelected, 0)
 
       return {
-        districtRepresentative: `${this.votesForDistrictRepresentatives *
-          parties}/${this.votesForDistrictRepresentatives}`,
-        districtSenators: `${this.votesForDistrictSenators * parties}/${
-          this.votesForDistrictSenators
+        districtRepresentative: `${ValidMarkLimits.legislative
+          .districtRepresentatives * parties}/${
+          ValidMarkLimits.legislative.districtRepresentatives
         }`,
-        atLargeRepresentative: `${this.votesForAtLargeRepresentatives *
-          parties}/${this.votesForAtLargeRepresentatives}`,
-        atLargeSenator: `${this.votesForAtLargeSenators * parties}/${
-          this.votesForAtLargeSenators
+        districtSenators: `${ValidMarkLimits.legislative.districtSenators *
+          parties}/${ValidMarkLimits.legislative.districtSenators}`,
+        atLargeRepresentative: `${ValidMarkLimits.legislative
+          .atLargeRepresentatives * parties}/${
+          ValidMarkLimits.legislative.atLargeRepresentatives
         }`,
+        atLargeSenator: `${ValidMarkLimits.legislative.atLargeSenators *
+          parties}/${ValidMarkLimits.legislative.atLargeSenators}`,
       }
     } else if (voteType === "candidatura") {
       const districtRepresentative = votes.districtRepresentative.reduce(
@@ -472,17 +503,17 @@ export class LegislativeBallotConfig {
       }, 0)
 
       return {
-        districtRepresentative: `${districtRepresentative}/${this.votesForDistrictRepresentatives}`,
-        districtSenators: `${districtSenators}/${this.votesForDistrictSenators}`,
-        atLargeRepresentative: `${atLargeRepresentative}/${this.votesForAtLargeRepresentatives}`,
-        atLargeSenator: `${atLargeSenator}/${this.votesForAtLargeSenators}`,
+        districtRepresentative: `${districtRepresentative}/${ValidMarkLimits.legislative.districtRepresentatives}`,
+        districtSenators: `${districtSenators}/${ValidMarkLimits.legislative.districtSenators}`,
+        atLargeRepresentative: `${atLargeRepresentative}/${ValidMarkLimits.legislative.atLargeRepresentatives}`,
+        atLargeSenator: `${atLargeSenator}/${ValidMarkLimits.legislative.atLargeSenators}`,
       }
     } else if (voteType === "empty") {
       return {
-        districtRepresentative: `0/${this.votesForDistrictRepresentatives}`,
-        districtSenators: `0/${this.votesForDistrictSenators}`,
-        atLargeRepresentative: `0/${this.votesForAtLargeRepresentatives}`,
-        atLargeSenator: `0/${this.votesForAtLargeSenators}`,
+        districtRepresentative: `0/${ValidMarkLimits.legislative.districtRepresentatives}`,
+        districtSenators: `0/${ValidMarkLimits.legislative.districtSenators}`,
+        atLargeRepresentative: `0/${ValidMarkLimits.legislative.atLargeRepresentatives}`,
+        atLargeSenator: `0/${ValidMarkLimits.legislative.atLargeSenators}`,
       }
     }
 

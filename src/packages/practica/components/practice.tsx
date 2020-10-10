@@ -8,10 +8,8 @@ import { Ballot } from "../../generate-ballot/components"
 import Default from "../../../components/default"
 import Switch from "../../../components/switch"
 import Case from "../../../components/case"
-import { VotesCoordinates } from "../../generate-ballot/types/ballot-machine"
 import { practiceMachine } from "../machines/practice"
 
-import useVoteCoordinates from "../hooks/use-vote-coordinates"
 import coordinatesToSections from "../services/coordinates-to-sections"
 import { BallotConfigs } from "../services/ballot-configs"
 import { useSidebar } from "../../../context/sidebar-context"
@@ -23,18 +21,18 @@ import BallotFinderPicker from "./ballot-finder-picker"
 import PrecintNumberForm from "./precint-number-form"
 import EnterVoterIdForm from "./enter-voter-id-form"
 import { ColumnHighlightProvider } from "../../../context/column-highlight-context"
+import { Vote } from "../services/vote-service"
 
 export default function Practice() {
   const [state, send] = useMachine(practiceMachine)
-  const [votes, setVotes, setVotesToEmpty] = useVoteCoordinates()
-  const transformedVotes = useVotesTransform(votes, state)
+  const transformedVotes = useVotesTransform(state.context.votes, state)
   const { ballotStatus, setBallotStatus } = useBallotValidation(
     transformedVotes
   )
   const { votesCount, setVotesCount } = useVotesCount(transformedVotes)
   const { setSidebarIsVisible } = useSidebar()
   const handleSubmit = (
-    votes: VotesCoordinates[],
+    votes: Vote[],
     ballotType: BallotType,
     ballot?: BallotConfigs
   ) => {
@@ -46,7 +44,6 @@ export default function Practice() {
 
   const selectBallot = (selectedBallot: string) => {
     setSidebarIsVisible(false)
-    setVotesToEmpty()
     setBallotStatus(null)
     setVotesCount(null)
 
@@ -149,15 +146,21 @@ export default function Practice() {
                       <Ballot
                         type={BallotType.state}
                         structure={state.context.ballots.estatal.structure}
-                        votes={votes}
-                        toggleVote={setVotes}
+                        votes={state.context.votes}
+                        toggleVote={(candidate, position) => {
+                          send("SELETED_ELECTIVE_FIELD", {
+                            candidate,
+                            position,
+                            ballotType: BallotType.state,
+                          })
+                        }}
                       />
                     </ColumnHighlightProvider>
                   </div>
                   <Button
                     onClick={() => {
                       handleSubmit(
-                        votes,
+                        state.context.votes,
                         BallotType.state,
                         state.context.ballots.estatal
                       )
@@ -196,15 +199,21 @@ export default function Practice() {
                       <Ballot
                         type={BallotType.legislative}
                         structure={state.context.ballots.legislativa.structure}
-                        votes={votes}
-                        toggleVote={setVotes}
+                        votes={state.context.votes}
+                        toggleVote={(candidate, position) => {
+                          send("SELETED_ELECTIVE_FIELD", {
+                            candidate,
+                            position,
+                            ballotType: BallotType.legislative,
+                          })
+                        }}
                       />
                     </ColumnHighlightProvider>
                   </div>
                   <Button
                     onClick={() => {
                       handleSubmit(
-                        votes,
+                        state.context.votes,
                         BallotType.legislative,
                         state.context.ballots.legislativa
                       )
@@ -234,15 +243,21 @@ export default function Practice() {
                       <Ballot
                         type={BallotType.municipality}
                         structure={state.context.ballots.municipal.structure}
-                        votes={votes}
-                        toggleVote={setVotes}
+                        votes={state.context.votes}
+                        toggleVote={(candidate, position) => {
+                          send("SELETED_ELECTIVE_FIELD", {
+                            candidate,
+                            position,
+                            ballotType: BallotType.municipality,
+                          })
+                        }}
                       />
                     </ColumnHighlightProvider>
                   </div>
                   <Button
                     onClick={() => {
                       handleSubmit(
-                        votes,
+                        state.context.votes,
                         BallotType.municipality,
                         state.context.ballots.municipal
                       )
