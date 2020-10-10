@@ -120,10 +120,11 @@ export class StateBallotConfig {
       const parties = votes.parties.reduce(countSelected, 0)
 
       return {
-        governor: `${this.votesForGovernor * parties}/${this.votesForGovernor}`,
-        commissionerResident: `${this.votesForCommissionerResident * parties}/${
-          this.votesForCommissionerResident
+        governor: `${ValidMarkLimits.state.governors * parties}/${
+          ValidMarkLimits.state.governors
         }`,
+        commissionerResident: `${ValidMarkLimits.state.commissionerResident *
+          parties}/${ValidMarkLimits.state.commissionerResident}`,
       }
     } else if (voteType === "candidatura") {
       const governor = votes.governor.reduce(countSelected, 0)
@@ -133,13 +134,13 @@ export class StateBallotConfig {
       )
 
       return {
-        governor: `${governor}/${this.votesForGovernor}`,
-        commissionerResident: `${commissionerResident}/${this.votesForCommissionerResident}`,
+        governor: `${governor}/${ValidMarkLimits.state.governors}`,
+        commissionerResident: `${commissionerResident}/${ValidMarkLimits.state.commissionerResident}`,
       }
     } else if (voteType === "empty") {
       return {
-        governor: `0/${this.votesForGovernor}`,
-        commissionerResident: `0/${this.votesForCommissionerResident}`,
+        governor: `0/${ValidMarkLimits.state.governors}`,
+        commissionerResident: `0/${ValidMarkLimits.state.commissionerResident}`,
       }
     }
 
@@ -249,9 +250,11 @@ export class MunicipalBallotConfig {
       const parties = votes.parties.reduce(countSelected, 0)
 
       return {
-        mayor: `${this.votesForMayor * parties}/${this.votesForMayor}`,
-        municipalLegislators: `${this.legislators * parties}/${
-          this.legislators
+        mayor: `${ValidMarkLimits.municipal.mayors * parties}/${
+          ValidMarkLimits.municipal.mayors
+        }`,
+        municipalLegislators: `${this.amountOfMunicipalLegislators * parties}/${
+          this.amountOfMunicipalLegislators
         }`,
       }
     } else if (voteType === "candidatura") {
@@ -266,13 +269,13 @@ export class MunicipalBallotConfig {
       )
 
       return {
-        mayor: `${mayor}/${this.votesForMayor}`,
-        municipalLegislators: `${municipalLegislators}/${this.legislators}`,
+        mayor: `${mayor}/${ValidMarkLimits.municipal.mayors}`,
+        municipalLegislators: `${municipalLegislators}/${this.amountOfMunicipalLegislators}`,
       }
     } else if (voteType === "empty") {
       return {
-        mayor: `0/${this.votesForMayor}`,
-        municipalLegislators: `0/${this.legislators}`,
+        mayor: `0/${ValidMarkLimits.municipal.mayors}`,
+        municipalLegislators: `0/${this.amountOfMunicipalLegislators}`,
       }
     }
 
@@ -460,16 +463,18 @@ export class LegislativeBallotConfig {
       const parties = votes.parties.reduce(countSelected, 0)
 
       return {
-        districtRepresentative: `${this.votesForDistrictRepresentatives *
-          parties}/${this.votesForDistrictRepresentatives}`,
-        districtSenators: `${this.votesForDistrictSenators * parties}/${
-          this.votesForDistrictSenators
+        districtRepresentative: `${ValidMarkLimits.legislative
+          .districtRepresentatives * parties}/${
+          ValidMarkLimits.legislative.districtRepresentatives
         }`,
-        atLargeRepresentative: `${this.votesForAtLargeRepresentatives *
-          parties}/${this.votesForAtLargeRepresentatives}`,
-        atLargeSenator: `${this.votesForAtLargeSenators * parties}/${
-          this.votesForAtLargeSenators
+        districtSenators: `${ValidMarkLimits.legislative.districtSenators *
+          parties}/${ValidMarkLimits.legislative.districtSenators}`,
+        atLargeRepresentative: `${ValidMarkLimits.legislative
+          .atLargeRepresentatives * parties}/${
+          ValidMarkLimits.legislative.atLargeRepresentatives
         }`,
+        atLargeSenator: `${ValidMarkLimits.legislative.atLargeSenators *
+          parties}/${ValidMarkLimits.legislative.atLargeSenators}`,
       }
     } else if (voteType === "candidatura") {
       const districtRepresentative = votes.districtRepresentative.reduce(
@@ -498,17 +503,17 @@ export class LegislativeBallotConfig {
       }, 0)
 
       return {
-        districtRepresentative: `${districtRepresentative}/${this.votesForDistrictRepresentatives}`,
-        districtSenators: `${districtSenators}/${this.votesForDistrictSenators}`,
-        atLargeRepresentative: `${atLargeRepresentative}/${this.votesForAtLargeRepresentatives}`,
-        atLargeSenator: `${atLargeSenator}/${this.votesForAtLargeSenators}`,
+        districtRepresentative: `${districtRepresentative}/${ValidMarkLimits.legislative.districtRepresentatives}`,
+        districtSenators: `${districtSenators}/${ValidMarkLimits.legislative.districtSenators}`,
+        atLargeRepresentative: `${atLargeRepresentative}/${ValidMarkLimits.legislative.atLargeRepresentatives}`,
+        atLargeSenator: `${atLargeSenator}/${ValidMarkLimits.legislative.atLargeSenators}`,
       }
     } else if (voteType === "empty") {
       return {
-        districtRepresentative: `0/${this.votesForDistrictRepresentatives}`,
-        districtSenators: `0/${this.votesForDistrictSenators}`,
-        atLargeRepresentative: `0/${this.votesForAtLargeRepresentatives}`,
-        atLargeSenator: `0/${this.votesForAtLargeSenators}`,
+        districtRepresentative: `0/${ValidMarkLimits.legislative.districtRepresentatives}`,
+        districtSenators: `0/${ValidMarkLimits.legislative.districtSenators}`,
+        atLargeRepresentative: `0/${ValidMarkLimits.legislative.atLargeRepresentatives}`,
+        atLargeSenator: `0/${ValidMarkLimits.legislative.atLargeSenators}`,
       }
     }
 
