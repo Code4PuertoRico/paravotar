@@ -6,6 +6,7 @@ type WriteInProps = {
   img?: string
   hasVote: boolean
   accumulationNumber: string
+  voteOpacity: string
   toggleVote?: () => void
 }
 
@@ -25,6 +26,7 @@ export default function WriteIn(props: WriteInProps) {
           id={"id2121"}
           checked={props.hasVote}
           isHighlighted={isHighlighted}
+          voteOpacity={props.voteOpacity}
           onClick={props.toggleVote}
           onMouseEnter={() => setIsHighlighted(true)}
           onMouseLeave={() => setIsHighlighted(false)}

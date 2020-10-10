@@ -5,8 +5,10 @@ import Checkbox from "./checkbox"
 type CandidateProps = {
   name: string
   accumulationNumber: string
+  isHighlighted: boolean
   hasVote: boolean
   isPartyHighlighted: boolean
+  voteOpacity: string
   img?: string
   toggleVote?: () => void
 }
@@ -27,6 +29,7 @@ export default function Candidate(props: CandidateProps) {
           id={props.name.replace(" ", "-").toLowerCase()}
           checked={props.hasVote}
           isHighlighted={props.isPartyHighlighted || isHighlighted}
+          voteOpacity={props.voteOpacity}
           onMouseEnter={() => setIsHighlighted(true)}
           onMouseLeave={() => setIsHighlighted(false)}
           onClick={props.toggleVote}
