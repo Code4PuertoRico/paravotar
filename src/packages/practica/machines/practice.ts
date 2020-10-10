@@ -1,14 +1,15 @@
 import { isEmpty, isNil } from "lodash"
 import { createMachine, assign } from "xstate"
-import { Selection } from "../../../ballot-validator/types"
+import { BallotType, Selection } from "../../../ballot-validator/types"
 import { VotesCoordinates } from "../../generate-ballot/types/ballot-machine"
 
 import {
   StateBallotConfig,
   MunicipalBallotConfig,
   LegislativeBallotConfig,
+  BallotConfigs,
 } from "../services/ballot-configs"
-import { ElectiveField } from "../services/ballot-configs/base"
+import { ElectiveField, Candidate } from "../services/ballot-configs/base"
 import BallotFinder, { FindByType } from "../services/ballot-finder-service"
 import { MAX_PRECINT_LENGTH, PUBLIC_S3_BUCKET } from "../services/constants"
 import { OcrResult } from "../services/types"
@@ -82,11 +83,12 @@ const fetchBallots = async (_, { userInput, findBy }: FindByEventParams) => {
 type VoteEvent = {
   candidate: ElectiveField
   position: VotesCoordinates
+  ballotType: BallotType
 }
 
 function updateVotes(
   context: PracticeContext,
-  { candidate, position }: VoteEvent
+  { candidate, position, ballotType }: VoteEvent
 ) {
   const prevVotes = context.votes
   const hasVote = prevVotes.some(
@@ -102,6 +104,46 @@ function updateVotes(
         position.column === vote.position.column
       )
     })
+  }
+
+  if (position.row === 0) {
+    // Find the ballot that's currently used.
+    const { ballots } = context
+    const ballot = (ballotType === BallotType.state
+      ? context.ballots.estatal
+      : ballotType === BallotType.municipality
+      ? ballots.municipal
+      : ballots.legislativa) as BallotConfigs
+
+    // Get the sections that have candidates.
+    const columnForParty = ballot.structure.reduce((accum, currentRow) => {
+      const columnForParty = currentRow.filter((column, columnIndex) => {
+        if (columnIndex === position.column) {
+          return column
+        }
+
+        return false
+      })
+
+      return [...accum, ...columnForParty]
+    }, [])
+
+    const votes = [new Vote(candidate, position, Selection.selected)]
+
+    // Create a vote for every section that can receive an implicit vote.
+    columnForParty.forEach((item, rowIndex) => {
+      if (item instanceof Candidate && item.receivesImpicitVote) {
+        votes.push(
+          new Vote(
+            item,
+            { column: position.column, row: rowIndex },
+            Selection.selectedImplicitly
+          )
+        )
+      }
+    })
+
+    return votes
   }
 
   const vote = new Vote(candidate, position, Selection.selected)

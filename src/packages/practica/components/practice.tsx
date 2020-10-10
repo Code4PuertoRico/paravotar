@@ -151,6 +151,7 @@ export default function Practice() {
                           send("SELETED_ELECTIVE_FIELD", {
                             candidate,
                             position,
+                            ballotType: BallotType.state,
                           })
                         }}
                       />
@@ -203,6 +204,7 @@ export default function Practice() {
                           send("SELETED_ELECTIVE_FIELD", {
                             candidate,
                             position,
+                            ballotType: BallotType.legislative,
                           })
                         }}
                       />
@@ -246,6 +248,7 @@ export default function Practice() {
                           send("SELETED_ELECTIVE_FIELD", {
                             candidate,
                             position,
+                            ballotType: BallotType.municipality,
                           })
                         }}
                       />
