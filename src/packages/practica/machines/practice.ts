@@ -91,13 +91,45 @@ function updateVotes(
   { candidate, position, ballotType }: VoteEvent
 ) {
   const prevVotes = context.votes
-  const hasVote = prevVotes.some(
+  const storedVote = prevVotes.find(
     vote =>
       vote.position.row === position.row &&
       vote.position.column === position.column
   )
 
-  if (hasVote) {
+  if (storedVote) {
+    // Change the vote from an implicity vote to an explict one.
+    if (storedVote.selection === Selection.selectedImplicitly) {
+      return prevVotes.map(vote => {
+        if (
+          vote.position.row === position.row &&
+          vote.position.column === position.column
+        ) {
+          return new Vote(vote.candidate, vote.position, Selection.selected)
+        }
+
+        return vote
+      })
+    }
+
+    // Remove vote for party and all of the implict votes
+    if (position.row === 0) {
+      return prevVotes.filter(vote => {
+        if (vote.position.column === position.column) {
+          // Remove the party vote.
+          if (vote.position.row === 0) {
+            return false
+          }
+
+          // Remove all of the implicit selections
+          return vote.selection !== Selection.selectedImplicitly
+        }
+
+        return true
+      })
+    }
+
+    // Remove vote for candidate
     return prevVotes.filter(vote => {
       return !(
         position.row === vote.position.row &&
@@ -106,6 +138,7 @@ function updateVotes(
     })
   }
 
+  // Party votes will trigger implicit votes for candidates.
   if (position.row === 0) {
     // Find the ballot that's currently used.
     const { ballots } = context
@@ -143,9 +176,10 @@ function updateVotes(
       }
     })
 
-    return votes
+    return [...prevVotes, ...votes]
   }
 
+  // Add candidate vote.
   const vote = new Vote(candidate, position, Selection.selected)
 
   return [...prevVotes, vote]
