@@ -1,5 +1,4 @@
 import { BallotType, Selection } from "../../../ballot-validator/types"
-import { Candidate } from "../../generate-ballot/components/sections"
 import { VotesCoordinates } from "../../generate-ballot/types/ballot-machine"
 import {
   BallotConfigs,
@@ -7,7 +6,7 @@ import {
   MunicipalBallotConfig,
   StateBallotConfig,
 } from "./ballot-configs"
-import { ElectiveField } from "./ballot-configs/base"
+import { ElectiveField, Candidate } from "./ballot-configs/base"
 import { PUBLIC_S3_BUCKET } from "./constants"
 import { OcrResult, PracticeContext } from "./types"
 import { Vote } from "./vote-service"
@@ -166,6 +165,8 @@ export const BallotService = {
           )
         }
       })
+
+      console.log(votes)
 
       return [...prevVotes, ...votes]
     }
