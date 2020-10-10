@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 
 import Checkbox from "./checkbox"
 
@@ -6,37 +6,41 @@ type CandidateProps = {
   name: string
   accumulationNumber: string
   hasVote: boolean
+  isPartyHighlighted: boolean
   img?: string
   toggleVote?: () => void
 }
 
-export default function Candidate({
-  img,
-  name,
-  accumulationNumber,
-  hasVote,
-  toggleVote,
-}: CandidateProps) {
+export default function Candidate(props: CandidateProps) {
+  const [isHighlighted, setIsHighlighted] = useState(false)
+
   return (
     <div className="border">
       <div className="flex items-center mx-auto py-1 px-3">
-        {!accumulationNumber ? (
+        {!props.accumulationNumber ? (
           <div className="h-5 w-4"></div>
         ) : (
-          <p className="h-5 w-4">{accumulationNumber}</p>
+          <p className="h-5 w-4">{props.accumulationNumber}</p>
         )}
         <Checkbox
           type="candidate"
-          id={name.replace(" ", "-").toLowerCase()}
-          checked={hasVote}
-          onClick={toggleVote}
+          id={props.name.replace(" ", "-").toLowerCase()}
+          checked={props.hasVote}
+          isHighlighted={props.isPartyHighlighted || isHighlighted}
+          onMouseEnter={() => setIsHighlighted(true)}
+          onMouseLeave={() => setIsHighlighted(false)}
+          onClick={props.toggleVote}
         />
-        {img ? (
-          <img className="h-10 w-10" src={img} alt={`Foto de ${name}`} />
+        {props.img ? (
+          <img
+            className="h-10 w-10"
+            src={props.img}
+            alt={`Foto de ${props.name}`}
+          />
         ) : (
           <div className="h-10 w-10"></div>
         )}
-        <p className="whitespace-pre-wrap ml-1 text-left">{name}</p>
+        <p className="whitespace-pre-wrap ml-1 text-left">{props.name}</p>
       </div>
     </div>
   )
