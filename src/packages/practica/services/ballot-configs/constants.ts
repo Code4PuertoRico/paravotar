@@ -1,53 +1,59 @@
+import { BallotType } from "../../../../ballot-validator/types"
+import { ElectivePosition } from "./types"
+
 export const BallotPositions = {
-  state: {
-    governors: {
+  [BallotType.state]: {
+    [ElectivePosition.governor]: {
       start: 2,
+      end: 2,
     },
-    commissionerResident: {
+    [ElectivePosition.commissionerResident]: {
+      start: 4,
+      end: 4,
+    },
+  },
+  [BallotType.municipality]: {
+    [ElectivePosition.mayor]: {
+      start: 2,
+      end: 2,
+    },
+    [ElectivePosition.municipalLegislators]: {
       start: 4,
     },
   },
-  municipal: {
-    mayors: {
+  [BallotType.legislative]: {
+    [ElectivePosition.districtRepresentative]: {
       start: 2,
+      end: 2,
     },
-    municipalLegislators: {
-      start: 4,
-    },
-  },
-  legislative: {
-    districtRepresentatives: {
-      start: 2,
-    },
-    districtSenators: {
+    [ElectivePosition.districtSenators]: {
       start: 4,
       end: 6,
     },
-    atLargeRepresentatives: {
+    [ElectivePosition.atLargeRepresentative]: {
       start: 7,
       end: 13,
     },
-    atLargeSenators: {
+    [ElectivePosition.atLargeSenator]: {
       start: 14,
+      end: 20,
     },
   },
 }
 
 export const ValidMarkLimits = {
-  state: {
-    governors: 1,
-    commissionerResident: 1,
+  [BallotType.state]: {
+    [ElectivePosition.governor]: 1,
+    [ElectivePosition.commissionerResident]: 1,
   },
-  municipal: {
-    mayors: 1,
-    municipalLegislators: {
-      start: 4,
-    },
+  [BallotType.municipality]: {
+    [ElectivePosition.mayor]: 1,
+    [ElectivePosition.municipalLegislators]: 0,
   },
-  legislative: {
-    districtRepresentatives: 1,
-    districtSenators: 1,
-    atLargeRepresentatives: 1,
-    atLargeSenators: 1,
+  [BallotType.legislative]: {
+    [ElectivePosition.districtRepresentative]: 1,
+    [ElectivePosition.districtSenators]: 1,
+    [ElectivePosition.atLargeRepresentative]: 1,
+    [ElectivePosition.atLargeSenator]: 1,
   },
 }

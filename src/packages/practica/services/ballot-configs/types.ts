@@ -39,3 +39,14 @@ export type BallotStructure =
   | StateBallotStructure
   | MunicipalBallotStructure
   | LegislativeBallotStructure
+
+export enum ElectivePosition {
+  governor = "governor",
+  commissionerResident = "commissionerResident",
+  mayor = "mayor",
+  municipalLegislators = "municipalLegislators",
+  districtRepresentative = "districtRepresentative",
+  districtSenators = "districtSenators",
+  atLargeRepresentative = "atLargeRepresentative",
+  atLargeSenator = "atLargeSenator",
+}
