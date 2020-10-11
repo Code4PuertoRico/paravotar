@@ -31,10 +31,6 @@ function findPartyVotes(votes: Vote[]) {
   return votes.filter(vote => vote.position.row === PARTY_ROW)
 }
 
-function findVotesForParty(votes: Vote[], position: VotesCoordinates) {
-  return votes.filter(vote => vote.position.column === position.column)
-}
-
 function getBallot(ballots, ballotType: BallotType): BallotConfigs {
   if (ballotType === BallotType.state) {
     return ballots.estatal
@@ -245,8 +241,6 @@ const BallotService = {
             ? (ballot as MunicipalBallotConfig).amountOfMunicipalLegislators + 3
             : ballotPosition[electivePosition].end
 
-        console.log({ row: vote.position.row, start, end })
-
         return (
           vote.position.row >= start &&
           vote.position.row <= end &&
@@ -278,10 +272,9 @@ const BallotService = {
         return vote.position.row < start || vote.position.row > end
       })
 
-      console.log({ votesOutsideOfThePosition, implicitVotesForPosition })
-
+      const explicitVotes = explicitVotesForPosition.length + 1
       const totalVotesForPosition =
-        implicitVotesForPosition.length + explicitVotesForPosition.length + 1
+        implicitVotesForPosition.length + explicitVotes
       const voteLimit =
         ballotType === BallotType.municipality
           ? (ballot as MunicipalBallotConfig).amountOfMunicipalLegislators
@@ -289,29 +282,22 @@ const BallotService = {
 
       // Get the section of the vote to determine how we should were we should subtract an implicit vote
       if (totalVotesForPosition > voteLimit) {
-        const difference = totalVotesForPosition - voteLimit
-        const filteredImplicitVotesForPosition = implicitVotesForPosition.filter(
-          (vote, index) => {
-            return index + 1 < difference
-          }
-        )
+        const difference = voteLimit - explicitVotes
+        const filteredImplicitVotesForPosition = []
 
-        console.log({
-          explicitVotesForPosition: explicitVotesForPosition,
-          vote,
-          filteredImplicitVotesForPosition: filteredImplicitVotesForPosition,
-          votesOutsideOfThePosition: votesOutsideOfThePosition,
-        })
+        for (let index = 0; index < difference; index++) {
+          filteredImplicitVotesForPosition.push(implicitVotesForPosition[index])
+        }
+
+        console.log(filteredImplicitVotesForPosition)
 
         // Remove the votes for the position completely.
-        if (difference >= filteredImplicitVotesForPosition.length) {
-          return [
-            ...explicitVotesForPosition,
-            vote,
-            ...filteredImplicitVotesForPosition,
-            ...votesOutsideOfThePosition,
-          ]
-        }
+        return [
+          ...explicitVotesForPosition,
+          vote,
+          ...filteredImplicitVotesForPosition,
+          ...votesOutsideOfThePosition,
+        ]
       }
     }
 

@@ -361,7 +361,6 @@ export class LegislativeBallotConfig {
     // HACK: Add one item to every ocr result to we can generate the correct amount of columns
     const fixedBallots: OcrResult[][] = ballot.map((result: OcrResult[]) => {
       result.push({ ocrResult: "" })
-      console.log(result)
 
       return result
     })

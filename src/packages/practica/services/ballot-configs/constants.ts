@@ -52,7 +52,7 @@ export const ValidMarkLimits = {
   },
   [BallotType.legislative]: {
     [ElectivePosition.districtRepresentative]: 1,
-    [ElectivePosition.districtSenators]: 1,
+    [ElectivePosition.districtSenators]: 2,
     [ElectivePosition.atLargeRepresentative]: 1,
     [ElectivePosition.atLargeSenator]: 1,
   },
