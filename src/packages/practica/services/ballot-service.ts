@@ -82,6 +82,27 @@ function getElectivePositionForVote(
   return ElectivePosition.atLargeSenator
 }
 
+function getStartAndEndPositionsForBallot(
+  ballot: BallotConfigs,
+  ballotType: BallotType,
+  electivePosition: ElectivePosition
+) {
+  if (ballotType === BallotType.state) {
+    return BallotPositions.state[electivePosition]
+  } else if (ballotType === BallotType.legislative) {
+    return BallotPositions.legislative[electivePosition]
+  }
+
+  if (electivePosition === ElectivePosition.mayor) {
+    return BallotPositions.municipality.mayor
+  }
+
+  return {
+    ...BallotPositions.municipality.municipalLegislators,
+    end: (ballot as MunicipalBallotConfig).amountOfMunicipalLegislators + 3,
+  }
+}
+
 const BallotService = {
   async fetchBallots(
     _: PracticeContext,
@@ -231,16 +252,14 @@ const BallotService = {
     if (hasVotesForParty) {
       const ballot = getBallot(ballots, ballotType)
       const electivePosition = getElectivePositionForVote(vote, ballotType)
-      const ballotPosition = BallotPositions[ballotType]
       const validMarkLimitsOnBallot = ValidMarkLimits[ballotType]
+      const { start, end } = getStartAndEndPositionsForBallot(
+        ballot,
+        ballotType,
+        electivePosition
+      )
 
       const implicitVotesForPosition = prevVotes.filter(vote => {
-        const start = ballotPosition[electivePosition].start
-        const end =
-          ballotType === BallotType.municipality
-            ? (ballot as MunicipalBallotConfig).amountOfMunicipalLegislators + 3
-            : ballotPosition[electivePosition].end
-
         return (
           vote.position.row >= start &&
           vote.position.row <= end &&
@@ -249,12 +268,6 @@ const BallotService = {
       })
 
       const explicitVotesForPosition = prevVotes.filter(vote => {
-        const start = ballotPosition[electivePosition].start
-        const end =
-          ballotType === BallotType.municipality
-            ? (ballot as MunicipalBallotConfig).amountOfMunicipalLegislators + 3
-            : ballotPosition[electivePosition].end
-
         return (
           vote.position.row >= start &&
           vote.position.row <= end &&
@@ -263,12 +276,6 @@ const BallotService = {
       })
 
       const votesOutsideOfThePosition = prevVotes.filter(vote => {
-        const start = ballotPosition[electivePosition].start
-        const end =
-          ballotType === BallotType.municipality
-            ? (ballot as MunicipalBallotConfig).amountOfMunicipalLegislators + 3
-            : ballotPosition[electivePosition].end
-
         return vote.position.row < start || vote.position.row > end
       })
 
@@ -276,7 +283,7 @@ const BallotService = {
       const totalVotesForPosition =
         implicitVotesForPosition.length + explicitVotes
       const voteLimit =
-        ballotType === BallotType.municipality
+        electivePosition === ElectivePosition.municipalLegislators
           ? (ballot as MunicipalBallotConfig).amountOfMunicipalLegislators
           : validMarkLimitsOnBallot[electivePosition]
 
