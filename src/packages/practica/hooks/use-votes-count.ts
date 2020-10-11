@@ -11,7 +11,6 @@ export default function useVotesCount(
 
   useDeepCompareEffect(() => {
     if (transformedVotes) {
-      console.log(transformedVotes)
       const { ballotConfig, votes } = transformedVotes
       const votesCount: VoteCounts = ballotConfig.countVotes(votes)
 

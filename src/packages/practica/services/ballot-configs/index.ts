@@ -23,7 +23,6 @@ import {
   LegislativeBallot,
   BallotType,
 } from "../../../../ballot-validator/types"
-import VotesDetector from "../../../../ballot-validator/detector/index"
 import { BallotPositions, ValidMarkLimits } from "./constants"
 
 function generateCandidates(
@@ -49,14 +48,6 @@ function generateCandidates(
   })
 }
 
-function countSelected(accum: number, curr: Selection) {
-  if (curr === Selection.selected) {
-    return accum + 1
-  }
-
-  return accum
-}
-
 type StateVotesCount = {
   governor: string
   commissionerResident: string
@@ -74,6 +65,19 @@ function generateHeaders(section: OcrResult[], url: string) {
 
     return new Rule(ocrResult.ocrResult)
   })
+}
+
+function countVotesForSection(section: Selection[]) {
+  return section.reduce((count, selection) => {
+    if (
+      selection === Selection.selected ||
+      selection === Selection.selectedImplicitly
+    ) {
+      return count + 1
+    }
+
+    return count
+  }, 0)
 }
 
 export class StateBallotConfig {
@@ -114,85 +118,14 @@ export class StateBallotConfig {
   }
 
   countVotes(votes: StateBallot): StateVotesCount {
-    const voteType = VotesDetector(votes, BallotType.state)
-
-    if (voteType === "integro") {
-      const parties = votes.parties.reduce(countSelected, 0)
-
-      return {
-        governor: `${ValidMarkLimits.state.governor * parties}/${
-          ValidMarkLimits.state.governor
-        }`,
-        commissionerResident: `${ValidMarkLimits.state.commissionerResident *
-          parties}/${ValidMarkLimits.state.commissionerResident}`,
-      }
-    } else if (voteType === "candidatura") {
-      const governor = votes.governor.reduce(countSelected, 0)
-      const commissionerResident = votes.residentCommissioner.reduce(
-        countSelected,
-        0
-      )
-
-      return {
-        governor: `${governor}/${ValidMarkLimits.state.governor}`,
-        commissionerResident: `${commissionerResident}/${ValidMarkLimits.state.commissionerResident}`,
-      }
-    } else if (voteType === "empty") {
-      return {
-        governor: `0/${ValidMarkLimits.state.governor}`,
-        commissionerResident: `0/${ValidMarkLimits.state.commissionerResident}`,
-      }
-    }
-
-    // Mixed vote
-    const selectedParties: number[] = votes.parties.reduce(
-      (accum: number[], vote: Selection, index: number) => {
-        if (vote === Selection.selected) {
-          return [...accum, index]
-        }
-
-        return accum
-      },
-      []
-    )
-
-    // Assume that the user has selected every candidate with it's party vote.
-    const votesWithoutParties: StateBallot = {
-      governor: votes.governor.reduce(
-        (accum: Selection[], vote: Selection, index: number) => {
-          if (selectedParties.includes(index)) {
-            return accum
-          }
-
-          return [...accum, vote]
-        },
-        []
-      ),
-      residentCommissioner: votes.residentCommissioner.reduce(
-        (accum: Selection[], vote: Selection, index: number) => {
-          if (selectedParties.includes(index)) {
-            return accum
-          }
-
-          return [...accum, vote]
-        },
-        []
-      ),
-    }
-    const governor = votesWithoutParties.governor.reduce(countSelected, 0)
-    const residentCommissioner = votesWithoutParties.residentCommissioner.reduce(
-      countSelected,
-      0
+    const governor = countVotesForSection(votes.governor)
+    const commissionerResident = countVotesForSection(
+      votes.residentCommissioner
     )
 
     return {
-      governor: `${governor || ValidMarkLimits.state.governor}/${
-        ValidMarkLimits.state.governor
-      }`,
-      commissionerResident: `${residentCommissioner ||
-        ValidMarkLimits.state.commissionerResident}/${
-        ValidMarkLimits.state.commissionerResident
-      }`,
+      governor: `${governor}/${ValidMarkLimits.state.governor}`,
+      commissionerResident: `${commissionerResident}/${ValidMarkLimits.state.commissionerResident}`,
     }
   }
 }
@@ -244,102 +177,19 @@ export class MunicipalBallotConfig {
   }
 
   countVotes(votes: MunicipalBallot): MunicipalVotesCount {
-    const voteType = VotesDetector(votes, BallotType.municipality)
+    const mayor = countVotesForSection(votes.mayor)
+    const municipalLegislators = votes.municipalLegislator.reduce(
+      (accum, candidates) => {
+        const votes = countVotesForSection(candidates)
 
-    if (voteType === "integro") {
-      const parties = votes.parties.reduce(countSelected, 0)
-
-      return {
-        mayor: `${ValidMarkLimits[BallotType.municipality].mayor * parties}/${
-          ValidMarkLimits[BallotType.municipality].mayor
-        }`,
-        municipalLegislators: `${this.amountOfMunicipalLegislators * parties}/${
-          this.amountOfMunicipalLegislators
-        }`,
-      }
-    } else if (voteType === "candidatura") {
-      const mayor = votes.mayor.reduce(countSelected, 0)
-      const municipalLegislators = votes.municipalLegislator.reduce(
-        (accum, curr) => {
-          const rowResults = curr.reduce(countSelected, 0)
-
-          return accum + rowResults
-        },
-        0
-      )
-
-      return {
-        mayor: `${mayor}/${ValidMarkLimits[BallotType.municipality].mayor}`,
-        municipalLegislators: `${municipalLegislators}/${this.amountOfMunicipalLegislators}`,
-      }
-    } else if (voteType === "empty") {
-      return {
-        mayor: `0/${ValidMarkLimits[BallotType.municipality].mayor}`,
-        municipalLegislators: `0/${this.amountOfMunicipalLegislators}`,
-      }
-    }
-
-    // Mixed vote
-    const selectedParties: number[] = votes.parties.reduce(
-      (accum: number[], vote: Selection, index: number) => {
-        if (vote === Selection.selected) {
-          return [...accum, index]
-        }
-
-        return accum
-      },
-      []
-    )
-
-    // Assume that the user has selected every candidate with it's party vote.
-    const votesWithoutParties: MunicipalBallot = {
-      mayor: votes.mayor.reduce(
-        (accum: Selection[], vote: Selection, index: number) => {
-          if (selectedParties.includes(index)) {
-            return accum
-          }
-
-          return [...accum, vote]
-        },
-        []
-      ),
-      municipalLegislator: votes.municipalLegislator.reduce(
-        (rows: Selection[][], votes: Selection[]) => {
-          const result = votes.reduce(
-            (accum: Selection[], vote: Selection, index: number) => {
-              if (selectedParties.includes(index)) {
-                return accum
-              }
-
-              return [...accum, vote]
-            },
-            []
-          )
-
-          return [...rows, result]
-        },
-        []
-      ),
-    }
-    const mayor = votesWithoutParties.mayor.reduce(countSelected, 0)
-    const municipalLegislators = votesWithoutParties.municipalLegislator.reduce(
-      (accum, curr) => {
-        const rowResults = curr.reduce(countSelected, 0)
-
-        return accum + rowResults
+        return accum + votes
       },
       0
     )
 
     return {
-      mayor: `${mayor || ValidMarkLimits[BallotType.municipality].mayor}/${
-        ValidMarkLimits[BallotType.municipality].mayor
-      }`,
-      municipalLegislators: `${
-        this.amountOfMunicipalLegislators - 1 - municipalLegislators >= 0
-          ? this.amountOfMunicipalLegislators
-          : municipalLegislators
-      }/${this.amountOfMunicipalLegislators}`,
+      mayor: `${mayor}/${ValidMarkLimits[BallotType.municipality].mayor}`,
+      municipalLegislators: `${municipalLegislators}/${this.amountOfMunicipalLegislators}`,
     }
   }
 }
@@ -467,188 +317,36 @@ export class LegislativeBallotConfig {
   }
 
   countVotes(votes: LegislativeBallot): LegislativeVotesCount {
-    const voteType = VotesDetector(votes, BallotType.legislative)
-
-    if (voteType === "integro") {
-      const parties = votes.parties.reduce(countSelected, 0)
-
-      return {
-        districtRepresentative: `${ValidMarkLimits.legislative
-          .districtRepresentative * parties}/${
-          ValidMarkLimits.legislative.districtRepresentative
-        }`,
-        districtSenators: `${ValidMarkLimits.legislative.districtSenators *
-          parties}/${ValidMarkLimits.legislative.districtSenators}`,
-        atLargeRepresentative: `${ValidMarkLimits.legislative
-          .atLargeRepresentative * parties}/${
-          ValidMarkLimits.legislative.atLargeRepresentative
-        }`,
-        atLargeSenator: `${ValidMarkLimits.legislative.atLargeSenator *
-          parties}/${ValidMarkLimits.legislative.atLargeSenator}`,
-      }
-    } else if (voteType === "candidatura") {
-      const districtRepresentative = votes.districtRepresentative.reduce(
-        countSelected,
-        0
-      )
-      const districtSenators = votes.districtSenator.reduce((accum, curr) => {
-        const rowResults = curr.reduce(countSelected, 0)
-
-        return accum + rowResults
-      }, 0)
-      const atLargeRepresentative = votes.atLargeRepresentative.reduce(
-        (accum, curr) => {
-          const rowResults = curr.reduce(countSelected, 0)
-
-          console.log({ votes, rowResults })
-
-          return accum + rowResults
-        },
-        0
-      )
-      const atLargeSenator = votes.atLargeSenator.reduce((accum, curr) => {
-        const rowResults = curr.reduce(countSelected, 0)
-
-        return accum + rowResults
-      }, 0)
-
-      return {
-        districtRepresentative: `${districtRepresentative}/${ValidMarkLimits.legislative.districtRepresentative}`,
-        districtSenators: `${districtSenators}/${ValidMarkLimits.legislative.districtSenators}`,
-        atLargeRepresentative: `${atLargeRepresentative}/${ValidMarkLimits.legislative.atLargeRepresentative}`,
-        atLargeSenator: `${atLargeSenator}/${ValidMarkLimits.legislative.atLargeSenator}`,
-      }
-    } else if (voteType === "empty") {
-      return {
-        districtRepresentative: `0/${ValidMarkLimits.legislative.districtRepresentative}`,
-        districtSenators: `0/${ValidMarkLimits.legislative.districtSenators}`,
-        atLargeRepresentative: `0/${ValidMarkLimits.legislative.atLargeRepresentative}`,
-        atLargeSenator: `0/${ValidMarkLimits.legislative.atLargeSenator}`,
-      }
-    }
-
-    // Mixed vote
-    const selectedParties: number[] = votes.parties.reduce(
-      (accum: number[], vote: Selection, index: number) => {
-        if (vote === Selection.selected) {
-          return [...accum, index]
-        }
-
-        return accum
-      },
-      []
+    const districtRepresentative = countVotesForSection(
+      votes.districtRepresentative
     )
+    const districtSenators = votes.districtSenator.reduce(
+      (accum, candidates) => {
+        const votes = countVotesForSection(candidates)
 
-    // Assume that the user has selected every candidate with it's party vote.
-    const votesWithoutParties: LegislativeBallot = {
-      districtRepresentative: votes.districtRepresentative.reduce(
-        (accum: Selection[], vote: Selection, index: number) => {
-          if (selectedParties.includes(index)) {
-            return accum
-          }
-
-          return [...accum, vote]
-        },
-        []
-      ),
-      districtSenator: votes.districtSenator.reduce(
-        (rows: Selection[][], votes: Selection[]) => {
-          const result = votes.reduce(
-            (accum: Selection[], vote: Selection, index: number) => {
-              if (selectedParties.includes(index)) {
-                return accum
-              }
-
-              return [...accum, vote]
-            },
-            []
-          )
-
-          return [...rows, result]
-        },
-        []
-      ),
-      atLargeRepresentative: votes.atLargeRepresentative.reduce(
-        (rows: Selection[][], votes: Selection[]) => {
-          const result = votes.reduce(
-            (accum: Selection[], vote: Selection, index: number) => {
-              if (selectedParties.includes(index)) {
-                return accum
-              }
-
-              return [...accum, vote]
-            },
-            []
-          )
-
-          return [...rows, result]
-        },
-        []
-      ),
-      atLargeSenator: votes.atLargeSenator.reduce(
-        (rows: Selection[][], votes: Selection[]) => {
-          const result = votes.reduce(
-            (accum: Selection[], vote: Selection, index: number) => {
-              if (selectedParties.includes(index)) {
-                return accum
-              }
-
-              return [...accum, vote]
-            },
-            []
-          )
-
-          return [...rows, result]
-        },
-        []
-      ),
-    }
-    const districtRepresentative = votesWithoutParties.districtRepresentative.reduce(
-      countSelected,
-      0
-    )
-    const districtSenators = votesWithoutParties.districtSenator.reduce(
-      (accum, curr) => {
-        const rowResults = curr.reduce(countSelected, 0)
-
-        return accum + rowResults
+        return accum + votes
       },
       0
     )
-    const atLargeRepresentative = votesWithoutParties.atLargeRepresentative.reduce(
-      (accum, curr) => {
-        const rowResults = curr.reduce(countSelected, 0)
+    const atLargeRepresentative = votes.atLargeRepresentative.reduce(
+      (accum, candidates) => {
+        const votes = countVotesForSection(candidates)
 
-        return accum + rowResults
+        return accum + votes
       },
       0
     )
-    const atLargeSenator = votesWithoutParties.atLargeSenator.reduce(
-      (accum, curr) => {
-        const rowResults = curr.reduce(countSelected, 0)
+    const atLargeSenator = votes.atLargeSenator.reduce((accum, candidates) => {
+      const votes = countVotesForSection(candidates)
 
-        return accum + rowResults
-      },
-      0
-    )
+      return accum + votes
+    }, 0)
 
     return {
-      districtRepresentative: `${districtRepresentative ||
-        ValidMarkLimits[BallotType.legislative].districtRepresentative}/${
-        ValidMarkLimits[BallotType.legislative].districtRepresentative
-      }`,
-      districtSenators: `${districtSenators ||
-        ValidMarkLimits[BallotType.legislative].districtSenators}/${
-        ValidMarkLimits[BallotType.legislative].districtSenators
-      }`,
-      atLargeRepresentative: `${atLargeRepresentative ||
-        ValidMarkLimits[BallotType.legislative].atLargeRepresentative}/${
-        ValidMarkLimits[BallotType.legislative].atLargeRepresentative
-      }`,
-      atLargeSenator: `${atLargeSenator ||
-        ValidMarkLimits[BallotType.legislative].atLargeSenator}/${
-        ValidMarkLimits[BallotType.legislative].atLargeSenator
-      }`,
+      districtRepresentative: `${districtRepresentative}/${ValidMarkLimits.legislative.districtRepresentative}`,
+      districtSenators: `${districtSenators}/${ValidMarkLimits.legislative.districtSenators}`,
+      atLargeRepresentative: `${atLargeRepresentative}/${ValidMarkLimits.legislative.atLargeRepresentative}`,
+      atLargeSenator: `${atLargeSenator}/${ValidMarkLimits.legislative.atLargeSenator}`,
     }
   }
 }
