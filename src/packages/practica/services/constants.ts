@@ -1,5 +1,3 @@
-import { SectionMetadata } from "../types/practica-mobile"
-
 export const baseUrl = "https://api.paravotar.org"
 
 export enum APIPaths {
@@ -22,33 +20,6 @@ export enum BALLOT_SECTION_TITLES {
 }
 
 export const BALLOT_SECTION_TITLES_LIST = Object.values(BALLOT_SECTION_TITLES)
-
-export const SECTION_METADATA: { [key: string]: SectionMetadata } = {
-  [BALLOT_SECTION_TITLES.GOBERNADOR]: {
-    limit: 1,
-  },
-  [BALLOT_SECTION_TITLES.COMISIONADO_RESIDENTE]: {
-    limit: 1,
-  },
-  [BALLOT_SECTION_TITLES.ALCALDE]: {
-    limit: 1,
-  },
-  [BALLOT_SECTION_TITLES.LEGISLADORES_MUNICIPALES]: {
-    limit: 9,
-  },
-  [BALLOT_SECTION_TITLES.REPRESENTANTES_POR_ACUMULACION]: {
-    limit: 1,
-  },
-  [BALLOT_SECTION_TITLES.REPRESENTANTES_POR_DISTRITO]: {
-    limit: 1,
-  },
-  [BALLOT_SECTION_TITLES.SENADORES_POR_DISTRITO]: {
-    limit: 2,
-  },
-  [BALLOT_SECTION_TITLES.SENADORES_POR_ACUMULACION]: {
-    limit: 1,
-  },
-}
 
 export const MAX_PRECINT_LENGTH = 3
 
