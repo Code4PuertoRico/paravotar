@@ -20,15 +20,24 @@ export default function MakeYourVoteCount() {
         {i18next.t("practice.learn-signs")}
       </Typography>
       <div className="mt-8">
-        <Typography tag="h3" variant="h3" className="uppercase">
-          {i18next.t("practice.valid-mark")}
-        </Typography>
-        <img className="w-78 mx-auto" src={ValidMark} alt="" />
+        <div className="lg:w-10/12 lg:mx-auto">
+          <div className="lg:flex">
+            <div className="w-full lg:w-1/4">
+              <img
+                className="w-32 mx-auto flex-shrink-0"
+                src={ValidMark}
+                alt=""
+              />
+            </div>
+            <div className="mt-4 w-full lg:w-3/4 lg:mt-0">
+              <Typography tag="p" variant="p" className="text-left">
+                {i18next.t("practice.the-only-valid-sign")}{" "}
+                <b>{i18next.t("practice.your-vote-discarded")}</b>
+              </Typography>
+            </div>
+          </div>
+        </div>
       </div>
-      <Typography tag="p" variant="p" className="mt-6">
-        {i18next.t("practice.the-only-valid-sign")} <br />{" "}
-        <b>{i18next.t("practice.your-vote-discarded")}</b>
-      </Typography>
     </>
   )
 }
