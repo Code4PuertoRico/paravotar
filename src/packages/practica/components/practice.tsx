@@ -1,5 +1,8 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { useMachine } from "@xstate/react"
+import { ToastContainer, toast } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
+import i18next from "i18next"
 
 import { Button, Card, Typography } from "../../../components/index"
 import BallotValidator from "../../../ballot-validator/index"
@@ -11,7 +14,10 @@ import Case from "../../../components/case"
 import { practiceMachine } from "../machines/practice"
 
 import coordinatesToSections from "../services/coordinates-to-sections"
-import { BallotConfigs } from "../services/ballot-configs"
+import {
+  BallotConfigs,
+  MunicipalBallotConfig,
+} from "../services/ballot-configs"
 import { useSidebar } from "../../../context/sidebar-context"
 import BallotStatus from "./ballot-status"
 import useVotesTransform from "../hooks/use-votes-transform"
@@ -22,8 +28,10 @@ import PrecintNumberForm from "./precint-number-form"
 import EnterVoterIdForm from "./enter-voter-id-form"
 import { ColumnHighlightProvider } from "../../../context/column-highlight-context"
 import { Vote } from "../services/vote-service"
+import { toFriendlyErrorMessages } from "../../../ballot-validator/helpers/messages"
 
 export default function Practice() {
+  const [isPristine, setIsPristine] = useState(true)
   const [state, send] = useMachine(practiceMachine)
   const transformedVotes = useVotesTransform(state.context.votes, state)
   const { ballotStatus, setBallotStatus } = useBallotValidation(
@@ -37,9 +45,10 @@ export default function Practice() {
     ballot?: BallotConfigs
   ) => {
     const transformedVotes = coordinatesToSections(votes, ballot, ballotType)
-    const test = BallotValidator(transformedVotes, ballotType)
 
-    console.log({ test })
+    const validationResult = BallotValidator(transformedVotes, ballotType)
+
+    console.log(validationResult)
   }
 
   const selectBallot = (selectedBallot: string) => {
@@ -49,6 +58,63 @@ export default function Practice() {
 
     send(selectedBallot)
   }
+
+  useEffect(() => {
+    let ballotType: any = null
+    let ballot: any = null
+
+    if (state.matches("governmental")) {
+      ballotType = BallotType.state
+      ballot = state.context.ballots.estatal
+    } else if (state.matches("legislative")) {
+      ballotType = BallotType.legislative
+      ballot = state.context.ballots.legislativa
+    } else if (state.matches("municipal")) {
+      ballotType = BallotType.municipality
+      ballot = state.context.ballots.municipal
+    }
+
+    if (!ballotType) {
+      return
+    }
+
+    if (isPristine) {
+      return
+    }
+
+    const transformedVotes = coordinatesToSections(
+      state.context.votes,
+      ballot,
+      ballotType
+    )
+
+    const validationResult = BallotValidator(transformedVotes, ballotType)
+
+    toast.dismiss()
+
+    toFriendlyErrorMessages(validationResult)?.map(messageId => {
+      if (
+        messageId.includes("MunicipalLegislatorDynamicSelectionRule") &&
+        ballotType === BallotType.municipality
+      ) {
+        toast.error(
+          i18next.t(messageId, {
+            maxSelection: (ballot as MunicipalBallotConfig)
+              ?.amountOfMunicipalLegislators,
+          })
+        )
+      } else {
+        toast.error(i18next.t(messageId))
+      }
+    })
+  }, [
+    state,
+    state.value,
+    state.context.votes,
+    state.context.ballots.estatal,
+    state.context.ballots.legislativa,
+    state.context.ballots.municipal,
+  ])
 
   return (
     <div>
@@ -153,6 +219,7 @@ export default function Practice() {
                             position,
                             ballotType: BallotType.state,
                           })
+                          setIsPristine(false)
                         }}
                       />
                     </ColumnHighlightProvider>
@@ -206,6 +273,7 @@ export default function Practice() {
                             position,
                             ballotType: BallotType.legislative,
                           })
+                          setIsPristine(false)
                         }}
                       />
                     </ColumnHighlightProvider>
@@ -250,6 +318,7 @@ export default function Practice() {
                             position,
                             ballotType: BallotType.municipality,
                           })
+                          setIsPristine(false)
                         }}
                       />
                     </ColumnHighlightProvider>
@@ -272,6 +341,17 @@ export default function Practice() {
           <Default>FAILURE</Default>
         </Switch>
       </Card>
+      <ToastContainer
+        position="top-right"
+        autoClose={10000}
+        hideProgressBar={true}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </div>
   )
 }

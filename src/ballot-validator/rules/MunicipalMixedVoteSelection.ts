@@ -14,6 +14,10 @@ class MunicipalMixedVoteSelection extends BaseRule {
       }
     }
 
+    const partyIndex = ballotSelections.parties.findIndex(
+      p => p === Selection.selected
+    )
+
     const mayorIndex = ballotSelections.mayor.findIndex(
       m => m === Selection.selected
     )
@@ -29,9 +33,24 @@ class MunicipalMixedVoteSelection extends BaseRule {
       })
     )
 
+    const partyLegislatorMatches = legislatorIndexes.reduce(
+      (matching, legislatorIndex) => {
+        if (partyIndex === legislatorIndex.col) {
+          return [...matching, legislatorIndex]
+        }
+
+        return matching
+      },
+      [] as { row: number; col: number }[]
+    )
+
     const maxLegislatorVotes = ballotSelections.municipalLegislator.length
 
-    if (mayorIndex !== -1 && legislatorIndexes.length === maxLegislatorVotes) {
+    if (
+      mayorIndex !== -1 &&
+      legislatorIndexes.length === maxLegislatorVotes &&
+      partyLegislatorMatches.length === 0
+    ) {
       return {
         outcome: RuleOutcomeType.deny,
         metadata: {

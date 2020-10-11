@@ -196,5 +196,20 @@
     "legislative-description": "En la papeleta legislativa usted podrá votar por los siguientes puestos electivos: representantes por distrito, senadores por distrito, representantes por acumulación y senadores(as) por acumulación. En esta papeleta usted puede emitir un máximo de cinco (5) votos. Usted tiene derecho a votar por un (1) representante por distrito, dos (2) senadores(as) por distrito, un (1) representante por acumulación y un (1) senador(a) por acumulación.",
     "municipal": "Municipal",
     "municipal-description": "En la papeleta municipal usted podrá votar por los siguientes puestos electivos: alcalde(sa) y legisladores(as) municipales. Usted tiene derecho a votar por un (1) alcalde(sa) y la cantidad máxima de legisladores(as) municipales que aparece enumerada en la papeleta."
+  },
+  "ballot-validator": {
+    "NoEmptyBallotRule": "La papeleta no puede estar vacia",
+    "NoMoreThanOnePartySelectedRule": "Solamente se puede seleccionar 1 partido politico",
+    "NoMoreThanOneGovernorSelectedRule": "Solamente se puede seleccionar 1 candidato para Gobernador",
+    "NoMoreThanOneResidentCommissionerRule": "Solamente se puede seleccionar 1 candidato para Comisionado Residente",
+    "NoMoreThanOneDistrictRepresentativeRule": "Solamente se puede seleccionar 1 candidato para Representante Por Distrito",
+    "NoMoreThanTwoDistrictSenatorsRule": "Solamente se puede seleccionar 2 candidatos para Senador Por Distrito",
+    "NoMoreThanOneAtLargeRepresentativeRule": "Solamente se puede seleccionar 1 candidato para Representante Por Acumulación",
+    "NoMoreThanOneAtLargeSenatorRule": "Solamente se puede seleccionar 1 candidato para Senador Por Acumulación",
+    "NoMoreThanOneMayorSelectedRule": "Solamente se puede seleccionar 1 candidato para Alcade",
+    "MunicipalLegislatorDynamicSelectionRule": "Solamente se puede seleccionar {{maxSelection}} candidatos para Legislador Municipal",
+    "StateMixedVoteSelectionRule": "El voto mixto debe tener al menos 1 candidato seleccionado (implicito o explicito) bajo el mismo partido",
+    "LegislativeMixedVoteSelection": "El voto mixto debe tener al menos 1 candidato seleccionado (implicito o explicito) bajo el mismo partido",
+    "MunicipalMixedVoteSelection": "El voto mixto debe tener al menos 1 candidato seleccionado (implicito o explicito) bajo el mismo partido"
   }
 }

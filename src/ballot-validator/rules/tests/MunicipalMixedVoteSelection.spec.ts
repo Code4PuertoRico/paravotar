@@ -42,4 +42,40 @@ describe("MunicipalMixedVoteSelection", () => {
       outcome: RuleOutcomeType.allow,
     })
   })
+
+  it("should not error on explicit selection", () => {
+    const municipalBallot: MunicipalBallot = {
+      parties: [selected, notSelected, notSelected, notSelected],
+      mayor: [notSelected, notSelected, notSelected, notSelected],
+      municipalLegislator: [
+        [notSelected, notSelected, notSelected, notSelected],
+        [selected, notSelected, notSelected, notSelected],
+        [notSelected, notSelected, notSelected, notSelected],
+        [notSelected, notSelected, notSelected, notSelected],
+        [notSelected, notSelected, notSelected, notSelected],
+      ],
+    }
+
+    expect(new MunicipalMixedVoteSelection().outcome(municipalBallot)).toEqual({
+      outcome: RuleOutcomeType.allow,
+    })
+  })
+
+  it("should not error on implicit selection", () => {
+    const municipalBallot: MunicipalBallot = {
+      parties: [selected, notSelected, notSelected, notSelected],
+      mayor: [notSelected, notSelected, notSelected, notSelected],
+      municipalLegislator: [
+        [notSelected, notSelected, notSelected, notSelected],
+        [notSelected, notSelected, notSelected, selected],
+        [notSelected, notSelected, notSelected, notSelected],
+        [notSelected, notSelected, notSelected, notSelected],
+        [notSelected, notSelected, notSelected, notSelected],
+      ],
+    }
+
+    expect(new MunicipalMixedVoteSelection().outcome(municipalBallot)).toEqual({
+      outcome: RuleOutcomeType.allow,
+    })
+  })
 })

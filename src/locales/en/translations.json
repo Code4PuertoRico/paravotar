@@ -196,5 +196,20 @@
     "legislative-description": "On the legislative ballot you will be able to vote for the following elective positions: district representatives, district senators, at-large representatives and at-large senators. You can cast a total of five (5) votes on this ballot. You have the right to vote for one (1) district representative, two (2) district senators, one (1) at-large representative, and one (1) and at-large senator.",
     "municipal": "Municipal",
     "municiapal-description": "On the municipal ballot you can vote for the following elective positions: mayor and municipal legislators. You have the right to vote for one (1) mayor and the maximum number of municipal legislators listed on the ballot."
+  },
+  "ballot-validator": {
+    "NoEmptyBallotRule": "Ballot can not be empty",
+    "NoMoreThanOnePartySelectedRule": "Only one political party can be selected",
+    "NoMoreThanOneGovernorSelectedRule": "Only 1 candidate for Governor can be selected",
+    "NoMoreThanOneResidentCommissionerRule": "Only 1 candidate for Resident Commissioner can be selected",
+    "NoMoreThanOneDistrictRepresentativeRule": "Only 1 candidate for District Representative can be selected",
+    "NoMoreThanTwoDistrictSenatorsRule": "Only 2 candidates for District Senator can be selected",
+    "NoMoreThanOneAtLargeRepresentativeRule": "Only 1 candidate for Representative At-Large can be selected",
+    "NoMoreThanOneAtLargeSenatorRule": "Only 1 candidate for Senator At-Large can be selected",
+    "NoMoreThanOneMayorSelectedRule": "Only 1 candidate for Mayor can be selected",
+    "MunicipalLegislatorDynamicSelectionRule": "Only {{maxSelection}} candidates for Municipal Legislator can be selected",
+    "StateMixedVoteSelectionRule": "Mixed vote must have at least 1 candidate selected (implicit or explicit) under the selected party",
+    "LegislativeMixedVoteSelection": "Mixed vote must have at least 1 candidate selected (implicit or explicit) under the selected party",
+    "MunicipalMixedVoteSelection": "Mixed vote must have at least 1 candidate selected (implicit or explicit) under the selected party"
   }
 }

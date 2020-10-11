@@ -32,12 +32,12 @@ function transformStateVotes(votes: Vote[], cols: number): StateBallot {
   }
 
   return votes.reduce((prev, curr): StateBallot => {
-    if (curr.row === 0) {
+    if (curr.position.row === 0) {
       return {
         ...prev,
         parties: markAsSelected({
           votes: prev.parties,
-          position: curr.column,
+          position: curr.position.column,
         }),
       }
     } else if (curr.position.row === 2) {

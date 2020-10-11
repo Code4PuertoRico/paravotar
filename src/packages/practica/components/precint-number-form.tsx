@@ -60,7 +60,7 @@ export default function PrecintNumberForm(props: PrecintNumberFormProps) {
         <Link to="https://consulta.ceepur.org/" target="_blank">
           Consulta CEE
         </Link>
-        , entrar su número electoral, presionar el botón de 'Buscar' y usar el
+        , entrar su número electoral, presionar el botón de Buscar y usar el
         número que aparece en el encasillado de Precinto.
       </Typography>
     </div>
