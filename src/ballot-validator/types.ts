@@ -54,3 +54,15 @@ export interface RuleOutcome<M = AnyMetadata> {
 }
 
 export type Rule = BaseRule
+
+export interface ValidatorRuleOutcome extends RuleOutcome {
+  ruleName: string
+}
+
+export interface ValidatorReturnValue {
+  status: ResultStatus
+  outcomes: {
+    allowed: ValidatorRuleOutcome[]
+    denied: ValidatorRuleOutcome[]
+  }
+}

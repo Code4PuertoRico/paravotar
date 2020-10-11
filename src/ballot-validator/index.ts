@@ -4,11 +4,15 @@ import {
   Rule,
   RuleOutcomeType,
   Ballot,
+  ValidatorReturnValue,
 } from "./types"
 
 import RuleGroups from "./ruleGroups"
 
-const validate = (ballotSelections: Ballot, ballotType: BallotType) => {
+const validate = (
+  ballotSelections: Ballot,
+  ballotType: BallotType
+): ValidatorReturnValue => {
   // Get rules to execute for a ballot
   const rules: Rule[] = RuleGroups[ballotType]
 

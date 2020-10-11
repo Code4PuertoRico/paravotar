@@ -22,7 +22,7 @@ describe("StateMixedVoteSelectionRule", () => {
   it("should not error on 1 selection", () => {
     const stateBallot: StateBallot = {
       parties: [selected, notSelected, notSelected, notSelected],
-      governor: [notSelected, notSelected, selected, notSelected],
+      governor: [notSelected, notSelected, notSelected, notSelected],
       residentCommissioner: [
         notSelected,
         notSelected,

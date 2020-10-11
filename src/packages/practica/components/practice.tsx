@@ -1,5 +1,7 @@
 import React from "react"
 import { useMachine } from "@xstate/react"
+import { ToastContainer, toast } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 
 import { Button, Card, Typography } from "../../../components/index"
 import BallotValidator from "../../../ballot-validator/index"
@@ -22,6 +24,8 @@ import PrecintNumberForm from "./precint-number-form"
 import EnterVoterIdForm from "./enter-voter-id-form"
 import { ColumnHighlightProvider } from "../../../context/column-highlight-context"
 import { Vote } from "../services/vote-service"
+import { toFriendlyErrorMessages } from "../../../ballot-validator/helpers/messages"
+import i18next from "i18next"
 
 export default function Practice() {
   const [state, send] = useMachine(practiceMachine)
@@ -37,9 +41,16 @@ export default function Practice() {
     ballot?: BallotConfigs
   ) => {
     const transformedVotes = coordinatesToSections(votes, ballot, ballotType)
-    const test = BallotValidator(transformedVotes, ballotType)
 
-    console.log({ test })
+    console.log(transformedVotes)
+
+    const validationResult = BallotValidator(transformedVotes, ballotType)
+
+    toast.dismiss()
+
+    toFriendlyErrorMessages(validationResult)?.map(messageId => {
+      toast.error(i18next.t(messageId))
+    })
   }
 
   const selectBallot = (selectedBallot: string) => {
@@ -272,6 +283,17 @@ export default function Practice() {
           <Default>FAILURE</Default>
         </Switch>
       </Card>
+      <ToastContainer
+        position="top-right"
+        autoClose={false}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </div>
   )
 }

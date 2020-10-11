@@ -77,4 +77,70 @@ describe("LegislativeMixedVoteSelection", () => {
       outcome: RuleOutcomeType.allow,
     })
   })
+
+  it("should not error on explicit selection", () => {
+    const legislativeBallot: LegislativeBallot = {
+      parties: [selected, notSelected, notSelected, notSelected],
+      districtRepresentative: [notSelected, selected, notSelected, notSelected],
+      districtSenator: [
+        [notSelected, selected, notSelected, notSelected],
+        [selected, notSelected, notSelected, notSelected],
+      ],
+      atLargeRepresentative: [
+        [selected, notSelected, notSelected, notSelected],
+        [notSelected, notSelected, notSelected, notSelected],
+        [notSelected, notSelected, notSelected, notSelected],
+        [notSelected, notSelected, notSelected, notSelected],
+        [notSelected, notSelected, notSelected, notSelected],
+        [notSelected, notSelected, notSelected, notSelected],
+      ],
+      atLargeSenator: [
+        [notSelected, notSelected, selected, notSelected],
+        [notSelected, notSelected, notSelected, notSelected],
+        [notSelected, notSelected, notSelected, notSelected],
+        [notSelected, notSelected, notSelected, notSelected],
+        [notSelected, notSelected, notSelected, notSelected],
+        [notSelected, notSelected, notSelected, notSelected],
+      ],
+    }
+
+    expect(
+      new LegislativeMixedVoteSelection().outcome(legislativeBallot)
+    ).toEqual({
+      outcome: RuleOutcomeType.allow,
+    })
+  })
+
+  it("should not error on implicit selection", () => {
+    const legislativeBallot: LegislativeBallot = {
+      parties: [selected, notSelected, notSelected, notSelected],
+      districtRepresentative: [notSelected, selected, notSelected, notSelected],
+      districtSenator: [
+        [notSelected, selected, notSelected, notSelected],
+        [notSelected, notSelected, notSelected, notSelected],
+      ],
+      atLargeRepresentative: [
+        [notSelected, notSelected, notSelected, notSelected],
+        [notSelected, selected, notSelected, notSelected],
+        [notSelected, notSelected, notSelected, notSelected],
+        [notSelected, notSelected, notSelected, notSelected],
+        [notSelected, notSelected, notSelected, notSelected],
+        [notSelected, notSelected, notSelected, notSelected],
+      ],
+      atLargeSenator: [
+        [notSelected, notSelected, selected, notSelected],
+        [notSelected, notSelected, notSelected, notSelected],
+        [notSelected, notSelected, notSelected, notSelected],
+        [notSelected, notSelected, notSelected, notSelected],
+        [notSelected, notSelected, notSelected, notSelected],
+        [notSelected, notSelected, notSelected, notSelected],
+      ],
+    }
+
+    expect(
+      new LegislativeMixedVoteSelection().outcome(legislativeBallot)
+    ).toEqual({
+      outcome: RuleOutcomeType.allow,
+    })
+  })
 })

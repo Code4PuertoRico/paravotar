@@ -7,11 +7,17 @@ class StateMixedVoteSelectionRule extends BaseRule {
       p => p === Selection.selected
     )
 
+    console.log(hasSelectedParty)
+
     if (!hasSelectedParty) {
       return {
         outcome: RuleOutcomeType.allow,
       }
     }
+
+    const partyIndex = ballotSelections.parties.findIndex(
+      p => p === Selection.selected
+    )
 
     const governorIndex = ballotSelections.governor.findIndex(
       g => g === Selection.selected
@@ -21,7 +27,16 @@ class StateMixedVoteSelectionRule extends BaseRule {
       rc => rc === Selection.selected
     )
 
-    if (governorIndex !== -1 && residentCommissioner !== -1) {
+    console.log(partyIndex)
+    console.log(governorIndex)
+    console.log(residentCommissioner)
+
+    if (
+      governorIndex !== -1 &&
+      residentCommissioner !== -1 &&
+      governorIndex !== partyIndex &&
+      residentCommissioner !== partyIndex
+    ) {
       return {
         outcome: RuleOutcomeType.deny,
         metadata: {
