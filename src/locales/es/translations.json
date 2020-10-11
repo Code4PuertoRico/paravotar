@@ -207,7 +207,7 @@
     "NoMoreThanOneAtLargeRepresentativeRule": "Solamente se puede seleccionar 1 candidato para Representante Por Acumulación",
     "NoMoreThanOneAtLargeSenatorRule": "Solamente se puede seleccionar 1 candidato para Senador Por Acumulación",
     "NoMoreThanOneMayorSelectedRule": "Solamente se puede seleccionar 1 candidato para Alcade",
-    "MunicipalLegislatorDynamicSelectionRule": "Solamente se puede seleccionar {{maxSelection}} candidates para Legislador Municipal",
+    "MunicipalLegislatorDynamicSelectionRule": "Solamente se puede seleccionar {{maxSelection}} candidatos para Legislador Municipal",
     "StateMixedVoteSelectionRule": "El voto mixto debe tener al menos 1 candidato seleccionado (implicito o explicito) bajo el mismo partido",
     "LegislativeMixedVoteSelection": "El voto mixto debe tener al menos 1 candidato seleccionado (implicito o explicito) bajo el mismo partido",
     "MunicipalMixedVoteSelection": "El voto mixto debe tener al menos 1 candidato seleccionado (implicito o explicito) bajo el mismo partido"

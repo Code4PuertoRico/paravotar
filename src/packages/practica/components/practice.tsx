@@ -2,6 +2,7 @@ import React from "react"
 import { useMachine } from "@xstate/react"
 import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
+import i18next from "i18next"
 
 import { Button, Card, Typography } from "../../../components/index"
 import BallotValidator from "../../../ballot-validator/index"
@@ -13,7 +14,10 @@ import Case from "../../../components/case"
 import { practiceMachine } from "../machines/practice"
 
 import coordinatesToSections from "../services/coordinates-to-sections"
-import { BallotConfigs } from "../services/ballot-configs"
+import {
+  BallotConfigs,
+  MunicipalBallotConfig,
+} from "../services/ballot-configs"
 import { useSidebar } from "../../../context/sidebar-context"
 import BallotStatus from "./ballot-status"
 import useVotesTransform from "../hooks/use-votes-transform"
@@ -25,7 +29,6 @@ import EnterVoterIdForm from "./enter-voter-id-form"
 import { ColumnHighlightProvider } from "../../../context/column-highlight-context"
 import { Vote } from "../services/vote-service"
 import { toFriendlyErrorMessages } from "../../../ballot-validator/helpers/messages"
-import i18next from "i18next"
 
 export default function Practice() {
   const [state, send] = useMachine(practiceMachine)
@@ -42,14 +45,24 @@ export default function Practice() {
   ) => {
     const transformedVotes = coordinatesToSections(votes, ballot, ballotType)
 
-    console.log(transformedVotes)
-
     const validationResult = BallotValidator(transformedVotes, ballotType)
 
     toast.dismiss()
 
     toFriendlyErrorMessages(validationResult)?.map(messageId => {
-      toast.error(i18next.t(messageId))
+      if (
+        messageId.includes("MunicipalLegislatorDynamicSelectionRule") &&
+        ballotType === BallotType.municipality
+      ) {
+        toast.error(
+          i18next.t(messageId, {
+            maxSelection: (ballot as MunicipalBallotConfig)
+              ?.amountOfMunicipalLegislators,
+          })
+        )
+      } else {
+        toast.error(i18next.t(messageId))
+      }
     })
   }
 
@@ -285,7 +298,7 @@ export default function Practice() {
       </Card>
       <ToastContainer
         position="top-right"
-        autoClose={false}
+        autoClose={10000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick

@@ -32,7 +32,7 @@ const RuleMessageMap: { [key: string]: (metadata?: any) => string } = {
 
 export const toFriendlyErrorMessages = (result: ValidatorReturnValue) => {
   if (result.status === ResultStatus.success) {
-    return
+    return []
   }
 
   return result.outcomes.denied.map(
