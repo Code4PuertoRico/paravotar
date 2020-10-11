@@ -48,14 +48,6 @@ function generateCandidates(
   })
 }
 
-function countSelected(accum: number, curr: Selection) {
-  if (curr === Selection.selected) {
-    return accum + 1
-  }
-
-  return accum
-}
-
 type StateVotesCount = {
   governor: string
   commissionerResident: string

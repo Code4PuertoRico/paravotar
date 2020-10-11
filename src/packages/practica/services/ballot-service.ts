@@ -8,7 +8,7 @@ import {
 } from "./ballot-configs"
 import { ElectiveField, Candidate } from "./ballot-configs/base"
 import { PUBLIC_S3_BUCKET } from "./constants"
-import { OcrResult, PracticeContext, TransformedVotes } from "./types"
+import { OcrResult, PracticeContext } from "./types"
 import { Vote } from "./vote-service"
 import BallotFinder, { FindByType } from "./ballot-finder-service"
 import { BallotPositions, ValidMarkLimits } from "./ballot-configs/constants"
