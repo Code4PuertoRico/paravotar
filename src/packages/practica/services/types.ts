@@ -53,4 +53,5 @@ export type PracticeContext = {
     legislativa?: LegislativeBallotConfig
   }
   votes: Vote[]
+  transformedVotes: TransformedVotes[]
 }
