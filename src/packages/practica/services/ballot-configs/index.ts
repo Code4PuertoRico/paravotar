@@ -359,11 +359,22 @@ export class LegislativeBallotConfig {
     const url = `${CDN_URL}/${path}`
 
     // HACK: Add one item to every ocr result to we can generate the correct amount of columns
-    const fixedBallots: OcrResult[][] = ballot.map((result: OcrResult[]) => {
-      result.push({ ocrResult: "" })
+    const fixedBallots: OcrResult[][] = ballot.map(
+      (result: OcrResult[], index: number) => {
+        if (
+          index + 1 === 2 ||
+          index + 1 === 4 ||
+          index + 1 === 7 ||
+          index + 1 === 14
+        ) {
+          result.push({ ocrResult: ballot[index][0].ocrResult })
+        } else {
+          result.push({ ocrResult: "" })
+        }
 
-      return result
-    })
+        return result
+      }
+    )
 
     const parties: PartyRow = generateHeaders(fixedBallots[0], url)
     const districtRepresentativeHeader: Header[] = fixedBallots[1].map(
