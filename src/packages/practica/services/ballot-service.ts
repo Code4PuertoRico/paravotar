@@ -11,6 +11,8 @@ import { PUBLIC_S3_BUCKET } from "./constants"
 import { OcrResult, PracticeContext } from "./types"
 import { Vote } from "./vote-service"
 import BallotFinder, { FindByType } from "./ballot-finder-service"
+import { BallotPositions, ValidMarkLimits } from "./ballot-configs/constants"
+import { ElectivePosition } from "./ballot-configs/types"
 
 type FindByEventParams = {
   userInput: string
@@ -23,7 +25,64 @@ type VoteEvent = {
   ballotType: BallotType
 }
 
-export const BallotService = {
+const PARTY_ROW = 0
+
+function findPartyVotes(votes: Vote[]) {
+  return votes.filter(vote => vote.position.row === PARTY_ROW)
+}
+
+function getBallot(ballots, ballotType: BallotType): BallotConfigs {
+  if (ballotType === BallotType.state) {
+    return ballots.estatal
+  } else if (ballotType === BallotType.municipality) {
+    return ballots.municipal
+  }
+
+  return ballots.legislativa
+}
+
+function getElectivePositionForVote(
+  vote: Vote,
+  ballotType: BallotType
+): ElectivePosition {
+  if (ballotType === BallotType.state) {
+    if (vote.position.row === BallotPositions.state.governor.start) {
+      return ElectivePosition.governor
+    }
+
+    return ElectivePosition.commissionerResident
+  }
+
+  if (ballotType === BallotType.municipality) {
+    if (vote.position.row === BallotPositions.municipality.mayor.start) {
+      return ElectivePosition.mayor
+    }
+
+    return ElectivePosition.municipalLegislators
+  }
+
+  if (
+    vote.position.row ===
+    BallotPositions.legislative.districtRepresentative.start
+  ) {
+    return ElectivePosition.districtRepresentative
+  } else if (
+    vote.position.row >= BallotPositions.legislative.districtSenators.start &&
+    vote.position.row <= BallotPositions.legislative.districtSenators.end
+  ) {
+    return ElectivePosition.districtSenators
+  } else if (
+    vote.position.row >=
+      BallotPositions.legislative.atLargeRepresentative.start &&
+    vote.position.row <= BallotPositions.legislative.atLargeRepresentative.end
+  ) {
+    return ElectivePosition.atLargeRepresentative
+  }
+
+  return ElectivePosition.atLargeSenator
+}
+
+const BallotService = {
   async fetchBallots(
     _: PracticeContext,
     { userInput, findBy }: FindByEventParams
@@ -55,9 +114,6 @@ export const BallotService = {
     })
 
     const allBallotsJson = await Promise.all(test)
-
-    console.log(allBallotsJson)
-
     const initialValue: {
       estatal?: StateBallotConfig
       municipal?: MunicipalBallotConfig
@@ -80,6 +136,7 @@ export const BallotService = {
     context: PracticeContext,
     { candidate, position, ballotType }: VoteEvent
   ) {
+    const ballots = context.ballots
     const prevVotes = context.votes
     const storedVote = prevVotes.find(
       vote =>
@@ -87,6 +144,7 @@ export const BallotService = {
         vote.position.column === position.column
     )
 
+    // Remove vote or turn an implicit vote to an explicit vote.
     if (storedVote) {
       // Change the vote from an implicity vote to an explict one.
       if (storedVote.selection === Selection.selectedImplicitly) {
@@ -103,11 +161,11 @@ export const BallotService = {
       }
 
       // Remove vote for party and all of the implict votes
-      if (position.row === 0) {
+      if (position.row === PARTY_ROW) {
         return prevVotes.filter(vote => {
           if (vote.position.column === position.column) {
             // Remove the party vote.
-            if (vote.position.row === 0) {
+            if (vote.position.row === PARTY_ROW) {
               return false
             }
 
@@ -129,14 +187,9 @@ export const BallotService = {
     }
 
     // Party votes will trigger implicit votes for candidates.
-    if (position.row === 0) {
+    if (position.row === PARTY_ROW) {
       // Find the ballot that's currently used.
-      const { ballots } = context
-      const ballot = (ballotType === BallotType.state
-        ? context.ballots.estatal
-        : ballotType === BallotType.municipality
-        ? ballots.municipal
-        : ballots.legislativa) as BallotConfigs
+      const ballot = getBallot(ballots, ballotType)
 
       // Get the sections that have candidates.
       const columnForParty = ballot.structure.reduce((accum, currentRow) => {
@@ -166,14 +219,91 @@ export const BallotService = {
         }
       })
 
-      console.log(votes)
-
       return [...prevVotes, ...votes]
     }
 
-    // Add candidate vote.
+    // Candidate vote
+    const partyVotes = findPartyVotes(prevVotes)
+    const hasVotesForParty = partyVotes.length >= 1
     const vote = new Vote(candidate, position, Selection.selected)
 
+    // Manage mixed vote
+    if (hasVotesForParty) {
+      const ballot = getBallot(ballots, ballotType)
+      const electivePosition = getElectivePositionForVote(vote, ballotType)
+      const ballotPosition = BallotPositions[ballotType]
+      const validMarkLimitsOnBallot = ValidMarkLimits[ballotType]
+
+      const implicitVotesForPosition = prevVotes.filter(vote => {
+        const start = ballotPosition[electivePosition].start
+        const end =
+          ballotType === BallotType.municipality
+            ? (ballot as MunicipalBallotConfig).amountOfMunicipalLegislators + 3
+            : ballotPosition[electivePosition].end
+
+        return (
+          vote.position.row >= start &&
+          vote.position.row <= end &&
+          vote.selection === Selection.selectedImplicitly
+        )
+      })
+
+      const explicitVotesForPosition = prevVotes.filter(vote => {
+        const start = ballotPosition[electivePosition].start
+        const end =
+          ballotType === BallotType.municipality
+            ? (ballot as MunicipalBallotConfig).amountOfMunicipalLegislators + 3
+            : ballotPosition[electivePosition].end
+
+        return (
+          vote.position.row >= start &&
+          vote.position.row <= end &&
+          vote.selection === Selection.selected
+        )
+      })
+
+      const votesOutsideOfThePosition = prevVotes.filter(vote => {
+        const start = ballotPosition[electivePosition].start
+        const end =
+          ballotType === BallotType.municipality
+            ? (ballot as MunicipalBallotConfig).amountOfMunicipalLegislators + 3
+            : ballotPosition[electivePosition].end
+
+        return vote.position.row < start || vote.position.row > end
+      })
+
+      const explicitVotes = explicitVotesForPosition.length + 1
+      const totalVotesForPosition =
+        implicitVotesForPosition.length + explicitVotes
+      const voteLimit =
+        ballotType === BallotType.municipality
+          ? (ballot as MunicipalBallotConfig).amountOfMunicipalLegislators
+          : validMarkLimitsOnBallot[electivePosition]
+
+      // Get the section of the vote to determine how we should were we should subtract an implicit vote
+      if (totalVotesForPosition > voteLimit) {
+        const difference = voteLimit - explicitVotes
+        const filteredImplicitVotesForPosition = []
+
+        for (let index = 0; index < difference; index++) {
+          filteredImplicitVotesForPosition.push(implicitVotesForPosition[index])
+        }
+
+        console.log(filteredImplicitVotesForPosition)
+
+        // Remove the votes for the position completely.
+        return [
+          ...explicitVotesForPosition,
+          vote,
+          ...filteredImplicitVotesForPosition,
+          ...votesOutsideOfThePosition,
+        ]
+      }
+    }
+
+    // Manage vote for candidacy
     return [...prevVotes, vote]
   },
 }
+
+export { BallotService }

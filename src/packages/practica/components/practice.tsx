@@ -104,7 +104,7 @@ export default function Practice() {
             <div>Loading...</div>
           </Case>
           <Case value="selectBallot">
-            <div className="mx-auto lg:w-1/2">
+            <div>
               <Typography tag="p" variant="h4">
                 Escoge por cuál papeleta comenzar
               </Typography>
