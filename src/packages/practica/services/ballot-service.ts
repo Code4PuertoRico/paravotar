@@ -344,7 +344,10 @@ const BallotService = {
       method: "POST",
       body: JSON.stringify({
         ballotType: event.ballotType,
-        ballotPath: event.ballotPath,
+        ballotPath: `/${event.ballotPath.substr(
+          0,
+          event.ballotPath.length - 1
+        )}`,
         votes: votes,
       }),
     })
