@@ -2,6 +2,8 @@ import { RuleOutcomeType, StateBallot, Selection } from "../types"
 import BaseRule from "./BaseRule"
 
 class NoMoreThanOneGovernorSelectedRule extends BaseRule {
+  ruleName = "NoMoreThanOneGovernorSelectedRule"
+
   outcome(ballotSelections: StateBallot) {
     const outcome =
       ballotSelections.governor.reduce((counter, value) => {

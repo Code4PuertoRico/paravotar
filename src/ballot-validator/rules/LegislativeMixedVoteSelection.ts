@@ -3,6 +3,8 @@ import { RuleOutcomeType, Selection, LegislativeBallot } from "../types"
 import BaseRule from "./BaseRule"
 
 class LegislativeMixedVoteSelection extends BaseRule {
+  ruleName = "LegislativeMixedVoteSelection"
+
   outcome(ballotSelections: LegislativeBallot) {
     const hasSelectedParty = ballotSelections.parties.some(
       p => p === Selection.selected

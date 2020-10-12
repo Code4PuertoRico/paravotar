@@ -52,4 +52,5 @@ module.exports = {
     zIndex: ["responsive", "hover", "focus"],
   },
   plugins: [],
+  purge: false,
 }

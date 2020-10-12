@@ -2,6 +2,8 @@ import { RuleOutcomeType, StateBallot, Selection } from "../types"
 import BaseRule from "./BaseRule"
 
 class StateMixedVoteSelectionRule extends BaseRule {
+  ruleName = "StateMixedVoteSelectionRule"
+
   outcome(ballotSelections: StateBallot) {
     const hasSelectedParty = ballotSelections.parties.some(
       p => p === Selection.selected
