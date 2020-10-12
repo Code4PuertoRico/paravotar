@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { useMachine } from "@xstate/react"
 import { ToastContainer, toast } from "react-toastify"
-import "react-toastify/dist/ReactToastify.css"
 import i18next from "i18next"
 
 import { Button, Card, Typography } from "../../../components/index"
@@ -92,7 +91,6 @@ export default function Practice() {
     toast.dismiss()
 
     toFriendlyErrorMessages(validationResult)?.map(messageId => {
-      console.log(messageId)
       if (
         messageId.includes("MunicipalLegislatorDynamicSelectionRule") &&
         ballotType === BallotType.municipality
