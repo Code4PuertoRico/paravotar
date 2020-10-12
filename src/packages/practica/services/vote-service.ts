@@ -3,18 +3,18 @@ import { VotesCoordinates } from "../../generate-ballot/types/ballot-machine"
 import { ElectiveField } from "./ballot-configs/base"
 
 export class Vote {
-  candidate: ElectiveField
   position: VotesCoordinates
   selection: Selection
+  candidate?: ElectiveField
 
   constructor(
-    candidate: ElectiveField,
     position: VotesCoordinates,
-    selection: Selection
+    selection: Selection,
+    candidate?: ElectiveField
   ) {
-    this.candidate = candidate
     this.position = position
     this.selection = selection
+    this.candidate = candidate
   }
 
   wasSelectedExplictly() {

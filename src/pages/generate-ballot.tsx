@@ -8,8 +8,9 @@ import Case from "../components/case"
 import Default from "../components/default"
 import { BallotMachine } from "../packages/generate-ballot/machines/ballot-machine"
 import { BallotMachineContext } from "../packages/generate-ballot/types/ballot-machine"
-import { BallotType } from "../ballot-validator/types"
+import { BallotType, Selection } from "../ballot-validator/types"
 import { Ballot } from "../packages/generate-ballot/components"
+import { Vote } from "../packages/practica/services/vote-service"
 
 type PageProps = {
   location: Location
@@ -20,7 +21,9 @@ export default function GenerateBallot({ location }: PageProps) {
   const ballotType = params.get("ballotType")
   const ballotPath = params.get("ballotPath")
   const rawVotes = params.get("votes") || "[]"
-  const votes = JSON.parse(rawVotes)
+  const votes = JSON.parse(rawVotes).map(
+    (vote: Vote) => new Vote(vote.position, Selection.selected)
+  )
 
   const [state, send] = useMachine<BallotMachineContext, EventObject>(
     BallotMachine,

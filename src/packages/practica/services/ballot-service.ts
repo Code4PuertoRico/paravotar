@@ -7,7 +7,7 @@ import {
   StateBallotConfig,
 } from "./ballot-configs"
 import { ElectiveField, Candidate } from "./ballot-configs/base"
-import { PUBLIC_S3_BUCKET } from "./constants"
+import { API_URL, PUBLIC_S3_BUCKET } from "./constants"
 import { OcrResult, PracticeContext } from "./types"
 import { Vote } from "./vote-service"
 import BallotFinder, { FindByType } from "./ballot-finder-service"
@@ -23,6 +23,11 @@ type VoteEvent = {
   candidate: ElectiveField
   position: VotesCoordinates
   ballotType: BallotType
+}
+
+type ExportPdfEvent = {
+  ballotType: string
+  ballotPath: string
 }
 
 const PARTY_ROW = 0
@@ -108,33 +113,40 @@ const BallotService = {
     _: PracticeContext,
     { userInput, findBy }: FindByEventParams
   ) {
-    const ballots = await BallotFinder(userInput, findBy)
+    const ballotPaths = await BallotFinder(userInput, findBy)
 
     // Prefetch ballot data
-    const test = Object.entries(ballots).map(async ([key, value]) => {
+    const ballotRequests: Promise<{
+      estatal: StateBallotConfig
+      municipal: MunicipalBallotConfig
+      legislativa: LegislativeBallotConfig
+    }> = Object.entries(ballotPaths).map(async ([key, value]) => {
       try {
         const ballotRes = await fetch(`${PUBLIC_S3_BUCKET}/${value}data.json`)
         const ballotJson: OcrResult[][] = await ballotRes.json()
 
         if (key === "estatal") {
           return {
-            [key]: new StateBallotConfig(ballotJson, ballots.estatal),
+            [key]: new StateBallotConfig(ballotJson, ballotPaths.estatal),
           }
         } else if (key === "municipal") {
           return {
-            [key]: new MunicipalBallotConfig(ballotJson, ballots.municipal),
+            [key]: new MunicipalBallotConfig(ballotJson, ballotPaths.municipal),
           }
-        } else {
-          return {
-            [key]: new LegislativeBallotConfig(ballotJson, ballots.legislativa),
-          }
+        }
+
+        return {
+          [key]: new LegislativeBallotConfig(
+            ballotJson,
+            ballotPaths.legislativa
+          ),
         }
       } catch (err) {
         console.log(err)
       }
     })
 
-    const allBallotsJson = await Promise.all(test)
+    const allBallotsJson = await Promise.all(ballotRequests)
     const initialValue: {
       estatal?: StateBallotConfig
       municipal?: MunicipalBallotConfig
@@ -145,12 +157,19 @@ const BallotService = {
       legislativa: undefined,
     }
 
-    return allBallotsJson.reduce((prev, curr) => {
+    const ballots = allBallotsJson.reduce((prev, curr) => {
       return {
         ...prev,
         ...curr,
       }
     }, initialValue)
+
+    console.log({ ballots, ballotPaths })
+
+    return {
+      ballots,
+      ballotPaths,
+    }
   },
 
   updateVotes(
@@ -174,7 +193,7 @@ const BallotService = {
             vote.position.row === position.row &&
             vote.position.column === position.column
           ) {
-            return new Vote(vote.candidate, vote.position, Selection.selected)
+            return new Vote(vote.position, Selection.selected, vote.candidate)
           }
 
           return vote
@@ -310,6 +329,47 @@ const BallotService = {
 
     // Manage vote for candidacy
     return [...prevVotes, vote]
+  },
+
+  async generatePdf(context: PracticeContext, event: ExportPdfEvent) {
+    const voteCoordinates = context.votes.map(vote => {
+      return {
+        position: vote.position,
+      }
+    })
+    // const votes = JSON.stringify([])
+    const votes = JSON.stringify(voteCoordinates)
+
+    const res = await fetch(`${API_URL}/createBallotTask`, {
+      method: "POST",
+      body: JSON.stringify({
+        ballotType: event.ballotType,
+        ballotPath: event.ballotPath,
+        votes: votes,
+      }),
+    })
+    const result = await res.json()
+
+    const params = new URLSearchParams({
+      ballotType: event.ballotType,
+      ballotPath: `/${event.ballotPath.substr(0, event.ballotPath.length - 1)}`,
+    })
+
+    params.append("votes", votes)
+    params.toString()
+
+    console.log(params.toString())
+
+    return result.uuid
+  },
+
+  async getPdfUrl(context: PracticeContext) {
+    const { uuid } = context
+    const params = new URLSearchParams({ uuid })
+    const res = await fetch(`${API_URL}/getPdfUrl?${params}`)
+    const result = await res.json()
+
+    return result
   },
 }
 

@@ -45,7 +45,6 @@ export default function Practice() {
     ballot?: BallotConfigs
   ) => {
     const transformedVotes = coordinatesToSections(votes, ballot, ballotType)
-
     const validationResult = BallotValidator(transformedVotes, ballotType)
 
     console.log(validationResult)
@@ -225,6 +224,7 @@ export default function Practice() {
                     </ColumnHighlightProvider>
                   </div>
                   <Button
+                    className="mt-4"
                     onClick={() => {
                       handleSubmit(
                         state.context.votes,
@@ -234,6 +234,17 @@ export default function Practice() {
                     }}
                   >
                     Submit
+                  </Button>
+                  <Button
+                    className="mt-4"
+                    onClick={() => {
+                      send("EXPORTED_VOTES", {
+                        ballotType: "estatal",
+                        ballotPath: state.context.ballotPaths.estatal,
+                      })
+                    }}
+                  >
+                    Generate PDF
                   </Button>
                 </>
               ) : null}
@@ -289,6 +300,17 @@ export default function Practice() {
                   >
                     Submit
                   </Button>
+                  <Button
+                    className="mt-4"
+                    onClick={() => {
+                      send("EXPORTED_VOTES", {
+                        ballotType: "estatal",
+                        ballotPath: state.context.ballotPaths.municipal,
+                      })
+                    }}
+                  >
+                    Generate PDF
+                  </Button>
                 </>
               ) : null}
             </div>
@@ -333,6 +355,17 @@ export default function Practice() {
                     }}
                   >
                     Submit
+                  </Button>
+                  <Button
+                    className="mt-4"
+                    onClick={() => {
+                      send("EXPORTED_VOTES", {
+                        ballotType: "estatal",
+                        ballotPath: state.context.ballotPaths.legislativa,
+                      })
+                    }}
+                  >
+                    Generate PDF
                   </Button>
                 </>
               ) : null}
