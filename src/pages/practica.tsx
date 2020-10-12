@@ -1,5 +1,6 @@
 import React from "react"
 import "fetch-ponyfill"
+import "react-toastify/dist/ReactToastify.css"
 
 import { Layout, SEO, Container } from "../components/index"
 import {
