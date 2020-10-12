@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { useMachine } from "@xstate/react"
 import { ToastContainer, toast } from "react-toastify"
+import styles from "react-toastify/dist/ReactToastify.css"
 import i18next from "i18next"
 
 import { Button, Card, Typography } from "../../../components/index"
