@@ -57,9 +57,6 @@ module.exports = {
     },
     `gatsby-plugin-offline`,
     `gatsby-plugin-lodash`,
-
-    `@bundle-analyzer/gatsby-plugin`,
-
     `gatsby-plugin-no-sourcemaps`,
   ],
 }

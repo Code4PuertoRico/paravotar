@@ -19,7 +19,7 @@ const validate = (
   // Execute rules for ballot
   const outcomes = rules.map(rule => ({
     ...rule.outcome(ballotSelections),
-    ruleName: rule.getClassName(),
+    ruleName: rule.getRuleName(),
   }))
 
   // Check if any rule returned a deny outcome

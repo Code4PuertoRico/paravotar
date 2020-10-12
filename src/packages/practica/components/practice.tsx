@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { useMachine } from "@xstate/react"
 import { ToastContainer, toast } from "react-toastify"
-import "react-toastify/dist/ReactToastify.css"
 import i18next from "i18next"
 
 import { Button, Card, Typography } from "../../../components/index"
@@ -47,7 +46,23 @@ export default function Practice() {
     const transformedVotes = coordinatesToSections(votes, ballot, ballotType)
     const validationResult = BallotValidator(transformedVotes, ballotType)
 
-    console.log(validationResult)
+    toast.dismiss()
+
+    toFriendlyErrorMessages(validationResult)?.map(messageId => {
+      if (
+        messageId.includes("MunicipalLegislatorDynamicSelectionRule") &&
+        ballotType === BallotType.municipality
+      ) {
+        toast.error(
+          i18next.t(messageId, {
+            maxSelection: (ballot as MunicipalBallotConfig)
+              ?.amountOfMunicipalLegislators,
+          })
+        )
+      } else {
+        toast.error(i18next.t(messageId))
+      }
+    })
   }
 
   const selectBallot = (selectedBallot: string) => {
@@ -113,6 +128,7 @@ export default function Practice() {
     state.context.ballots.estatal,
     state.context.ballots.legislativa,
     state.context.ballots.municipal,
+    isPristine,
   ])
 
   return (

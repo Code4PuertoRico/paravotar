@@ -3,6 +3,8 @@ import { RuleOutcomeType, Ballot, Selection } from "../types"
 import BaseRule from "./BaseRule"
 
 class NoEmptyBallotRule extends BaseRule {
+  ruleName = "NoEmptyBallotRule"
+
   outcome(ballotSelections: Ballot) {
     // Extract & concat all section array values then flatten for simpler selection checks
     const outcome = !_.flatten<Selection>(

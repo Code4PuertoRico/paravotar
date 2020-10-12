@@ -2,6 +2,8 @@ import { RuleOutcomeType, Selection, LegislativeBallot } from "../types"
 import BaseRule from "./BaseRule"
 
 class NoMoreThanOneAtLargeRepresentativeRule extends BaseRule {
+  ruleName = "NoMoreThanOneAtLargeRepresentativeRule"
+
   outcome(ballotSelections: LegislativeBallot) {
     const outcome =
       ballotSelections.atLargeRepresentative.reduce((counter, row) => {

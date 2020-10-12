@@ -164,8 +164,6 @@ const BallotService = {
       }
     }, initialValue)
 
-    console.log({ ballots, ballotPaths })
-
     return {
       ballots,
       ballotPaths,
@@ -315,8 +313,6 @@ const BallotService = {
           filteredImplicitVotesForPosition.push(implicitVotesForPosition[index])
         }
 
-        console.log(filteredImplicitVotesForPosition)
-
         // Remove the votes for the position completely.
         return [
           ...explicitVotesForPosition,
@@ -360,8 +356,6 @@ const BallotService = {
 
     params.append("votes", votes)
     params.toString()
-
-    console.log(params.toString())
 
     return result.uuid
   },

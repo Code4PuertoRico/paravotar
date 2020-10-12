@@ -2,6 +2,8 @@ import { RuleOutcomeType, Ballot, Selection } from "../types"
 import BaseRule from "./BaseRule"
 
 class NoMoreThanOnePartySelectedRule extends BaseRule {
+  ruleName = "NoMoreThanOnePartySelectedRule"
+
   outcome(ballotSelections: Ballot) {
     const outcome =
       ballotSelections.parties.reduce((counter, value) => {
