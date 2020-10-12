@@ -2,6 +2,8 @@ import { RuleOutcomeType, Selection, MunicipalBallot } from "../types"
 import BaseRule from "./BaseRule"
 
 class MunicipalLegislatorDynamicSelectionRule extends BaseRule {
+  ruleName = "MunicipalLegislatorDynamicSelectionRule"
+
   outcome(ballotSelections: MunicipalBallot) {
     const maxVotes = ballotSelections.municipalLegislator.length
 

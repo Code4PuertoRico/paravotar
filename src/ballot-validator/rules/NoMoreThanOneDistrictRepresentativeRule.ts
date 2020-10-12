@@ -2,6 +2,8 @@ import { RuleOutcomeType, Selection, LegislativeBallot } from "../types"
 import BaseRule from "./BaseRule"
 
 class NoMoreThanOneDistrictRepresentativeRule extends BaseRule {
+  ruleName = "NoMoreThanOneDistrictRepresentativeRule"
+
   outcome(ballotSelections: LegislativeBallot) {
     const outcome =
       ballotSelections.districtRepresentative.reduce((counter, value) => {
