@@ -92,6 +92,7 @@ export default function Practice() {
     toast.dismiss()
 
     toFriendlyErrorMessages(validationResult)?.map(messageId => {
+      console.log(messageId)
       if (
         messageId.includes("MunicipalLegislatorDynamicSelectionRule") &&
         ballotType === BallotType.municipality
@@ -113,6 +114,7 @@ export default function Practice() {
     state.context.ballots.estatal,
     state.context.ballots.legislativa,
     state.context.ballots.municipal,
+    isPristine,
   ])
 
   return (
