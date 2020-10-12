@@ -223,7 +223,7 @@ export default function Practice() {
                       />
                     </ColumnHighlightProvider>
                   </div>
-                  <Button
+                  {/* <Button
                     className="mt-4"
                     onClick={() => {
                       handleSubmit(
@@ -245,7 +245,7 @@ export default function Practice() {
                     }}
                   >
                     Generate PDF
-                  </Button>
+                  </Button> */}
                 </>
               ) : null}
             </div>
@@ -289,7 +289,7 @@ export default function Practice() {
                       />
                     </ColumnHighlightProvider>
                   </div>
-                  <Button
+                  {/* <Button
                     onClick={() => {
                       handleSubmit(
                         state.context.votes,
@@ -310,7 +310,7 @@ export default function Practice() {
                     }}
                   >
                     Generate PDF
-                  </Button>
+                  </Button> */}
                 </>
               ) : null}
             </div>
@@ -345,7 +345,7 @@ export default function Practice() {
                       />
                     </ColumnHighlightProvider>
                   </div>
-                  <Button
+                  {/* <Button
                     onClick={() => {
                       handleSubmit(
                         state.context.votes,
@@ -366,12 +366,12 @@ export default function Practice() {
                     }}
                   >
                     Generate PDF
-                  </Button>
+                  </Button> */}
                 </>
               ) : null}
             </div>
           </Case>
-          <Default>FAILURE</Default>
+          <Default>FAILURE :(</Default>
         </Switch>
       </Card>
       <ToastContainer
