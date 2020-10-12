@@ -11,6 +11,8 @@ export const practiceMachine = createMachine<PracticeContext>({
   context: {
     userInput: null,
     findBy: null,
+    uuid: "",
+    ballotPaths: {},
     ballots: {},
     votes: [],
   },
@@ -71,11 +73,13 @@ export const practiceMachine = createMachine<PracticeContext>({
         src: BallotService.fetchBallots,
         onDone: {
           target: "selectBallot",
-          actions: assign({ ballots: (_, event) => event.data }),
+          actions: assign({
+            ballots: (_, event) => event.data.ballots,
+            ballotPaths: (_, event) => event.data.ballotPaths,
+          }),
         },
         onError: {
           target: "noVoterIdFound",
-          actions: assign({ ballots: (_, event) => event.data }),
         },
       },
     },
@@ -121,6 +125,7 @@ export const practiceMachine = createMachine<PracticeContext>({
           actions: assign({ votes: BallotService.updateVotes }),
         },
         SUMBIT: "validate",
+        EXPORTED_VOTES: "generatePdf",
       },
     },
     legislative: {
@@ -130,6 +135,7 @@ export const practiceMachine = createMachine<PracticeContext>({
           actions: assign({ votes: BallotService.updateVotes }),
         },
         SUMBIT: "validate",
+        EXPORTED_VOTES: "generatePdf",
       },
     },
     municipal: {
@@ -139,6 +145,7 @@ export const practiceMachine = createMachine<PracticeContext>({
           actions: assign({ votes: BallotService.updateVotes }),
         },
         SUMBIT: "validate",
+        EXPORTED_VOTES: "generatePdf",
       },
     },
     validate: {
@@ -160,6 +167,47 @@ export const practiceMachine = createMachine<PracticeContext>({
       },
     },
     showResults: {
+      type: "final",
+      // TODO: Add PDF HERE
+      // on: {
+      //   EXPORTED_VOTES: ".generatePdf",
+      // },
+      // states: {
+      // },
+    },
+    generatePdf: {
+      invoke: {
+        id: "generatePdf",
+        src: BallotService.generatePdf,
+        onDone: {
+          target: "gettingPdfUrl",
+          actions: assign({ uuid: (_, event) => event.data }),
+        },
+        onError: {
+          target: "errorGeneratingPdf",
+        },
+      },
+    },
+    gettingPdfUrl: {
+      invoke: {
+        id: "getPdfUrl",
+        src: BallotService.getPdfUrl,
+        onDone: {
+          target: "generatedPdf",
+          actions: assign({ pdfUrl: (_, event) => event.data }),
+        },
+        onError: {
+          target: "errorGeneratingPdf",
+        },
+      },
+      after: {
+        200: "gettingPdfUrl",
+      },
+    },
+    generatedPdf: {
+      type: "final",
+    },
+    errorGeneratingPdf: {
       type: "final",
     },
   },
