@@ -244,16 +244,16 @@ const BallotService = {
         return [...accum, ...columnForParty]
       }, [])
 
-      const votes = [new Vote(candidate, position, Selection.selected)]
+      const votes = [new Vote(position, Selection.selected, candidate)]
 
       // Create a vote for every section that can receive an implicit vote.
       columnForParty.forEach((item, rowIndex) => {
         if (item instanceof Candidate && item.receivesImpicitVote) {
           votes.push(
             new Vote(
-              item,
               { column: position.column, row: rowIndex },
-              Selection.selectedImplicitly
+              Selection.selectedImplicitly,
+              item
             )
           )
         }
@@ -265,7 +265,7 @@ const BallotService = {
     // Candidate vote
     const partyVotes = findPartyVotes(prevVotes)
     const hasVotesForParty = partyVotes.length >= 1
-    const vote = new Vote(candidate, position, Selection.selected)
+    const vote = new Vote(position, Selection.selected, candidate)
 
     // Manage mixed vote
     if (hasVotesForParty) {
