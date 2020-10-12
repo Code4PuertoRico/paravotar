@@ -38,7 +38,6 @@
     "xstate": "^4.9.1"
   },
   "devDependencies": {
-    "@bundle-analyzer/gatsby-plugin": "^0.5.1",
     "@fullhuman/postcss-purgecss": "^2.0.5",
     "@testing-library/jest-dom": "^5.1.0",
     "@testing-library/react": "^9.4.0",

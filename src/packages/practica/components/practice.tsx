@@ -46,7 +46,23 @@ export default function Practice() {
     const transformedVotes = coordinatesToSections(votes, ballot, ballotType)
     const validationResult = BallotValidator(transformedVotes, ballotType)
 
-    console.log(validationResult)
+    toast.dismiss()
+
+    toFriendlyErrorMessages(validationResult)?.map(messageId => {
+      if (
+        messageId.includes("MunicipalLegislatorDynamicSelectionRule") &&
+        ballotType === BallotType.municipality
+      ) {
+        toast.error(
+          i18next.t(messageId, {
+            maxSelection: (ballot as MunicipalBallotConfig)
+              ?.amountOfMunicipalLegislators,
+          })
+        )
+      } else {
+        toast.error(i18next.t(messageId))
+      }
+    })
   }
 
   const selectBallot = (selectedBallot: string) => {
