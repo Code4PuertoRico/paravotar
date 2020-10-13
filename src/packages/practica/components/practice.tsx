@@ -200,7 +200,7 @@ export default function Practice() {
                   >
                     Submit
                   </Button>
-                  <Button
+                  {/* <Button
                     className="mt-4"
                     onClick={() => {
                       send("EXPORTED_VOTES", {
@@ -210,7 +210,7 @@ export default function Practice() {
                     }}
                   >
                     Generate PDF
-                  </Button>
+                  </Button> */}
                 </>
               ) : null}
             </div>
@@ -256,7 +256,7 @@ export default function Practice() {
                   >
                     Submit
                   </Button>
-                  <Button
+                  {/* <Button
                     className="mt-4"
                     onClick={() => {
                       send("EXPORTED_VOTES", {
@@ -266,7 +266,7 @@ export default function Practice() {
                     }}
                   >
                     Generate PDF
-                  </Button>
+                  </Button> */}
                 </>
               ) : null}
             </div>
@@ -312,7 +312,7 @@ export default function Practice() {
                   >
                     Submit
                   </Button>
-                  <Button
+                  {/* <Button
                     className="mt-4"
                     onClick={() => {
                       send("EXPORTED_VOTES", {
@@ -322,7 +322,7 @@ export default function Practice() {
                     }}
                   >
                     Generate PDF
-                  </Button>
+                  </Button> */}
                 </>
               ) : null}
             </div>
