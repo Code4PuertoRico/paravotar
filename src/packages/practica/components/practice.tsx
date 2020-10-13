@@ -215,18 +215,20 @@ export default function Practice() {
                       />
                     </ColumnHighlightProvider>
                   </div>
-                  <Button
-                    className="mt-4"
-                    onClick={() => {
-                      handleSubmit(
-                        state.context.votes,
-                        BallotType.state,
-                        state.context.ballots.estatal
-                      )
-                    }}
-                  >
-                    Submit
-                  </Button>
+                  <div className="mt-6 w-full lg:w-1/3 lg:mx-auto">
+                    <Button
+                      className="w-full"
+                      onClick={() => {
+                        handleSubmit(
+                          state.context.votes,
+                          BallotType.state,
+                          state.context.ballots.estatal
+                        )
+                      }}
+                    >
+                      Submit
+                    </Button>
+                  </div>
                 </>
               ) : null}
             </div>
@@ -261,17 +263,20 @@ export default function Practice() {
                       />
                     </ColumnHighlightProvider>
                   </div>
-                  <Button
-                    onClick={() => {
-                      handleSubmit(
-                        state.context.votes,
-                        BallotType.legislative,
-                        state.context.ballots.legislativa
-                      )
-                    }}
-                  >
-                    Submit
-                  </Button>
+                  <div className="mt-6 w-full lg:w-1/3 lg:mx-auto">
+                    <Button
+                      className="w-full"
+                      onClick={() => {
+                        handleSubmit(
+                          state.context.votes,
+                          BallotType.legislative,
+                          state.context.ballots.legislativa
+                        )
+                      }}
+                    >
+                      Submit
+                    </Button>
+                  </div>
                 </>
               ) : null}
             </div>
@@ -306,17 +311,20 @@ export default function Practice() {
                       />
                     </ColumnHighlightProvider>
                   </div>
-                  <Button
-                    onClick={() => {
-                      handleSubmit(
-                        state.context.votes,
-                        BallotType.municipality,
-                        state.context.ballots.municipal
-                      )
-                    }}
-                  >
-                    Submit
-                  </Button>
+                  <div className="mt-6 w-full lg:w-1/3 lg:mx-auto">
+                    <Button
+                      className="w-full"
+                      onClick={() => {
+                        handleSubmit(
+                          state.context.votes,
+                          BallotType.municipality,
+                          state.context.ballots.municipal
+                        )
+                      }}
+                    >
+                      Submit
+                    </Button>
+                  </div>
                 </>
               ) : null}
             </div>
