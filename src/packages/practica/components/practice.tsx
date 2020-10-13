@@ -4,12 +4,10 @@ import { ToastContainer, toast } from "react-toastify"
 import i18next from "i18next"
 
 import { toFriendlyErrorMessages } from "../../../ballot-validator/helpers/messages"
-import { ColumnHighlightProvider } from "../../../context/column-highlight-context"
 import { Button, Card, Typography } from "../../../components/index"
 import { useSidebar } from "../../../context/sidebar-context"
 import BallotValidator from "../../../ballot-validator/index"
 import { BallotType } from "../../../ballot-validator/types"
-import { Ballot } from "../../generate-ballot/components"
 import Default from "../../../components/default"
 import Switch from "../../../components/switch"
 import Case from "../../../components/case"
@@ -20,7 +18,6 @@ import {
 } from "../services/ballot-configs"
 import useBallotValidation from "../hooks/use-ballot-validation"
 import useVotesTransform from "../hooks/use-votes-transform"
-import useErrorMessages from "../hooks/use-error-messages"
 import { practiceMachine } from "../machines/practice"
 import useVotesCount from "../hooks/use-votes-count"
 import { Vote } from "../services/vote-service"
@@ -29,16 +26,8 @@ import PrecintNumberForm from "./precint-number-form"
 import EnterVoterIdForm from "./enter-voter-id-form"
 
 import { Results } from "./Results"
-
-if (process.env.NODE_ENV === "development" && typeof window !== "undefined") {
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const { inspect } = require("@xstate/inspect")
-  inspect({
-    iframe: false,
-  })
-}
-
 import BallotStatus from "./ballot-status"
+import { Practicing } from "./Practicing"
 
 export default function Practice() {
   const [state, send] = useMachine(practiceMachine)
@@ -48,14 +37,7 @@ export default function Practice() {
   )
   const { votesCount, setVotesCount } = useVotesCount(transformedVotes)
   const { setSidebarIsVisible } = useSidebar()
-  const { setIsPristine } = useErrorMessages(state, [
-    state,
-    state.value,
-    state.context.votes,
-    state.context.ballots.estatal,
-    state.context.ballots.legislativa,
-    state.context.ballots.municipal,
-  ])
+
   const handleSubmit = (
     votes: Vote[],
     ballotType: BallotType,
@@ -108,7 +90,13 @@ export default function Practice() {
       >
         Pon en práctica lo aprendido cuantas veces necesites
       </Typography>
+      {JSON.stringify(state.value)}
       <Card className="practice-card flex justify-center mt-8">
+        {state.nextEvents.includes("BACK") && (
+          <Button className="block my-2" onClick={() => send("BACK")}>
+            Back
+          </Button>
+        )}
         <Switch state={state}>
           <Case value="ballotFinderPicker">
             <BallotFinderPicker
@@ -185,149 +173,8 @@ export default function Practice() {
               </Button>
             </div>
           </Case>
-          <Case value="governmental">
-            <div>
-              {state.context.ballots.estatal ? (
-                <>
-                  <div className="overflow-scroll">
-                    <ColumnHighlightProvider>
-                      <Typography
-                        tag="p"
-                        variant="p"
-                        className="text-xs italic mt-2 mb-6"
-                      >
-                        *Para ver otros partidos realiza un scroll hacia tu
-                        derecha y para ver más candidatos realiza scroll hacia
-                        abajo.
-                      </Typography>
-                      <Ballot
-                        type={BallotType.state}
-                        structure={state.context.ballots.estatal.structure}
-                        votes={state.context.votes}
-                        toggleVote={(candidate, position) => {
-                          send("SELETED_ELECTIVE_FIELD", {
-                            candidate,
-                            position,
-                            ballotType: BallotType.state,
-                          })
-                          setIsPristine(false)
-                        }}
-                      />
-                    </ColumnHighlightProvider>
-                  </div>
-                  <div className="mt-6 w-full lg:w-1/3 lg:mx-auto">
-                    <Button
-                      className="w-full"
-                      onClick={() => {
-                        handleSubmit(
-                          state.context.votes,
-                          BallotType.state,
-                          state.context.ballots.estatal
-                        )
-                      }}
-                    >
-                      Submit
-                    </Button>
-                  </div>
-                </>
-              ) : null}
-            </div>
-          </Case>
-          <Case value="legislative">
-            <div>
-              {state.context.ballots.legislativa ? (
-                <>
-                  <div className="overflow-scroll">
-                    <ColumnHighlightProvider>
-                      <Typography
-                        tag="p"
-                        variant="p"
-                        className="text-xs italic mt-2 mb-6"
-                      >
-                        *Para ver otros partidos realiza un scroll hacia tu
-                        derecha y para ver más candidatos realiza scroll hacia
-                        abajo.
-                      </Typography>
-                      <Ballot
-                        type={BallotType.legislative}
-                        structure={state.context.ballots.legislativa.structure}
-                        votes={state.context.votes}
-                        toggleVote={(candidate, position) => {
-                          send("SELETED_ELECTIVE_FIELD", {
-                            candidate,
-                            position,
-                            ballotType: BallotType.legislative,
-                          })
-                          setIsPristine(false)
-                        }}
-                      />
-                    </ColumnHighlightProvider>
-                  </div>
-                  <div className="mt-6 w-full lg:w-1/3 lg:mx-auto">
-                    <Button
-                      className="w-full"
-                      onClick={() => {
-                        handleSubmit(
-                          state.context.votes,
-                          BallotType.legislative,
-                          state.context.ballots.legislativa
-                        )
-                      }}
-                    >
-                      Submit
-                    </Button>
-                  </div>
-                </>
-              ) : null}
-            </div>
-          </Case>
-          <Case value="municipal">
-            <div>
-              {state.context.ballots.municipal ? (
-                <>
-                  <div className="overflow-scroll">
-                    <ColumnHighlightProvider>
-                      <Typography
-                        tag="p"
-                        variant="p"
-                        className="text-xs italic mt-2 mb-6"
-                      >
-                        *Para ver otros partidos realiza un scroll hacia tu
-                        derecha y para ver más candidatos realiza scroll hacia
-                        abajo.
-                      </Typography>
-                      <Ballot
-                        type={BallotType.municipality}
-                        structure={state.context.ballots.municipal.structure}
-                        votes={state.context.votes}
-                        toggleVote={(candidate, position) => {
-                          send("SELETED_ELECTIVE_FIELD", {
-                            candidate,
-                            position,
-                            ballotType: BallotType.municipality,
-                          })
-                          setIsPristine(false)
-                        }}
-                      />
-                    </ColumnHighlightProvider>
-                  </div>
-                  <div className="mt-6 w-full lg:w-1/3 lg:mx-auto">
-                    <Button
-                      className="w-full"
-                      onClick={() => {
-                        handleSubmit(
-                          state.context.votes,
-                          BallotType.municipality,
-                          state.context.ballots.municipal
-                        )
-                      }}
-                    >
-                      Submit
-                    </Button>
-                  </div>
-                </>
-              ) : null}
-            </div>
+          <Case value="practicing">
+            <Practicing state={state} send={send} handleSubmit={handleSubmit} />
           </Case>
           <Case value="showResults">
             <Results state={state} send={send} />
@@ -348,12 +195,9 @@ export default function Practice() {
         draggable
         pauseOnHover
       />
-      {votesCount &&
-      (state.matches("governmental") ||
-        state.matches("municipal") ||
-        state.matches("legislative")) ? (
+      {votesCount && state.matches("practicing") && (
         <BallotStatus status={ballotStatus}>
-          {state.matches("governmental") ? (
+          {state.context.ballotType === BallotType.state ? (
             <>
               <Typography tag="p" variant="p" className="text-white">
                 {votesCount?.governor} candidato(a) a Gobernador(a)
@@ -363,7 +207,7 @@ export default function Practice() {
                 Residente
               </Typography>
             </>
-          ) : state.matches("municipal") ? (
+          ) : state.context.ballotType === BallotType.municipality ? (
             <>
               <Typography tag="p" variant="p" className="text-white">
                 {votesCount?.districtRepresentative} candidato(a) a
@@ -374,7 +218,7 @@ export default function Practice() {
                 Distrito
               </Typography>
             </>
-          ) : state.matches("legislative") ? (
+          ) : state.context.ballotType === BallotType.legislative ? (
             <>
               <Typography tag="p" variant="p" className="text-white">
                 {votesCount?.atLargeRepresentative} candidato(a) a Representante
@@ -394,7 +238,7 @@ export default function Practice() {
             </>
           ) : null}
         </BallotStatus>
-      ) : null}
+      )}
     </div>
   )
 }

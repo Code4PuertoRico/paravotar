@@ -18,13 +18,13 @@ export default function useToast(state, dependencies: Array<any>) {
     let ballotType: any = null
     let ballot: any = null
 
-    if (state.matches("governmental")) {
+    if (state.context.ballotType === BallotType.state) {
       ballotType = BallotType.state
       ballot = state.context.ballots.estatal
-    } else if (state.matches("legislative")) {
+    } else if (state.context.ballotType === BallotType.legislative) {
       ballotType = BallotType.legislative
       ballot = state.context.ballots.legislativa
-    } else if (state.matches("municipal")) {
+    } else if (state.context.ballotType === BallotType.municipality) {
       ballotType = BallotType.municipality
       ballot = state.context.ballots.municipal
     }

@@ -80,12 +80,10 @@ export const Results: React.FunctionComponent<ResultsProps> = ({
       ? [
           {
             name: "Papeleta Municipal",
-            eventName: "SELECTED_MUNICIPAL_BALLOT",
             data: { ballotType: BallotType.municipality },
           },
           {
             name: "Papeleta Legislativa",
-            eventName: "SELECTED_LEGISLATIVE_BALLOT",
             data: { ballotType: BallotType.legislative },
           },
         ]
@@ -93,24 +91,20 @@ export const Results: React.FunctionComponent<ResultsProps> = ({
       ? [
           {
             name: "Papeleta Estatal",
-            eventName: "SELECTED_STATE_BALLOT",
             data: { ballotType: BallotType.state },
           },
           {
             name: "Papeleta Legislativa",
-            eventName: "SELECTED_LEGISLATIVE_BALLOT",
             data: { ballotType: BallotType.legislative },
           },
         ]
       : [
           {
             name: "Papeleta Estatal",
-            eventName: "SELECTED_STATE_BALLOT",
             data: { ballotType: BallotType.state },
           },
           {
             name: "Papeleta Municipal",
-            eventName: "SELECTED_MUNICIPAL_BALLOT",
             data: { ballotType: BallotType.municipality },
           },
         ]
@@ -165,7 +159,7 @@ export const Results: React.FunctionComponent<ResultsProps> = ({
             key={ballot.name}
             className="w-full mt-4"
             variant="inverse"
-            onClick={() => send(ballot.eventName, ballot.data)}
+            onClick={() => send("BALLOT_SELECTION", ballot.data)}
           >
             {ballot.name}
           </Button>

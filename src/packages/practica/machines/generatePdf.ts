@@ -1,57 +1,94 @@
 import { Machine, assign, AnyEventObject } from "xstate"
 import { BallotService } from "../services/ballot-service"
 
-export const generatePdfMachine = Machine<{ uuid?: string; pdfUrl?: string }>({
-  id: "generatePdfMachine",
-  initial: "idle",
-  states: {
-    idle: {
-      on: {
-        generate: "creatingTask",
-      },
+const SIGNED_URL_EXPIRY_TIME = 1000 * 60 * 3 // 3 minutes
+
+export const generatePdfMachine = Machine<{
+  uuid?: string
+  pdfUrl?: string
+  pollingCount: number
+}>(
+  {
+    id: "generatePdfMachine",
+    initial: "idle",
+    context: {
+      pollingCount: 0,
     },
-    creatingTask: {
-      invoke: {
-        id: "generatePdf",
-        src: (_, { votes, ballotType, ballotPath }: AnyEventObject) =>
-          BallotService.generatePdf(
-            { votes } as any,
-            { ballotType, ballotPath } as any
-          ),
-        onDone: {
-          target: "gettingPdfUrl",
-          actions: assign({ uuid: (_, event) => event.data }),
-        },
-        onError: {
-          target: "errorGeneratingPdf",
+    states: {
+      idle: {
+        on: {
+          generate: "creatingTask",
         },
       },
-    },
-    gettingPdfUrl: {
-      initial: "loading",
-      states: {
-        loading: {
-          invoke: {
-            src: ({ uuid }) => BallotService.getPdfUrl({ uuid } as any),
-            onDone: {
-              target: "#generatePdfMachine.generatedPdf",
-              actions: assign({ pdfUrl: (_, event) => event.data.url }),
+      creatingTask: {
+        invoke: {
+          id: "generatePdf",
+          src: (_, { votes, ballotType, ballotPath }: AnyEventObject) =>
+            BallotService.generatePdf(
+              { votes } as any,
+              { ballotType, ballotPath } as any
+            ),
+          onDone: {
+            target: "gettingPdfUrl",
+            actions: assign({ uuid: (_, event) => event.data }),
+          },
+          onError: {
+            target: "errorGeneratingPdf",
+          },
+        },
+      },
+      gettingPdfUrl: {
+        initial: "loading",
+        states: {
+          loading: {
+            invoke: {
+              src: ({ uuid }) => BallotService.getPdfUrl({ uuid } as any),
+              onDone: {
+                target: "#generatePdfMachine.generatedPdf",
+                actions: [
+                  assign({ pdfUrl: (_, event) => event.data.url }),
+                  assign({
+                    pollingCount: ({ pollingCount }) => pollingCount + 1,
+                  }),
+                ],
+              },
+              onError: "delay",
             },
-            onError: "delay",
           },
-        },
-        delay: {
-          after: {
-            3000: "loading",
+          checkingPoll: {
+            always: [
+              {
+                target: "delay",
+                cond: "hasNotReachedLimit",
+              },
+              {
+                target: "#generatePdfMachine.errorGeneratingPdf",
+              },
+            ],
+          },
+          delay: {
+            after: {
+              3000: "loading",
+            },
           },
         },
       },
-    },
-    generatedPdf: {
-      type: "final",
-    },
-    errorGeneratingPdf: {
-      type: "final",
+      generatedPdf: {
+        after: {
+          [SIGNED_URL_EXPIRY_TIME]: "linkExpired",
+        },
+      },
+      linkExpired: {
+        type: "final",
+      },
+      errorGeneratingPdf: {
+        type: "final",
+      },
     },
   },
-})
+  {
+    guards: {
+      hasNotReachedLimit: ({ pollingCount }) => pollingCount <= 10,
+    },
+  }
+)
