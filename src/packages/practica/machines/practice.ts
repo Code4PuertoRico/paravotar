@@ -161,6 +161,27 @@ export const practiceMachine = createMachine<PracticeContext>(
       showResults: {
         on: {
           EXPORTED_VOTES: "generatePdf",
+          SELECTED_STATE_BALLOT: {
+            target: "governmental",
+            actions: assign<PracticeContext>({
+              votes: [],
+              ballotType: (_, event) => event.ballotType,
+            }),
+          },
+          SELECTED_MUNICIPAL_BALLOT: {
+            target: "municipal",
+            actions: assign<PracticeContext>({
+              votes: [],
+              ballotType: (_, event) => event.ballotType,
+            }),
+          },
+          SELECTED_LEGISLATIVE_BALLOT: {
+            target: "legislative",
+            actions: assign<PracticeContext>({
+              votes: [],
+              ballotType: (_, event) => event.ballotType,
+            }),
+          },
         },
       },
       generatePdf: {

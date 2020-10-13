@@ -74,6 +74,45 @@ export const Results: React.FunctionComponent<ResultsProps> = ({
   const typeOfVote =
     transformedVotes && detector(transformedVotes.votes, context.ballotType)
   const { votesCount } = useVotesCount(transformedVotes)
+  const nextBallots =
+    context.ballotType === BallotType.state
+      ? [
+          {
+            name: "Papeleta Municipal",
+            eventName: "SELECTED_MUNICIPAL_BALLOT",
+            data: { ballotType: BallotType.municipality },
+          },
+          {
+            name: "Papeleta Legislativa",
+            eventName: "SELECTED_LEGISLATIVE_BALLOT",
+            data: { ballotType: BallotType.legislative },
+          },
+        ]
+      : context.ballotType === BallotType.municipality
+      ? [
+          {
+            name: "Papeleta Estatal",
+            eventName: "SELECTED_STATE_BALLOT",
+            data: { ballotType: BallotType.state },
+          },
+          {
+            name: "Papeleta Legislativa",
+            eventName: "SELECTED_LEGISLATIVE_BALLOT",
+            data: { ballotType: BallotType.legislative },
+          },
+        ]
+      : [
+          {
+            name: "Papeleta Estatal",
+            eventName: "SELECTED_STATE_BALLOT",
+            data: { ballotType: BallotType.state },
+          },
+          {
+            name: "Papeleta Municipal",
+            eventName: "SELECTED_MUNICIPAL_BALLOT",
+            data: { ballotType: BallotType.municipality },
+          },
+        ]
 
   const keys = keysConfig[context.ballotType]
 
@@ -104,21 +143,41 @@ export const Results: React.FunctionComponent<ResultsProps> = ({
       <Typography tag="p" variant="p">
         {typeOfVote && typeOfVoteConfig[typeOfVote].long}
       </Typography>
+      <div className="mt-6 lg:mx-auto">
+        <Button
+          className="w-full"
+          onClick={() => {
+            send("EXPORTED_VOTES", {
+              ballotType:
+                ballotTypeToString[transformedVotes?.ballotType as any],
+              ballotPath:
+                state.context.ballotPaths[
+                  ballotTypeToString[transformedVotes?.ballotType as any]
+                ],
+            })
+          }}
+        >
+          Generar PDF
+        </Button>
+      </div>
       <br />
-      <Button
-        className="mt-4"
-        onClick={() => {
-          send("EXPORTED_VOTES", {
-            ballotType: ballotTypeToString[transformedVotes?.ballotType as any],
-            ballotPath:
-              state.context.ballotPaths[
-                ballotTypeToString[transformedVotes?.ballotType as any]
-              ],
-          })
-        }}
-      >
-        Generate PDF
-      </Button>
+      <hr />
+      <br />
+      <div>
+        <Typography tag="h2" variant="h4">
+          CONTINUAR PRACTICANDO:
+        </Typography>
+        {nextBallots.map(ballot => (
+          <Button
+            key={ballot.name}
+            className="w-full mt-4"
+            variant="inverse"
+            onClick={() => send(ballot.eventName, ballot.data)}
+          >
+            {ballot.name}
+          </Button>
+        ))}
+      </div>
     </div>
   )
 }
