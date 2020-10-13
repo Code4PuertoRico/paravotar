@@ -18,7 +18,7 @@ export default function BallotStatus({
       : "sin completar"
 
   return (
-    <div>
+    <div className="absolute bottom-0 bg-primary w-full">
       <Typography tag="h3" variant="h3" className="mb-4">
         Para esta papeleta usted puede votar por...
       </Typography>
