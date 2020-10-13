@@ -160,7 +160,6 @@ export const practiceMachine = createMachine<PracticeContext>(
       },
       showResults: {
         on: {
-          EXPORTED_VOTES: "generatePdf",
           SELECTED_STATE_BALLOT: {
             target: "governmental",
             actions: assign<PracticeContext>({
@@ -183,46 +182,6 @@ export const practiceMachine = createMachine<PracticeContext>(
             }),
           },
         },
-      },
-      generatePdf: {
-        invoke: {
-          id: "generatePdf",
-          src: BallotService.generatePdf,
-          onDone: {
-            target: "gettingPdfUrl",
-            actions: assign({ uuid: (_, event) => event.data }),
-          },
-          onError: {
-            target: "errorGeneratingPdf",
-          },
-        },
-      },
-      gettingPdfUrl: {
-        initial: "loading",
-        states: {
-          loading: {
-            invoke: {
-              id: "getPdfUrl",
-              src: BallotService.getPdfUrl,
-              onDone: {
-                target: "#practiceMachine.generatedPdf",
-                actions: assign({ pdfUrl: (_, event) => event.data }),
-              },
-              onError: "delay",
-            },
-          },
-          delay: {
-            after: {
-              3000: "loading",
-            },
-          },
-        },
-      },
-      generatedPdf: {
-        type: "final",
-      },
-      errorGeneratingPdf: {
-        type: "final",
       },
     },
   },

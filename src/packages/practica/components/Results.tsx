@@ -5,6 +5,7 @@ import { BallotType } from "../../../ballot-validator/types"
 import { Button, Typography } from "../../../components"
 import useVotesCount from "../hooks/use-votes-count"
 import useVotesTransform from "../hooks/use-votes-transform"
+import { GeneratePDF } from "./GeneratePDF"
 
 interface ResultsProps {
   state: any
@@ -143,23 +144,15 @@ export const Results: React.FunctionComponent<ResultsProps> = ({
       <Typography tag="p" variant="p">
         {typeOfVote && typeOfVoteConfig[typeOfVote].long}
       </Typography>
-      <div className="mt-6 lg:mx-auto">
-        <Button
-          className="w-full"
-          onClick={() => {
-            send("EXPORTED_VOTES", {
-              ballotType:
-                ballotTypeToString[transformedVotes?.ballotType as any],
-              ballotPath:
-                state.context.ballotPaths[
-                  ballotTypeToString[transformedVotes?.ballotType as any]
-                ],
-            })
-          }}
-        >
-          Generar PDF
-        </Button>
-      </div>
+      <GeneratePDF
+        ballotType={ballotTypeToString[transformedVotes?.ballotType as any]}
+        ballotPath={
+          state.context.ballotPaths[
+            ballotTypeToString[transformedVotes?.ballotType as any]
+          ]
+        }
+        votes={state.context.votes}
+      />
       <br />
       <hr />
       <br />
