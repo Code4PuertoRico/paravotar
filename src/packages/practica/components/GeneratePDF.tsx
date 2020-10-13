@@ -47,6 +47,8 @@ export const GeneratePDF: React.FunctionComponent<GeneratePDFProps> = ({
           </Button>
         </div>
       )}
+
+      {current.matches("linkExpired") && <>Download link has expired</>}
     </div>
   )
 }

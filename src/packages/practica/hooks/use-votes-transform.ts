@@ -11,26 +11,17 @@ function getBallot(state) {
   const { ballots, ballotType: contextBallotType } = state.context
 
   if (ballots) {
-    if (
-      state.matches("governmental") ||
-      contextBallotType === BallotType.state
-    ) {
+    if (contextBallotType === BallotType.state) {
       const ballot = ballots.estatal
       const ballotType = BallotType.state
 
       return { ballot, ballotType }
-    } else if (
-      state.matches("legislative") ||
-      contextBallotType === BallotType.legislative
-    ) {
+    } else if (contextBallotType === BallotType.legislative) {
       const ballot = ballots.legislativa
       const ballotType = BallotType.legislative
 
       return { ballot, ballotType }
-    } else if (
-      state.matches("municipal") ||
-      contextBallotType === BallotType.municipality
-    ) {
+    } else if (contextBallotType === BallotType.municipality) {
       const ballot = ballots.municipal
       const ballotType = BallotType.municipality
 

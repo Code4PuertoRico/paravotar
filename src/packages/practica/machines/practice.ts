@@ -24,6 +24,7 @@ export const practiceMachine = createMachine<PracticeContext>(
       },
       enterVoterId: {
         on: {
+          BACK: "ballotFinderPicker",
           ADDED_VOTER_ID: [
             {
               target: ".empty",
@@ -42,6 +43,7 @@ export const practiceMachine = createMachine<PracticeContext>(
       },
       enterPrecint: {
         on: {
+          BACK: "ballotFinderPicker",
           ADDED_PRECINT: [
             {
               target: ".empty",
@@ -80,6 +82,9 @@ export const practiceMachine = createMachine<PracticeContext>(
             target: "noVoterIdFound",
           },
         },
+        on: {
+          BACK: "ballotFinderPicker",
+        },
       },
       noVoterIdFound: {
         on: {
@@ -112,70 +117,35 @@ export const practiceMachine = createMachine<PracticeContext>(
       selectBallot: {
         on: {
           SELECTED_GOVERNMENTAL: {
-            target: "governmental",
+            target: "practicing",
             actions: "saveActiveBallotType",
           },
           SELECTED_LEGISLATIVE: {
-            target: "legislative",
+            target: "practicing",
             actions: "saveActiveBallotType",
           },
           SELECTED_MUNICIPAL: {
-            target: "municipal",
+            target: "practicing",
             actions: "saveActiveBallotType",
           },
+          BACK: "ballotFinderPicker",
         },
       },
-      governmental: {
+      practicing: {
         on: {
-          SELETED_ELECTIVE_FIELD: {
-            target: "governmental",
+          SELECTED_ELECTIVE_FIELD: {
             actions: assign<PracticeContext>({
               votes: BallotService.updateVotes as any,
             }),
           },
           SUBMIT: "showResults",
-        },
-      },
-      legislative: {
-        on: {
-          SELETED_ELECTIVE_FIELD: {
-            target: "legislative",
-            actions: assign<PracticeContext>({
-              votes: BallotService.updateVotes as any,
-            }),
-          },
-          SUBMIT: "showResults",
-        },
-      },
-      municipal: {
-        on: {
-          SELETED_ELECTIVE_FIELD: {
-            target: "municipal",
-            actions: assign<PracticeContext>({
-              votes: BallotService.updateVotes as any,
-            }),
-          },
-          SUBMIT: "showResults",
+          BACK: "selectBallot",
         },
       },
       showResults: {
         on: {
-          SELECTED_STATE_BALLOT: {
-            target: "governmental",
-            actions: assign<PracticeContext>({
-              votes: [],
-              ballotType: (_, event) => event.ballotType,
-            }),
-          },
-          SELECTED_MUNICIPAL_BALLOT: {
-            target: "municipal",
-            actions: assign<PracticeContext>({
-              votes: [],
-              ballotType: (_, event) => event.ballotType,
-            }),
-          },
-          SELECTED_LEGISLATIVE_BALLOT: {
-            target: "legislative",
+          BALLOT_SELECTION: {
+            target: "practicing",
             actions: assign<PracticeContext>({
               votes: [],
               ballotType: (_, event) => event.ballotType,
