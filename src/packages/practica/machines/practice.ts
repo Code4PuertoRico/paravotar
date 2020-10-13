@@ -177,19 +177,24 @@ export const practiceMachine = createMachine<PracticeContext>(
         },
       },
       gettingPdfUrl: {
-        invoke: {
-          id: "getPdfUrl",
-          src: BallotService.getPdfUrl,
-          onDone: {
-            target: "generatedPdf",
-            actions: assign({ pdfUrl: (_, event) => event.data }),
+        initial: "loading",
+        states: {
+          loading: {
+            invoke: {
+              id: "getPdfUrl",
+              src: BallotService.getPdfUrl,
+              onDone: {
+                target: "#practiceMachine.generatedPdf",
+                actions: assign({ pdfUrl: (_, event) => event.data }),
+              },
+              onError: "delay",
+            },
           },
-          onError: {
-            target: "errorGeneratingPdf",
+          delay: {
+            after: {
+              3000: "loading",
+            },
           },
-        },
-        after: {
-          200: "gettingPdfUrl",
         },
       },
       generatedPdf: {

@@ -384,6 +384,21 @@ export default function Practice() {
           <Case value="showResults">
             <Results state={state} send={send} />
           </Case>
+          <Case value="generatePdf">
+            <>LOADING...</>
+          </Case>
+          <Case value="gettingPdfUrl">
+            <>LOADING...</>
+          </Case>
+          <Case value="generatedPdf">
+            <Button
+              onClick={() => {
+                window.open(state.context.pdfUrl.url)
+              }}
+            >
+              Download pdf
+            </Button>
+          </Case>
           <Default>
             <>FAILURE</>
           </Default>

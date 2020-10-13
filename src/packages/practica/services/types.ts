@@ -61,4 +61,5 @@ export type PracticeContext = {
   votes: Vote[]
   transformedVotes?: TransformedVotes[]
   ballotType?: BallotType
+  pdfUrl?: any
 }
