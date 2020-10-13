@@ -28,10 +28,21 @@ import EnterVoterIdForm from "./enter-voter-id-form"
 import { ColumnHighlightProvider } from "../../../context/column-highlight-context"
 import { Vote } from "../services/vote-service"
 import { toFriendlyErrorMessages } from "../../../ballot-validator/helpers/messages"
+import { Results } from "./Results"
+
+if (process.env.NODE_ENV === "development" && typeof window !== "undefined") {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  const { inspect } = require("@xstate/inspect")
+  inspect({
+    iframe: false,
+  })
+}
 
 export default function Practice() {
   const [isPristine, setIsPristine] = useState(true)
-  const [state, send] = useMachine(practiceMachine)
+  const [state, send] = useMachine(practiceMachine, {
+    devTools: process.env.NODE_ENV === "development",
+  })
   const transformedVotes = useVotesTransform(state.context.votes, state)
   const { ballotStatus, setBallotStatus } = useBallotValidation(
     transformedVotes
@@ -48,29 +59,33 @@ export default function Practice() {
 
     toast.dismiss()
 
-    toFriendlyErrorMessages(validationResult)?.map(messageId => {
-      if (
-        messageId.includes("MunicipalLegislatorDynamicSelectionRule") &&
-        ballotType === BallotType.municipality
-      ) {
-        toast.error(
-          i18next.t(messageId, {
-            maxSelection: (ballot as MunicipalBallotConfig)
-              ?.amountOfMunicipalLegislators,
-          })
-        )
-      } else {
-        toast.error(i18next.t(messageId))
-      }
-    })
+    if (validationResult.outcomes.denied.length === 0) {
+      send("SUBMIT")
+    } else {
+      toFriendlyErrorMessages(validationResult)?.map(messageId => {
+        if (
+          messageId.includes("MunicipalLegislatorDynamicSelectionRule") &&
+          ballotType === BallotType.municipality
+        ) {
+          toast.error(
+            i18next.t(messageId, {
+              maxSelection: (ballot as MunicipalBallotConfig)
+                ?.amountOfMunicipalLegislators,
+            })
+          )
+        } else {
+          toast.error(i18next.t(messageId))
+        }
+      })
+    }
   }
 
-  const selectBallot = (selectedBallot: string) => {
+  const selectBallot = (selectedBallot: string, eventData: any) => {
     setSidebarIsVisible(false)
     setBallotStatus(null)
     setVotesCount(null)
 
-    send(selectedBallot)
+    send(selectedBallot, eventData)
   }
 
   useEffect(() => {
@@ -191,19 +206,31 @@ export default function Practice() {
               </Typography>
               <Button
                 className="w-full block mt-4 mb-2"
-                onClick={() => selectBallot("SELECTED_GOVERNMENTAL")}
+                onClick={() =>
+                  selectBallot("SELECTED_GOVERNMENTAL", {
+                    ballotType: BallotType.state,
+                  })
+                }
               >
                 Estatal
               </Button>
               <Button
                 className="w-full block my-2"
-                onClick={() => selectBallot("SELECTED_LEGISLATIVE")}
+                onClick={() =>
+                  selectBallot("SELECTED_LEGISLATIVE", {
+                    ballotType: BallotType.legislative,
+                  })
+                }
               >
                 Legislativa
               </Button>
               <Button
                 className="w-full block my-2"
-                onClick={() => selectBallot("SELECTED_MUNICIPAL")}
+                onClick={() =>
+                  selectBallot("SELECTED_MUNICIPAL", {
+                    ballotType: BallotType.municipality,
+                  })
+                }
               >
                 Municipal
               </Button>
@@ -250,17 +277,6 @@ export default function Practice() {
                     }}
                   >
                     Submit
-                  </Button>
-                  <Button
-                    className="mt-4"
-                    onClick={() => {
-                      send("EXPORTED_VOTES", {
-                        ballotType: "estatal",
-                        ballotPath: state.context.ballotPaths.estatal,
-                      })
-                    }}
-                  >
-                    Generate PDF
                   </Button>
                 </>
               ) : null}
@@ -316,17 +332,6 @@ export default function Practice() {
                   >
                     Submit
                   </Button>
-                  <Button
-                    className="mt-4"
-                    onClick={() => {
-                      send("EXPORTED_VOTES", {
-                        ballotType: "estatal",
-                        ballotPath: state.context.ballotPaths.municipal,
-                      })
-                    }}
-                  >
-                    Generate PDF
-                  </Button>
                 </>
               ) : null}
             </div>
@@ -372,22 +377,16 @@ export default function Practice() {
                   >
                     Submit
                   </Button>
-                  <Button
-                    className="mt-4"
-                    onClick={() => {
-                      send("EXPORTED_VOTES", {
-                        ballotType: "estatal",
-                        ballotPath: state.context.ballotPaths.legislativa,
-                      })
-                    }}
-                  >
-                    Generate PDF
-                  </Button>
                 </>
               ) : null}
             </div>
           </Case>
-          <Default>FAILURE</Default>
+          <Case value="showResults">
+            <Results state={state} send={send} />
+          </Case>
+          <Default>
+            <>FAILURE</>
+          </Default>
         </Switch>
       </Card>
       <ToastContainer
