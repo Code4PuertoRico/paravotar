@@ -1,36 +1,35 @@
-import React, { useEffect, useState } from "react"
+import React from "react"
 import { useMachine } from "@xstate/react"
 import { ToastContainer, toast } from "react-toastify"
 import i18next from "i18next"
 
+import { toFriendlyErrorMessages } from "../../../ballot-validator/helpers/messages"
+import { ColumnHighlightProvider } from "../../../context/column-highlight-context"
 import { Button, Card, Typography } from "../../../components/index"
+import { useSidebar } from "../../../context/sidebar-context"
 import BallotValidator from "../../../ballot-validator/index"
 import { BallotType } from "../../../ballot-validator/types"
 import { Ballot } from "../../generate-ballot/components"
 import Default from "../../../components/default"
 import Switch from "../../../components/switch"
 import Case from "../../../components/case"
-import { practiceMachine } from "../machines/practice"
-
 import coordinatesToSections from "../services/coordinates-to-sections"
 import {
   BallotConfigs,
   MunicipalBallotConfig,
 } from "../services/ballot-configs"
-import { useSidebar } from "../../../context/sidebar-context"
-import BallotStatus from "./ballot-status"
-import useVotesTransform from "../hooks/use-votes-transform"
 import useBallotValidation from "../hooks/use-ballot-validation"
+import useVotesTransform from "../hooks/use-votes-transform"
+import useErrorMessages from "../hooks/use-error-messages"
+import { practiceMachine } from "../machines/practice"
 import useVotesCount from "../hooks/use-votes-count"
+import { Vote } from "../services/vote-service"
 import BallotFinderPicker from "./ballot-finder-picker"
 import PrecintNumberForm from "./precint-number-form"
 import EnterVoterIdForm from "./enter-voter-id-form"
-import { ColumnHighlightProvider } from "../../../context/column-highlight-context"
-import { Vote } from "../services/vote-service"
-import { toFriendlyErrorMessages } from "../../../ballot-validator/helpers/messages"
+import BallotStatus from "./ballot-status"
 
 export default function Practice() {
-  const [isPristine, setIsPristine] = useState(true)
   const [state, send] = useMachine(practiceMachine)
   const transformedVotes = useVotesTransform(state.context.votes, state)
   const { ballotStatus, setBallotStatus } = useBallotValidation(
@@ -38,6 +37,14 @@ export default function Practice() {
   )
   const { votesCount, setVotesCount } = useVotesCount(transformedVotes)
   const { setSidebarIsVisible } = useSidebar()
+  const { setIsPristine } = useErrorMessages(state, [
+    state,
+    state.value,
+    state.context.votes,
+    state.context.ballots.estatal,
+    state.context.ballots.legislativa,
+    state.context.ballots.municipal,
+  ])
   const handleSubmit = (
     votes: Vote[],
     ballotType: BallotType,
@@ -73,66 +80,8 @@ export default function Practice() {
     send(selectedBallot)
   }
 
-  useEffect(() => {
-    let ballotType: any = null
-    let ballot: any = null
-
-    if (state.matches("governmental")) {
-      ballotType = BallotType.state
-      ballot = state.context.ballots.estatal
-    } else if (state.matches("legislative")) {
-      ballotType = BallotType.legislative
-      ballot = state.context.ballots.legislativa
-    } else if (state.matches("municipal")) {
-      ballotType = BallotType.municipality
-      ballot = state.context.ballots.municipal
-    }
-
-    if (!ballotType) {
-      return
-    }
-
-    if (isPristine) {
-      return
-    }
-
-    const transformedVotes = coordinatesToSections(
-      state.context.votes,
-      ballot,
-      ballotType
-    )
-
-    const validationResult = BallotValidator(transformedVotes, ballotType)
-
-    toast.dismiss()
-
-    toFriendlyErrorMessages(validationResult)?.map(messageId => {
-      if (
-        messageId.includes("MunicipalLegislatorDynamicSelectionRule") &&
-        ballotType === BallotType.municipality
-      ) {
-        toast.error(
-          i18next.t(messageId, {
-            maxSelection: (ballot as MunicipalBallotConfig)
-              ?.amountOfMunicipalLegislators,
-          })
-        )
-      } else {
-        toast.error(i18next.t(messageId))
-      }
-    })
-  }, [
-    state,
-    state.value,
-    state.context.votes,
-    state.context.ballots.estatal,
-    state.context.ballots.legislativa,
-    state.context.ballots.municipal,
-    isPristine,
-  ])
-
   return (
-    <div>
+    <div className="relative">
       <Typography tag="h2" variant="h3" className="uppercase">
         Practica tu voto
       </Typography>
@@ -213,17 +162,17 @@ export default function Practice() {
             <div>
               {state.context.ballots.estatal ? (
                 <>
-                  <BallotStatus status={ballotStatus}>
-                    <Typography tag="p" variant="p">
-                      {votesCount?.governor} candidato(a) a Gobernador(a)
-                    </Typography>
-                    <Typography tag="p" variant="p">
-                      {votesCount?.commissionerResident} candidato(a) a
-                      Comisionado(a) Residente
-                    </Typography>
-                  </BallotStatus>
                   <div className="overflow-scroll">
                     <ColumnHighlightProvider>
+                      <Typography
+                        tag="p"
+                        variant="p"
+                        className="text-xs italic mt-2 mb-6"
+                      >
+                        *Para ver otros partidos realiza un scroll hacia tu
+                        derecha y para ver más candidatos realiza scroll hacia
+                        abajo.
+                      </Typography>
                       <Ballot
                         type={BallotType.state}
                         structure={state.context.ballots.estatal.structure}
@@ -251,7 +200,7 @@ export default function Practice() {
                   >
                     Submit
                   </Button>
-                  <Button
+                  {/* <Button
                     className="mt-4"
                     onClick={() => {
                       send("EXPORTED_VOTES", {
@@ -270,26 +219,17 @@ export default function Practice() {
             <div>
               {state.context.ballots.legislativa ? (
                 <>
-                  <BallotStatus status={ballotStatus}>
-                    <Typography tag="p" variant="p">
-                      {votesCount?.districtRepresentative} candidato(a) a
-                      Representante por Distrito
-                    </Typography>
-                    <Typography tag="p" variant="p">
-                      {votesCount?.districtSenators} candidato(a) a Senador por
-                      Distrito
-                    </Typography>
-                    <Typography tag="p" variant="p">
-                      {votesCount?.atLargeRepresentative} candidato(a) a
-                      Representante por Acumulación
-                    </Typography>
-                    <Typography tag="p" variant="p">
-                      {votesCount?.atLargeSenator} candidato(a) a Senador por
-                      Acumulación
-                    </Typography>
-                  </BallotStatus>
                   <div className="overflow-scroll">
                     <ColumnHighlightProvider>
+                      <Typography
+                        tag="p"
+                        variant="p"
+                        className="text-xs italic mt-2 mb-6"
+                      >
+                        *Para ver otros partidos realiza un scroll hacia tu
+                        derecha y para ver más candidatos realiza scroll hacia
+                        abajo.
+                      </Typography>
                       <Ballot
                         type={BallotType.legislative}
                         structure={state.context.ballots.legislativa.structure}
@@ -316,7 +256,7 @@ export default function Practice() {
                   >
                     Submit
                   </Button>
-                  <Button
+                  {/* <Button
                     className="mt-4"
                     onClick={() => {
                       send("EXPORTED_VOTES", {
@@ -335,17 +275,17 @@ export default function Practice() {
             <div>
               {state.context.ballots.municipal ? (
                 <>
-                  <BallotStatus status={ballotStatus}>
-                    <Typography tag="p" variant="p">
-                      {votesCount?.mayor} a Alcalde(sa)
-                    </Typography>
-                    <Typography tag="p" variant="p">
-                      {votesCount?.municipalLegislators} candidato(a) a
-                      Legisladores(as) municipales
-                    </Typography>
-                  </BallotStatus>
                   <div className="overflow-scroll">
                     <ColumnHighlightProvider>
+                      <Typography
+                        tag="p"
+                        variant="p"
+                        className="text-xs italic mt-2 mb-6"
+                      >
+                        *Para ver otros partidos realiza un scroll hacia tu
+                        derecha y para ver más candidatos realiza scroll hacia
+                        abajo.
+                      </Typography>
                       <Ballot
                         type={BallotType.municipality}
                         structure={state.context.ballots.municipal.structure}
@@ -372,7 +312,7 @@ export default function Practice() {
                   >
                     Submit
                   </Button>
-                  <Button
+                  {/* <Button
                     className="mt-4"
                     onClick={() => {
                       send("EXPORTED_VOTES", {
@@ -401,6 +341,53 @@ export default function Practice() {
         draggable
         pauseOnHover
       />
+      {votesCount &&
+      (state.matches("governmental") ||
+        state.matches("municipal") ||
+        state.matches("legislative")) ? (
+        <BallotStatus status={ballotStatus}>
+          {state.matches("governmental") ? (
+            <>
+              <Typography tag="p" variant="p" className="text-white">
+                {votesCount?.governor} candidato(a) a Gobernador(a)
+              </Typography>
+              <Typography tag="p" variant="p" className="text-white">
+                {votesCount?.commissionerResident} candidato(a) a Comisionado(a)
+                Residente
+              </Typography>
+            </>
+          ) : state.matches("municipal") ? (
+            <>
+              <Typography tag="p" variant="p" className="text-white">
+                {votesCount?.districtRepresentative} candidato(a) a
+                Representante por Distrito
+              </Typography>
+              <Typography tag="p" variant="p" className="text-white">
+                {votesCount?.districtSenators} candidato(a) a Senador por
+                Distrito
+              </Typography>
+            </>
+          ) : state.matches("legislative") ? (
+            <>
+              <Typography tag="p" variant="p" className="text-white">
+                {votesCount?.atLargeRepresentative} candidato(a) a Representante
+                por Acumulación
+              </Typography>
+              <Typography tag="p" variant="p" className="text-white">
+                {votesCount?.atLargeSenator} candidato(a) a Senador por
+                Acumulación
+              </Typography>
+              <Typography tag="p" variant="p" className="text-white">
+                {votesCount?.mayor} a Alcalde(sa)
+              </Typography>
+              <Typography tag="p" variant="p" className="text-white">
+                {votesCount?.municipalLegislators} candidato(a) a
+                Legisladores(as) municipales
+              </Typography>
+            </>
+          ) : null}
+        </BallotStatus>
+      ) : null}
     </div>
   )
 }
