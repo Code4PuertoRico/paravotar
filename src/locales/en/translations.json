@@ -178,7 +178,7 @@
     "undivided": "Straight Party",
     "undivided-vote-rules": "The straight party vote will be considered valid when a single mark is placed under the emblem of the preferred political party, and no more marks are made on the ballot. With that single mark, your vote will be awarded to all candidates in the same column of the voted emblem.",
     "mixed": "Mixed",
-    "mixed-vote-rules": "The mixed vote will be valid when the voter places a valid mark or X inside the blank rectangle that's below the emblem of the political party of preference voting for at least one candidate in the column of that insignia, and also place another X within the blank rectangle next to any candidate in the column for another party or independent candidate. If you do not explicitly vote for all the elective offices available on your ballot, your vote will go to the candidates running under the selected insignia.",
+    "mixed-vote-rules": "The mixed vote will be valid when the voter places a valid mark or X inside the blank rectangle that's below the emblem of the political party of preference voting for at least one candidate in the column of that insignia, and also place another X within the blank rectangle next to any candidate in the column for another party or independent candidate.",
     "candidacy": "Candidacy",
     "candidacy-vote-rules": "Votes per candidacy will be valid when a valid mark is made within the blank rectangle next to the name of each candidate of your choice.",
     "the-information-presented": "The information presented here is based on an",
