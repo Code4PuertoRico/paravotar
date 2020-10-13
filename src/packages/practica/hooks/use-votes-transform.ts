@@ -8,20 +8,29 @@ import { Vote } from "../services/vote-service"
 import useDeepCompareEffect from "./use-deep-compare-effect"
 
 function getBallot(state) {
-  const { ballots } = state.context
+  const { ballots, ballotType: contextBallotType } = state.context
 
   if (ballots) {
-    if (state.matches("governmental")) {
+    if (
+      state.matches("governmental") ||
+      contextBallotType === BallotType.state
+    ) {
       const ballot = ballots.estatal
       const ballotType = BallotType.state
 
       return { ballot, ballotType }
-    } else if (state.matches("legislative")) {
+    } else if (
+      state.matches("legislative") ||
+      contextBallotType === BallotType.legislative
+    ) {
       const ballot = ballots.legislativa
       const ballotType = BallotType.legislative
 
       return { ballot, ballotType }
-    } else if (state.matches("municipal")) {
+    } else if (
+      state.matches("municipal") ||
+      contextBallotType === BallotType.municipality
+    ) {
       const ballot = ballots.municipal
       const ballotType = BallotType.municipality
 

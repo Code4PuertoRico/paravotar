@@ -27,6 +27,17 @@ import { Vote } from "../services/vote-service"
 import BallotFinderPicker from "./ballot-finder-picker"
 import PrecintNumberForm from "./precint-number-form"
 import EnterVoterIdForm from "./enter-voter-id-form"
+
+import { Results } from "./Results"
+
+if (process.env.NODE_ENV === "development" && typeof window !== "undefined") {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  const { inspect } = require("@xstate/inspect")
+  inspect({
+    iframe: false,
+  })
+}
+
 import BallotStatus from "./ballot-status"
 
 export default function Practice() {
@@ -55,29 +66,33 @@ export default function Practice() {
 
     toast.dismiss()
 
-    toFriendlyErrorMessages(validationResult)?.map(messageId => {
-      if (
-        messageId.includes("MunicipalLegislatorDynamicSelectionRule") &&
-        ballotType === BallotType.municipality
-      ) {
-        toast.error(
-          i18next.t(messageId, {
-            maxSelection: (ballot as MunicipalBallotConfig)
-              ?.amountOfMunicipalLegislators,
-          })
-        )
-      } else {
-        toast.error(i18next.t(messageId))
-      }
-    })
+    if (validationResult.outcomes.denied.length === 0) {
+      send("SUBMIT")
+    } else {
+      toFriendlyErrorMessages(validationResult)?.map(messageId => {
+        if (
+          messageId.includes("MunicipalLegislatorDynamicSelectionRule") &&
+          ballotType === BallotType.municipality
+        ) {
+          toast.error(
+            i18next.t(messageId, {
+              maxSelection: (ballot as MunicipalBallotConfig)
+                ?.amountOfMunicipalLegislators,
+            })
+          )
+        } else {
+          toast.error(i18next.t(messageId))
+        }
+      })
+    }
   }
 
-  const selectBallot = (selectedBallot: string) => {
+  const selectBallot = (selectedBallot: string, eventData: any) => {
     setSidebarIsVisible(false)
     setBallotStatus(null)
     setVotesCount(null)
 
-    send(selectedBallot)
+    send(selectedBallot, eventData)
   }
 
   return (
@@ -140,19 +155,31 @@ export default function Practice() {
               </Typography>
               <Button
                 className="w-full block mt-4 mb-2"
-                onClick={() => selectBallot("SELECTED_GOVERNMENTAL")}
+                onClick={() =>
+                  selectBallot("SELECTED_GOVERNMENTAL", {
+                    ballotType: BallotType.state,
+                  })
+                }
               >
                 Estatal
               </Button>
               <Button
                 className="w-full block my-2"
-                onClick={() => selectBallot("SELECTED_LEGISLATIVE")}
+                onClick={() =>
+                  selectBallot("SELECTED_LEGISLATIVE", {
+                    ballotType: BallotType.legislative,
+                  })
+                }
               >
                 Legislativa
               </Button>
               <Button
                 className="w-full block my-2"
-                onClick={() => selectBallot("SELECTED_MUNICIPAL")}
+                onClick={() =>
+                  selectBallot("SELECTED_MUNICIPAL", {
+                    ballotType: BallotType.municipality,
+                  })
+                }
               >
                 Municipal
               </Button>
@@ -188,7 +215,7 @@ export default function Practice() {
                       />
                     </ColumnHighlightProvider>
                   </div>
-                  {/* <Button
+                  <Button
                     className="mt-4"
                     onClick={() => {
                       handleSubmit(
@@ -200,17 +227,6 @@ export default function Practice() {
                   >
                     Submit
                   </Button>
-                  {/* <Button
-                    className="mt-4"
-                    onClick={() => {
-                      send("EXPORTED_VOTES", {
-                        ballotType: "estatal",
-                        ballotPath: state.context.ballotPaths.estatal,
-                      })
-                    }}
-                  >
-                    Generate PDF
-                  </Button> */}
                 </>
               ) : null}
             </div>
@@ -245,7 +261,7 @@ export default function Practice() {
                       />
                     </ColumnHighlightProvider>
                   </div>
-                  {/* <Button
+                  <Button
                     onClick={() => {
                       handleSubmit(
                         state.context.votes,
@@ -256,17 +272,6 @@ export default function Practice() {
                   >
                     Submit
                   </Button>
-                  {/* <Button
-                    className="mt-4"
-                    onClick={() => {
-                      send("EXPORTED_VOTES", {
-                        ballotType: "estatal",
-                        ballotPath: state.context.ballotPaths.municipal,
-                      })
-                    }}
-                  >
-                    Generate PDF
-                  </Button> */}
                 </>
               ) : null}
             </div>
@@ -301,7 +306,7 @@ export default function Practice() {
                       />
                     </ColumnHighlightProvider>
                   </div>
-                  {/* <Button
+                  <Button
                     onClick={() => {
                       handleSubmit(
                         state.context.votes,
@@ -312,22 +317,31 @@ export default function Practice() {
                   >
                     Submit
                   </Button>
-                  {/* <Button
-                    className="mt-4"
-                    onClick={() => {
-                      send("EXPORTED_VOTES", {
-                        ballotType: "estatal",
-                        ballotPath: state.context.ballotPaths.legislativa,
-                      })
-                    }}
-                  >
-                    Generate PDF
-                  </Button> */}
                 </>
               ) : null}
             </div>
           </Case>
-          <Default>FAILURE :(</Default>
+          <Case value="showResults">
+            <Results state={state} send={send} />
+          </Case>
+          <Case value="generatePdf">
+            <>LOADING...</>
+          </Case>
+          <Case value="gettingPdfUrl">
+            <>LOADING...</>
+          </Case>
+          <Case value="generatedPdf">
+            <Button
+              onClick={() => {
+                window.open(state.context.pdfUrl.url)
+              }}
+            >
+              Download pdf
+            </Button>
+          </Case>
+          <Default>
+            <>FAILURE</>
+          </Default>
         </Switch>
       </Card>
       <ToastContainer
