@@ -109,7 +109,7 @@ export const Results: React.FunctionComponent<ResultsProps> = ({
         className="mt-4"
         onClick={() => {
           send("EXPORTED_VOTES", {
-            ballotType: transformedVotes?.ballotType,
+            ballotType: ballotTypeToString[transformedVotes?.ballotType as any],
             ballotPath:
               state.context.ballotPaths[
                 ballotTypeToString[transformedVotes?.ballotType as any]
