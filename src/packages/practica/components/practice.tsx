@@ -339,13 +339,16 @@ export default function Practice() {
             <>LOADING...</>
           </Case>
           <Case value="generatedPdf">
-            <Button
-              onClick={() => {
-                window.open(state.context.pdfUrl.url)
-              }}
-            >
-              Download pdf
-            </Button>
+            <div className="mt-6 w-full lg:w-1/3 lg:mx-auto">
+              <Button
+                className="w-full"
+                onClick={() => {
+                  window.open(state.context.pdfUrl.url)
+                }}
+              >
+                Download pdf
+              </Button>
+            </div>
           </Case>
           <Default>
             <>FAILURE</>
