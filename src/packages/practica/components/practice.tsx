@@ -82,37 +82,6 @@ export default function Practice() {
 
   return (
     <div className="relative">
-      {/* <BallotStatus status={ballotStatus}>
-        <Typography tag="p" variant="p">
-          {votesCount?.governor} candidato(a) a Gobernador(a)
-        </Typography>
-        <Typography tag="p" variant="p">
-          {votesCount?.commissionerResident} candidato(a) a Comisionado(a)
-          Residente
-        </Typography>
-        <Typography tag="p" variant="p">
-          {votesCount?.districtRepresentative} candidato(a) a Representante por
-          Distrito
-        </Typography>
-        <Typography tag="p" variant="p">
-          {votesCount?.districtSenators} candidato(a) a Senador por Distrito
-        </Typography>
-        <Typography tag="p" variant="p">
-          {votesCount?.atLargeRepresentative} candidato(a) a Representante por
-          Acumulación
-        </Typography>
-        <Typography tag="p" variant="p">
-          {votesCount?.atLargeSenator} candidato(a) a Senador por Acumulación
-        </Typography>
-        <Typography tag="p" variant="p">
-          {votesCount?.mayor} a Alcalde(sa)
-        </Typography>
-        <Typography tag="p" variant="p">
-          {votesCount?.municipalLegislators} candidato(a) a Legisladores(as)
-          municipales
-        </Typography>
-      </BallotStatus> */}
-
       <Typography tag="h2" variant="h3" className="uppercase">
         Practica tu voto
       </Typography>
@@ -195,6 +164,15 @@ export default function Practice() {
                 <>
                   <div className="overflow-scroll">
                     <ColumnHighlightProvider>
+                      <Typography
+                        tag="p"
+                        variant="p"
+                        className="text-xs italic mt-2 mb-6"
+                      >
+                        *Para ver otros partidos realiza un scroll hacia tu
+                        derecha y para ver más candidatos realiza scroll hacia
+                        abajo.
+                      </Typography>
                       <Ballot
                         type={BallotType.state}
                         structure={state.context.ballots.estatal.structure}
@@ -243,6 +221,15 @@ export default function Practice() {
                 <>
                   <div className="overflow-scroll">
                     <ColumnHighlightProvider>
+                      <Typography
+                        tag="p"
+                        variant="p"
+                        className="text-xs italic mt-2 mb-6"
+                      >
+                        *Para ver otros partidos realiza un scroll hacia tu
+                        derecha y para ver más candidatos realiza scroll hacia
+                        abajo.
+                      </Typography>
                       <Ballot
                         type={BallotType.legislative}
                         structure={state.context.ballots.legislativa.structure}
@@ -290,6 +277,15 @@ export default function Practice() {
                 <>
                   <div className="overflow-scroll">
                     <ColumnHighlightProvider>
+                      <Typography
+                        tag="p"
+                        variant="p"
+                        className="text-xs italic mt-2 mb-6"
+                      >
+                        *Para ver otros partidos realiza un scroll hacia tu
+                        derecha y para ver más candidatos realiza scroll hacia
+                        abajo.
+                      </Typography>
                       <Ballot
                         type={BallotType.municipality}
                         structure={state.context.ballots.municipal.structure}
@@ -345,6 +341,53 @@ export default function Practice() {
         draggable
         pauseOnHover
       />
+      {votesCount &&
+      (state.matches("governmental") ||
+        state.matches("municipal") ||
+        state.matches("legislative")) ? (
+        <BallotStatus status={ballotStatus}>
+          {state.matches("governmental") ? (
+            <>
+              <Typography tag="p" variant="p" className="text-white">
+                {votesCount?.governor} candidato(a) a Gobernador(a)
+              </Typography>
+              <Typography tag="p" variant="p" className="text-white">
+                {votesCount?.commissionerResident} candidato(a) a Comisionado(a)
+                Residente
+              </Typography>
+            </>
+          ) : state.matches("municipal") ? (
+            <>
+              <Typography tag="p" variant="p" className="text-white">
+                {votesCount?.districtRepresentative} candidato(a) a
+                Representante por Distrito
+              </Typography>
+              <Typography tag="p" variant="p" className="text-white">
+                {votesCount?.districtSenators} candidato(a) a Senador por
+                Distrito
+              </Typography>
+            </>
+          ) : state.matches("legislative") ? (
+            <>
+              <Typography tag="p" variant="p" className="text-white">
+                {votesCount?.atLargeRepresentative} candidato(a) a Representante
+                por Acumulación
+              </Typography>
+              <Typography tag="p" variant="p" className="text-white">
+                {votesCount?.atLargeSenator} candidato(a) a Senador por
+                Acumulación
+              </Typography>
+              <Typography tag="p" variant="p" className="text-white">
+                {votesCount?.mayor} a Alcalde(sa)
+              </Typography>
+              <Typography tag="p" variant="p" className="text-white">
+                {votesCount?.municipalLegislators} candidato(a) a
+                Legisladores(as) municipales
+              </Typography>
+            </>
+          ) : null}
+        </BallotStatus>
+      ) : null}
     </div>
   )
 }
