@@ -1,3 +1,4 @@
+import { stringify } from "qs"
 import { BallotType, Selection } from "../../../ballot-validator/types"
 import { VotesCoordinates } from "../../generate-ballot/types/ballot-machine"
 import {
@@ -362,8 +363,13 @@ const BallotService = {
 
   async getPdfUrl(context: PracticeContext) {
     const { uuid } = context
-    const params = new URLSearchParams({ uuid })
+    const params = stringify({ uuid })
     const res = await fetch(`${API_URL}/getPdfUrl?${params}`)
+
+    if (!res.ok) {
+      throw new Error("Something went wrong")
+    }
+
     const result = await res.json()
 
     return result
