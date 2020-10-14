@@ -33,7 +33,7 @@ const Practica = ({ location }: PageProps) => {
         </Container>
         <Container
           className="w-11/12 pt-16 mb-16 text-center lg:pt-5"
-          id="haz-que-tu-voto-cuente"
+          id="practica-tu-voto"
         >
           <Practice />
         </Container>
