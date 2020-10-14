@@ -108,25 +108,7 @@ const isVoteIntegro = (ballotSelections: Ballot, ballotType: BallotType) => {
       return true
     }
 
-    const governorIndex = selections.governor.findIndex(
-      p => p === Selection.selected
-    )
-
-    const residentCommissionerIndex = selections.residentCommissioner.findIndex(
-      p => p === Selection.selected
-    )
-
-    if (partyIndex === governorIndex && residentCommissionerIndex === -1) {
-      return true
-    }
-
-    if (partyIndex === residentCommissionerIndex && governorIndex === -1) {
-      return true
-    }
-
-    return (
-      partyIndex === residentCommissionerIndex && partyIndex === governorIndex
-    )
+    return false
   }
 
   if (ballotType === BallotType.municipality) {
@@ -149,23 +131,7 @@ const isVoteIntegro = (ballotSelections: Ballot, ballotType: BallotType) => {
       return true
     }
 
-    const mayorIndex = selections.mayor.findIndex(p => p === Selection.selected)
-
-    if (partyIndex === mayorIndex && municipalLegislatorIndexes.length === 0) {
-      return true
-    }
-
-    if (
-      municipalLegislatorIndexes.every(i => i === partyIndex) &&
-      mayorIndex === -1
-    ) {
-      return true
-    }
-
-    return (
-      partyIndex === mayorIndex &&
-      municipalLegislatorIndexes.every(i => i === partyIndex)
-    )
+    return false
   }
 
   if (ballotType === BallotType.legislative) {
@@ -221,124 +187,7 @@ const isVoteIntegro = (ballotSelections: Ballot, ballotType: BallotType) => {
       return true
     }
 
-    const districtRepresentativeIndex = selections.districtRepresentative.findIndex(
-      p => p === Selection.selected
-    )
-
-    if (
-      partyIndex === districtRepresentativeIndex &&
-      districtSenatorIndexes.length === 0 &&
-      atLargeRepresentativeIndexes.length === 0 &&
-      atLargeSenatorIndexes.length === 0
-    ) {
-      return true
-    }
-
-    if (
-      districtSenatorIndexes.every(i => i === partyIndex) &&
-      atLargeRepresentativeIndexes.length === 0 &&
-      atLargeSenatorIndexes.length === 0 &&
-      districtRepresentativeIndex === -1
-    ) {
-      return true
-    }
-
-    if (
-      atLargeRepresentativeIndexes.every(i => i === partyIndex) &&
-      districtRepresentativeIndex === -1 &&
-      districtSenatorIndexes.length === 0 &&
-      atLargeSenatorIndexes.length === 0
-    ) {
-      return true
-    }
-
-    if (
-      atLargeSenatorIndexes.every(i => i === partyIndex) &&
-      districtRepresentativeIndex === -1 &&
-      districtSenatorIndexes.length === 0 &&
-      atLargeRepresentativeIndexes.length === 0
-    ) {
-      return true
-    }
-
-    if (
-      atLargeSenatorIndexes.every(i => i === partyIndex) &&
-      districtRepresentativeIndex === -1 &&
-      districtSenatorIndexes.length === 0 &&
-      atLargeRepresentativeIndexes.length === 0
-    ) {
-      return true
-    }
-
-    if (
-      atLargeSenatorIndexes.every(i => i === partyIndex) &&
-      districtRepresentativeIndex === partyIndex &&
-      districtSenatorIndexes.length === 0 &&
-      atLargeRepresentativeIndexes.length === 0
-    ) {
-      return true
-    }
-
-    if (
-      districtSenatorIndexes.every(i => i === partyIndex) &&
-      districtRepresentativeIndex === partyIndex &&
-      atLargeSenatorIndexes.length === 0 &&
-      atLargeRepresentativeIndexes.length === 0
-    ) {
-      return true
-    }
-
-    if (
-      atLargeRepresentativeIndexes.every(i => i === partyIndex) &&
-      districtRepresentativeIndex === partyIndex &&
-      atLargeSenatorIndexes.length === 0 &&
-      districtSenatorIndexes.length === 0
-    ) {
-      return true
-    }
-
-    if (
-      atLargeRepresentativeIndexes.every(i => i === partyIndex) &&
-      districtRepresentativeIndex === partyIndex &&
-      atLargeSenatorIndexes.every(i => i === partyIndex) &&
-      districtSenatorIndexes.length === 0
-    ) {
-      return true
-    }
-
-    if (
-      atLargeRepresentativeIndexes.every(i => i === partyIndex) &&
-      districtRepresentativeIndex === partyIndex &&
-      districtSenatorIndexes.every(i => i === partyIndex) &&
-      atLargeSenatorIndexes.length === 0
-    ) {
-      return true
-    }
-
-    if (
-      atLargeSenatorIndexes.every(i => i === partyIndex) &&
-      districtRepresentativeIndex === partyIndex &&
-      districtSenatorIndexes.every(i => i === partyIndex) &&
-      atLargeRepresentativeIndexes.length === 0
-    ) {
-      return true
-    }
-
-    if (
-      atLargeSenatorIndexes.every(i => i === partyIndex) &&
-      districtSenatorIndexes.every(i => i === partyIndex) &&
-      atLargeRepresentativeIndexes.every(i => i === partyIndex) &&
-      districtRepresentativeIndex === -1
-    ) {
-      return true
-    }
-
-    return (
-      atLargeSenatorIndexes.every(i => i === partyIndex) &&
-      districtSenatorIndexes.every(i => i === partyIndex) &&
-      atLargeRepresentativeIndexes.every(i => i === partyIndex) &&
-      districtRepresentativeIndex === partyIndex
-    )
+    return false
   }
 }
 
