@@ -52,6 +52,7 @@ export default function Practice() {
       ballot,
       ballotType
     )
+
     const validationResult = BallotValidator(transformedVotes, ballotType)
 
     toast.dismiss()
