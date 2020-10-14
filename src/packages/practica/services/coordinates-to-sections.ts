@@ -226,20 +226,18 @@ export default function coordinatesToSections(
   ballot: BallotConfigs,
   ballotType: BallotType
 ) {
-  const cleanedVotes = getExplicitlySelectedVotes(votes)
-
   switch (ballotType) {
     case BallotType.state:
-      return transformStateVotes(cleanedVotes, ballot.cols)
+      return transformStateVotes(votes, ballot.cols)
 
     case BallotType.municipality:
       return transformMunicipalVotes(
-        cleanedVotes,
+        votes,
         ballot.cols,
         (ballot as MunicipalBallotConfig).amountOfMunicipalLegislators
       )
 
     default:
-      return transformLegislativeVotes(cleanedVotes, ballot.cols)
+      return transformLegislativeVotes(votes, ballot.cols)
   }
 }

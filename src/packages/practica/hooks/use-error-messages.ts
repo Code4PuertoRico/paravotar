@@ -10,6 +10,7 @@ import useDeepCompareEffect from "./use-deep-compare-effect"
 import { BallotType } from "../../../ballot-validator/types"
 import { toFriendlyErrorMessages } from "../../../ballot-validator/helpers/messages"
 import { MunicipalBallotConfig } from "../services/ballot-configs"
+import { getExplicitlySelectedVotes } from "../services/vote-service"
 
 export default function useToast(state, dependencies: Array<any>) {
   const [isPristine, setIsPristine] = useState(true)
@@ -37,8 +38,9 @@ export default function useToast(state, dependencies: Array<any>) {
       return
     }
 
+    const cleanedVotes = getExplicitlySelectedVotes(state.context.votes)
     const transformedVotes = coordinatesToSections(
-      state.context.votes,
+      cleanedVotes,
       ballot,
       ballotType
     )
