@@ -5,7 +5,7 @@ import {
   Selection,
   StateBallot,
 } from "../../../ballot-validator/types"
-import { BallotConfigs } from "./ballot-configs"
+import { BallotConfigs, MunicipalBallotConfig } from "./ballot-configs"
 import { Vote } from "./vote-service"
 
 type MarkAsSelectedArgs = {
@@ -234,7 +234,7 @@ export default function coordinatesToSections(
       return transformMunicipalVotes(
         votes,
         ballot.cols,
-        ballot.amountOfMunicipalLegislators
+        (ballot as MunicipalBallotConfig).amountOfMunicipalLegislators
       )
 
     default:

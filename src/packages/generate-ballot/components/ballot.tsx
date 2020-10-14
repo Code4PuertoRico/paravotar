@@ -72,8 +72,8 @@ export default function BaseBallot(props: BallotProps) {
                   const voteOpacity = isExplicitVote
                     ? "opacity-100"
                     : isImplicitVote
-                    ? "opacity-50"
-                    : "opacity-25"
+                    ? "opacity-25"
+                    : ""
 
                   if (col instanceof Party) {
                     return (
@@ -149,6 +149,8 @@ export default function BaseBallot(props: BallotProps) {
                             column: colIndex,
                           })
                         }
+                        initialTextValue={col.name}
+                        updateName={(name: string) => col.setName(name)}
                       />
                     )
                   }

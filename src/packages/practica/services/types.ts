@@ -47,8 +47,8 @@ export type FindByEventParams = {
 export type PracticeContext = {
   userInput: string | null
   findBy: FindByType | null
-  uuid: string
-  ballotPaths: {
+  uuid?: string
+  ballotPaths?: {
     estatal: string
     municipal: string
     legislativa: string
@@ -59,5 +59,7 @@ export type PracticeContext = {
     legislativa?: LegislativeBallotConfig
   }
   votes: Vote[]
-  transformedVotes: TransformedVotes[]
+  transformedVotes?: TransformedVotes[]
+  ballotType?: BallotType
+  pdfUrl?: any
 }

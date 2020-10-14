@@ -5,7 +5,7 @@ import { Layout, SEO, Container } from "../components/index"
 import {
   HowToVote,
   MakeYourVoteCount,
-  // Practice,
+  Practice,
 } from "../packages/practica/components/index"
 import { withTrans } from "../i18n/withTrans"
 import { SidebarProvider } from "../context/sidebar-context"
@@ -31,13 +31,12 @@ const Practica = ({ location }: PageProps) => {
         >
           <HowToVote />
         </Container>
-
-        {/* <Container
+        <Container
           className="w-11/12 pt-16 mb-16 text-center lg:pt-5"
-          id="haz-que-tu-voto-cuente"
+          id="practica-tu-voto"
         >
           <Practice />
-        </Container> */}
+        </Container>
       </Layout>
     </SidebarProvider>
   )

@@ -1,103 +1,56 @@
-import React, { useEffect, useState } from "react"
+import React from "react"
+import _ from "lodash"
+
 import { useMachine } from "@xstate/react"
 import { ToastContainer, toast } from "react-toastify"
 import i18next from "i18next"
 
+import { toFriendlyErrorMessages } from "../../../ballot-validator/helpers/messages"
 import { Button, Card, Typography } from "../../../components/index"
+import { useSidebar } from "../../../context/sidebar-context"
 import BallotValidator from "../../../ballot-validator/index"
 import { BallotType } from "../../../ballot-validator/types"
-import { Ballot } from "../../generate-ballot/components"
+import Arrows from "../../../components/arrows"
 import Default from "../../../components/default"
 import Switch from "../../../components/switch"
 import Case from "../../../components/case"
-import { practiceMachine } from "../machines/practice"
-
 import coordinatesToSections from "../services/coordinates-to-sections"
 import {
   BallotConfigs,
   MunicipalBallotConfig,
 } from "../services/ballot-configs"
-import { useSidebar } from "../../../context/sidebar-context"
-import BallotStatus from "./ballot-status"
+// import useBallotValidation from "../hooks/use-ballot-validation"
 import useVotesTransform from "../hooks/use-votes-transform"
-import useBallotValidation from "../hooks/use-ballot-validation"
+import { practiceMachine } from "../machines/practice"
 import useVotesCount from "../hooks/use-votes-count"
+import { getExplicitlySelectedVotes, Vote } from "../services/vote-service"
 import BallotFinderPicker from "./ballot-finder-picker"
 import PrecintNumberForm from "./precint-number-form"
 import EnterVoterIdForm from "./enter-voter-id-form"
-import { ColumnHighlightProvider } from "../../../context/column-highlight-context"
-import { Vote } from "../services/vote-service"
-import { toFriendlyErrorMessages } from "../../../ballot-validator/helpers/messages"
+
+import { Results } from "./Results"
+import BallotStatus from "./ballot-status"
+import { Practicing } from "./Practicing"
+import { NoVoterIdFound } from "./NoVoterIdFound"
+import { WriteInCandidate } from "../services/ballot-configs/base"
 
 export default function Practice() {
-  const [isPristine, setIsPristine] = useState(true)
   const [state, send] = useMachine(practiceMachine)
   const transformedVotes = useVotesTransform(state.context.votes, state)
-  const { ballotStatus, setBallotStatus } = useBallotValidation(
-    transformedVotes
-  )
+  // const { ballotStatus, setBallotStatus } = useBallotValidation(
+  //   transformedVotes
+  // )
   const { votesCount, setVotesCount } = useVotesCount(transformedVotes)
   const { setSidebarIsVisible } = useSidebar()
+
   const handleSubmit = (
     votes: Vote[],
     ballotType: BallotType,
     ballot?: BallotConfigs
   ) => {
-    const transformedVotes = coordinatesToSections(votes, ballot, ballotType)
-    const validationResult = BallotValidator(transformedVotes, ballotType)
-
-    toast.dismiss()
-
-    toFriendlyErrorMessages(validationResult)?.map(messageId => {
-      if (
-        messageId.includes("MunicipalLegislatorDynamicSelectionRule") &&
-        ballotType === BallotType.municipality
-      ) {
-        toast.error(
-          i18next.t(messageId, {
-            maxSelection: (ballot as MunicipalBallotConfig)
-              ?.amountOfMunicipalLegislators,
-          })
-        )
-      } else {
-        toast.error(i18next.t(messageId))
-      }
-    })
-  }
-
-  const selectBallot = (selectedBallot: string) => {
-    setSidebarIsVisible(false)
-    setBallotStatus(null)
-    setVotesCount(null)
-
-    send(selectedBallot)
-  }
-
-  useEffect(() => {
-    let ballotType: any = null
-    let ballot: any = null
-
-    if (state.matches("governmental")) {
-      ballotType = BallotType.state
-      ballot = state.context.ballots.estatal
-    } else if (state.matches("legislative")) {
-      ballotType = BallotType.legislative
-      ballot = state.context.ballots.legislativa
-    } else if (state.matches("municipal")) {
-      ballotType = BallotType.municipality
-      ballot = state.context.ballots.municipal
-    }
-
-    if (!ballotType) {
-      return
-    }
-
-    if (isPristine) {
-      return
-    }
-
+    const cleanedVotes = getExplicitlySelectedVotes(votes)
     const transformedVotes = coordinatesToSections(
-      state.context.votes,
+      cleanedVotes,
       ballot,
       ballotType
     )
@@ -106,33 +59,55 @@ export default function Practice() {
 
     toast.dismiss()
 
-    toFriendlyErrorMessages(validationResult)?.map(messageId => {
-      if (
-        messageId.includes("MunicipalLegislatorDynamicSelectionRule") &&
-        ballotType === BallotType.municipality
-      ) {
+    const writeInMissingNames = votes
+      .map(v => {
+        if (v.candidate && _.isEmpty(v.candidate.name)) {
+          return v
+        }
+        return null
+      })
+      .filter(v => v !== null)
+
+    if (
+      validationResult.outcomes.denied.length === 0 &&
+      writeInMissingNames.length === 0
+    ) {
+      send("SUBMIT")
+    } else {
+      toFriendlyErrorMessages(validationResult)?.map(messageId => {
+        if (
+          messageId.includes("MunicipalLegislatorDynamicSelectionRule") &&
+          ballotType === BallotType.municipality
+        ) {
+          toast.error(
+            i18next.t(messageId, {
+              maxSelection: (ballot as MunicipalBallotConfig)
+                ?.amountOfMunicipalLegislators,
+            })
+          )
+        } else {
+          toast.error(i18next.t(messageId))
+        }
+      })
+
+      if (writeInMissingNames.length > 0) {
         toast.error(
-          i18next.t(messageId, {
-            maxSelection: (ballot as MunicipalBallotConfig)
-              ?.amountOfMunicipalLegislators,
-          })
+          "El nombre del candidato por nominación directa no puede estar vacio"
         )
-      } else {
-        toast.error(i18next.t(messageId))
       }
-    })
-  }, [
-    state,
-    state.value,
-    state.context.votes,
-    state.context.ballots.estatal,
-    state.context.ballots.legislativa,
-    state.context.ballots.municipal,
-    isPristine,
-  ])
+    }
+  }
+
+  const selectBallot = (selectedBallot: string, eventData: any) => {
+    setSidebarIsVisible(false)
+    // setBallotStatus(null)
+    setVotesCount(null)
+
+    send(selectedBallot, eventData)
+  }
 
   return (
-    <div>
+    <div className="relative">
       <Typography tag="h2" variant="h3" className="uppercase">
         Practica tu voto
       </Typography>
@@ -145,6 +120,20 @@ export default function Practice() {
         Pon en práctica lo aprendido cuantas veces necesites
       </Typography>
       <Card className="practice-card flex justify-center mt-8">
+        {state.nextEvents.includes("BACK") && (
+          <div className="absolute top-0 -ml-1 pt-4">
+            <button
+              className="mb-4 inline-flex items-center border-none text-primary font-semibold hover:underline"
+              onClick={() => send("BACK")}
+            >
+              <Arrows
+                className="text-primary block mr-2 hover:text-white"
+                style={{ transform: "rotate(90deg)" }}
+              />
+              Volver
+            </button>
+          </div>
+        )}
         <Switch state={state}>
           <Case value="ballotFinderPicker">
             <BallotFinderPicker
@@ -164,6 +153,9 @@ export default function Practice() {
               }}
             />
           </Case>
+          <Case value="noVoterIdFound">
+            <NoVoterIdFound send={send} />
+          </Case>
           <Case value="enterPrecint">
             <PrecintNumberForm
               errorMessage={
@@ -182,7 +174,7 @@ export default function Practice() {
             />
           </Case>
           <Case value="fetchBallots">
-            <div>Loading...</div>
+            <div>Cargando...</div>
           </Case>
           <Case value="selectBallot">
             <div className="mx-auto lg:w-1/2">
@@ -191,203 +183,45 @@ export default function Practice() {
               </Typography>
               <Button
                 className="w-full block mt-4 mb-2"
-                onClick={() => selectBallot("SELECTED_GOVERNMENTAL")}
+                onClick={() =>
+                  selectBallot("SELECTED_GOVERNMENTAL", {
+                    ballotType: BallotType.state,
+                  })
+                }
               >
                 Estatal
               </Button>
               <Button
                 className="w-full block my-2"
-                onClick={() => selectBallot("SELECTED_LEGISLATIVE")}
+                onClick={() =>
+                  selectBallot("SELECTED_LEGISLATIVE", {
+                    ballotType: BallotType.legislative,
+                  })
+                }
               >
                 Legislativa
               </Button>
               <Button
                 className="w-full block my-2"
-                onClick={() => selectBallot("SELECTED_MUNICIPAL")}
+                onClick={() =>
+                  selectBallot("SELECTED_MUNICIPAL", {
+                    ballotType: BallotType.municipality,
+                  })
+                }
               >
                 Municipal
               </Button>
             </div>
           </Case>
-          <Case value="governmental">
-            <div>
-              {state.context.ballots.estatal ? (
-                <>
-                  <BallotStatus status={ballotStatus}>
-                    <Typography tag="p" variant="p">
-                      {votesCount?.governor} candidato(a) a Gobernador(a)
-                    </Typography>
-                    <Typography tag="p" variant="p">
-                      {votesCount?.commissionerResident} candidato(a) a
-                      Comisionado(a) Residente
-                    </Typography>
-                  </BallotStatus>
-                  <div className="overflow-scroll">
-                    <ColumnHighlightProvider>
-                      <Ballot
-                        type={BallotType.state}
-                        structure={state.context.ballots.estatal.structure}
-                        votes={state.context.votes}
-                        toggleVote={(candidate, position) => {
-                          send("SELETED_ELECTIVE_FIELD", {
-                            candidate,
-                            position,
-                            ballotType: BallotType.state,
-                          })
-                          setIsPristine(false)
-                        }}
-                      />
-                    </ColumnHighlightProvider>
-                  </div>
-                  <Button
-                    className="mt-4"
-                    onClick={() => {
-                      handleSubmit(
-                        state.context.votes,
-                        BallotType.state,
-                        state.context.ballots.estatal
-                      )
-                    }}
-                  >
-                    Submit
-                  </Button>
-                  <Button
-                    className="mt-4"
-                    onClick={() => {
-                      send("EXPORTED_VOTES", {
-                        ballotType: "estatal",
-                        ballotPath: state.context.ballotPaths.estatal,
-                      })
-                    }}
-                  >
-                    Generate PDF
-                  </Button>
-                </>
-              ) : null}
-            </div>
+          <Case value="practicing">
+            <Practicing state={state} send={send} handleSubmit={handleSubmit} />
           </Case>
-          <Case value="legislative">
-            <div>
-              {state.context.ballots.legislativa ? (
-                <>
-                  <BallotStatus status={ballotStatus}>
-                    <Typography tag="p" variant="p">
-                      {votesCount?.districtRepresentative} candidato(a) a
-                      Representante por Distrito
-                    </Typography>
-                    <Typography tag="p" variant="p">
-                      {votesCount?.districtSenators} candidato(a) a Senador por
-                      Distrito
-                    </Typography>
-                    <Typography tag="p" variant="p">
-                      {votesCount?.atLargeRepresentative} candidato(a) a
-                      Representante por Acumulación
-                    </Typography>
-                    <Typography tag="p" variant="p">
-                      {votesCount?.atLargeSenator} candidato(a) a Senador por
-                      Acumulación
-                    </Typography>
-                  </BallotStatus>
-                  <div className="overflow-scroll">
-                    <ColumnHighlightProvider>
-                      <Ballot
-                        type={BallotType.legislative}
-                        structure={state.context.ballots.legislativa.structure}
-                        votes={state.context.votes}
-                        toggleVote={(candidate, position) => {
-                          send("SELETED_ELECTIVE_FIELD", {
-                            candidate,
-                            position,
-                            ballotType: BallotType.legislative,
-                          })
-                          setIsPristine(false)
-                        }}
-                      />
-                    </ColumnHighlightProvider>
-                  </div>
-                  <Button
-                    onClick={() => {
-                      handleSubmit(
-                        state.context.votes,
-                        BallotType.legislative,
-                        state.context.ballots.legislativa
-                      )
-                    }}
-                  >
-                    Submit
-                  </Button>
-                  <Button
-                    className="mt-4"
-                    onClick={() => {
-                      send("EXPORTED_VOTES", {
-                        ballotType: "estatal",
-                        ballotPath: state.context.ballotPaths.municipal,
-                      })
-                    }}
-                  >
-                    Generate PDF
-                  </Button>
-                </>
-              ) : null}
-            </div>
+          <Case value="showResults">
+            <Results state={state} send={send} />
           </Case>
-          <Case value="municipal">
-            <div>
-              {state.context.ballots.municipal ? (
-                <>
-                  <BallotStatus status={ballotStatus}>
-                    <Typography tag="p" variant="p">
-                      {votesCount?.mayor} a Alcalde(sa)
-                    </Typography>
-                    <Typography tag="p" variant="p">
-                      {votesCount?.municipalLegislators} candidato(a) a
-                      Legisladores(as) municipales
-                    </Typography>
-                  </BallotStatus>
-                  <div className="overflow-scroll">
-                    <ColumnHighlightProvider>
-                      <Ballot
-                        type={BallotType.municipality}
-                        structure={state.context.ballots.municipal.structure}
-                        votes={state.context.votes}
-                        toggleVote={(candidate, position) => {
-                          send("SELETED_ELECTIVE_FIELD", {
-                            candidate,
-                            position,
-                            ballotType: BallotType.municipality,
-                          })
-                          setIsPristine(false)
-                        }}
-                      />
-                    </ColumnHighlightProvider>
-                  </div>
-                  <Button
-                    onClick={() => {
-                      handleSubmit(
-                        state.context.votes,
-                        BallotType.municipality,
-                        state.context.ballots.municipal
-                      )
-                    }}
-                  >
-                    Submit
-                  </Button>
-                  <Button
-                    className="mt-4"
-                    onClick={() => {
-                      send("EXPORTED_VOTES", {
-                        ballotType: "estatal",
-                        ballotPath: state.context.ballotPaths.legislativa,
-                      })
-                    }}
-                  >
-                    Generate PDF
-                  </Button>
-                </>
-              ) : null}
-            </div>
-          </Case>
-          <Default>FAILURE</Default>
+          <Default>
+            <>FAILURE</>
+          </Default>
         </Switch>
       </Card>
       <ToastContainer
@@ -401,6 +235,50 @@ export default function Practice() {
         draggable
         pauseOnHover
       />
+      {votesCount && state.matches("practicing") && (
+        <BallotStatus status={null}>
+          {state.context.ballotType === BallotType.state ? (
+            <>
+              <Typography tag="p" variant="p" className="text-white">
+                {votesCount?.governor} candidato(a) a Gobernador(a)
+              </Typography>
+              <Typography tag="p" variant="p" className="text-white">
+                {votesCount?.commissionerResident} candidato(a) a Comisionado(a)
+                Residente
+              </Typography>
+            </>
+          ) : state.context.ballotType === BallotType.municipality ? (
+            <>
+              <Typography tag="p" variant="p" className="text-white">
+                {votesCount?.districtRepresentative} candidato(a) a
+                Representante por Distrito
+              </Typography>
+              <Typography tag="p" variant="p" className="text-white">
+                {votesCount?.districtSenators} candidato(a) a Senador por
+                Distrito
+              </Typography>
+            </>
+          ) : state.context.ballotType === BallotType.legislative ? (
+            <>
+              <Typography tag="p" variant="p" className="text-white">
+                {votesCount?.atLargeRepresentative} candidato(a) a Representante
+                por Acumulación
+              </Typography>
+              <Typography tag="p" variant="p" className="text-white">
+                {votesCount?.atLargeSenator} candidato(a) a Senador por
+                Acumulación
+              </Typography>
+              <Typography tag="p" variant="p" className="text-white">
+                {votesCount?.mayor} a Alcalde(sa)
+              </Typography>
+              <Typography tag="p" variant="p" className="text-white">
+                {votesCount?.municipalLegislators} candidato(a) a
+                Legisladores(as) municipales
+              </Typography>
+            </>
+          ) : null}
+        </BallotStatus>
+      )}
     </div>
   )
 }

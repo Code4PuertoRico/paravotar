@@ -208,8 +208,11 @@
     "NoMoreThanOneAtLargeSenatorRule": "Only 1 candidate for Senator At-Large can be selected",
     "NoMoreThanOneMayorSelectedRule": "Only 1 candidate for Mayor can be selected",
     "MunicipalLegislatorDynamicSelectionRule": "Only {{maxSelection}} candidates for Municipal Legislator can be selected",
-    "StateMixedVoteSelectionRule": "Mixed vote must have at least 1 candidate selected (implicit or explicit) under the selected party",
-    "LegislativeMixedVoteSelection": "Mixed vote must have at least 1 candidate selected (implicit or explicit) under the selected party",
-    "MunicipalMixedVoteSelection": "Mixed vote must have at least 1 candidate selected (implicit or explicit) under the selected party"
+    "StateMixedVoteSelectionRule": "Mixed vote must have at least 1 candidate selected (implicit) under the selected party",
+    "LegislativeMixedVoteSelection": "Mixed vote must have at least 1 candidate selected (implicit) under the selected party",
+    "MunicipalMixedVoteSelection": "Mixed vote must have at least 1 candidate selected (implicit) under the selected party",
+    "StateMixedVoteSelectionSameColumnRule": "Los votos por los candidatos que se encuentran bajo el partido seleccionado serán adjudicados automáticamente. No es necesario marcarlos explicitamente.",
+    "LegislativeMixedVoteSelectionSameColumn": "Los votos por los candidatos que se encuentran bajo el partido seleccionado serán adjudicados automáticamente. No es necesario marcarlos explicitamente.",
+    "MunicipalMixedVoteSelectionSameColumn": "Los votos por los candidatos que se encuentran bajo el partido seleccionado serán adjudicados automáticamente. No es necesario marcarlos explicitamente."
   }
 }

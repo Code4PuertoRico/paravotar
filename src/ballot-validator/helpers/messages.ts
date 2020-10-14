@@ -24,10 +24,16 @@ const RuleMessageMap: { [key: string]: (metadata?: any) => string } = {
     `${KEY_PREFIX}.MunicipalLegislatorDynamicSelectionRule`,
   StateMixedVoteSelectionRule: () =>
     `${KEY_PREFIX}.StateMixedVoteSelectionRule`,
+  StateMixedVoteSelectionSameColumnRule: () =>
+    `${KEY_PREFIX}.StateMixedVoteSelectionSameColumnRule`,
   LegislativeMixedVoteSelection: () =>
     `${KEY_PREFIX}.LegislativeMixedVoteSelection`,
+  LegislativeMixedVoteSelectionSameColumn: () =>
+    `${KEY_PREFIX}.LegislativeMixedVoteSelectionSameColumn`,
   MunicipalMixedVoteSelection: () =>
     `${KEY_PREFIX}.MunicipalMixedVoteSelection`,
+  MunicipalMixedVoteSelectionSameColumn: () =>
+    `${KEY_PREFIX}.MunicipalMixedVoteSelectionSameColumn`,
 }
 
 export const toFriendlyErrorMessages = (result: ValidatorReturnValue) => {
@@ -35,8 +41,10 @@ export const toFriendlyErrorMessages = (result: ValidatorReturnValue) => {
     return []
   }
 
-  return result.outcomes.denied.map(
-    ({ ruleName, metadata }) =>
-      RuleMessageMap[ruleName] && RuleMessageMap[ruleName](metadata)
-  )
+  return result.outcomes.denied
+    .map(
+      ({ ruleName, metadata }) =>
+        RuleMessageMap[ruleName] && RuleMessageMap[ruleName](metadata)
+    )
+    .filter(m => m !== undefined)
 }

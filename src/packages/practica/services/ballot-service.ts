@@ -1,3 +1,4 @@
+import { stringify } from "qs"
 import { BallotType, Selection } from "../../../ballot-validator/types"
 import { VotesCoordinates } from "../../generate-ballot/types/ballot-machine"
 import {
@@ -9,7 +10,7 @@ import {
 import { ElectiveField, Candidate } from "./ballot-configs/base"
 import { API_URL, PUBLIC_S3_BUCKET } from "./constants"
 import { OcrResult, PracticeContext } from "./types"
-import { Vote } from "./vote-service"
+import { getExplicitlySelectedVotes, Vote } from "./vote-service"
 import BallotFinder, { FindByType } from "./ballot-finder-service"
 import { BallotPositions, ValidMarkLimits } from "./ballot-configs/constants"
 import { ElectivePosition } from "./ballot-configs/types"
@@ -328,12 +329,14 @@ const BallotService = {
   },
 
   async generatePdf(context: PracticeContext, event: ExportPdfEvent) {
-    const voteCoordinates = context.votes.map(vote => {
-      return {
-        position: vote.position,
+    const voteCoordinates = getExplicitlySelectedVotes(context.votes).map(
+      vote => {
+        return {
+          position: vote.position,
+          name: vote.candidate && vote.candidate.name,
+        }
       }
-    })
-    // const votes = JSON.stringify([])
+    )
     const votes = JSON.stringify(voteCoordinates)
 
     const res = await fetch(`${API_URL}/createBallotTask`, {
@@ -362,8 +365,13 @@ const BallotService = {
 
   async getPdfUrl(context: PracticeContext) {
     const { uuid } = context
-    const params = new URLSearchParams({ uuid })
+    const params = stringify({ uuid })
     const res = await fetch(`${API_URL}/getPdfUrl?${params}`)
+
+    if (!res.ok) {
+      throw new Error("Something went wrong")
+    }
+
     const result = await res.json()
 
     return result
