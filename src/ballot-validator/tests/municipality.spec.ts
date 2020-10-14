@@ -75,6 +75,48 @@ describe("Municipal Ballot", () => {
         ],
       },
     ],
+    [
+      "mixed vote with same column mayor selected",
+      {
+        parties: [notSelected, notSelected, notSelected, selected],
+        mayor: [notSelected, notSelected, notSelected, selected],
+        municipalLegislator: [
+          [notSelected, notSelected, notSelected, notSelected],
+          [notSelected, notSelected, notSelected, notSelected],
+          [notSelected, notSelected, notSelected, notSelected],
+          [notSelected, notSelected, notSelected, notSelected],
+          [notSelected, notSelected, notSelected, notSelected],
+        ],
+      },
+    ],
+    [
+      "mixed vote with same column legislator selected",
+      {
+        parties: [notSelected, notSelected, notSelected, selected],
+        mayor: [notSelected, notSelected, notSelected, notSelected],
+        municipalLegislator: [
+          [notSelected, notSelected, notSelected, selected],
+          [notSelected, notSelected, notSelected, notSelected],
+          [notSelected, notSelected, notSelected, notSelected],
+          [notSelected, notSelected, notSelected, notSelected],
+          [notSelected, notSelected, notSelected, notSelected],
+        ],
+      },
+    ],
+    [
+      "mixed vote with same column legislator & mayor selected",
+      {
+        parties: [notSelected, notSelected, notSelected, selected],
+        mayor: [notSelected, notSelected, notSelected, selected],
+        municipalLegislator: [
+          [notSelected, notSelected, notSelected, selected],
+          [notSelected, notSelected, notSelected, notSelected],
+          [notSelected, notSelected, notSelected, notSelected],
+          [notSelected, notSelected, notSelected, notSelected],
+          [notSelected, notSelected, notSelected, notSelected],
+        ],
+      },
+    ],
   ])("should error on %s", (_: string, municipalBallot: MunicipalBallot) => {
     expect(ballotValidator(municipalBallot, BallotType.municipality)).toEqual(
       expect.objectContaining({

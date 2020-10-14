@@ -90,6 +90,46 @@ class LegislativeMixedVoteSelection extends BaseRule {
       [] as { row: number; col: number }[]
     )
 
+    if (partyIndex === districtRepresentativeIndex) {
+      return {
+        outcome: RuleOutcomeType.deny,
+        metadata: {
+          section: "districtRepresentative",
+          index: districtRepresentativeIndex,
+        },
+      }
+    }
+
+    if (partyDistrictSenatorIndexesMatches.length > 0) {
+      return {
+        outcome: RuleOutcomeType.deny,
+        metadata: {
+          section: "districtSenator",
+          index: partyDistrictSenatorIndexesMatches[0],
+        },
+      }
+    }
+
+    if (partyAtLargeRepresentativeIndexesMatches.length > 0) {
+      return {
+        outcome: RuleOutcomeType.deny,
+        metadata: {
+          section: "atLargeRepresentative",
+          index: partyAtLargeRepresentativeIndexesMatches[0],
+        },
+      }
+    }
+
+    if (partyAtLargeSenatorIndexesMatches.length > 0) {
+      return {
+        outcome: RuleOutcomeType.deny,
+        metadata: {
+          section: "atLargeSenator",
+          index: partyAtLargeSenatorIndexesMatches[0],
+        },
+      }
+    }
+
     if (
       districtRepresentativeIndex !== -1 &&
       districtSenatorIndexes.length === 2 &&

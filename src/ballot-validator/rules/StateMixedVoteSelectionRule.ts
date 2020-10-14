@@ -27,6 +27,26 @@ class StateMixedVoteSelectionRule extends BaseRule {
       rc => rc === Selection.selected
     )
 
+    if (partyIndex === governorIndex) {
+      return {
+        outcome: RuleOutcomeType.deny,
+        metadata: {
+          section: "governor",
+          index: governorIndex,
+        },
+      }
+    }
+
+    if (partyIndex === residentCommissioner) {
+      return {
+        outcome: RuleOutcomeType.deny,
+        metadata: {
+          section: "residentCommissioner",
+          index: residentCommissioner,
+        },
+      }
+    }
+
     if (
       governorIndex !== -1 &&
       residentCommissioner !== -1 &&

@@ -27,16 +27,6 @@ describe("Ballot Type Detector", () => {
         governor: [notSelected, notSelected, notSelected],
         residentCommissioner: [notSelected, notSelected, notSelected],
       },
-      {
-        parties: [selected, notSelected, notSelected],
-        governor: [selected, notSelected, notSelected],
-        residentCommissioner: [notSelected, notSelected, notSelected],
-      },
-      {
-        parties: [selected, notSelected, notSelected],
-        governor: [selected, notSelected, notSelected],
-        residentCommissioner: [selected, notSelected, notSelected],
-      },
     ])("should be of type integro", (stateBallot: StateBallot) => {
       expect(detector(stateBallot, BallotType.state)).toEqual("integro")
     })
@@ -72,6 +62,11 @@ describe("Ballot Type Detector", () => {
         governor: [notSelected, notSelected, notSelected],
         residentCommissioner: [notSelected, selected, notSelected],
       },
+      {
+        parties: [selected, notSelected, notSelected],
+        governor: [notSelected, selected, notSelected],
+        residentCommissioner: [notSelected, notSelected, notSelected],
+      },
     ])("should be of type mixto", (stateBallot: StateBallot) => {
       expect(detector(stateBallot, BallotType.state)).toEqual("mixto")
     })
@@ -102,42 +97,6 @@ describe("Ballot Type Detector", () => {
           [notSelected, notSelected, notSelected],
           [notSelected, notSelected, notSelected],
           [notSelected, notSelected, notSelected],
-        ],
-      },
-      {
-        parties: [selected, notSelected, notSelected],
-        mayor: [selected, notSelected, notSelected],
-        municipalLegislator: [
-          [notSelected, notSelected, notSelected],
-          [notSelected, notSelected, notSelected],
-          [notSelected, notSelected, notSelected],
-        ],
-      },
-      {
-        parties: [selected, notSelected, notSelected],
-        mayor: [notSelected, notSelected, notSelected],
-        municipalLegislator: [
-          [selected, notSelected, notSelected],
-          [notSelected, notSelected, notSelected],
-          [notSelected, notSelected, notSelected],
-        ],
-      },
-      {
-        parties: [selected, notSelected, notSelected],
-        mayor: [notSelected, notSelected, notSelected],
-        municipalLegislator: [
-          [selected, notSelected, notSelected],
-          [selected, notSelected, notSelected],
-          [selected, notSelected, notSelected],
-        ],
-      },
-      {
-        parties: [selected, notSelected, notSelected],
-        mayor: [selected, notSelected, notSelected],
-        municipalLegislator: [
-          [selected, notSelected, notSelected],
-          [selected, notSelected, notSelected],
-          [selected, notSelected, notSelected],
         ],
       },
     ])("should be of type integro", (municipalBallot: MunicipalBallot) => {
@@ -194,17 +153,17 @@ describe("Ballot Type Detector", () => {
         parties: [selected, notSelected, notSelected],
         mayor: [notSelected, selected, notSelected],
         municipalLegislator: [
-          [selected, notSelected, notSelected],
+          [notSelected, selected, notSelected],
           [notSelected, notSelected, notSelected],
           [notSelected, notSelected, notSelected],
         ],
       },
       {
         parties: [selected, notSelected, notSelected],
-        mayor: [selected, notSelected, notSelected],
+        mayor: [notSelected, notSelected, selected],
         municipalLegislator: [
-          [selected, notSelected, notSelected],
-          [selected, notSelected, notSelected],
+          [notSelected, notSelected, notSelected],
+          [notSelected, selected, notSelected],
           [notSelected, notSelected, selected],
         ],
       },
@@ -257,78 +216,6 @@ describe("Ballot Type Detector", () => {
         ],
         atLargeSenator: [
           [notSelected, notSelected, notSelected],
-          [notSelected, notSelected, notSelected],
-          [notSelected, notSelected, notSelected],
-        ],
-      },
-      {
-        parties: [selected, notSelected, notSelected],
-        districtRepresentative: [selected, notSelected, notSelected],
-        districtSenator: [
-          [notSelected, notSelected, notSelected],
-          [notSelected, notSelected, notSelected],
-        ],
-        atLargeRepresentative: [
-          [notSelected, notSelected, notSelected],
-          [notSelected, notSelected, notSelected],
-          [notSelected, notSelected, notSelected],
-        ],
-        atLargeSenator: [
-          [notSelected, notSelected, notSelected],
-          [notSelected, notSelected, notSelected],
-          [notSelected, notSelected, notSelected],
-        ],
-      },
-      {
-        parties: [selected, notSelected, notSelected],
-        districtRepresentative: [notSelected, notSelected, notSelected],
-        districtSenator: [
-          [selected, notSelected, notSelected],
-          [selected, notSelected, notSelected],
-        ],
-        atLargeRepresentative: [
-          [notSelected, notSelected, notSelected],
-          [notSelected, notSelected, notSelected],
-          [notSelected, notSelected, notSelected],
-        ],
-        atLargeSenator: [
-          [notSelected, notSelected, notSelected],
-          [notSelected, notSelected, notSelected],
-          [notSelected, notSelected, notSelected],
-        ],
-      },
-      {
-        parties: [selected, notSelected, notSelected],
-        districtRepresentative: [notSelected, notSelected, notSelected],
-        districtSenator: [
-          [notSelected, notSelected, notSelected],
-          [notSelected, notSelected, notSelected],
-        ],
-        atLargeRepresentative: [
-          [selected, notSelected, notSelected],
-          [notSelected, notSelected, notSelected],
-          [notSelected, notSelected, notSelected],
-        ],
-        atLargeSenator: [
-          [notSelected, notSelected, notSelected],
-          [notSelected, notSelected, notSelected],
-          [notSelected, notSelected, notSelected],
-        ],
-      },
-      {
-        parties: [selected, notSelected, notSelected],
-        districtRepresentative: [notSelected, notSelected, notSelected],
-        districtSenator: [
-          [notSelected, notSelected, notSelected],
-          [notSelected, notSelected, notSelected],
-        ],
-        atLargeRepresentative: [
-          [notSelected, notSelected, notSelected],
-          [notSelected, notSelected, notSelected],
-          [notSelected, notSelected, notSelected],
-        ],
-        atLargeSenator: [
-          [selected, notSelected, notSelected],
           [notSelected, notSelected, notSelected],
           [notSelected, notSelected, notSelected],
         ],
@@ -406,13 +293,13 @@ describe("Ballot Type Detector", () => {
       },
       {
         parties: [selected, notSelected, notSelected],
-        districtRepresentative: [selected, notSelected, notSelected],
+        districtRepresentative: [notSelected, notSelected, notSelected],
         districtSenator: [
-          [selected, notSelected, notSelected],
           [notSelected, notSelected, notSelected],
+          [notSelected, selected, notSelected],
         ],
         atLargeRepresentative: [
-          [selected, selected, notSelected],
+          [notSelected, selected, notSelected],
           [notSelected, notSelected, notSelected],
           [notSelected, notSelected, notSelected],
         ],

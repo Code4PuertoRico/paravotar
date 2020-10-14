@@ -43,13 +43,13 @@ describe("MunicipalMixedVoteSelection", () => {
     })
   })
 
-  it("should not error on explicit selection", () => {
+  it("should error on same party and mayor column selection", () => {
     const municipalBallot: MunicipalBallot = {
       parties: [selected, notSelected, notSelected, notSelected],
-      mayor: [notSelected, notSelected, notSelected, notSelected],
+      mayor: [selected, notSelected, notSelected, notSelected],
       municipalLegislator: [
         [notSelected, notSelected, notSelected, notSelected],
-        [selected, notSelected, notSelected, notSelected],
+        [notSelected, notSelected, notSelected, notSelected],
         [notSelected, notSelected, notSelected, notSelected],
         [notSelected, notSelected, notSelected, notSelected],
         [notSelected, notSelected, notSelected, notSelected],
@@ -57,7 +57,36 @@ describe("MunicipalMixedVoteSelection", () => {
     }
 
     expect(new MunicipalMixedVoteSelection().outcome(municipalBallot)).toEqual({
-      outcome: RuleOutcomeType.allow,
+      outcome: RuleOutcomeType.deny,
+      metadata: {
+        section: "mayor",
+        index: 0,
+      },
+    })
+  })
+
+  it("should error on same party and legislator selection", () => {
+    const municipalBallot: MunicipalBallot = {
+      parties: [selected, notSelected, notSelected, notSelected],
+      mayor: [notSelected, notSelected, notSelected, notSelected],
+      municipalLegislator: [
+        [notSelected, notSelected, notSelected, notSelected],
+        [notSelected, notSelected, notSelected, notSelected],
+        [selected, notSelected, notSelected, notSelected],
+        [notSelected, notSelected, notSelected, notSelected],
+        [notSelected, notSelected, notSelected, notSelected],
+      ],
+    }
+
+    expect(new MunicipalMixedVoteSelection().outcome(municipalBallot)).toEqual({
+      outcome: RuleOutcomeType.deny,
+      metadata: {
+        section: "municipalLegislator",
+        index: {
+          row: 2,
+          col: 0,
+        },
+      },
     })
   })
 

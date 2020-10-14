@@ -10,7 +10,7 @@ export const NoVoterIdFound: React.FunctionComponent<NoVoterIdFoundProps> = ({
 }) => {
   return (
     <div>
-      <Typography tag="h2" variant="h4" className="bold text-red mt-1">
+      <Typography tag="h2" variant="h4" className="font-bold text-red mt-1">
         Oops! No logramos encontrar tu información.
       </Typography>
 

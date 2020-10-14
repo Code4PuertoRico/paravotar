@@ -1,7 +1,9 @@
 import React from "react"
+
 import { useMachine } from "@xstate/react"
+
 import { generatePdfMachine } from "../machines/generatePdf"
-import { Button } from "../../../components"
+import { Button, Typography } from "../../../components"
 
 interface GeneratePDFProps {
   ballotType: string
@@ -45,10 +47,17 @@ export const GeneratePDF: React.FunctionComponent<GeneratePDFProps> = ({
           >
             Descargar PDF
           </Button>
+          <Typography tag="p" variant="p" className="text-xs italic mt-6 mb-6">
+            Este enlace solamente estara activo por 3 minutos
+          </Typography>
         </div>
       )}
 
-      {current.matches("linkExpired") && <>Download link has expired</>}
+      {current.matches("linkExpired") && (
+        <Typography tag="p" variant="h4" className="font-bold">
+          El enlace para descargar el PDF se expiro
+        </Typography>
+      )}
     </div>
   )
 }
