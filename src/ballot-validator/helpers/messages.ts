@@ -28,8 +28,10 @@ const RuleMessageMap: { [key: string]: (metadata?: any) => string } = {
     `${KEY_PREFIX}.StateMixedVoteSelectionSameColumnRule`,
   LegislativeMixedVoteSelection: () =>
     `${KEY_PREFIX}.LegislativeMixedVoteSelection`,
-  MunicipalMixedVoteSelection: () =>
-    `${KEY_PREFIX}.MunicipalMixedVoteSelection`,
+  LegislativeMixedVoteSelectionSameColumn: () =>
+    `${KEY_PREFIX}.LegislativeMixedVoteSelectionSameColumn`,
+  MunicipalMixedVoteSelectionSameColumn: () =>
+    `${KEY_PREFIX}.MunicipalMixedVoteSelectionSameColumn`,
 }
 
 export const toFriendlyErrorMessages = (result: ValidatorReturnValue) => {

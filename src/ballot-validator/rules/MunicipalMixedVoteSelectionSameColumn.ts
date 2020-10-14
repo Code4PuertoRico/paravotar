@@ -2,8 +2,8 @@ import _ from "lodash"
 import { RuleOutcomeType, Selection, MunicipalBallot } from "../types"
 import BaseRule from "./BaseRule"
 
-class MunicipalMixedVoteSelection extends BaseRule {
-  ruleName = "MunicipalMixedVoteSelection"
+class MunicipalMixedVoteSelectionSameColumn extends BaseRule {
+  ruleName = "MunicipalMixedVoteSelectionSameColumn"
 
   outcome(ballotSelections: MunicipalBallot) {
     const hasSelectedParty = ballotSelections.parties.some(
@@ -48,15 +48,22 @@ class MunicipalMixedVoteSelection extends BaseRule {
 
     const maxLegislatorVotes = ballotSelections.municipalLegislator.length
 
-    if (
-      mayorIndex !== -1 &&
-      legislatorIndexes.length === maxLegislatorVotes &&
-      partyLegislatorMatches.length === 0
-    ) {
+    if (partyIndex === mayorIndex) {
       return {
         outcome: RuleOutcomeType.deny,
         metadata: {
-          section: "all",
+          section: "mayor",
+          index: mayorIndex,
+        },
+      }
+    }
+
+    if (partyLegislatorMatches.length > 0) {
+      return {
+        outcome: RuleOutcomeType.deny,
+        metadata: {
+          section: "municipalLegislator",
+          index: partyLegislatorMatches[0],
         },
       }
     }
@@ -67,4 +74,4 @@ class MunicipalMixedVoteSelection extends BaseRule {
   }
 }
 
-export default MunicipalMixedVoteSelection
+export default MunicipalMixedVoteSelectionSameColumn

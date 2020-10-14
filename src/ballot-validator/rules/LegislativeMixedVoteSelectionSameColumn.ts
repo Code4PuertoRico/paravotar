@@ -2,8 +2,8 @@ import _ from "lodash"
 import { RuleOutcomeType, Selection, LegislativeBallot } from "../types"
 import BaseRule from "./BaseRule"
 
-class LegislativeMixedVoteSelection extends BaseRule {
-  ruleName = "LegislativeMixedVoteSelection"
+class LegislativeMixedVoteSelectionSameColumn extends BaseRule {
+  ruleName = "LegislativeMixedVoteSelectionSameColumn"
 
   outcome(ballotSelections: LegislativeBallot) {
     const hasSelectedParty = ballotSelections.parties.some(
@@ -90,19 +90,42 @@ class LegislativeMixedVoteSelection extends BaseRule {
       [] as { row: number; col: number }[]
     )
 
-    if (
-      districtRepresentativeIndex !== -1 &&
-      districtSenatorIndexes.length === 2 &&
-      partyDistrictSenatorIndexesMatches.length === 0 &&
-      atLargeRepresentativeIndexes.length === 1 &&
-      partyAtLargeRepresentativeIndexesMatches.length === 0 &&
-      atLargeSenatorIndexes.length === 1 &&
-      partyAtLargeSenatorIndexesMatches.length === 0
-    ) {
+    if (partyIndex === districtRepresentativeIndex) {
       return {
         outcome: RuleOutcomeType.deny,
         metadata: {
-          section: "all",
+          section: "districtRepresentative",
+          index: districtRepresentativeIndex,
+        },
+      }
+    }
+
+    if (partyDistrictSenatorIndexesMatches.length > 0) {
+      return {
+        outcome: RuleOutcomeType.deny,
+        metadata: {
+          section: "districtSenator",
+          index: partyDistrictSenatorIndexesMatches[0],
+        },
+      }
+    }
+
+    if (partyAtLargeRepresentativeIndexesMatches.length > 0) {
+      return {
+        outcome: RuleOutcomeType.deny,
+        metadata: {
+          section: "atLargeRepresentative",
+          index: partyAtLargeRepresentativeIndexesMatches[0],
+        },
+      }
+    }
+
+    if (partyAtLargeSenatorIndexesMatches.length > 0) {
+      return {
+        outcome: RuleOutcomeType.deny,
+        metadata: {
+          section: "atLargeSenator",
+          index: partyAtLargeSenatorIndexesMatches[0],
         },
       }
     }
@@ -113,4 +136,4 @@ class LegislativeMixedVoteSelection extends BaseRule {
   }
 }
 
-export default LegislativeMixedVoteSelection
+export default LegislativeMixedVoteSelectionSameColumn
