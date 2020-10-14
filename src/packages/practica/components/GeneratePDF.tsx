@@ -1,5 +1,7 @@
 import React from "react"
+
 import { useMachine } from "@xstate/react"
+
 import { generatePdfMachine } from "../machines/generatePdf"
 import { Button, Typography } from "../../../components"
 

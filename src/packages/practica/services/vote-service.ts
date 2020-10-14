@@ -25,3 +25,7 @@ export class Vote {
     return this.selection === Selection.selectedImplicitly
   }
 }
+
+export function getExplicitlySelectedVotes(votes: Vote[]) {
+  return votes.filter(vote => vote.selection === Selection.selected)
+}

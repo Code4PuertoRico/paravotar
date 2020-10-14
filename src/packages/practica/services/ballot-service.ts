@@ -10,7 +10,7 @@ import {
 import { ElectiveField, Candidate } from "./ballot-configs/base"
 import { API_URL, PUBLIC_S3_BUCKET } from "./constants"
 import { OcrResult, PracticeContext } from "./types"
-import { Vote } from "./vote-service"
+import { getExplicitlySelectedVotes, Vote } from "./vote-service"
 import BallotFinder, { FindByType } from "./ballot-finder-service"
 import { BallotPositions, ValidMarkLimits } from "./ballot-configs/constants"
 import { ElectivePosition } from "./ballot-configs/types"
@@ -329,13 +329,13 @@ const BallotService = {
   },
 
   async generatePdf(context: PracticeContext, event: ExportPdfEvent) {
-    const voteCoordinates = context.votes
-      .filter(vote => vote.selection === Selection.selected)
-      .map(vote => {
+    const voteCoordinates = getExplicitlySelectedVotes(context.votes).map(
+      vote => {
         return {
           position: vote.position,
         }
-      })
+      }
+    )
     const votes = JSON.stringify(voteCoordinates)
 
     const res = await fetch(`${API_URL}/createBallotTask`, {
