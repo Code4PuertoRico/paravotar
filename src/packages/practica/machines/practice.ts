@@ -126,6 +126,7 @@ export const practiceMachine = createMachine<PracticeContext>(
         },
       },
       practicing: {
+        entry: assign({ votes: [] }),
         on: {
           SELECTED_ELECTIVE_FIELD: {
             actions: assign<PracticeContext>({
