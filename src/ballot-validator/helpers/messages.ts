@@ -30,6 +30,8 @@ const RuleMessageMap: { [key: string]: (metadata?: any) => string } = {
     `${KEY_PREFIX}.LegislativeMixedVoteSelection`,
   LegislativeMixedVoteSelectionSameColumn: () =>
     `${KEY_PREFIX}.LegislativeMixedVoteSelectionSameColumn`,
+  MunicipalMixedVoteSelection: () =>
+    `${KEY_PREFIX}.MunicipalMixedVoteSelection`,
   MunicipalMixedVoteSelectionSameColumn: () =>
     `${KEY_PREFIX}.MunicipalMixedVoteSelectionSameColumn`,
 }
