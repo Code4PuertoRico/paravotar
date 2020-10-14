@@ -22,6 +22,7 @@ export const getSections = (pathname = "", t) => [
     icon: Practica,
     isActive:
       pathname.includes("/practica#haz-que-tu-voto-cuente") ||
+      pathname.includes("/practica#practica-tu-voto") ||
       pathname.includes("/practica#como-votar"),
     strikeout: false,
     subsections: [
@@ -34,6 +35,11 @@ export const getSections = (pathname = "", t) => [
         name: "¿Cómo votar?",
         route: "/practica#como-votar",
         isActive: pathname.includes("/practica#como-votar"),
+      },
+      {
+        name: "Practica tu voto",
+        route: "/practica#practica-tu-voto",
+        isActive: pathname.includes("/practica#valida-tu-voto"),
       },
     ],
   },
