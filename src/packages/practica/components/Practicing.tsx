@@ -35,7 +35,7 @@ export const Practicing: React.FunctionComponent<PracticingProps> = ({
                 <Typography
                   tag="p"
                   variant="p"
-                  className="text-xs italic mt-2 mb-6"
+                  className="text-xs italic mt-6 mb-6"
                 >
                   *Para ver otros partidos realiza un scroll hacia tu derecha y
                   para ver más candidatos realiza scroll hacia abajo.
@@ -79,7 +79,7 @@ export const Practicing: React.FunctionComponent<PracticingProps> = ({
                 <Typography
                   tag="p"
                   variant="p"
-                  className="text-xs italic mt-2 mb-6"
+                  className="text-xs italic mt-6 mb-6"
                 >
                   *Para ver otros partidos realiza un scroll hacia tu derecha y
                   para ver más candidatos realiza scroll hacia abajo.
@@ -123,7 +123,7 @@ export const Practicing: React.FunctionComponent<PracticingProps> = ({
                 <Typography
                   tag="p"
                   variant="p"
-                  className="text-xs italic mt-2 mb-6"
+                  className="text-xs italic mt-6 mb-6"
                 >
                   *Para ver otros partidos realiza un scroll hacia tu derecha y
                   para ver más candidatos realiza scroll hacia abajo.

@@ -1,4 +1,5 @@
 import React from "react"
+
 import { useMachine } from "@xstate/react"
 import { ToastContainer, toast } from "react-toastify"
 import i18next from "i18next"
@@ -8,6 +9,7 @@ import { Button, Card, Typography } from "../../../components/index"
 import { useSidebar } from "../../../context/sidebar-context"
 import BallotValidator from "../../../ballot-validator/index"
 import { BallotType } from "../../../ballot-validator/types"
+import Arrows from "../../../components/arrows"
 import Default from "../../../components/default"
 import Switch from "../../../components/switch"
 import Case from "../../../components/case"
@@ -93,9 +95,18 @@ export default function Practice() {
       </Typography>
       <Card className="practice-card flex justify-center mt-8">
         {state.nextEvents.includes("BACK") && (
-          <Button className="block my-2" onClick={() => send("BACK")}>
-            Back
-          </Button>
+          <div className="absolute top-0 -ml-1 pt-4">
+            <button
+              className="mb-4 inline-flex items-center border-none text-primary font-semibold hover:underline"
+              onClick={() => send("BACK")}
+            >
+              <Arrows
+                className="text-primary block mr-2 hover:text-white"
+                style={{ transform: "rotate(90deg)" }}
+              />
+              Volver
+            </button>
+          </div>
         )}
         <Switch state={state}>
           <Case value="ballotFinderPicker">
