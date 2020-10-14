@@ -18,11 +18,11 @@ import {
   BallotConfigs,
   MunicipalBallotConfig,
 } from "../services/ballot-configs"
-import useBallotValidation from "../hooks/use-ballot-validation"
+// import useBallotValidation from "../hooks/use-ballot-validation"
 import useVotesTransform from "../hooks/use-votes-transform"
 import { practiceMachine } from "../machines/practice"
 import useVotesCount from "../hooks/use-votes-count"
-import { getExplicitlySelectedVotes, Vote } from "../services/vote-service"
+import { Vote } from "../services/vote-service"
 import BallotFinderPicker from "./ballot-finder-picker"
 import PrecintNumberForm from "./precint-number-form"
 import EnterVoterIdForm from "./enter-voter-id-form"
@@ -35,9 +35,9 @@ import { NoVoterIdFound } from "./NoVoterIdFound"
 export default function Practice() {
   const [state, send] = useMachine(practiceMachine)
   const transformedVotes = useVotesTransform(state.context.votes, state)
-  const { ballotStatus, setBallotStatus } = useBallotValidation(
-    transformedVotes
-  )
+  // const { ballotStatus, setBallotStatus } = useBallotValidation(
+  //   transformedVotes
+  // )
   const { votesCount, setVotesCount } = useVotesCount(transformedVotes)
   const { setSidebarIsVisible } = useSidebar()
 
@@ -46,12 +46,7 @@ export default function Practice() {
     ballotType: BallotType,
     ballot?: BallotConfigs
   ) => {
-    const cleanedVotes = getExplicitlySelectedVotes(votes)
-    const transformedVotes = coordinatesToSections(
-      cleanedVotes,
-      ballot,
-      ballotType
-    )
+    const transformedVotes = coordinatesToSections(votes, ballot, ballotType)
     const validationResult = BallotValidator(transformedVotes, ballotType)
 
     toast.dismiss()
@@ -79,7 +74,7 @@ export default function Practice() {
 
   const selectBallot = (selectedBallot: string, eventData: any) => {
     setSidebarIsVisible(false)
-    setBallotStatus(null)
+    // setBallotStatus(null)
     setVotesCount(null)
 
     send(selectedBallot, eventData)
@@ -215,7 +210,7 @@ export default function Practice() {
         pauseOnHover
       />
       {votesCount && state.matches("practicing") && (
-        <BallotStatus status={ballotStatus}>
+        <BallotStatus status={null}>
           {state.context.ballotType === BallotType.state ? (
             <>
               <Typography tag="p" variant="p" className="text-white">
