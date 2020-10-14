@@ -41,8 +41,10 @@ export const toFriendlyErrorMessages = (result: ValidatorReturnValue) => {
     return []
   }
 
-  return result.outcomes.denied.map(
-    ({ ruleName, metadata }) =>
-      RuleMessageMap[ruleName] && RuleMessageMap[ruleName](metadata)
-  )
+  return result.outcomes.denied
+    .map(
+      ({ ruleName, metadata }) =>
+        RuleMessageMap[ruleName] && RuleMessageMap[ruleName](metadata)
+    )
+    .filter(m => m !== undefined)
 }
