@@ -1,4 +1,5 @@
 import React from "react"
+import _ from "lodash"
 
 import { useMachine } from "@xstate/react"
 import { ToastContainer, toast } from "react-toastify"
@@ -31,6 +32,7 @@ import { Results } from "./Results"
 import BallotStatus from "./ballot-status"
 import { Practicing } from "./Practicing"
 import { NoVoterIdFound } from "./NoVoterIdFound"
+import { WriteInCandidate } from "../services/ballot-configs/base"
 
 export default function Practice() {
   const [state, send] = useMachine(practiceMachine)
@@ -57,7 +59,19 @@ export default function Practice() {
 
     toast.dismiss()
 
-    if (validationResult.outcomes.denied.length === 0) {
+    const writeInMissingNames = votes
+      .map(v => {
+        if (v.candidate && _.isEmpty(v.candidate.name)) {
+          return v
+        }
+        return null
+      })
+      .filter(v => v !== null)
+
+    if (
+      validationResult.outcomes.denied.length === 0 &&
+      writeInMissingNames.length === 0
+    ) {
       send("SUBMIT")
     } else {
       toFriendlyErrorMessages(validationResult)?.map(messageId => {
@@ -75,6 +89,12 @@ export default function Practice() {
           toast.error(i18next.t(messageId))
         }
       })
+
+      if (writeInMissingNames.length > 0) {
+        toast.error(
+          "El nombre del candidato por nominación directa no puede estar vacio"
+        )
+      }
     }
   }
 
