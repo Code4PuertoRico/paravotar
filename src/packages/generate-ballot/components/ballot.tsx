@@ -149,6 +149,8 @@ export default function BaseBallot(props: BallotProps) {
                             column: colIndex,
                           })
                         }
+                        initialTextValue={col.name}
+                        updateName={(name: string) => col.setName(name)}
                       />
                     )
                   }

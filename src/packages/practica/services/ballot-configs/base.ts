@@ -74,12 +74,17 @@ export class Candidate extends BallotSection {
 }
 
 export class WriteInCandidate extends BallotSection {
-  accumulationNumber
+  accumulationNumber: string
+  name?: string
 
   constructor(accumulationNumber?: number) {
     super()
 
     this.accumulationNumber = accumulationNumber ? `${accumulationNumber}.` : ""
+  }
+
+  setName(name: string) {
+    this.name = name
   }
 }
 
