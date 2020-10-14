@@ -5,8 +5,8 @@ import {
   Selection,
   StateBallot,
 } from "../../../ballot-validator/types"
-import { BallotConfigs } from "./ballot-configs"
-import { Vote } from "./vote-service"
+import { BallotConfigs, MunicipalBallotConfig } from "./ballot-configs"
+import { getExplicitlySelectedVotes, Vote } from "./vote-service"
 
 type MarkAsSelectedArgs = {
   votes: Selection[]
@@ -226,18 +226,20 @@ export default function coordinatesToSections(
   ballot: BallotConfigs,
   ballotType: BallotType
 ) {
+  const cleanedVotes = getExplicitlySelectedVotes(votes)
+
   switch (ballotType) {
     case BallotType.state:
-      return transformStateVotes(votes, ballot.cols)
+      return transformStateVotes(cleanedVotes, ballot.cols)
 
     case BallotType.municipality:
       return transformMunicipalVotes(
-        votes,
+        cleanedVotes,
         ballot.cols,
-        ballot.amountOfMunicipalLegislators
+        (ballot as MunicipalBallotConfig).amountOfMunicipalLegislators
       )
 
     default:
-      return transformLegislativeVotes(votes, ballot.cols)
+      return transformLegislativeVotes(cleanedVotes, ballot.cols)
   }
 }
