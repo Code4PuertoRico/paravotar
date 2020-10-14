@@ -34,8 +34,8 @@ export const GeneratePDF: React.FunctionComponent<GeneratePDFProps> = ({
         </Button>
       )}
 
-      {current.matches("creatingTask") && <>LOADING YOUR PDF...</>}
-      {current.matches("gettingPdfUrl") && <>LOADING YOUR PDF...</>}
+      {current.matches("creatingTask") && <>Generando el PDF...</>}
+      {current.matches("gettingPdfUrl") && <>Generando el PDF...</>}
 
       {current.matches("generatedPdf") && (
         <div className="mt-6 w-full lg:w-1/3 lg:mx-auto">

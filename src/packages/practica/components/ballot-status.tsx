@@ -21,7 +21,7 @@ export default function BallotStatus({ children, status }: BallotStatusType) {
           Para esta papeleta usted puede votar por:
         </Typography>
         {children}
-        <div>
+        {/* <div>
           <Typography tag="p" variant="h4" className="text-white mt-6">
             Estado de su papeleta:
           </Typography>
@@ -52,17 +52,9 @@ export default function BallotStatus({ children, status }: BallotStatusType) {
                   Invalida
                 </Typography>
               </>
-            ) : (
-              <Typography
-                tag="p"
-                variant="p"
-                className="text-white mt-3  block capitalize"
-              >
-                Sin completar
-              </Typography>
-            )}
+            ) : null}
           </div>
-        </div>
+        </div> */}
         <button
           className="flex items-center text-white mt-12 px-4 py-2 border border-white rounded"
           onClick={() => setShowFullscreen(false)}
