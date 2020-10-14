@@ -9,7 +9,7 @@ const StateBallotRuleGroup = [
   new NoMoreThanOneGovernorSelectedRule(),
   new NoMoreThanOneResidentCommissionerRule(),
   new StateMixedVoteSelectionRule(),
-  new StateMixedVoteSelectionSameColumnRule(),
+  // new StateMixedVoteSelectionSameColumnRule(),
 ]
 
 export default StateBallotRuleGroup

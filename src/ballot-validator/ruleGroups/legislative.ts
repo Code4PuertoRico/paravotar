@@ -13,7 +13,7 @@ const LegislativeBallotRuleGroup = [
   new NoMoreThanOneAtLargeRepresentativeRule(),
   new NoMoreThanOneAtLargeSenatorRule(),
   new LegislativeMixedVoteSelection(),
-  new LegislativeMixedVoteSelectionSameColumn(),
+  // new LegislativeMixedVoteSelectionSameColumn(),
 ]
 
 export default LegislativeBallotRuleGroup

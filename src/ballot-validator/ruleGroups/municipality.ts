@@ -9,7 +9,7 @@ const MunicipalityBallotRuleGroup = [
   new NoMoreThanOneMayorSelectedRule(),
   new MunicipalLegislatorDynamicSelectionRule(),
   new MunicipalMixedVoteSelection(),
-  new MunicipalMixedVoteSelectionSameColumn(),
+  // new MunicipalMixedVoteSelectionSameColumn(),
 ]
 
 export default MunicipalityBallotRuleGroup
