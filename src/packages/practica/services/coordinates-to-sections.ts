@@ -6,7 +6,7 @@ import {
   StateBallot,
 } from "../../../ballot-validator/types"
 import { BallotConfigs, MunicipalBallotConfig } from "./ballot-configs"
-import { getExplicitlySelectedVotes, Vote } from "./vote-service"
+import { Vote } from "./vote-service"
 
 type MarkAsSelectedArgs = {
   votes: Selection[]

@@ -22,7 +22,7 @@ import {
 import useVotesTransform from "../hooks/use-votes-transform"
 import { practiceMachine } from "../machines/practice"
 import useVotesCount from "../hooks/use-votes-count"
-import { Vote } from "../services/vote-service"
+import { getExplicitlySelectedVotes, Vote } from "../services/vote-service"
 import BallotFinderPicker from "./ballot-finder-picker"
 import PrecintNumberForm from "./precint-number-form"
 import EnterVoterIdForm from "./enter-voter-id-form"
@@ -46,7 +46,12 @@ export default function Practice() {
     ballotType: BallotType,
     ballot?: BallotConfigs
   ) => {
-    const transformedVotes = coordinatesToSections(votes, ballot, ballotType)
+    const cleanedVotes = getExplicitlySelectedVotes(votes)
+    const transformedVotes = coordinatesToSections(
+      cleanedVotes,
+      ballot,
+      ballotType
+    )
     const validationResult = BallotValidator(transformedVotes, ballotType)
 
     toast.dismiss()
