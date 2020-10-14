@@ -28,6 +28,7 @@ import EnterVoterIdForm from "./enter-voter-id-form"
 import { Results } from "./Results"
 import BallotStatus from "./ballot-status"
 import { Practicing } from "./Practicing"
+import { NoVoterIdFound } from "./NoVoterIdFound"
 
 export default function Practice() {
   const [state, send] = useMachine(practiceMachine)
@@ -90,7 +91,6 @@ export default function Practice() {
       >
         Pon en práctica lo aprendido cuantas veces necesites
       </Typography>
-      {JSON.stringify(state.value)}
       <Card className="practice-card flex justify-center mt-8">
         {state.nextEvents.includes("BACK") && (
           <Button className="block my-2" onClick={() => send("BACK")}>
@@ -115,6 +115,9 @@ export default function Practice() {
                 send("ADDED_VOTER_ID", { userInput, findBy })
               }}
             />
+          </Case>
+          <Case value="noVoterIdFound">
+            <NoVoterIdFound send={send} />
           </Case>
           <Case value="enterPrecint">
             <PrecintNumberForm
