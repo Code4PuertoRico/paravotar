@@ -148,7 +148,7 @@ export default function Practice() {
             />
           </Case>
           <Case value="fetchBallots">
-            <div>Loading...</div>
+            <div>Cargando...</div>
           </Case>
           <Case value="selectBallot">
             <div className="mx-auto lg:w-1/2">
