@@ -290,7 +290,7 @@ export class LegislativeBallotConfig {
     const candidatesForAtLargeSenators = atLargeSenators.map(
       (ocrResult: OcrResult[], index: number) => {
         const hasWriteColumn =
-          index + 1 <= ValidMarkLimits.legislative.districtSenators
+          index + 1 <= ValidMarkLimits.legislative.atLargeSenator
 
         return generateCandidates(
           ocrResult,
