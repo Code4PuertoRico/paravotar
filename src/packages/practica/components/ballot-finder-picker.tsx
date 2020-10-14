@@ -1,6 +1,6 @@
 import React from "react"
 
-import { Button, Typography } from "../../../components"
+import { Button, Typography, Link } from "../../../components"
 
 type BallotFinderPickerProps = {
   selectVoterId: () => void
@@ -28,6 +28,14 @@ export default function BallotFinderPicker(props: BallotFinderPickerProps) {
           </Button>
         </div>
       </div>
+      <Typography className="text-xs italic mt-4" tag="p" variant="p">
+        Si deseas buscar tus papeletas por pueblo y colegio electoral puedes
+        utilizar{" "}
+        <Link to="https://www.practicatuvoto.com/" target="_blank">
+          Práctica tu voto
+        </Link>
+        .
+      </Typography>
     </div>
   )
 }
