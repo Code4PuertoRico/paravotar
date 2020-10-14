@@ -23,6 +23,7 @@ export const practiceMachine = createMachine<PracticeContext>(
         },
       },
       enterVoterId: {
+        initial: "idle",
         on: {
           BACK: "ballotFinderPicker",
           ADDED_VOTER_ID: [
@@ -38,10 +39,12 @@ export const practiceMachine = createMachine<PracticeContext>(
           ],
         },
         states: {
+          idle: {},
           empty: {},
         },
       },
       enterPrecint: {
+        initial: "idle",
         on: {
           BACK: "ballotFinderPicker",
           ADDED_PRECINT: [
@@ -63,6 +66,7 @@ export const practiceMachine = createMachine<PracticeContext>(
           ],
         },
         states: {
+          idle: {},
           empty: {},
           invalidLength: {},
         },
@@ -89,12 +93,7 @@ export const practiceMachine = createMachine<PracticeContext>(
       noVoterIdFound: {
         on: {
           RETRY: "enterVoterId",
-          ENTER_VOTING_CENTER: "enterVotingCenter",
-        },
-      },
-      enterVotingCenter: {
-        on: {
-          FIND_VOTING_CENTER_INFO: "findingVotingCenterInfo",
+          ENTER_VOTING_CENTER: "enterPrecint",
         },
       },
       findingVotingCenterInfo: {
@@ -105,13 +104,8 @@ export const practiceMachine = createMachine<PracticeContext>(
             target: "selectBallot",
           },
           onError: {
-            target: "noVotingCenterFound",
+            target: "enterPrecint",
           },
-        },
-      },
-      noVotingCenterFound: {
-        on: {
-          RETRY: "enterVotingCenter",
         },
       },
       selectBallot: {
