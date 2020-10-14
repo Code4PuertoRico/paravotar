@@ -31,7 +31,10 @@ button:focus {
 
 .bg-gradient {
   background: rgba(253,250,247,1);
-  /* background: linear-gradient(155deg, rgba(253,250,247,1) 0%, rgba(252,241,218,1) 100%); */
+}
+
+.bg-gray-100 {
+  background-color: #f7fafc;
 }
 
 .md-whiteframe-12dp {
