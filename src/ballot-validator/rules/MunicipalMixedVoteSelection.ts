@@ -48,6 +48,26 @@ class MunicipalMixedVoteSelection extends BaseRule {
 
     const maxLegislatorVotes = ballotSelections.municipalLegislator.length
 
+    if (partyIndex === mayorIndex) {
+      return {
+        outcome: RuleOutcomeType.deny,
+        metadata: {
+          section: "mayor",
+          index: mayorIndex,
+        },
+      }
+    }
+
+    if (partyLegislatorMatches.length > 0) {
+      return {
+        outcome: RuleOutcomeType.deny,
+        metadata: {
+          section: "municipalLegislator",
+          index: partyLegislatorMatches[0],
+        },
+      }
+    }
+
     if (
       mayorIndex !== -1 &&
       legislatorIndexes.length === maxLegislatorVotes &&
