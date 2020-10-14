@@ -1,6 +1,7 @@
 import NoMoreThanOneGovernorSelectedRule from "../rules/NoMoreThanOneGovernorSelectedRule"
 import NoMoreThanOneResidentCommissionerRule from "../rules/NoMoreThanOneResidentCommissionerRule"
 import StateMixedVoteSelectionRule from "../rules/StateMixedVoteSelectionRule"
+import StateMixedVoteSelectionSameColumnRule from "../rules/StateMixedVoteSelectionSameColumnRule"
 import { SharedRules } from "./shared"
 
 const StateBallotRuleGroup = [
@@ -8,6 +9,7 @@ const StateBallotRuleGroup = [
   new NoMoreThanOneGovernorSelectedRule(),
   new NoMoreThanOneResidentCommissionerRule(),
   new StateMixedVoteSelectionRule(),
+  new StateMixedVoteSelectionSameColumnRule(),
 ]
 
 export default StateBallotRuleGroup

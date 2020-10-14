@@ -1,8 +1,8 @@
 import { RuleOutcomeType, StateBallot, Selection } from "../types"
 import BaseRule from "./BaseRule"
 
-class StateMixedVoteSelectionRule extends BaseRule {
-  ruleName = "StateMixedVoteSelectionRule"
+class StateMixedVoteSelectionSameColumnRule extends BaseRule {
+  ruleName = "StateMixedVoteSelectionSameColumnRule"
 
   outcome(ballotSelections: StateBallot) {
     const hasSelectedParty = ballotSelections.parties.some(
@@ -27,16 +27,22 @@ class StateMixedVoteSelectionRule extends BaseRule {
       rc => rc === Selection.selected
     )
 
-    if (
-      governorIndex !== -1 &&
-      residentCommissioner !== -1 &&
-      governorIndex !== partyIndex &&
-      residentCommissioner !== partyIndex
-    ) {
+    if (partyIndex === governorIndex) {
       return {
         outcome: RuleOutcomeType.deny,
         metadata: {
-          section: "all",
+          section: "governor",
+          index: governorIndex,
+        },
+      }
+    }
+
+    if (partyIndex === residentCommissioner) {
+      return {
+        outcome: RuleOutcomeType.deny,
+        metadata: {
+          section: "residentCommissioner",
+          index: residentCommissioner,
         },
       }
     }
@@ -47,4 +53,4 @@ class StateMixedVoteSelectionRule extends BaseRule {
   }
 }
 
-export default StateMixedVoteSelectionRule
+export default StateMixedVoteSelectionSameColumnRule
