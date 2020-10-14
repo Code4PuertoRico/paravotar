@@ -329,12 +329,13 @@ const BallotService = {
   },
 
   async generatePdf(context: PracticeContext, event: ExportPdfEvent) {
-    const voteCoordinates = context.votes.map(vote => {
-      return {
-        position: vote.position,
-      }
-    })
-    // const votes = JSON.stringify([])
+    const voteCoordinates = context.votes
+      .filter(vote => vote.selection === Selection.selected)
+      .map(vote => {
+        return {
+          position: vote.position,
+        }
+      })
     const votes = JSON.stringify(voteCoordinates)
 
     const res = await fetch(`${API_URL}/createBallotTask`, {
