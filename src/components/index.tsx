@@ -10,6 +10,7 @@ import Sidebar from "./sidebar"
 import Navbar from "./navbar"
 import Card from "./card"
 import Tab from "./tab"
+import Spinner from "./spinner"
 
 export {
   Button,
@@ -18,6 +19,7 @@ export {
   Highlight,
   Layout,
   Link,
+  Spinner,
   SEO,
   Typography,
   Sidebar,

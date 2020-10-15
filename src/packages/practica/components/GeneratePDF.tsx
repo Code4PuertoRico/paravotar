@@ -3,7 +3,7 @@ import React from "react"
 import { useMachine } from "@xstate/react"
 
 import { generatePdfMachine } from "../machines/generatePdf"
-import { Button, Typography } from "../../../components"
+import { Button, Spinner, Typography } from "../../../components"
 
 interface GeneratePDFProps {
   ballotType: string
@@ -34,8 +34,15 @@ export const GeneratePDF: React.FunctionComponent<GeneratePDFProps> = ({
         </Button>
       )}
 
-      {current.matches("creatingTask") && <>Generando el PDF...</>}
-      {current.matches("gettingPdfUrl") && <>Generando el PDF...</>}
+      {(current.matches("creatingTask") ||
+        current.matches("gettingPdfUrl")) && (
+        <div className="flex justify-center items-center">
+          <Spinner />
+          <Typography variant="p" tag="p" className="ml-2">
+            Generando el PDF...
+          </Typography>
+        </div>
+      )}
 
       {current.matches("generatedPdf") && (
         <div className="mt-6 w-full lg:w-1/3 lg:mx-auto">

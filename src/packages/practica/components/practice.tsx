@@ -6,7 +6,7 @@ import { ToastContainer, toast } from "react-toastify"
 import i18next from "i18next"
 
 import { toFriendlyErrorMessages } from "../../../ballot-validator/helpers/messages"
-import { Button, Card, Typography } from "../../../components/index"
+import { Button, Card, Spinner, Typography } from "../../../components/index"
 import { useSidebar } from "../../../context/sidebar-context"
 import BallotValidator from "../../../ballot-validator/index"
 import { BallotType } from "../../../ballot-validator/types"
@@ -174,7 +174,12 @@ export default function Practice() {
             />
           </Case>
           <Case value="fetchBallots">
-            <div>Cargando...</div>
+            <div>
+              <Spinner className="mx-auto" />
+              <Typography variant="p" tag="p" className="block mt-4">
+                Cargando...
+              </Typography>
+            </div>
           </Case>
           <Case value="selectBallot">
             <div className="mx-auto lg:w-1/2">
