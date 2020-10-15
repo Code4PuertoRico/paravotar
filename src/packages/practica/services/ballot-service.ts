@@ -333,7 +333,7 @@ const BallotService = {
       vote => {
         return {
           position: vote.position,
-          name: vote.candidate && vote.candidate.name,
+          candidate: vote.candidate,
         }
       }
     )

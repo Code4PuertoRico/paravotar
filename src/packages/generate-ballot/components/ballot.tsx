@@ -149,7 +149,7 @@ export default function BaseBallot(props: BallotProps) {
                             column: colIndex,
                           })
                         }
-                        initialTextValue={col.name}
+                        initialTextValue={col.name || vote?.candidate?.name}
                         updateName={(name: string) => col.setName(name)}
                       />
                     )
