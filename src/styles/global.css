@@ -41,6 +41,38 @@ button:focus {
   box-shadow: 4px -5px 22px 4px rgba(0, 0, 0, 0.16);
 }
 
+.loader {
+  position: relative;
+  height: 30px;
+  width: 30px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0.05);
+  border-top-color: #886944;
+  box-shadow: 0px 0px 1px #886944;
+  animation: Spin 1s linear infinite;
+}
+
+.loader-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  box-shadow: 0px 0px 1px #886944;
+}
+
+@keyframes Spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
 @-webkit-keyframes tada {
   from {
     transform: scale3d(1, 1, 1);
