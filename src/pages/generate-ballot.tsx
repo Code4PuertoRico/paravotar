@@ -22,7 +22,8 @@ export default function GenerateBallot({ location }: PageProps) {
   const ballotPath = params.get("ballotPath")
   const rawVotes = params.get("votes") || "[]"
   const votes = JSON.parse(rawVotes).map(
-    (vote: Vote) => new Vote(vote.position, Selection.selected)
+    (vote: Vote) =>
+      new Vote(vote.position, Selection.selected, vote.candidate || undefined)
   )
 
   const [state, send] = useMachine<BallotMachineContext, EventObject>(
