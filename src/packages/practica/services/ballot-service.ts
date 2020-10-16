@@ -255,6 +255,19 @@ const BallotService = {
         )
 
         if (item instanceof Candidate) {
+          // If the candidate that we're verifying already has an explicit vote, don't try to add any implicit votes.
+          const candidateHasExplicitVote = votes.filter(
+            vote =>
+              vote.selection === Selection.selected &&
+              vote.position.column === position.column &&
+              vote.position.row === rowIndex
+          )
+
+          if (candidateHasExplicitVote.length > 0) {
+            return
+          }
+
+          // Add implicit votes for candidates in the column
           const votesForElectivePosition = votes.filter(vote => {
             const { start, end } = getStartAndEndPositionsForBallot(
               ballot,
@@ -262,10 +275,7 @@ const BallotService = {
               electivePosition
             )
 
-            return (
-              // vote.selection === Selection.selected &&
-              vote.position.row >= start && vote.position.row <= end
-            )
+            return vote.position.row >= start && vote.position.row <= end
           })
           const voteLimit =
             electivePosition === ElectivePosition.municipalLegislators
