@@ -48,11 +48,11 @@ function getBallot(ballots, ballotType: BallotType): BallotConfigs {
 }
 
 function getElectivePositionForVote(
-  vote: Vote,
+  position: VotesCoordinates,
   ballotType: BallotType
 ): ElectivePosition {
   if (ballotType === BallotType.state) {
-    if (vote.position.row === BallotPositions.state.governor.start) {
+    if (position.row === BallotPositions.state.governor.start) {
       return ElectivePosition.governor
     }
 
@@ -60,7 +60,7 @@ function getElectivePositionForVote(
   }
 
   if (ballotType === BallotType.municipality) {
-    if (vote.position.row === BallotPositions.municipality.mayor.start) {
+    if (position.row === BallotPositions.municipality.mayor.start) {
       return ElectivePosition.mayor
     }
 
@@ -68,19 +68,17 @@ function getElectivePositionForVote(
   }
 
   if (
-    vote.position.row ===
-    BallotPositions.legislative.districtRepresentative.start
+    position.row === BallotPositions.legislative.districtRepresentative.start
   ) {
     return ElectivePosition.districtRepresentative
   } else if (
-    vote.position.row >= BallotPositions.legislative.districtSenators.start &&
-    vote.position.row <= BallotPositions.legislative.districtSenators.end
+    position.row >= BallotPositions.legislative.districtSenators.start &&
+    position.row <= BallotPositions.legislative.districtSenators.end
   ) {
     return ElectivePosition.districtSenators
   } else if (
-    vote.position.row >=
-      BallotPositions.legislative.atLargeRepresentative.start &&
-    vote.position.row <= BallotPositions.legislative.atLargeRepresentative.end
+    position.row >= BallotPositions.legislative.atLargeRepresentative.start &&
+    position.row <= BallotPositions.legislative.atLargeRepresentative.end
   ) {
     return ElectivePosition.atLargeRepresentative
   }
@@ -243,22 +241,53 @@ const BallotService = {
         return [...accum, ...columnForParty]
       }, [])
 
-      const votes = [new Vote(position, Selection.selected, candidate)]
+      const votes = [
+        ...prevVotes,
+        new Vote(position, Selection.selected, candidate),
+      ]
+      const validMarkLimitsOnBallot = ValidMarkLimits[ballotType]
 
       // Create a vote for every section that can receive an implicit vote.
       columnForParty.forEach((item, rowIndex) => {
-        if (item instanceof Candidate && item.receivesImpicitVote) {
-          votes.push(
-            new Vote(
-              { column: position.column, row: rowIndex },
-              Selection.selectedImplicitly,
-              item
+        const electivePosition = getElectivePositionForVote(
+          { column: position.column, row: rowIndex },
+          ballotType
+        )
+
+        if (item instanceof Candidate) {
+          const votesForElectivePosition = votes.filter(vote => {
+            const { start, end } = getStartAndEndPositionsForBallot(
+              ballot,
+              ballotType,
+              electivePosition
             )
-          )
+
+            return (
+              // vote.selection === Selection.selected &&
+              vote.position.row >= start && vote.position.row <= end
+            )
+          })
+          const voteLimit =
+            electivePosition === ElectivePosition.municipalLegislators
+              ? (ballot as MunicipalBallotConfig).amountOfMunicipalLegislators
+              : validMarkLimitsOnBallot[electivePosition]
+
+          if (
+            votesForElectivePosition.length < voteLimit &&
+            item.receivesImpicitVote
+          ) {
+            votes.push(
+              new Vote(
+                { column: position.column, row: rowIndex },
+                Selection.selectedImplicitly,
+                item
+              )
+            )
+          }
         }
       })
 
-      return [...prevVotes, ...votes]
+      return votes
     }
 
     // Candidate vote
@@ -269,7 +298,10 @@ const BallotService = {
     // Manage mixed vote
     if (hasVotesForParty) {
       const ballot = getBallot(ballots, ballotType)
-      const electivePosition = getElectivePositionForVote(vote, ballotType)
+      const electivePosition = getElectivePositionForVote(
+        vote.position,
+        ballotType
+      )
       const validMarkLimitsOnBallot = ValidMarkLimits[ballotType]
       const { start, end } = getStartAndEndPositionsForBallot(
         ballot,
