@@ -21,7 +21,7 @@ export const FindYourCenter: React.FunctionComponent = () => {
 
   if (current.matches("loadGoogleMapsLinks")) {
     const query = encodeURIComponent(
-      `${r.centroDeVotacion} ${r.direccion} ${r.pueblo}`
+      `${r.Municipio} ${r["Centro de Votación"]} ${r["Dirección"]}`
     )
 
     embedUrl = EMBED_LINK_BASE + query
@@ -117,7 +117,7 @@ export const FindYourCenter: React.FunctionComponent = () => {
               weight="base"
               className="font-normal mt-1"
             >
-              {r.centroDeVotacion}
+              {r["Centro de Votación"]}
             </Typography>
             <Typography
               tag="p"
@@ -125,7 +125,7 @@ export const FindYourCenter: React.FunctionComponent = () => {
               weight="base"
               className="font-normal mt-1"
             >
-              {r.direccion}
+              {r["Dirección"]}
             </Typography>
             <Typography
               tag="p"
@@ -133,7 +133,7 @@ export const FindYourCenter: React.FunctionComponent = () => {
               weight="base"
               className="font-normal mt-1"
             >
-              {r.pueblo}
+              {r.Municipio}
             </Typography>
           </section>
           <iframe
