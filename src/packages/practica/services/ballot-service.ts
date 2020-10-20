@@ -14,6 +14,12 @@ import { getExplicitlySelectedVotes, Vote } from "./vote-service"
 import BallotFinder, { FindByType } from "./ballot-finder-service"
 import { BallotPositions, ValidMarkLimits } from "./ballot-configs/constants"
 import { ElectivePosition } from "./ballot-configs/types"
+import {
+  CandidateVoteStrategy,
+  MixedVoteStrategy,
+  PartyVoteStrategy,
+  VoteUpdateManager,
+} from "../strategies"
 
 type FindByEventParams = {
   userInput: string
@@ -47,7 +53,7 @@ function getBallot(ballots, ballotType: BallotType): BallotConfigs {
   return ballots.legislativa
 }
 
-function getElectivePositionForVote(
+export function getElectivePositionForVote(
   position: VotesCoordinates,
   ballotType: BallotType
 ): ElectivePosition {
@@ -86,7 +92,7 @@ function getElectivePositionForVote(
   return ElectivePosition.atLargeSenator
 }
 
-function getStartAndEndPositionsForBallot(
+export function getStartAndEndPositionsForBallot(
   ballot: BallotConfigs,
   ballotType: BallotType,
   electivePosition: ElectivePosition
@@ -175,16 +181,16 @@ const BallotService = {
   ) {
     const ballots = context.ballots
     const prevVotes = context.votes
-    const storedVote = prevVotes.find(
+    const existingVoteAtPosition = prevVotes.find(
       vote =>
         vote.position.row === position.row &&
         vote.position.column === position.column
     )
 
     // Remove vote or turn an implicit vote to an explicit vote.
-    if (storedVote) {
+    if (existingVoteAtPosition) {
       // Change the vote from an implicity vote to an explict one.
-      if (storedVote.selection === Selection.selectedImplicitly) {
+      if (existingVoteAtPosition.selection === Selection.selectedImplicitly) {
         return prevVotes.map(vote => {
           if (
             vote.position.row === position.row &&
@@ -196,178 +202,50 @@ const BallotService = {
           return vote
         })
       }
+    }
 
-      // Remove vote for party and all of the implict votes
-      if (position.row === PARTY_ROW) {
-        return prevVotes.filter(vote => {
-          if (vote.position.column === position.column) {
-            // Remove the party vote.
-            if (vote.position.row === PARTY_ROW) {
-              return false
-            }
+    const isPartyVote = position.row === PARTY_ROW
+    const ballot = getBallot(ballots, ballotType)
+    const intendedVote = {
+      candidate,
+      position,
+      ballotType,
+      ballot,
+    }
 
-            // Remove all of the implicit selections
-            return vote.selection !== Selection.selectedImplicitly
-          }
+    if (isPartyVote) {
+      const strategy = new PartyVoteStrategy()
+      const partyVoteUpdateManager = new VoteUpdateManager(strategy)
 
-          return true
-        })
+      if (existingVoteAtPosition) {
+        return partyVoteUpdateManager.remove(intendedVote, prevVotes)
       }
 
-      // Remove vote for candidate
-      return prevVotes.filter(vote => {
-        return !(
-          position.row === vote.position.row &&
-          position.column === vote.position.column
-        )
-      })
+      return partyVoteUpdateManager.add(intendedVote, prevVotes)
     }
 
-    // Party votes will trigger implicit votes for candidates.
-    if (position.row === PARTY_ROW) {
-      // Find the ballot that's currently used.
-      const ballot = getBallot(ballots, ballotType)
-
-      // Get the sections that have candidates.
-      const columnForParty = ballot.structure.reduce((accum, currentRow) => {
-        const columnForParty = currentRow.filter((column, columnIndex) => {
-          if (columnIndex === position.column) {
-            return column
-          }
-
-          return false
-        })
-
-        return [...accum, ...columnForParty]
-      }, [])
-
-      const votes = [
-        ...prevVotes,
-        new Vote(position, Selection.selected, candidate),
-      ]
-      const validMarkLimitsOnBallot = ValidMarkLimits[ballotType]
-
-      // Create a vote for every section that can receive an implicit vote.
-      columnForParty.forEach((item, rowIndex) => {
-        const electivePosition = getElectivePositionForVote(
-          { column: position.column, row: rowIndex },
-          ballotType
-        )
-
-        if (item instanceof Candidate) {
-          // If the candidate that we're verifying already has an explicit vote, don't try to add any implicit votes.
-          const candidateHasExplicitVote = votes.filter(
-            vote =>
-              vote.selection === Selection.selected &&
-              vote.position.column === position.column &&
-              vote.position.row === rowIndex
-          )
-
-          if (candidateHasExplicitVote.length > 0) {
-            return
-          }
-
-          // Add implicit votes for candidates in the column
-          const votesForElectivePosition = votes.filter(vote => {
-            const { start, end } = getStartAndEndPositionsForBallot(
-              ballot,
-              ballotType,
-              electivePosition
-            )
-
-            return vote.position.row >= start && vote.position.row <= end
-          })
-          const voteLimit =
-            electivePosition === ElectivePosition.municipalLegislators
-              ? (ballot as MunicipalBallotConfig).amountOfMunicipalLegislators
-              : validMarkLimitsOnBallot[electivePosition]
-
-          if (
-            votesForElectivePosition.length < voteLimit &&
-            item.receivesImpicitVote
-          ) {
-            votes.push(
-              new Vote(
-                { column: position.column, row: rowIndex },
-                Selection.selectedImplicitly,
-                item
-              )
-            )
-          }
-        }
-      })
-
-      return votes
-    }
-
-    // Candidate vote
     const partyVotes = findPartyVotes(prevVotes)
     const hasVotesForParty = partyVotes.length >= 1
-    const vote = new Vote(position, Selection.selected, candidate)
 
-    // Manage mixed vote
     if (hasVotesForParty) {
-      const ballot = getBallot(ballots, ballotType)
-      const electivePosition = getElectivePositionForVote(
-        vote.position,
-        ballotType
-      )
-      const validMarkLimitsOnBallot = ValidMarkLimits[ballotType]
-      const { start, end } = getStartAndEndPositionsForBallot(
-        ballot,
-        ballotType,
-        electivePosition
-      )
+      const strategy = new MixedVoteStrategy()
+      const mixedVoteStrategyUpdateManager = new VoteUpdateManager(strategy)
 
-      const implicitVotesForPosition = prevVotes.filter(vote => {
-        return (
-          vote.position.row >= start &&
-          vote.position.row <= end &&
-          vote.selection === Selection.selectedImplicitly
-        )
-      })
-
-      const explicitVotesForPosition = prevVotes.filter(vote => {
-        return (
-          vote.position.row >= start &&
-          vote.position.row <= end &&
-          vote.selection === Selection.selected
-        )
-      })
-
-      const votesOutsideOfThePosition = prevVotes.filter(vote => {
-        return vote.position.row < start || vote.position.row > end
-      })
-
-      const explicitVotes = explicitVotesForPosition.length + 1
-      const totalVotesForPosition =
-        implicitVotesForPosition.length + explicitVotes
-      const voteLimit =
-        electivePosition === ElectivePosition.municipalLegislators
-          ? (ballot as MunicipalBallotConfig).amountOfMunicipalLegislators
-          : validMarkLimitsOnBallot[electivePosition]
-
-      // Get the section of the vote to determine how we should were we should subtract an implicit vote
-      if (totalVotesForPosition > voteLimit) {
-        const difference = voteLimit - explicitVotes
-        const filteredImplicitVotesForPosition = []
-
-        for (let index = 0; index < difference; index++) {
-          filteredImplicitVotesForPosition.push(implicitVotesForPosition[index])
-        }
-
-        // Remove the votes for the position completely.
-        return [
-          ...explicitVotesForPosition,
-          vote,
-          ...filteredImplicitVotesForPosition,
-          ...votesOutsideOfThePosition,
-        ]
+      if (existingVoteAtPosition) {
+        return mixedVoteStrategyUpdateManager.remove(intendedVote, prevVotes)
       }
+
+      return mixedVoteStrategyUpdateManager.add(intendedVote, prevVotes)
     }
 
-    // Manage vote for candidacy
-    return [...prevVotes, vote]
+    const strategy = new CandidateVoteStrategy()
+    const candidateVoteStrategyManager = new VoteUpdateManager(strategy)
+
+    if (existingVoteAtPosition) {
+      return candidateVoteStrategyManager.remove(intendedVote, prevVotes)
+    }
+
+    return candidateVoteStrategyManager.add(intendedVote, prevVotes)
   },
 
   async generatePdf(context: PracticeContext, event: ExportPdfEvent) {

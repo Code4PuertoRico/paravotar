@@ -22,6 +22,7 @@ export enum BALLOT_SECTION_TITLES {
 export const BALLOT_SECTION_TITLES_LIST = Object.values(BALLOT_SECTION_TITLES)
 
 export const MAX_PRECINT_LENGTH = 3
+export const PARTY_ROW = 0
 
 export const towns = [
   "Adjuntas",
