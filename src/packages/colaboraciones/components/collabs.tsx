@@ -7,6 +7,7 @@ import Microjuris from "../../../assets/images/microjuris.png"
 import Proyecto85 from "../../../assets/images/proyecto-85.jpg"
 import TuVotoNoSeDeja from "../../../assets/images/tu-voto-no-se-deja.jpg"
 import QuienMeRepresenta from "../../../assets/images/quien-me-representa.svg"
+import PTV from "../../../assets/images/ptv.png"
 
 export default function Collabs() {
   const COLLABS = [
@@ -38,6 +39,14 @@ export default function Collabs() {
       description: i18next.t("collabs.microjuris"),
       url: "https://aldia.microjuris.com/",
     },
+    {
+      id: "practica-tu-voto",
+      logo: PTV,
+      name: "Practica tu voto",
+      description: i18next.t("collabs.ptv"),
+      url:
+        "https://www.practicatuvoto.com/practicatuvoto/main.jsp?jsCheck=5868563",
+    },
   ]
 
   return (
@@ -57,9 +66,9 @@ export default function Collabs() {
         {COLLABS.map((collab, index) => {
           return (
             <Card key={`${collab.name}-${index}`} id={collab.id}>
-              <div className="relative h-24 w-24 rounded-full border-4 border-primary m-auto">
+              <div className="relative h-24 w-24 rounded-full border-4 border-primary m-auto flex items-center">
                 <img
-                  className="absolute h-full w-full object-fill rounded-full"
+                  className="absolute object-fill rounded-full"
                   src={collab.logo}
                   alt=""
                 />
