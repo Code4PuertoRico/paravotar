@@ -1,10 +1,12 @@
 import { Ballot, BallotType } from "../../../ballot-validator/types"
+import { VotesCoordinates } from "../../generate-ballot/types/ballot-machine"
 import {
   BallotConfigs,
   LegislativeBallotConfig,
   MunicipalBallotConfig,
   StateBallotConfig,
 } from "./ballot-configs"
+import { ElectiveField } from "./ballot-configs/base"
 import { FindByType } from "./ballot-finder-service"
 import { Vote } from "./vote-service"
 
@@ -62,4 +64,11 @@ export type PracticeContext = {
   transformedVotes?: TransformedVotes[]
   ballotType?: BallotType
   pdfUrl?: any
+}
+
+export type VoteEvent = {
+  candidate: ElectiveField
+  position: VotesCoordinates
+  ballotType: BallotType
+  ballot?: BallotConfigs
 }
