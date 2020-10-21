@@ -113,6 +113,25 @@ export function getStartAndEndPositionsForBallot(
   }
 }
 
+export function getColumnForParty(
+  ballot: BallotConfigs,
+  intendedVote: VoteEvent
+) {
+  const columnForParty = ballot.structure.reduce((accum, currentRow) => {
+    const colForParty = currentRow.filter((column, columnIndex) => {
+      if (columnIndex === intendedVote.position.column) {
+        return column
+      }
+
+      return false
+    })
+
+    return [...accum, ...colForParty]
+  }, [])
+
+  return columnForParty
+}
+
 const BallotService = {
   async fetchBallots(
     _: PracticeContext,

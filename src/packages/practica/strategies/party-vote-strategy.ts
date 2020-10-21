@@ -10,6 +10,7 @@ import {
 } from "../services/ballot-configs"
 import { ValidMarkLimits } from "../services/ballot-configs/constants"
 import {
+  getColumnForParty,
   getElectivePositionForVote,
   getStartAndEndPositionsForBallot,
 } from "../services/ballot-service"
@@ -19,17 +20,7 @@ export class PartyVoteStrategy implements VoteUpdateInterface {
   addVote(intendedVote: VoteEvent, prevVotes: Vote[]) {
     const ballot = intendedVote.ballot as BallotConfigs
     // Get the sections that have candidates.
-    const columnForParty = ballot.structure.reduce((accum, currentRow) => {
-      const columnForParty = currentRow.filter((column, columnIndex) => {
-        if (columnIndex === intendedVote.position.column) {
-          return column
-        }
-
-        return false
-      })
-
-      return [...accum, ...columnForParty]
-    }, [])
+    const columnForParty = getColumnForParty(ballot, intendedVote)
 
     const votes = [
       ...prevVotes,
