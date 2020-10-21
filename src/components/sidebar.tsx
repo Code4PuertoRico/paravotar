@@ -126,6 +126,11 @@ export const getSections = (pathname = "", t) => [
         route: "/colaboraciones#microjuris",
         isActive: pathname.includes("/colaboraciones#microjuris"),
       },
+      {
+        name: "Practica tu voto",
+        route: "/colaboraciones#practica-tu-voto",
+        isActive: pathname.includes("/colaboraciones#practica-tu-voto"),
+      },
     ],
   },
 ]
