@@ -48,7 +48,7 @@ function generateCandidates(
   })
 }
 
-type StateVotesCount = {
+export type StateVotesCount = {
   governor: string
   commissionerResident: string
 }
@@ -130,7 +130,7 @@ export class StateBallotConfig {
   }
 }
 
-type MunicipalVotesCount = {
+export type MunicipalVotesCount = {
   mayor: string
   municipalLegislators: string
 }
@@ -194,7 +194,7 @@ export class MunicipalBallotConfig {
   }
 }
 
-type LegislativeVotesCount = {
+export type LegislativeVotesCount = {
   districtRepresentative: string
   districtSenators: string
   atLargeRepresentative: string
