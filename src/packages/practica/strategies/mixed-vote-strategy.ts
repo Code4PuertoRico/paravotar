@@ -119,8 +119,6 @@ export class MixedVoteStrategy implements VoteUpdateInterface {
         ? (ballot as MunicipalBallotConfig).amountOfMunicipalLegislators
         : validMarkLimitsOnBallot[electivePosition]
 
-    console.log(explicitVotesForPosition, voteLimit)
-
     // Add an implicit vote when it's removed.
     if (explicitVotesForPosition.length < voteLimit) {
       // Get the sections that have candidates.
