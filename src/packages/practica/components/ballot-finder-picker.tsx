@@ -24,7 +24,7 @@ export default function BallotFinderPicker(props: BallotFinderPickerProps) {
         </div>
         <div className="w-full my-1">
           <Button className="block w-full" onClick={props.selectPrecint}>
-            Número de precinto
+            Número de precinto o pueblo
           </Button>
         </div>
       </div>
