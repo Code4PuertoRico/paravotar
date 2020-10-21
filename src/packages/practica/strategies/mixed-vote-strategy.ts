@@ -10,7 +10,7 @@ import {
   getColumnForParty,
   getElectivePositionForVote,
   getStartAndEndPositionsForBallot,
-} from "../services/ballot-service"
+} from "./utils"
 import { PARTY_ROW } from "../services/constants"
 import { VoteEvent } from "../services/types"
 import { Vote } from "../services/vote-service"

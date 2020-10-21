@@ -13,7 +13,7 @@ import {
   getColumnForParty,
   getElectivePositionForVote,
   getStartAndEndPositionsForBallot,
-} from "../services/ballot-service"
+} from "./utils"
 import { Candidate } from "../services/ballot-configs/base"
 
 export class PartyVoteStrategy implements VoteUpdateInterface {
