@@ -18,6 +18,9 @@ import coordinatesToSections from "../services/coordinates-to-sections"
 import {
   BallotConfigs,
   MunicipalBallotConfig,
+  StateVotesCount,
+  MunicipalVotesCount,
+  LegislativeVotesCount,
 } from "../services/ballot-configs"
 // import useBallotValidation from "../hooks/use-ballot-validation"
 import useVotesTransform from "../hooks/use-votes-transform"
@@ -245,40 +248,41 @@ export default function Practice() {
           {state.context.ballotType === BallotType.state ? (
             <>
               <Typography tag="p" variant="p" className="text-white">
-                {votesCount?.governor} candidato(a) a Gobernador(a)
+                {(votesCount as StateVotesCount).governor} candidato(a) a
+                Gobernador(a)
               </Typography>
               <Typography tag="p" variant="p" className="text-white">
-                {votesCount?.commissionerResident} candidato(a) a Comisionado(a)
-                Residente
+                {(votesCount as StateVotesCount)?.commissionerResident}{" "}
+                candidato(a) a Comisionado(a) Residente
               </Typography>
             </>
           ) : state.context.ballotType === BallotType.municipality ? (
             <>
               <Typography tag="p" variant="p" className="text-white">
-                {votesCount?.districtRepresentative} candidato(a) a
-                Representante por Distrito
+                {(votesCount as MunicipalVotesCount).mayor} a Alcalde(sa)
               </Typography>
               <Typography tag="p" variant="p" className="text-white">
-                {votesCount?.districtSenators} candidato(a) a Senador por
-                Distrito
+                {(votesCount as MunicipalVotesCount).municipalLegislators}{" "}
+                candidato(a) a Legisladores(as) municipales
               </Typography>
             </>
           ) : state.context.ballotType === BallotType.legislative ? (
             <>
               <Typography tag="p" variant="p" className="text-white">
-                {votesCount?.atLargeRepresentative} candidato(a) a Representante
-                por Acumulación
+                {(votesCount as LegislativeVotesCount).districtRepresentative}{" "}
+                candidato(a) a Representante por Distrito
               </Typography>
               <Typography tag="p" variant="p" className="text-white">
-                {votesCount?.atLargeSenator} candidato(a) a Senador por
-                Acumulación
+                {(votesCount as LegislativeVotesCount).districtSenators}{" "}
+                candidato(a) a Senador por Distrito
               </Typography>
               <Typography tag="p" variant="p" className="text-white">
-                {votesCount?.mayor} a Alcalde(sa)
+                {(votesCount as LegislativeVotesCount).atLargeRepresentative}{" "}
+                candidato(a) a Representante por Acumulación
               </Typography>
               <Typography tag="p" variant="p" className="text-white">
-                {votesCount?.municipalLegislators} candidato(a) a
-                Legisladores(as) municipales
+                {(votesCount as LegislativeVotesCount).atLargeSenator}{" "}
+                candidato(a) a Senador por Acumulación
               </Typography>
             </>
           ) : null}
