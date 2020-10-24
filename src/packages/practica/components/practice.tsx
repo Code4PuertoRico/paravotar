@@ -38,6 +38,7 @@ import { NoVoterIdFound } from "./NoVoterIdFound"
 import ResultsState from "./results-state"
 import ResultsMunicipal from "./results-municipal"
 import ResultsLegislative from "./results-legislative"
+import BallotSelector from "./ballot-selector"
 
 export default function Practice() {
   const [state, send] = useMachine(practiceMachine)
@@ -189,41 +190,23 @@ export default function Practice() {
             </div>
           </Case>
           <Case value="selectBallot">
-            <div className="mx-auto lg:w-1/2">
-              <Typography tag="p" variant="h4">
-                Escoge por cuál papeleta comenzar
-              </Typography>
-              <Button
-                className="w-full block mt-4 mb-2"
-                onClick={() =>
-                  selectBallot("SELECTED_GOVERNMENTAL", {
-                    ballotType: BallotType.state,
-                  })
-                }
-              >
-                Estatal
-              </Button>
-              <Button
-                className="w-full block my-2"
-                onClick={() =>
-                  selectBallot("SELECTED_LEGISLATIVE", {
-                    ballotType: BallotType.legislative,
-                  })
-                }
-              >
-                Legislativa
-              </Button>
-              <Button
-                className="w-full block my-2"
-                onClick={() =>
-                  selectBallot("SELECTED_MUNICIPAL", {
-                    ballotType: BallotType.municipality,
-                  })
-                }
-              >
-                Municipal
-              </Button>
-            </div>
+            <BallotSelector
+              selectState={() =>
+                selectBallot("SELECTED_GOVERNMENTAL", {
+                  ballotType: BallotType.state,
+                })
+              }
+              selectMunicipal={() =>
+                selectBallot("SELECTED_MUNICIPAL", {
+                  ballotType: BallotType.municipality,
+                })
+              }
+              selectLegislative={() =>
+                selectBallot("SELECTED_LEGISLATIVE", {
+                  ballotType: BallotType.legislative,
+                })
+              }
+            />
           </Case>
           <Case value="practicing">
             <Practicing state={state} send={send} handleSubmit={handleSubmit} />
