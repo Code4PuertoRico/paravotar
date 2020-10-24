@@ -33,7 +33,7 @@ export default function PoliticalParty(props: HeaderProps) {
           setHighlightedColumn(null)
         }}
       />
-      <p className="whitespace-pre-line text-white font-semibold">
+      <p className="whitespace-pre-line text-white font-semibold text-sm">
         {props.ocrResult}
       </p>
     </div>

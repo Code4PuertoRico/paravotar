@@ -22,7 +22,7 @@ export default function Candidate(props: CandidateProps) {
         {!props.accumulationNumber ? (
           <div className="h-5 w-4"></div>
         ) : (
-          <p className="h-5 w-4">{props.accumulationNumber}</p>
+          <p className="h-5 w-4 text-sm">{props.accumulationNumber}</p>
         )}
         <Checkbox
           type="candidate"
@@ -43,7 +43,9 @@ export default function Candidate(props: CandidateProps) {
         ) : (
           <div className="h-10 w-10"></div>
         )}
-        <p className="whitespace-pre-wrap ml-1 text-left">{props.name}</p>
+        <p className="whitespace-pre-wrap ml-1 text-left text-sm">
+          {props.name}
+        </p>
       </div>
     </div>
   )

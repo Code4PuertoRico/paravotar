@@ -15,7 +15,7 @@ type CheckboxProps = {
 
 export default function Checkbox(props: CheckboxProps) {
   const style = `${
-    props.type === "candidate" ? "h-8 w-12 ml-3 mr-1" : "h-12 w-16 mx-auto"
+    props.type === "candidate" ? "h-8 w-10 ml-3 mr-1" : "h-12 w-16 mx-auto"
   }`
 
   return (
