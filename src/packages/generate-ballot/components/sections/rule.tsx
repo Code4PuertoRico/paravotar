@@ -19,13 +19,13 @@ export default function Rule({ ocrResult }: HeaderProps) {
 
     return (
       <div className="p-2 text-center border border-white">
-        <p className="whitespace-pre-line text-white font-semibold">
+        <p className="whitespace-pre-line text-white font-semibold text-sm">
           {esHeader}
         </p>
         <p className="whitespace-pre-line text-white text-sm mt-1">
           {esParagraph}
         </p>
-        <p className="whitespace-pre-line text-white font-semibold mt-2">
+        <p className="whitespace-pre-line text-white font-semibold mt-2 text-sm">
           {enHeader}
         </p>
         <p className="whitespace-pre-line text-white text-sm mt-1">

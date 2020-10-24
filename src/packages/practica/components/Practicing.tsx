@@ -30,7 +30,7 @@ export const Practicing: React.FunctionComponent<PracticingProps> = ({
       {state.context.ballotType === BallotType.state &&
         state.context.ballots.estatal && (
           <>
-            <div className="overflow-scroll">
+            <div>
               <ColumnHighlightProvider>
                 <Typography
                   tag="p"
@@ -40,19 +40,21 @@ export const Practicing: React.FunctionComponent<PracticingProps> = ({
                   *Para ver otros partidos realiza un scroll hacia tu derecha y
                   para ver más candidatos realiza scroll hacia abajo.
                 </Typography>
-                <Ballot
-                  type={BallotType.state}
-                  structure={state.context.ballots.estatal.structure}
-                  votes={state.context.votes}
-                  toggleVote={(candidate, position) => {
-                    send("SELECTED_ELECTIVE_FIELD", {
-                      candidate,
-                      position,
-                      ballotType: BallotType.state,
-                    })
-                    setIsPristine(false)
-                  }}
-                />
+                <div className="overflow-scroll -mx-6">
+                  <Ballot
+                    type={BallotType.state}
+                    structure={state.context.ballots.estatal.structure}
+                    votes={state.context.votes}
+                    toggleVote={(candidate, position) => {
+                      send("SELECTED_ELECTIVE_FIELD", {
+                        candidate,
+                        position,
+                        ballotType: BallotType.state,
+                      })
+                      setIsPristine(false)
+                    }}
+                  />
+                </div>
               </ColumnHighlightProvider>
             </div>
             <div className="mt-6 w-full lg:w-1/3 lg:mx-auto">
@@ -74,7 +76,7 @@ export const Practicing: React.FunctionComponent<PracticingProps> = ({
       {state.context.ballotType === BallotType.legislative &&
         state.context.ballots.legislativa && (
           <>
-            <div className="overflow-scroll">
+            <div>
               <ColumnHighlightProvider>
                 <Typography
                   tag="p"
@@ -84,19 +86,21 @@ export const Practicing: React.FunctionComponent<PracticingProps> = ({
                   *Para ver otros partidos realiza un scroll hacia tu derecha y
                   para ver más candidatos realiza scroll hacia abajo.
                 </Typography>
-                <Ballot
-                  type={BallotType.legislative}
-                  structure={state.context.ballots.legislativa.structure}
-                  votes={state.context.votes}
-                  toggleVote={(candidate, position) => {
-                    send("SELECTED_ELECTIVE_FIELD", {
-                      candidate,
-                      position,
-                      ballotType: BallotType.legislative,
-                    })
-                    setIsPristine(false)
-                  }}
-                />
+                <div className="overflow-scroll -mx-6">
+                  <Ballot
+                    type={BallotType.legislative}
+                    structure={state.context.ballots.legislativa.structure}
+                    votes={state.context.votes}
+                    toggleVote={(candidate, position) => {
+                      send("SELECTED_ELECTIVE_FIELD", {
+                        candidate,
+                        position,
+                        ballotType: BallotType.legislative,
+                      })
+                      setIsPristine(false)
+                    }}
+                  />
+                </div>
               </ColumnHighlightProvider>
             </div>
             <div className="mt-6 w-full lg:w-1/3 lg:mx-auto">
@@ -118,7 +122,7 @@ export const Practicing: React.FunctionComponent<PracticingProps> = ({
       {state.context.ballotType === BallotType.municipality &&
         state.context.ballots.municipal && (
           <>
-            <div className="overflow-scroll">
+            <div>
               <ColumnHighlightProvider>
                 <Typography
                   tag="p"
@@ -128,19 +132,21 @@ export const Practicing: React.FunctionComponent<PracticingProps> = ({
                   *Para ver otros partidos realiza un scroll hacia tu derecha y
                   para ver más candidatos realiza scroll hacia abajo.
                 </Typography>
-                <Ballot
-                  type={BallotType.municipality}
-                  structure={state.context.ballots.municipal.structure}
-                  votes={state.context.votes}
-                  toggleVote={(candidate, position) => {
-                    send("SELECTED_ELECTIVE_FIELD", {
-                      candidate,
-                      position,
-                      ballotType: BallotType.municipality,
-                    })
-                    setIsPristine(false)
-                  }}
-                />
+                <div className="overflow-scroll -mx-6">
+                  <Ballot
+                    type={BallotType.municipality}
+                    structure={state.context.ballots.municipal.structure}
+                    votes={state.context.votes}
+                    toggleVote={(candidate, position) => {
+                      send("SELECTED_ELECTIVE_FIELD", {
+                        candidate,
+                        position,
+                        ballotType: BallotType.municipality,
+                      })
+                      setIsPristine(false)
+                    }}
+                  />
+                </div>
               </ColumnHighlightProvider>
             </div>
             <div className="mt-6 w-full lg:w-1/3 lg:mx-auto">

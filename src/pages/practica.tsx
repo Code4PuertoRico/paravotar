@@ -20,19 +20,19 @@ const Practica = ({ location }: PageProps) => {
       <Layout location={location}>
         <SEO title="Practica tu voto" />
         <Container
-          className="w-11/12 pt-16 mb-16 text-center lg:pt-5"
+          className="practice-container pt-16 mb-16 text-center lg:pt-5"
           id="haz-que-tu-voto-cuente"
         >
           <MakeYourVoteCount />
         </Container>
         <Container
-          className="w-11/12 pt-16 mb-16 text-center lg:pt-5"
+          className="practice-container pt-16 mb-16 text-center lg:pt-5"
           id="como-votar"
         >
           <HowToVote />
         </Container>
         <Container
-          className="w-11/12 pt-16 mb-16 text-center lg:pt-5"
+          className="practice-container pt-16 mb-16 text-center lg:pt-5"
           id="practica-tu-voto"
         >
           <Practice />

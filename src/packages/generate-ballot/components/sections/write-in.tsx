@@ -21,7 +21,7 @@ export default function WriteIn(props: WriteInProps) {
         {!props.accumulationNumber ? (
           <div className="h-5 w-4"></div>
         ) : (
-          <p className="h-5 w-4">{props.accumulationNumber}</p>
+          <p className="h-5 w-4 text-sm">{props.accumulationNumber}</p>
         )}
         <Checkbox
           type="candidate"

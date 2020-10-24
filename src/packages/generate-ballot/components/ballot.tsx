@@ -43,7 +43,7 @@ export default function BaseBallot(props: BallotProps) {
   const isLegislativeBallot = props.type === BallotType.legislative
 
   return (
-    <div className="bg-black" style={{ width: 2200 }}>
+    <div className="bg-black" style={{ width: 2000 }}>
       {props.structure.map(
         (row: CandidatesRow | PartyRow | Header[], rowIndex: number) => {
           return (
