@@ -25,6 +25,7 @@ export const practiceMachine = createMachine<PracticeContext>(
         on: {
           SELECTED_VOTER_ID: "enterVoterId",
           SELECTED_PRECINT: "enterPrecint",
+          BACK: "mainScreen",
         },
       },
       enterVoterId: {

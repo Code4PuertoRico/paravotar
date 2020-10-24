@@ -9,7 +9,7 @@ type BallotFinderPickerProps = {
 
 export default function BallotFinderPicker(props: BallotFinderPickerProps) {
   return (
-    <div className="mx-auto lg:w-3/4">
+    <div className="mx-auto mt-8 lg:w-3/4">
       <Typography tag="p" variant="h3" className="uppercase">
         Busquemos tus papeletas
       </Typography>
