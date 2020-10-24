@@ -35,7 +35,9 @@ import { Results } from "./Results"
 import BallotStatus from "./ballot-status"
 import { Practicing } from "./Practicing"
 import { NoVoterIdFound } from "./NoVoterIdFound"
-import { WriteInCandidate } from "../services/ballot-configs/base"
+import ResultsState from "./results-state"
+import ResultsMunicipal from "./results-municipal"
+import ResultsLegislative from "./results-legislative"
 
 export default function Practice() {
   const [state, send] = useMachine(practiceMachine)
@@ -246,45 +248,13 @@ export default function Practice() {
       {votesCount && state.matches("practicing") && (
         <BallotStatus status={null}>
           {state.context.ballotType === BallotType.state ? (
-            <>
-              <Typography tag="p" variant="p" className="text-white">
-                {(votesCount as StateVotesCount).governor} candidato(a) a
-                Gobernador(a)
-              </Typography>
-              <Typography tag="p" variant="p" className="text-white">
-                {(votesCount as StateVotesCount)?.commissionerResident}{" "}
-                candidato(a) a Comisionado(a) Residente
-              </Typography>
-            </>
+            <ResultsState votesCount={votesCount as StateVotesCount} />
           ) : state.context.ballotType === BallotType.municipality ? (
-            <>
-              <Typography tag="p" variant="p" className="text-white">
-                {(votesCount as MunicipalVotesCount).mayor} a Alcalde(sa)
-              </Typography>
-              <Typography tag="p" variant="p" className="text-white">
-                {(votesCount as MunicipalVotesCount).municipalLegislators}{" "}
-                candidato(a) a Legisladores(as) municipales
-              </Typography>
-            </>
+            <ResultsMunicipal votesCount={votesCount as MunicipalVotesCount} />
           ) : state.context.ballotType === BallotType.legislative ? (
-            <>
-              <Typography tag="p" variant="p" className="text-white">
-                {(votesCount as LegislativeVotesCount).districtRepresentative}{" "}
-                candidato(a) a Representante por Distrito
-              </Typography>
-              <Typography tag="p" variant="p" className="text-white">
-                {(votesCount as LegislativeVotesCount).districtSenators}{" "}
-                candidato(a) a Senador por Distrito
-              </Typography>
-              <Typography tag="p" variant="p" className="text-white">
-                {(votesCount as LegislativeVotesCount).atLargeRepresentative}{" "}
-                candidato(a) a Representante por Acumulación
-              </Typography>
-              <Typography tag="p" variant="p" className="text-white">
-                {(votesCount as LegislativeVotesCount).atLargeSenator}{" "}
-                candidato(a) a Senador por Acumulación
-              </Typography>
-            </>
+            <ResultsLegislative
+              votesCount={votesCount as LegislativeVotesCount}
+            />
           ) : null}
         </BallotStatus>
       )}
