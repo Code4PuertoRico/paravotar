@@ -35,7 +35,7 @@ import { Results } from "./Results"
 import BallotStatus from "./ballot-status"
 import { Practicing } from "./Practicing"
 import { NoVoterIdFound } from "./NoVoterIdFound"
-import { WriteInCandidate } from "../services/ballot-configs/base"
+import Steps from "./steps"
 
 export default function Practice() {
   const [state, send] = useMachine(practiceMachine)
@@ -138,6 +138,9 @@ export default function Practice() {
           </div>
         )}
         <Switch state={state}>
+          <Case value="mainScreen">
+            <Steps onStart={() => send("START_PRACTICE")} />
+          </Case>
           <Case value="ballotFinderPicker">
             <BallotFinderPicker
               selectVoterId={() => send("SELECTED_VOTER_ID")}

@@ -8,7 +8,7 @@ import { FindByEventParams, PracticeContext } from "../services/types"
 export const practiceMachine = createMachine<PracticeContext>(
   {
     id: "practiceMachine",
-    initial: "ballotFinderPicker",
+    initial: "mainScreen",
     context: {
       userInput: null,
       findBy: null,
@@ -16,6 +16,11 @@ export const practiceMachine = createMachine<PracticeContext>(
       votes: [],
     },
     states: {
+      mainScreen: {
+        on: {
+          START_PRACTICE: "ballotFinderPicker",
+        },
+      },
       ballotFinderPicker: {
         on: {
           SELECTED_VOTER_ID: "enterVoterId",
