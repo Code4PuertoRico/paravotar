@@ -111,6 +111,8 @@ export default function Practice() {
     send(selectedBallot, eventData)
   }
 
+  const ballotType = state.context.ballotType || null
+
   return (
     <div className="relative">
       <Typography tag="h2" variant="h3" className="uppercase">
@@ -247,11 +249,11 @@ export default function Practice() {
       />
       {votesCount && state.matches("practicing") && (
         <BallotStatus status={null}>
-          {state.context.ballotType === BallotType.state ? (
+          {ballotType === BallotType.state ? (
             <ResultsState votesCount={votesCount as StateVotesCount} />
-          ) : state.context.ballotType === BallotType.municipality ? (
+          ) : ballotType === BallotType.municipality ? (
             <ResultsMunicipal votesCount={votesCount as MunicipalVotesCount} />
-          ) : state.context.ballotType === BallotType.legislative ? (
+          ) : ballotType === BallotType.legislative ? (
             <ResultsLegislative
               votesCount={votesCount as LegislativeVotesCount}
             />
