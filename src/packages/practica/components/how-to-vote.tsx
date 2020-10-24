@@ -198,7 +198,7 @@ function VoteType({
       <Typography className="mt-4 text-left" tag="p" variant="p">
         {description}
       </Typography>
-      <div className="mt-6 overflow-x-auto relative">
+      <div className="mt-6 overflow-x-auto relative -mx-6">
         <img
           className="max-w-xl md:max-w-none md:w-full"
           src={example}
