@@ -60,8 +60,14 @@ export default function PrecintNumberForm(props: PrecintNumberFormProps) {
       <Typography tag="p" variant="h4">
         Busquemos tus papeletas
       </Typography>
-      <Typography tag="p" variant="p">
-        Escoja su pueblo y número de precinto
+      <Typography tag="p" variant="p" className="mt-4">
+        Si su pueblo tiene más de un precinto y usted no conoce a cuál precinto
+        pertenece puede ir a{" "}
+        <Link to="https://consulta.ceepur.org/" target="_blank">
+          Consulta CEE
+        </Link>
+        , entrar su número electoral, presionar el botón de Buscar y usar el
+        número que aparece en el encasillado de Precinto.
       </Typography>
       <form
         className="mt-4"
@@ -76,6 +82,9 @@ export default function PrecintNumberForm(props: PrecintNumberFormProps) {
           })
         }}
       >
+        <label htmlFor="voter-id" className="font-bold text-left mb-2 block">
+          Pueblo y número de precinto
+        </label>
         <Dropdown
           placeholder="Pueblo"
           id="dropdown"
@@ -84,17 +93,10 @@ export default function PrecintNumberForm(props: PrecintNumberFormProps) {
           selectedOption={selectedTown}
           setSelected={(t: string) => setSelectedTown(t)}
           style={style}
+          className="mt-2"
         />
         <Button className="mt-4 block w-full">Continuar</Button>
       </form>
-      <Typography tag="p" variant="p" className="text-xs italic mt-2">
-        Para encontrar su número de precinto debe ir a{" "}
-        <Link to="https://consulta.ceepur.org/" target="_blank">
-          Consulta CEE
-        </Link>
-        , entrar su número electoral, presionar el botón de Buscar y usar el
-        número que aparece en el encasillado de Precinto.
-      </Typography>
     </div>
   )
 }
