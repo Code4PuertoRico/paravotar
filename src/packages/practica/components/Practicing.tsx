@@ -70,7 +70,7 @@ export const Practicing: React.FunctionComponent<PracticingProps> = ({
                     variant="inverse"
                     onClick={() => setIsShowingTour(true)}
                   >
-                    Conocer limite de votos por puestos electivos
+                    Ver límite de votos por puestos electivos
                   </Button>
                 </div>
                 <BallotContainer
@@ -125,7 +125,7 @@ export const Practicing: React.FunctionComponent<PracticingProps> = ({
                     variant="inverse"
                     onClick={() => setIsShowingTour(true)}
                   >
-                    Conocer limite de votos por puestos electivos
+                    Ver límite de votos por puestos electivos
                   </Button>
                 </div>
                 <BallotContainer
@@ -180,7 +180,7 @@ export const Practicing: React.FunctionComponent<PracticingProps> = ({
                     variant="inverse"
                     onClick={() => setIsShowingTour(true)}
                   >
-                    Conocer limite de votos por puestos electivos
+                    Ver límite de votos por puestos electivos
                   </Button>
                 </div>
                 <BallotContainer
