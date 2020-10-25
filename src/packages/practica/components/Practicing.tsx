@@ -24,7 +24,7 @@ export const Practicing: React.FunctionComponent<PracticingProps> = ({
   useEffect(() => {
     setTimeout(() => {
       setIsShowingTour(true)
-    }, 1500)
+    }, 1000)
   }, [])
 
   const onCloseTour = () => {
@@ -54,6 +54,25 @@ export const Practicing: React.FunctionComponent<PracticingProps> = ({
                   *Para ver otros partidos realiza un scroll hacia tu derecha y
                   para ver más candidatos realiza scroll hacia abajo.
                 </Typography>
+                <div className="grid grid-cols-1 gap-2 mx-auto lg:grid-cols-2 lg:w-3/4">
+                  <Button
+                    onClick={() => {
+                      handleSubmit(
+                        state.context.votes,
+                        BallotType.state,
+                        state.context.ballots.estatal
+                      )
+                    }}
+                  >
+                    Continuar
+                  </Button>
+                  <Button
+                    variant="inverse"
+                    onClick={() => setIsShowingTour(true)}
+                  >
+                    Conocer limite de votos por puestos electivos
+                  </Button>
+                </div>
                 <BallotContainer
                   tour={Tours.state}
                   isTourOpen={isShowingTour}
@@ -75,20 +94,6 @@ export const Practicing: React.FunctionComponent<PracticingProps> = ({
                 </BallotContainer>
               </ColumnHighlightProvider>
             </div>
-            <div className="mt-6 w-full lg:w-1/3 lg:mx-auto">
-              <Button
-                className="w-full"
-                onClick={() => {
-                  handleSubmit(
-                    state.context.votes,
-                    BallotType.state,
-                    state.context.ballots.estatal
-                  )
-                }}
-              >
-                Validar
-              </Button>
-            </div>
           </>
         )}
       {state.context.ballotType === BallotType.legislative &&
@@ -104,6 +109,25 @@ export const Practicing: React.FunctionComponent<PracticingProps> = ({
                   *Para ver otros partidos realiza un scroll hacia tu derecha y
                   para ver más candidatos realiza scroll hacia abajo.
                 </Typography>
+                <div className="grid grid-cols-1 gap-2 mx-auto lg:grid-cols-2 lg:w-3/4">
+                  <Button
+                    onClick={() => {
+                      handleSubmit(
+                        state.context.votes,
+                        BallotType.state,
+                        state.context.ballots.estatal
+                      )
+                    }}
+                  >
+                    Continuar
+                  </Button>
+                  <Button
+                    variant="inverse"
+                    onClick={() => setIsShowingTour(true)}
+                  >
+                    Conocer limite de votos por puestos electivos
+                  </Button>
+                </div>
                 <BallotContainer
                   tour={Tours.legislative}
                   isTourOpen={isShowingTour}
@@ -125,20 +149,6 @@ export const Practicing: React.FunctionComponent<PracticingProps> = ({
                 </BallotContainer>
               </ColumnHighlightProvider>
             </div>
-            <div className="mt-6 w-full lg:w-1/3 lg:mx-auto">
-              <Button
-                className="w-full"
-                onClick={() => {
-                  handleSubmit(
-                    state.context.votes,
-                    BallotType.legislative,
-                    state.context.ballots.legislativa
-                  )
-                }}
-              >
-                Validar
-              </Button>
-            </div>
           </>
         )}
       {state.context.ballotType === BallotType.municipality &&
@@ -154,8 +164,27 @@ export const Practicing: React.FunctionComponent<PracticingProps> = ({
                   *Para ver otros partidos realiza un scroll hacia tu derecha y
                   para ver más candidatos realiza scroll hacia abajo.
                 </Typography>
+                <div className="grid grid-cols-1 gap-2 mx-auto lg:grid-cols-2 lg:w-3/4">
+                  <Button
+                    onClick={() => {
+                      handleSubmit(
+                        state.context.votes,
+                        BallotType.state,
+                        state.context.ballots.estatal
+                      )
+                    }}
+                  >
+                    Continuar
+                  </Button>
+                  <Button
+                    variant="inverse"
+                    onClick={() => setIsShowingTour(true)}
+                  >
+                    Conocer limite de votos por puestos electivos
+                  </Button>
+                </div>
                 <BallotContainer
-                  tour={Tours.legislative}
+                  tour={Tours.municipal}
                   isTourOpen={isShowingTour}
                   onTourClose={onCloseTour}
                 >
@@ -174,20 +203,6 @@ export const Practicing: React.FunctionComponent<PracticingProps> = ({
                   />
                 </BallotContainer>
               </ColumnHighlightProvider>
-            </div>
-            <div className="mt-6 w-full lg:w-1/3 lg:mx-auto">
-              <Button
-                className="w-full"
-                onClick={() => {
-                  handleSubmit(
-                    state.context.votes,
-                    BallotType.municipality,
-                    state.context.ballots.municipal
-                  )
-                }}
-              >
-                Validar
-              </Button>
             </div>
           </>
         )}

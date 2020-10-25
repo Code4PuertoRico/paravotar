@@ -70,7 +70,7 @@ export default function BallotContainer(props: BallotContainerProps) {
   }
 
   return (
-    <div id="ballot-container" className="overflow-scroll -mx-6">
+    <div id="ballot-container" className="overflow-scroll -mx-6 mt-6">
       {props.children}
 
       <Tour
