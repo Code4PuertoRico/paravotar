@@ -41,11 +41,13 @@ export class WriteInRules extends BallotSection {
 
 export class Header extends BallotSection {
   info
+  slug
 
-  constructor(info: string) {
+  constructor(info: string, slug: string) {
     super()
 
     this.info = info
+    this.slug = slug
   }
 }
 
