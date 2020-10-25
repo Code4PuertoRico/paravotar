@@ -41,12 +41,13 @@ export default function BaseBallot(props: BallotProps) {
       : "bg-ballots-legislative"
   const { highlightedColumn } = useColumnHighlight()
   const isLegislativeBallot = props.type === BallotType.legislative
+  const ballotWidth =
+    props.structure && props.structure[0] && props.structure[0].length
+      ? props.structure[0].length * 325
+      : 2000
 
   return (
-    <div
-      className="bg-black"
-      style={{ width: props.structure[0].length * 325 }}
-    >
+    <div className="bg-black" style={{ width: ballotWidth }}>
       {props.structure.map(
         (row: CandidatesRow | PartyRow | Header[], rowIndex: number) => {
           return (

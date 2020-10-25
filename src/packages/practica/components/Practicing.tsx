@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 
 import { ColumnHighlightProvider } from "../../../context/column-highlight-context"
 import { Button, Typography } from "../../../components/index"
@@ -20,12 +20,6 @@ export const Practicing: React.FunctionComponent<PracticingProps> = ({
   handleSubmit,
 }) => {
   const [isShowingTour, setIsShowingTour] = useState<boolean>(false)
-
-  useEffect(() => {
-    setTimeout(() => {
-      setIsShowingTour(true)
-    }, 1000)
-  }, [])
 
   const onCloseTour = () => {
     setIsShowingTour(false)
