@@ -70,6 +70,10 @@ button:focus {
   width: 96%;
 }
 
+.ballot-summary {
+  height: calc(100vh - 64px);
+}
+
 .practice-step {
   counter-increment: counter;
 }
@@ -216,6 +220,10 @@ button:focus {
 
   .wrapper-without-sidebar {
     grid-template-columns: "auto";
+  }
+
+  .ballot-summary {
+    height: calc(100vh - 40px);
   }
 }
 

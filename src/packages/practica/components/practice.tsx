@@ -6,7 +6,7 @@ import { ToastContainer, toast } from "react-toastify"
 import i18next from "i18next"
 
 import { toFriendlyErrorMessages } from "../../../ballot-validator/helpers/messages"
-import { Button, Card, Spinner, Typography } from "../../../components/index"
+import { Card, Spinner, Typography } from "../../../components/index"
 import { useSidebar } from "../../../context/sidebar-context"
 import BallotValidator from "../../../ballot-validator/index"
 import { BallotType } from "../../../ballot-validator/types"
@@ -35,11 +35,16 @@ import { Results } from "./Results"
 import BallotStatus from "./ballot-status"
 import { Practicing } from "./Practicing"
 import { NoVoterIdFound } from "./NoVoterIdFound"
+import ResultsState from "./results-state"
+import ResultsMunicipal from "./results-municipal"
+import ResultsLegislative from "./results-legislative"
+import BallotSelector from "./ballot-selector"
 import Steps from "./steps"
 
 export default function Practice() {
   const [state, send] = useMachine(practiceMachine)
-  const transformedVotes = useVotesTransform(state.context.votes, state)
+  const votes = state.context.votes
+  const transformedVotes = useVotesTransform(votes, state)
   // const { ballotStatus, setBallotStatus } = useBallotValidation(
   //   transformedVotes
   // )
@@ -108,6 +113,8 @@ export default function Practice() {
 
     send(selectedBallot, eventData)
   }
+
+  const ballotType = state.context.ballotType || null
 
   return (
     <div className="relative">
@@ -188,41 +195,23 @@ export default function Practice() {
             </div>
           </Case>
           <Case value="selectBallot">
-            <div className="mx-auto lg:w-1/2">
-              <Typography tag="p" variant="h4">
-                Escoge por cuál papeleta comenzar
-              </Typography>
-              <Button
-                className="w-full block mt-4 mb-2"
-                onClick={() =>
-                  selectBallot("SELECTED_GOVERNMENTAL", {
-                    ballotType: BallotType.state,
-                  })
-                }
-              >
-                Estatal
-              </Button>
-              <Button
-                className="w-full block my-2"
-                onClick={() =>
-                  selectBallot("SELECTED_LEGISLATIVE", {
-                    ballotType: BallotType.legislative,
-                  })
-                }
-              >
-                Legislativa
-              </Button>
-              <Button
-                className="w-full block my-2"
-                onClick={() =>
-                  selectBallot("SELECTED_MUNICIPAL", {
-                    ballotType: BallotType.municipality,
-                  })
-                }
-              >
-                Municipal
-              </Button>
-            </div>
+            <BallotSelector
+              selectState={() =>
+                selectBallot("SELECTED_GOVERNMENTAL", {
+                  ballotType: BallotType.state,
+                })
+              }
+              selectMunicipal={() =>
+                selectBallot("SELECTED_MUNICIPAL", {
+                  ballotType: BallotType.municipality,
+                })
+              }
+              selectLegislative={() =>
+                selectBallot("SELECTED_LEGISLATIVE", {
+                  ballotType: BallotType.legislative,
+                })
+              }
+            />
           </Case>
           <Case value="practicing">
             <Practicing state={state} send={send} handleSubmit={handleSubmit} />
@@ -248,46 +237,21 @@ export default function Practice() {
       />
       {votesCount && state.matches("practicing") && (
         <BallotStatus status={null}>
-          {state.context.ballotType === BallotType.state ? (
-            <>
-              <Typography tag="p" variant="p" className="text-white">
-                {(votesCount as StateVotesCount).governor} candidato(a) a
-                Gobernador(a)
-              </Typography>
-              <Typography tag="p" variant="p" className="text-white">
-                {(votesCount as StateVotesCount)?.commissionerResident}{" "}
-                candidato(a) a Comisionado(a) Residente
-              </Typography>
-            </>
-          ) : state.context.ballotType === BallotType.municipality ? (
-            <>
-              <Typography tag="p" variant="p" className="text-white">
-                {(votesCount as MunicipalVotesCount).mayor} a Alcalde(sa)
-              </Typography>
-              <Typography tag="p" variant="p" className="text-white">
-                {(votesCount as MunicipalVotesCount).municipalLegislators}{" "}
-                candidato(a) a Legisladores(as) municipales
-              </Typography>
-            </>
-          ) : state.context.ballotType === BallotType.legislative ? (
-            <>
-              <Typography tag="p" variant="p" className="text-white">
-                {(votesCount as LegislativeVotesCount).districtRepresentative}{" "}
-                candidato(a) a Representante por Distrito
-              </Typography>
-              <Typography tag="p" variant="p" className="text-white">
-                {(votesCount as LegislativeVotesCount).districtSenators}{" "}
-                candidato(a) a Senador por Distrito
-              </Typography>
-              <Typography tag="p" variant="p" className="text-white">
-                {(votesCount as LegislativeVotesCount).atLargeRepresentative}{" "}
-                candidato(a) a Representante por Acumulación
-              </Typography>
-              <Typography tag="p" variant="p" className="text-white">
-                {(votesCount as LegislativeVotesCount).atLargeSenator}{" "}
-                candidato(a) a Senador por Acumulación
-              </Typography>
-            </>
+          {ballotType === BallotType.state ? (
+            <ResultsState
+              votesCount={votesCount as StateVotesCount}
+              votes={votes}
+            />
+          ) : ballotType === BallotType.municipality ? (
+            <ResultsMunicipal
+              votesCount={votesCount as MunicipalVotesCount}
+              votes={votes}
+            />
+          ) : ballotType === BallotType.legislative ? (
+            <ResultsLegislative
+              votesCount={votesCount as LegislativeVotesCount}
+              votes={votes}
+            />
           ) : null}
         </BallotStatus>
       )}
