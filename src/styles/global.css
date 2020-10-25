@@ -74,6 +74,19 @@ button:focus {
   height: calc(100vh - 64px);
 }
 
+.practice-step {
+  counter-increment: counter;
+}
+
+.practice-step::before {
+  @apply text-4xl font-bold text-white-hover;
+  content: counter(counter)".";
+  display: block;
+  position: absolute;
+  left: -32px;
+  top: 0;
+}
+
 @keyframes Spin {
   from {
     transform: rotate(0deg);
