@@ -70,6 +70,10 @@ button:focus {
   width: 96%;
 }
 
+.ballot-summary {
+  height: calc(100vh - 64px);
+}
+
 @keyframes Spin {
   from {
     transform: rotate(0deg);
@@ -203,6 +207,10 @@ button:focus {
 
   .wrapper-without-sidebar {
     grid-template-columns: "auto";
+  }
+
+  .ballot-summary {
+    height: calc(100vh - 40px);
   }
 }
 

@@ -49,7 +49,7 @@ export default function ResultsLegislative(props: LegislativeResultProps) {
   }, [])
 
   return (
-    <div className="w-11/12 mx-auto lg:w-4/4">
+    <div className="mx-auto lg:w-3/4">
       <Typography tag="p" variant="h3" className="mb-2 text-white font-bold">
         En esta papeleta usted ha votado por:
       </Typography>

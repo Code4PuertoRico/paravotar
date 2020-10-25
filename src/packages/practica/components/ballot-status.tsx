@@ -13,12 +13,9 @@ export default function BallotStatus({ children, status }: BallotStatusType) {
 
   if (showFullscreen) {
     return (
-      <div className="fixed bottom-0 left-0 bg-primary w-full h-screen pt-16">
+      <div className="fixed bottom-0 left-0 bg-primary w-full h-screen pt-16 lg:pt-10">
         <div className="flex flex-col">
-          <div
-            className="mx-auto py-4 overflow-y-auto"
-            style={{ height: "calc(100vh - 64px)" }}
-          >
+          <div className="w-11/12  mx-auto py-4 overflow-y-auto ballot-summary">
             {children}
             <button
               className="flex items-center text-white mt-12 px-4 py-2 border border-white rounded mx-auto"

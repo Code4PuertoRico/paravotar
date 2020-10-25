@@ -45,7 +45,21 @@ function CandidatesSummarySection(props: {
 }
 
 function CandidatesSummary(props: { children: ReactNode }) {
-  return <div className="grid lg:grid-cols-3 gap-2">{props.children}</div>
+  const nodes = props.children.length
+
+  if (nodes > 0) {
+    return <div className="grid lg:grid-cols-3 gap-2">{props.children}</div>
+  }
+
+  return (
+    <div className="grid lg:grid-cols-3 gap-2">
+      <div className="flex items-center px-4 py-2 shadow-md bg-white rounded col-span-3">
+        <Typography tag="p" variant="p" className="text-center">
+          No haz seleccionado un candidato.
+        </Typography>
+      </div>
+    </div>
+  )
 }
 
 CandidatesSummary.Section = CandidatesSummarySection
