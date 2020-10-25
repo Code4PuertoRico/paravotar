@@ -6,7 +6,7 @@ import { ToastContainer, toast } from "react-toastify"
 import i18next from "i18next"
 
 import { toFriendlyErrorMessages } from "../../../ballot-validator/helpers/messages"
-import { Button, Card, Spinner, Typography } from "../../../components/index"
+import { Card, Spinner, Typography } from "../../../components/index"
 import { useSidebar } from "../../../context/sidebar-context"
 import BallotValidator from "../../../ballot-validator/index"
 import { BallotType } from "../../../ballot-validator/types"
@@ -42,7 +42,8 @@ import BallotSelector from "./ballot-selector"
 
 export default function Practice() {
   const [state, send] = useMachine(practiceMachine)
-  const transformedVotes = useVotesTransform(state.context.votes, state)
+  const votes = state.context.votes
+  const transformedVotes = useVotesTransform(votes, state)
   // const { ballotStatus, setBallotStatus } = useBallotValidation(
   //   transformedVotes
   // )
@@ -233,12 +234,19 @@ export default function Practice() {
       {votesCount && state.matches("practicing") && (
         <BallotStatus status={null}>
           {ballotType === BallotType.state ? (
-            <ResultsState votesCount={votesCount as StateVotesCount} />
+            <ResultsState
+              votesCount={votesCount as StateVotesCount}
+              votes={votes}
+            />
           ) : ballotType === BallotType.municipality ? (
-            <ResultsMunicipal votesCount={votesCount as MunicipalVotesCount} />
+            <ResultsMunicipal
+              votesCount={votesCount as MunicipalVotesCount}
+              votes={votes}
+            />
           ) : ballotType === BallotType.legislative ? (
             <ResultsLegislative
               votesCount={votesCount as LegislativeVotesCount}
+              votes={votes}
             />
           ) : null}
         </BallotStatus>

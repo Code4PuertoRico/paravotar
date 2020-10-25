@@ -1,10 +1,7 @@
 import React, { ReactNode, useState } from "react"
 
 import { ResultStatus } from "../../../ballot-validator/types"
-import { Typography } from "../../../components"
 import Arrows from "../../../components/arrows"
-import Success from "../../../assets/images/success.svg"
-import ErrorIcon from "../../../assets/images/error.svg"
 
 type BallotStatusType = {
   children: ReactNode
@@ -16,11 +13,25 @@ export default function BallotStatus({ children, status }: BallotStatusType) {
 
   if (showFullscreen) {
     return (
-      <div className="flex flex-col justify-center items-center fixed bottom-0 left-0 bg-primary w-full h-screen">
-        <Typography tag="p" variant="h4" className="mb-2 text-white font-bold">
-          Para esta papeleta usted puede votar por:
-        </Typography>
-        {children}
+      <div className="fixed bottom-0 left-0 bg-primary w-full h-screen pt-16">
+        <div className="flex flex-col">
+          <div
+            className="mx-auto py-4 overflow-y-auto"
+            style={{ height: "calc(100vh - 64px)" }}
+          >
+            {children}
+            <button
+              className="flex items-center text-white mt-12 px-4 py-2 border border-white rounded mx-auto"
+              onClick={() => setShowFullscreen(false)}
+            >
+              Ocultar
+              <Arrows
+                className="ml-4 text-white"
+                style={{ transform: "rotate(0deg)" }}
+              />
+            </button>
+          </div>
+        </div>
         {/* <div>
           <Typography tag="p" variant="h4" className="text-white mt-6">
             Estado de su papeleta:
@@ -55,16 +66,6 @@ export default function BallotStatus({ children, status }: BallotStatusType) {
             ) : null}
           </div>
         </div> */}
-        <button
-          className="flex items-center text-white mt-12 px-4 py-2 border border-white rounded"
-          onClick={() => setShowFullscreen(false)}
-        >
-          Ocultar
-          <Arrows
-            className="ml-4 text-white"
-            style={{ transform: "rotate(0deg)" }}
-          />
-        </button>
       </div>
     )
   }
