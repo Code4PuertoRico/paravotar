@@ -41,9 +41,16 @@ export default function Steps(props: { onStart: () => void }) {
         <Step>
           <Step.Title>Busca tus papeletas.</Step.Title>
           <Step.Description>
-            Entra tu número electoral o escoge tu pueblo con número de precinto.
+            Escoge tu pueblo con número de precinto o entra tu número electoral.
             Con esta información buscaremos las papeletas que verás en tu
             colegio electoral el día de las elecciones.
+            <br />
+            <br />
+            Si no conoces tu número de precinto puedes buscarlo en{" "}
+            <Link to="https://consulta.ceepur.org/" target="_blank">
+              Consulta por la Comisión Estatal de Elecciones
+            </Link>
+            .
           </Step.Description>
         </Step>
         <Step>
