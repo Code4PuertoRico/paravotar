@@ -432,3 +432,65 @@ export const precintList = [
     precint: "052",
   },
 ]
+
+export type TourType = {
+  selector: string
+  content: string
+}
+
+const StateBallotTour = [
+  {
+    selector: '[data-tour-id="governor-header"]',
+    content: "Tienes derecho a votar por un (1) candidato(a) a governador(a).",
+  },
+  {
+    selector: '[data-tour-id="commissioner-resident-header"]',
+    content:
+      "Tienes derecho a votar por un (1) candidato(a) a comisionado(a) residente.",
+  },
+]
+
+const MunicipalBallotTour = [
+  {
+    selector: '[data-tour-id="mayor-header"]',
+    content: "Tienes derecho a votar por un (1) candidato(a) a alcalde(sa).",
+  },
+  {
+    selector: '[data-tour-id="municipal-legislator-header"]',
+    content:
+      "Tienes derecho a votar por la cantidad máxima de legisladores(as) municipales en la papeleta.",
+  },
+]
+
+const LegislativeBallotTour = [
+  {
+    selector: '[data-tour-id="district-representative-header"]',
+    content:
+      "Tienes derecho a votar por un (1) candidato(a) a representante por distrito.",
+    position: "top",
+  },
+  {
+    selector: '[data-tour-id="district-senator-header"]',
+    content:
+      "Tienes derecho a votar por dos (2) candidatos(as) a senador(a) por distrito.",
+    position: "top",
+  },
+  {
+    selector: '[data-tour-id="at-large-representative-header"]',
+    content:
+      "Tienes derecho a votar por un (1) candidato(a) a representante por acumulación.",
+    position: "top",
+  },
+  {
+    selector: '[data-tour-id="at-large-senator-header"]',
+    content:
+      "Tienes derecho a votar por un (1) candidato(a) a senador(a) por acumulación.",
+    position: "top",
+  },
+]
+
+export const Tours = {
+  state: StateBallotTour,
+  municipal: MunicipalBallotTour,
+  legislative: LegislativeBallotTour,
+}

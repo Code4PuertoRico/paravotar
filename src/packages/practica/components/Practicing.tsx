@@ -1,150 +1,12 @@
-import React, { useState, useEffect, ReactNode } from "react"
-
-import Tour from "reactour"
-import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock"
+import React, { useEffect, useState } from "react"
 
 import { ColumnHighlightProvider } from "../../../context/column-highlight-context"
 import { Button, Typography } from "../../../components/index"
 import { BallotType } from "../../../ballot-validator/types"
 import { Ballot } from "../../generate-ballot/components"
 import useErrorMessages from "../hooks/use-error-messages"
-
-const StateBallotTour = [
-  {
-    selector: '[data-slug="governor-header"]',
-    content: "Tienes derecho a escoger un (1) candidato(a) a governador(a).",
-  },
-  {
-    selector: '[data-slug="commissioner-resident-header"]',
-    content:
-      "Tienes derecho a escoger un (1) candidato(a) a comisionado(a) residente.",
-  },
-]
-
-const MunicipalBallotTour = [
-  {
-    selector: '[data-slug="mayor-header"]',
-    content: "Tienes derecho a escoger un (1) candidato(a) a alcalde(sa).",
-  },
-  {
-    selector: '[data-slug="municipal-legislator-header"]',
-    content:
-      "Tienes derecho a escoger trece (13) candidatos a legislador(a) municipal.",
-  },
-]
-
-const LegislativeBallotTour = [
-  {
-    selector: '[data-slug="district-representative-header"]',
-    content:
-      "Tienes derecho a escoger un (1) candidato(a) a representante por distrito.",
-    position: "top",
-  },
-  {
-    selector: '[data-slug="district-senator-header"]',
-    content:
-      "Tienes derecho a escoger un (2) candidatos(as) a senador(a) por distrito.",
-    position: "top",
-  },
-  {
-    selector: '[data-slug="at-large-representative-header"]',
-    content:
-      "Tienes derecho a escoger un (1) candidato(a) a representante por acumulación.",
-    position: "top",
-  },
-  {
-    selector: '[data-slug="at-large-senator-header"]',
-    content:
-      "Tienes derecho a escoger un (1) candidato(a) a senador(a) por acumulación.",
-    position: "top",
-  },
-]
-
-function BallotContainer({ children, steps }: { children: ReactNode }) {
-  const [isShowingTour, setIsShowingTour] = useState<boolean>(false)
-
-  useEffect(() => {
-    setTimeout(() => {
-      setIsShowingTour(true)
-    }, 1500)
-  }, [])
-
-  const onCloseTour = () => {
-    setIsShowingTour(false)
-  }
-  const disableBody = target => {
-    disableBodyScroll(target)
-
-    const mainContainer: HTMLElement | null = document.querySelector(
-      "#main-container"
-    )
-
-    if (mainContainer) {
-      mainContainer.style.overflowY = "hidden"
-      mainContainer.style.overflowX = "hidden"
-    }
-
-    const ballotContainer: HTMLElement | null = document.querySelector(
-      "#ballot-container"
-    )
-
-    if (ballotContainer) {
-      ballotContainer.style.overflowY = "hidden"
-      ballotContainer.style.overflowX = "hidden"
-    }
-
-    const htmlContainer: HTMLElement | null = document.querySelector("html")
-
-    if (htmlContainer) {
-      htmlContainer.style.scrollBehavior = "auto"
-    }
-  }
-
-  const enableBody = target => {
-    enableBodyScroll(target)
-
-    const mainContainer: HTMLElement | null = document.querySelector(
-      "#main-container"
-    )
-
-    if (mainContainer) {
-      mainContainer.style.overflowY = "scroll"
-      mainContainer.style.overflowX = "autoscroll-behavior: smooth;"
-    }
-
-    const ballotContainer: HTMLElement | null = document.querySelector(
-      "#ballot-container"
-    )
-
-    if (ballotContainer) {
-      ballotContainer.style.overflowY = "hidden"
-      ballotContainer.style.overflowX = "scroll"
-    }
-
-    const htmlContainer: HTMLElement | null = document.querySelector("html")
-
-    if (htmlContainer) {
-      htmlContainer.style.scrollBehavior = "smooth"
-    }
-  }
-
-  return (
-    <div id="ballot-container" className="overflow-scroll -mx-6">
-      {children}
-
-      <Tour
-        onAfterOpen={disableBody}
-        onBeforeClose={enableBody}
-        steps={steps}
-        isOpen={isShowingTour}
-        onRequestClose={onCloseTour}
-        rounded={4}
-        accentColor="#886944"
-        inViewThreshold={64}
-      />
-    </div>
-  )
-}
+import BallotContainer from "./ballot-container"
+import { Tours } from "../constants"
 
 interface PracticingProps {
   state: any
@@ -157,6 +19,17 @@ export const Practicing: React.FunctionComponent<PracticingProps> = ({
   send,
   handleSubmit,
 }) => {
+  const [isShowingTour, setIsShowingTour] = useState<boolean>(false)
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsShowingTour(true)
+    }, 1500)
+  }, [])
+
+  const onCloseTour = () => {
+    setIsShowingTour(false)
+  }
   const { setIsPristine } = useErrorMessages(state, [
     state,
     state.value,
@@ -181,7 +54,11 @@ export const Practicing: React.FunctionComponent<PracticingProps> = ({
                   *Para ver otros partidos realiza un scroll hacia tu derecha y
                   para ver más candidatos realiza scroll hacia abajo.
                 </Typography>
-                <BallotContainer steps={StateBallotTour}>
+                <BallotContainer
+                  tour={Tours.state}
+                  isTourOpen={isShowingTour}
+                  onTourClose={onCloseTour}
+                >
                   <Ballot
                     type={BallotType.state}
                     structure={state.context.ballots.estatal.structure}
@@ -227,7 +104,11 @@ export const Practicing: React.FunctionComponent<PracticingProps> = ({
                   *Para ver otros partidos realiza un scroll hacia tu derecha y
                   para ver más candidatos realiza scroll hacia abajo.
                 </Typography>
-                <BallotContainer steps={LegislativeBallotTour}>
+                <BallotContainer
+                  tour={Tours.legislative}
+                  isTourOpen={isShowingTour}
+                  onTourClose={onCloseTour}
+                >
                   <Ballot
                     type={BallotType.legislative}
                     structure={state.context.ballots.legislativa.structure}
@@ -273,7 +154,11 @@ export const Practicing: React.FunctionComponent<PracticingProps> = ({
                   *Para ver otros partidos realiza un scroll hacia tu derecha y
                   para ver más candidatos realiza scroll hacia abajo.
                 </Typography>
-                <BallotContainer steps={MunicipalBallotTour}>
+                <BallotContainer
+                  tour={Tours.legislative}
+                  isTourOpen={isShowingTour}
+                  onTourClose={onCloseTour}
+                >
                   <Ballot
                     type={BallotType.municipality}
                     structure={state.context.ballots.municipal.structure}

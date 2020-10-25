@@ -9,7 +9,7 @@ export default function SectionHeader(props: SectionHeaderProps) {
   return (
     <p
       className="font-semibold text-center whitespace-pre-line border text-sm"
-      data-slug={props.slug}
+      data-tour-id={props.slug}
     >
       {props.ocrResult}
     </p>
