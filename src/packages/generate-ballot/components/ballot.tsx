@@ -160,7 +160,11 @@ export default function BaseBallot(props: BallotProps) {
                   }
 
                   return (
-                    <Ballot.SectionHeader key={col.id} ocrResult={col.info} />
+                    <Ballot.SectionHeader
+                      key={col.id}
+                      ocrResult={col.info}
+                      slug={col.slug}
+                    />
                   )
                 }
               )}
