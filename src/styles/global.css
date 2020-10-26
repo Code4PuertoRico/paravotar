@@ -87,6 +87,11 @@ button:focus {
   top: 0;
 }
 
+.reactour__close {
+  height: 14px !important;
+  width: 14px !important;
+}
+
 @keyframes Spin {
   from {
     transform: rotate(0deg);
