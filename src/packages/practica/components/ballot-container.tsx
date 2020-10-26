@@ -14,58 +14,62 @@ type BallotContainerProps = {
 
 export default function BallotContainer(props: BallotContainerProps) {
   const disableBody = target => {
-    disableBodyScroll(target)
+    if (document) {
+      disableBodyScroll(target)
 
-    const mainContainer: HTMLElement | null = document.querySelector(
-      "#main-container"
-    )
+      const mainContainer: HTMLElement | null = document.querySelector(
+        "#main-container"
+      )
 
-    if (mainContainer) {
-      mainContainer.style.overflowY = "hidden"
-      mainContainer.style.overflowX = "hidden"
-    }
+      if (mainContainer) {
+        mainContainer.style.overflowY = "hidden"
+        mainContainer.style.overflowX = "hidden"
+      }
 
-    const ballotContainer: HTMLElement | null = document.querySelector(
-      "#ballot-container"
-    )
+      const ballotContainer: HTMLElement | null = document.querySelector(
+        "#ballot-container"
+      )
 
-    if (ballotContainer) {
-      ballotContainer.style.overflowY = "hidden"
-      ballotContainer.style.overflowX = "hidden"
-    }
+      if (ballotContainer) {
+        ballotContainer.style.overflowY = "hidden"
+        ballotContainer.style.overflowX = "hidden"
+      }
 
-    const htmlContainer: HTMLElement | null = document.querySelector("html")
+      const htmlContainer: HTMLElement | null = document.querySelector("html")
 
-    if (htmlContainer) {
-      htmlContainer.style.scrollBehavior = "auto"
+      if (htmlContainer) {
+        htmlContainer.style.scrollBehavior = "auto"
+      }
     }
   }
 
   const enableBody = target => {
-    enableBodyScroll(target)
+    if (document) {
+      enableBodyScroll(target)
 
-    const mainContainer: HTMLElement | null = document.querySelector(
-      "#main-container"
-    )
+      const mainContainer: HTMLElement | null = document.querySelector(
+        "#main-container"
+      )
 
-    if (mainContainer) {
-      mainContainer.style.overflowY = "scroll"
-      mainContainer.style.overflowX = "autoscroll-behavior: smooth;"
-    }
+      if (mainContainer) {
+        mainContainer.style.overflowY = "scroll"
+        mainContainer.style.overflowX = "autoscroll-behavior: smooth;"
+      }
 
-    const ballotContainer: HTMLElement | null = document.querySelector(
-      "#ballot-container"
-    )
+      const ballotContainer: HTMLElement | null = document.querySelector(
+        "#ballot-container"
+      )
 
-    if (ballotContainer) {
-      ballotContainer.style.overflowY = "hidden"
-      ballotContainer.style.overflowX = "scroll"
-    }
+      if (ballotContainer) {
+        ballotContainer.style.overflowY = "hidden"
+        ballotContainer.style.overflowX = "scroll"
+      }
 
-    const htmlContainer: HTMLElement | null = document.querySelector("html")
+      const htmlContainer: HTMLElement | null = document.querySelector("html")
 
-    if (htmlContainer) {
-      htmlContainer.style.scrollBehavior = "smooth"
+      if (htmlContainer) {
+        htmlContainer.style.scrollBehavior = "smooth"
+      }
     }
   }
 
