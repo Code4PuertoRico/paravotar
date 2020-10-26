@@ -45,14 +45,14 @@ export default function EnterVoterIdForm(props: EnterVoterIdFormProps) {
       >
         <label htmlFor="voter-id" className="font-bold text-left mb-2 block">
           Número electoral
+          <input
+            id="voter-id"
+            className="border border-primary px-3 py-2 rounded w-full"
+            type="number"
+            ref={inputRef}
+            placeholder="Entre su número electoral"
+          />
         </label>
-        <input
-          id="voter-id"
-          className="border border-primary px-3 py-2 rounded w-full"
-          type="number"
-          ref={inputRef}
-          placeholder="Entre su número electoral"
-        />
         {props.errorMessage ? (
           <InputErrorMessage>
             Favor entre un número electoral.

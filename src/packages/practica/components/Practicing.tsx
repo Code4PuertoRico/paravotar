@@ -1,9 +1,12 @@
-import React from "react"
-import { BallotType } from "../../../ballot-validator/types"
+import React, { useState } from "react"
+
 import { ColumnHighlightProvider } from "../../../context/column-highlight-context"
+import { Button, Typography } from "../../../components/index"
+import { BallotType } from "../../../ballot-validator/types"
 import { Ballot } from "../../generate-ballot/components"
 import useErrorMessages from "../hooks/use-error-messages"
-import { Button, Typography } from "../../../components/index"
+import BallotContainer from "./ballot-container"
+import { Tours } from "../constants"
 
 interface PracticingProps {
   state: any
@@ -16,6 +19,11 @@ export const Practicing: React.FunctionComponent<PracticingProps> = ({
   send,
   handleSubmit,
 }) => {
+  const [isShowingTour, setIsShowingTour] = useState<boolean>(false)
+
+  const onCloseTour = () => {
+    setIsShowingTour(false)
+  }
   const { setIsPristine } = useErrorMessages(state, [
     state,
     state.value,
@@ -40,7 +48,30 @@ export const Practicing: React.FunctionComponent<PracticingProps> = ({
                   *Para ver otros partidos realiza un scroll hacia tu derecha y
                   para ver más candidatos realiza scroll hacia abajo.
                 </Typography>
-                <div className="overflow-scroll -mx-6">
+                <div className="grid grid-cols-1 gap-2 mx-auto lg:grid-cols-2 lg:w-3/4">
+                  <Button
+                    onClick={() => {
+                      handleSubmit(
+                        state.context.votes,
+                        BallotType.state,
+                        state.context.ballots.estatal
+                      )
+                    }}
+                  >
+                    Continuar
+                  </Button>
+                  <Button
+                    variant="inverse"
+                    onClick={() => setIsShowingTour(true)}
+                  >
+                    Ver límite de votos por puestos electivos
+                  </Button>
+                </div>
+                <BallotContainer
+                  tour={Tours.state}
+                  isTourOpen={isShowingTour}
+                  onTourClose={onCloseTour}
+                >
                   <Ballot
                     type={BallotType.state}
                     structure={state.context.ballots.estatal.structure}
@@ -54,22 +85,8 @@ export const Practicing: React.FunctionComponent<PracticingProps> = ({
                       setIsPristine(false)
                     }}
                   />
-                </div>
+                </BallotContainer>
               </ColumnHighlightProvider>
-            </div>
-            <div className="mt-6 w-full lg:w-1/3 lg:mx-auto">
-              <Button
-                className="w-full"
-                onClick={() => {
-                  handleSubmit(
-                    state.context.votes,
-                    BallotType.state,
-                    state.context.ballots.estatal
-                  )
-                }}
-              >
-                Validar
-              </Button>
             </div>
           </>
         )}
@@ -86,7 +103,30 @@ export const Practicing: React.FunctionComponent<PracticingProps> = ({
                   *Para ver otros partidos realiza un scroll hacia tu derecha y
                   para ver más candidatos realiza scroll hacia abajo.
                 </Typography>
-                <div className="overflow-scroll -mx-6">
+                <div className="grid grid-cols-1 gap-2 mx-auto lg:grid-cols-2 lg:w-3/4">
+                  <Button
+                    onClick={() => {
+                      handleSubmit(
+                        state.context.votes,
+                        BallotType.state,
+                        state.context.ballots.estatal
+                      )
+                    }}
+                  >
+                    Continuar
+                  </Button>
+                  <Button
+                    variant="inverse"
+                    onClick={() => setIsShowingTour(true)}
+                  >
+                    Ver límite de votos por puestos electivos
+                  </Button>
+                </div>
+                <BallotContainer
+                  tour={Tours.legislative}
+                  isTourOpen={isShowingTour}
+                  onTourClose={onCloseTour}
+                >
                   <Ballot
                     type={BallotType.legislative}
                     structure={state.context.ballots.legislativa.structure}
@@ -100,22 +140,8 @@ export const Practicing: React.FunctionComponent<PracticingProps> = ({
                       setIsPristine(false)
                     }}
                   />
-                </div>
+                </BallotContainer>
               </ColumnHighlightProvider>
-            </div>
-            <div className="mt-6 w-full lg:w-1/3 lg:mx-auto">
-              <Button
-                className="w-full"
-                onClick={() => {
-                  handleSubmit(
-                    state.context.votes,
-                    BallotType.legislative,
-                    state.context.ballots.legislativa
-                  )
-                }}
-              >
-                Validar
-              </Button>
             </div>
           </>
         )}
@@ -132,7 +158,30 @@ export const Practicing: React.FunctionComponent<PracticingProps> = ({
                   *Para ver otros partidos realiza un scroll hacia tu derecha y
                   para ver más candidatos realiza scroll hacia abajo.
                 </Typography>
-                <div className="overflow-scroll -mx-6">
+                <div className="grid grid-cols-1 gap-2 mx-auto lg:grid-cols-2 lg:w-3/4">
+                  <Button
+                    onClick={() => {
+                      handleSubmit(
+                        state.context.votes,
+                        BallotType.state,
+                        state.context.ballots.estatal
+                      )
+                    }}
+                  >
+                    Continuar
+                  </Button>
+                  <Button
+                    variant="inverse"
+                    onClick={() => setIsShowingTour(true)}
+                  >
+                    Ver límite de votos por puestos electivos
+                  </Button>
+                </div>
+                <BallotContainer
+                  tour={Tours.municipal}
+                  isTourOpen={isShowingTour}
+                  onTourClose={onCloseTour}
+                >
                   <Ballot
                     type={BallotType.municipality}
                     structure={state.context.ballots.municipal.structure}
@@ -146,22 +195,8 @@ export const Practicing: React.FunctionComponent<PracticingProps> = ({
                       setIsPristine(false)
                     }}
                   />
-                </div>
+                </BallotContainer>
               </ColumnHighlightProvider>
-            </div>
-            <div className="mt-6 w-full lg:w-1/3 lg:mx-auto">
-              <Button
-                className="w-full"
-                onClick={() => {
-                  handleSubmit(
-                    state.context.votes,
-                    BallotType.municipality,
-                    state.context.ballots.municipal
-                  )
-                }}
-              >
-                Validar
-              </Button>
             </div>
           </>
         )}

@@ -82,9 +82,9 @@ export default function PrecintNumberForm(props: PrecintNumberFormProps) {
           })
         }}
       >
-        <label htmlFor="voter-id" className="font-bold text-left mb-2 block">
+        <div className="font-bold text-left mb-2 block">
           Pueblo y número de precinto
-        </label>
+        </div>
         <Dropdown
           placeholder="Pueblo"
           id="dropdown"
@@ -93,7 +93,6 @@ export default function PrecintNumberForm(props: PrecintNumberFormProps) {
           selectedOption={selectedTown}
           setSelected={(t: string) => setSelectedTown(t)}
           style={style}
-          className="mt-2"
         />
         <Button className="mt-4 block w-full">Continuar</Button>
       </form>

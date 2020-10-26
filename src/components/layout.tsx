@@ -43,6 +43,7 @@ const Layout = ({ children, location }: Props) => {
       >
         {sidebarIsVisible && <Sidebar pathname={`${pathname}${hash}`} />}
         <div
+          id="main-container"
           className={`main ${
             sidebarIsVisible ? "main-with-sidebar" : "main-without-sidebar"
           }`}

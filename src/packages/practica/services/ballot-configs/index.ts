@@ -89,7 +89,8 @@ export class StateBallotConfig {
 
     const parties: PartyRow = generateHeaders(ballot[0], url)
     const governorHeader: Header[] = ballot[1].map(
-      (ocrResult: OcrResult) => new Header(ocrResult.ocrResult)
+      (ocrResult: OcrResult) =>
+        new Header(ocrResult.ocrResult, "governor-header")
     )
     const candidatesForGorvernor = generateCandidates(
       ballot[BallotPositions.state.governor.start],
@@ -98,7 +99,8 @@ export class StateBallotConfig {
       url
     )
     const commissionerResidentHeader: Header[] = ballot[3].map(
-      (ocrResult: OcrResult) => new Header(ocrResult.ocrResult)
+      (ocrResult: OcrResult) =>
+        new Header(ocrResult.ocrResult, "commissioner-resident-header")
     )
     const candidatesForComissionerResident = generateCandidates(
       ballot[BallotPositions.state.commissionerResident.start],
@@ -145,7 +147,7 @@ export class MunicipalBallotConfig {
 
     const parties: PartyRow = generateHeaders(ballot[0], url)
     const mayorHeader: Header[] = ballot[1].map(
-      (ocrResult: OcrResult) => new Header(ocrResult.ocrResult)
+      (ocrResult: OcrResult) => new Header(ocrResult.ocrResult, "mayor-header")
     )
     const candidatesForMayor = generateCandidates(
       ballot[BallotPositions.municipality.mayor.start],
@@ -154,7 +156,8 @@ export class MunicipalBallotConfig {
       url
     )
     const municipalLegislatorHeader: Header[] = ballot[3].map(
-      (ocrResult: OcrResult) => new Header(ocrResult.ocrResult)
+      (ocrResult: OcrResult) =>
+        new Header(ocrResult.ocrResult, "municipal-legislator-header")
     )
 
     const municipalLegislators = ballot.slice(
@@ -228,7 +231,8 @@ export class LegislativeBallotConfig {
 
     const parties: PartyRow = generateHeaders(fixedBallots[0], url)
     const districtRepresentativeHeader: Header[] = fixedBallots[1].map(
-      (ocrResult: OcrResult) => new Header(ocrResult.ocrResult)
+      (ocrResult: OcrResult) =>
+        new Header(ocrResult.ocrResult, "district-representative-header")
     )
     const candidatesForDistrictRepresentative = generateCandidates(
       fixedBallots[BallotPositions.legislative.districtRepresentative.start],
@@ -238,7 +242,8 @@ export class LegislativeBallotConfig {
     )
 
     const districtSenatorHeader: Header[] = fixedBallots[3].map(
-      (ocrResult: OcrResult) => new Header(ocrResult.ocrResult)
+      (ocrResult: OcrResult) =>
+        new Header(ocrResult.ocrResult, "district-senator-header")
     )
     const districtSenators = fixedBallots.slice(
       BallotPositions.legislative.districtSenators.start,
@@ -260,7 +265,8 @@ export class LegislativeBallotConfig {
     )
 
     const atLargeRepresentativeHeader: Header[] = fixedBallots[6].map(
-      (ocrResult: OcrResult) => new Header(ocrResult.ocrResult)
+      (ocrResult: OcrResult) =>
+        new Header(ocrResult.ocrResult, "at-large-representative-header")
     )
     const atLargeRepresentatives = fixedBallots.slice(
       BallotPositions.legislative.atLargeRepresentative.start,
@@ -282,7 +288,8 @@ export class LegislativeBallotConfig {
     )
 
     const atLargeSenatorHeader: Header[] = fixedBallots[13].map(
-      (ocrResult: OcrResult) => new Header(ocrResult.ocrResult)
+      (ocrResult: OcrResult) =>
+        new Header(ocrResult.ocrResult, "at-large-senator-header")
     )
     const atLargeSenators = fixedBallots.slice(
       BallotPositions.legislative.atLargeSenator.start
