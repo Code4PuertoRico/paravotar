@@ -1,9 +1,14 @@
 import React, { ReactNode } from "react"
 
-import Tour from "reactour"
+import Loadable from "react-loadable"
 import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock"
 
 import { TourType } from "../constants"
+
+const Tour = Loadable({
+  loader: () => import("reactour"),
+  loading: () => null,
+})
 
 type BallotContainerProps = {
   children: ReactNode
