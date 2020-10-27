@@ -108,8 +108,8 @@ export const Practicing: React.FunctionComponent<PracticingProps> = ({
                     onClick={() => {
                       handleSubmit(
                         state.context.votes,
-                        BallotType.state,
-                        state.context.ballots.estatal
+                        BallotType.legislative,
+                        state.context.ballots.legislativa
                       )
                     }}
                   >
@@ -163,8 +163,8 @@ export const Practicing: React.FunctionComponent<PracticingProps> = ({
                     onClick={() => {
                       handleSubmit(
                         state.context.votes,
-                        BallotType.state,
-                        state.context.ballots.estatal
+                        BallotType.municipality,
+                        state.context.ballots.municipal
                       )
                     }}
                   >
