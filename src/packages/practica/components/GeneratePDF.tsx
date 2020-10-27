@@ -30,7 +30,7 @@ export const GeneratePDF: React.FunctionComponent<GeneratePDFProps> = ({
             })
           }}
         >
-          Generar PDF
+          Descargar papeleta en PDF
         </Button>
       )}
 

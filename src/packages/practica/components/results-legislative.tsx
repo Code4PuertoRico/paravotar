@@ -11,6 +11,7 @@ import CandidatesSummary from "./candidates-summary"
 type LegislativeResultProps = {
   votesCount: LegislativeVotesCount
   votes: Vote[]
+  inverse: boolean
 }
 
 export default function ResultsLegislative(props: LegislativeResultProps) {
@@ -49,11 +50,15 @@ export default function ResultsLegislative(props: LegislativeResultProps) {
   }, [])
 
   return (
-    <div className="mx-auto lg:w-3/4">
-      <Typography tag="p" variant="h3" className="mb-2 text-white font-bold">
+    <div className="w-full">
+      <Typography
+        tag="p"
+        variant="h3"
+        className={`mb-2 ${props.inverse ? "" : "text-white"} font-bold`}
+      >
         En esta papeleta usted ha votado por:
       </Typography>
-      <CandidatesSummary.Section>
+      <CandidatesSummary.Section inverse={props.inverse}>
         {props.votesCount.districtRepresentative} candidato(a) a Representante
         por Distrito
       </CandidatesSummary.Section>
@@ -68,7 +73,7 @@ export default function ResultsLegislative(props: LegislativeResultProps) {
           )
         })}
       </CandidatesSummary>
-      <CandidatesSummary.Section className="mt-6">
+      <CandidatesSummary.Section className="mt-6" inverse={props.inverse}>
         {props.votesCount.districtSenators} candidato(a) a Senador por Distrito
       </CandidatesSummary.Section>
       <CandidatesSummary>
@@ -82,7 +87,7 @@ export default function ResultsLegislative(props: LegislativeResultProps) {
           )
         })}
       </CandidatesSummary>
-      <CandidatesSummary.Section className="mt-6">
+      <CandidatesSummary.Section className="mt-6" inverse={props.inverse}>
         {props.votesCount.atLargeRepresentative} candidato(a) a Representante
         por Acumulación
       </CandidatesSummary.Section>
@@ -97,7 +102,7 @@ export default function ResultsLegislative(props: LegislativeResultProps) {
           )
         })}
       </CandidatesSummary>
-      <CandidatesSummary.Section className="mt-6">
+      <CandidatesSummary.Section className="mt-6" inverse={props.inverse}>
         {props.votesCount.atLargeSenator} candidato(a) a Senador por Acumulación
       </CandidatesSummary.Section>
       <CandidatesSummary>
@@ -113,4 +118,8 @@ export default function ResultsLegislative(props: LegislativeResultProps) {
       </CandidatesSummary>
     </div>
   )
+}
+
+ResultsLegislative.defaultProps = {
+  inverse: false,
 }
