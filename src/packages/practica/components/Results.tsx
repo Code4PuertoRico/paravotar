@@ -5,7 +5,15 @@ import { BallotType } from "../../../ballot-validator/types"
 import { Button, Typography } from "../../../components"
 import useVotesCount from "../hooks/use-votes-count"
 import useVotesTransform from "../hooks/use-votes-transform"
+import {
+  LegislativeVotesCount,
+  MunicipalVotesCount,
+  StateVotesCount,
+} from "../services/ballot-configs"
 import { GeneratePDF } from "./GeneratePDF"
+import ResultsLegislative from "./results-legislative"
+import ResultsMunicipal from "./results-municipal"
+import ResultsState from "./results-state"
 
 interface ResultsProps {
   state: any
@@ -75,53 +83,30 @@ export const Results: React.FunctionComponent<ResultsProps> = ({
   const typeOfVote =
     transformedVotes && detector(transformedVotes.votes, context.ballotType)
   const { votesCount } = useVotesCount(transformedVotes)
-  const nextBallots =
-    context.ballotType === BallotType.state
-      ? [
-          {
-            name: "Papeleta Municipal",
-            data: { ballotType: BallotType.municipality },
-          },
-          {
-            name: "Papeleta Legislativa",
-            data: { ballotType: BallotType.legislative },
-          },
-        ]
-      : context.ballotType === BallotType.municipality
-      ? [
-          {
-            name: "Papeleta Estatal",
-            data: { ballotType: BallotType.state },
-          },
-          {
-            name: "Papeleta Legislativa",
-            data: { ballotType: BallotType.legislative },
-          },
-        ]
-      : [
-          {
-            name: "Papeleta Estatal",
-            data: { ballotType: BallotType.state },
-          },
-          {
-            name: "Papeleta Municipal",
-            data: { ballotType: BallotType.municipality },
-          },
-        ]
-
-  const keys = keysConfig[context.ballotType]
+  const ballotType = context.ballotType
+  const votes = context.votes
 
   return (
-    <div className="mx-auto lg:w-1/2">
-      <Typography tag="h2" variant="h4">
-        USTED VOTO POR:
-      </Typography>
-      {keys.map((key, idx) => (
-        <Typography tag="p" variant="p" key={idx}>
-          <strong>{votesCount && (votesCount as any)[key]}</strong>{" "}
-          {keyDescription[key]}
-        </Typography>
-      ))}
+    <div className="mx-auto lg:w-3/4">
+      {ballotType === BallotType.state && votesCount ? (
+        <ResultsState
+          votesCount={votesCount as StateVotesCount}
+          votes={votes}
+          inverse
+        />
+      ) : ballotType === BallotType.municipality && votesCount ? (
+        <ResultsMunicipal
+          votesCount={votesCount as MunicipalVotesCount}
+          votes={votes}
+          inverse
+        />
+      ) : ballotType === BallotType.legislative && votesCount ? (
+        <ResultsLegislative
+          votesCount={votesCount as LegislativeVotesCount}
+          votes={votes}
+          inverse
+        />
+      ) : null}
       <br />
       <hr />
       <br />
@@ -147,24 +132,13 @@ export const Results: React.FunctionComponent<ResultsProps> = ({
         }
         votes={state.context.votes}
       />
-      <br />
-      <hr />
-      <br />
-      <div>
-        <Typography tag="h2" variant="h4">
-          CONTINUAR PRACTICANDO:
-        </Typography>
-        {nextBallots.map(ballot => (
-          <Button
-            key={ballot.name}
-            className="w-full mt-4"
-            variant="inverse"
-            onClick={() => send("BALLOT_SELECTION", ballot.data)}
-          >
-            {ballot.name}
-          </Button>
-        ))}
-      </div>
+      <Button
+        variant="inverse"
+        className="w-full mt-4"
+        onClick={() => send("CONTINUE_PRACTICE")}
+      >
+        Continuar practicando
+      </Button>
     </div>
   )
 }

@@ -145,6 +145,12 @@ export const practiceMachine = createMachine<PracticeContext>(
       },
       showResults: {
         on: {
+          CONTINUE_PRACTICE: "continuePracticing",
+        },
+      },
+      continuePracticing: {
+        on: {
+          BACK: "showResults",
           BALLOT_SELECTION: {
             target: "practicing",
             actions: assign<PracticeContext>({

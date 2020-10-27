@@ -14,13 +14,13 @@ export default function BallotSelector(props: BallotSelectorProps) {
         Escoge por cuál papeleta comenzar
       </Typography>
       <Button className="w-full block mt-4 mb-2" onClick={props.selectState}>
-        Estatal
+        Papeleta estatal
       </Button>
       <Button className="w-full block my-2" onClick={props.selectLegislative}>
-        Legislativa
+        Papeleta legislativa
       </Button>
       <Button className="w-full block my-2" onClick={props.selectMunicipal}>
-        Municipal
+        Papeleta municipal
       </Button>
     </div>
   )

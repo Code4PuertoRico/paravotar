@@ -40,6 +40,7 @@ import ResultsMunicipal from "./results-municipal"
 import ResultsLegislative from "./results-legislative"
 import BallotSelector from "./ballot-selector"
 import Steps from "./steps"
+import ContinuePracticing from "./continue-practicing"
 
 export default function Practice() {
   const [state, send] = useMachine(practiceMachine)
@@ -218,6 +219,9 @@ export default function Practice() {
           </Case>
           <Case value="showResults">
             <Results state={state} send={send} />
+          </Case>
+          <Case value="continuePracticing">
+            <ContinuePracticing send={send} />
           </Case>
           <Default>
             <>FAILURE</>

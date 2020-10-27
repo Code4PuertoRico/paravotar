@@ -11,6 +11,7 @@ import CandidatesSummary from "./candidates-summary"
 type StateResultsProps = {
   votesCount: StateVotesCount
   votes: Vote[]
+  inverse: boolean
 }
 
 export default function ResultsState(props: StateResultsProps) {
@@ -33,11 +34,15 @@ export default function ResultsState(props: StateResultsProps) {
   }, [])
 
   return (
-    <div className="mx-auto lg:w-3/4">
-      <Typography tag="p" variant="h3" className="mb-2 text-white font-bold">
+    <div className="w-full">
+      <Typography
+        tag="p"
+        variant="h3"
+        className={`mb-2 ${props.inverse ? "" : "text-white"} font-bold`}
+      >
         En esta papeleta usted ha votado por:
       </Typography>
-      <CandidatesSummary.Section>
+      <CandidatesSummary.Section inverse={props.inverse}>
         {props.votesCount.governor} candidato(a) a Gobernador(a)
       </CandidatesSummary.Section>
       <CandidatesSummary>
@@ -51,7 +56,7 @@ export default function ResultsState(props: StateResultsProps) {
           )
         })}
       </CandidatesSummary>
-      <CandidatesSummary.Section className="mt-6">
+      <CandidatesSummary.Section className="mt-6" inverse={props.inverse}>
         {props.votesCount.commissionerResident} candidato(a) a Comisionado(a)
         Residente
       </CandidatesSummary.Section>
@@ -68,4 +73,8 @@ export default function ResultsState(props: StateResultsProps) {
       </CandidatesSummary>
     </div>
   )
+}
+
+ResultsState.defaultProps = {
+  inverse: false,
 }

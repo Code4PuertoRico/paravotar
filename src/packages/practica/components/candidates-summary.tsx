@@ -27,16 +27,21 @@ function CandidateCard(props: CandidateProps) {
 
 function CandidatesSummarySection(props: {
   children: ReactNode
+  inverse: boolean
   className?: string
 }) {
   return (
     <div
-      className={`border border-r-0 border-l-0 border-t-0 border-white mb-4 ${props.className}`}
+      className={`border border-r-0 border-l-0 border-t-0 mb-4 ${
+        props.inverse ? "" : "border-white"
+      } ${props.className}`}
     >
       <Typography
         tag="p"
         variant="p"
-        className="text-white text-left mb-2 font-bold"
+        className={`${
+          props.inverse ? "" : "text-white"
+        } text-left mb-2 font-bold`}
       >
         {props.children}
       </Typography>
