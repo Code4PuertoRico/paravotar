@@ -79,7 +79,7 @@ export default function Steps(props: { onStart: () => void }) {
         <Step>
           <Step.Title>Descarga tu papeleta.</Step.Title>
           <Step.Description>
-            Opcionalmente, puedes sescarga la papeleta que practicaste en
+            Opcionalmente, puedes descargar la papeleta que practicaste en
             formato PDF para que la utilizes como referencia el día de las
             elecciones.
           </Step.Description>
