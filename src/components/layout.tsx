@@ -4,7 +4,9 @@ import i18next from "i18next"
 import { Footer, Sidebar, Navbar } from "../components/index"
 import { withTrans } from "../i18n/withTrans"
 import { useSidebar } from "../context/sidebar-context"
+import NotiUno from "../assets/images/notiuno.png"
 import Arrows from "./arrows"
+import Link from "./link"
 
 type Props = {
   children: ReactNode
@@ -54,6 +56,11 @@ const Layout = ({ children, location }: Props) => {
               sidebarIsVisible ? "main-content-with-sidebar" : "max-w-full"
             }`}
           >
+            <div className="px-4 mt-6 lg:hidden">
+              <Link to="https://www.notiuno.com/" target="_blank">
+                <img className="h-12" src={NotiUno} alt="NotiUno" />
+              </Link>
+            </div>
             {children}
           </main>
           <Footer />

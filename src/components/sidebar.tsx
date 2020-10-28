@@ -13,6 +13,7 @@ import { Section, SubSection } from "./section"
 import LanguageMenu from "./language-menu"
 import Arrows from "./arrows"
 import Link from "./link"
+import Typography from "./typography"
 
 type SidebarProps = {
   pathname: string
@@ -177,6 +178,9 @@ export default function Sidebar({ pathname }: SidebarProps) {
             )
           })}
           <div className="px-4 mt-6">
+            <Typography variant="p" tag="p" className="block">
+              En alianza con:
+            </Typography>
             <Link to="https://www.notiuno.com/" target="_blank">
               <img className="h-16" src={NotiUno} alt="NotiUno" />
             </Link>
