@@ -69,20 +69,21 @@ const Layout = ({ children, location }: Props) => {
             }`}
           >
             <div className="px-4 mt-6 lg:hidden">
-              <PromoContainer>
-                <Link to="https://www.notiuno.com/" target="_blank">
+              <Link to="https://www.notiuno.com/" target="_blank">
+                <PromoContainer>
                   <img className="h-10" src={NotiUno} alt="NotiUno" />
-                </Link>
-                <span className="ml-6">
-                  <Typography variant="p" tag="span">
-                    En alianza te invita a
-                  </Typography>
-                  <br />
-                  <Typography variant="p" tag="span">
-                    <strong className="text-primary">PRACTICAR</strong> tu voto.
-                  </Typography>
-                </span>
-              </PromoContainer>
+                  <span className="ml-6">
+                    <Typography variant="p" tag="span">
+                      En alianza te invita a
+                    </Typography>
+                    <br />
+                    <Typography variant="p" tag="span">
+                      <strong className="text-primary">PRACTICAR</strong> tu
+                      voto.
+                    </Typography>
+                  </span>
+                </PromoContainer>
+              </Link>
             </div>
             {children}
           </main>
