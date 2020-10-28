@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import _ from "lodash"
 
 import { useMachine } from "@xstate/react"
@@ -107,6 +107,14 @@ export default function Practice() {
     }
   }
 
+  useEffect(() => {
+    const elem = document.getElementById("practica-tu-voto")
+
+    if (elem) {
+      elem.scrollIntoView && elem.scrollIntoView()
+    }
+  }, [state.value])
+
   const selectBallot = (selectedBallot: string, eventData: any) => {
     setSidebarIsVisible(false)
     // setBallotStatus(null)
@@ -118,7 +126,7 @@ export default function Practice() {
   const ballotType = state.context.ballotType || null
 
   return (
-    <div className="relative">
+    <div className="relative w-full">
       <Typography tag="h2" variant="h3" className="uppercase">
         Practica tu voto
       </Typography>

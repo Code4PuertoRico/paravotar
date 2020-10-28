@@ -23,7 +23,7 @@ const nextBallots = [
 
 export default function ContinuePracticing(props: BallotSelectorProps) {
   return (
-    <div className="mx-auto lg:w-1/2">
+    <div className="mx-auto lg:w-3/4">
       <Typography tag="h2" variant="h4">
         Escoge la papeleta que quieres practicar:
       </Typography>
