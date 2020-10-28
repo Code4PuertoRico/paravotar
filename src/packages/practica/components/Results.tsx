@@ -132,6 +132,39 @@ export const Results: React.FunctionComponent<ResultsProps> = ({
         }
         votes={state.context.votes}
       />
+      <Typography variant="h3" tag="h3" className="mt-12">
+        Invita a otros(as) a practicar
+      </Typography>
+      <Typography variant="p" tag="p" className="mt-2">
+        Comparte Para Votar con tus amistades y familiares para que puedan
+        conocer a sus candidatos(as) y practicar su voto el antes del día de las
+        elecciones.
+      </Typography>
+      <div className="grid grid-cols-1 gap-2 mt-6 lg:grid-cols-2">
+        <a
+          className="bg-socialMedia-facebook w-full rounded block px-4 py-1 font-bold text-white"
+          href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.paravotar.org%2Fpractica%23practica-tu-voto"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Facebook
+        </a>
+        <a
+          className="bg-socialMedia-twitter w-full rounded block px-4 py-1 font-bold text-white"
+          href="https://twitter.com/intent/tweet?text=¡Practica tu voto y conoce a tus candidatos y candidatas antes del día de la elección!&url=https%3A%2F%2Fwww.paravotar.org%2Fpractica%23practica-tu-voto&via=paravotarpr"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Twitter
+        </a>
+      </div>
+      <Typography variant="h3" tag="h3" className="mt-12">
+        ¿Quieres continuar practicando?
+      </Typography>
+      <Typography variant="p" tag="p" className="mt-2">
+        Practica otra papeleta o practica la misma papeleta de nuevo precionando
+        el botón de abajo
+      </Typography>
       <Button
         variant="inverse"
         className="w-full mt-4"
