@@ -209,6 +209,7 @@ button:focus {
 
   .main-content-with-sidebar {
     max-width: calc(100vw - 275px);
+    min-width: calc(100vw - 275px);
   }
 
   .main-with-sidebar {

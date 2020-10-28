@@ -126,7 +126,7 @@ export default function Practice() {
   const ballotType = state.context.ballotType || null
 
   return (
-    <div className="relative">
+    <div className="relative w-full">
       <Typography tag="h2" variant="h3" className="uppercase">
         Practica tu voto
       </Typography>

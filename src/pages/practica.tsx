@@ -16,7 +16,7 @@ const Practica = ({ location }: PageProps) => {
       <Layout location={location}>
         <SEO title="Practica tu voto" />
         <Container
-          className="practice-container pt-16 mb-16 text-center lg:pt-5"
+          className="practice-container pt-16 mb-16 text-center lg:pt-5 w-full"
           id="practica-tu-voto"
         >
           <Practice />
