@@ -21,25 +21,27 @@ export const getSections = (pathname = "", t) => [
     name: "Practica",
     icon: Practica,
     isActive:
-      pathname.includes("/practica#haz-que-tu-voto-cuente") ||
+      pathname.includes("/haz-que-tu-voto-cuente#haz-que-tu-voto-cuente") ||
       pathname.includes("/practica#practica-tu-voto") ||
-      pathname.includes("/practica#como-votar"),
+      pathname.includes("/haz-que-tu-voto-cuente#como-votar"),
     strikeout: false,
     subsections: [
       {
         name: "Haz que tu voto cuente",
-        route: "/practica#haz-que-tu-voto-cuente",
-        isActive: pathname.includes("/practica#haz-que-tu-voto-cuente"),
+        route: "/haz-que-tu-voto-cuente#haz-que-tu-voto-cuente",
+        isActive: pathname.includes(
+          "/haz-que-tu-voto-cuente#haz-que-tu-voto-cuente"
+        ),
       },
       {
         name: "¿Cómo votar?",
-        route: "/practica#como-votar",
-        isActive: pathname.includes("/practica#como-votar"),
+        route: "/haz-que-tu-voto-cuente#como-votar",
+        isActive: pathname.includes("/haz-que-tu-voto-cuente#como-votar"),
       },
       {
         name: "Practica tu voto",
         route: "/practica#practica-tu-voto",
-        isActive: pathname.includes("/practica#valida-tu-voto"),
+        isActive: pathname.includes("/practica#practica-tu-voto"),
       },
     ],
   },

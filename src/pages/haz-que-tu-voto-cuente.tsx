@@ -2,7 +2,10 @@ import React from "react"
 import "fetch-ponyfill"
 
 import { Layout, SEO, Container } from "../components/index"
-import { Practice } from "../packages/practica/components/index"
+import {
+  HowToVote,
+  MakeYourVoteCount,
+} from "../packages/practica/components/index"
 import { withTrans } from "../i18n/withTrans"
 import { SidebarProvider } from "../context/sidebar-context"
 
@@ -10,20 +13,26 @@ type PageProps = {
   location: Location
 }
 
-const Practica = ({ location }: PageProps) => {
+const HazQueTuVotoCuente = ({ location }: PageProps) => {
   return (
     <SidebarProvider>
       <Layout location={location}>
-        <SEO title="Practica tu voto" />
+        <SEO title="Haz que tu voto cuente" />
         <Container
           className="practice-container pt-16 mb-16 text-center lg:pt-5"
-          id="practica-tu-voto"
+          id="haz-que-tu-voto-cuente"
         >
-          <Practice />
+          <MakeYourVoteCount />
+        </Container>
+        <Container
+          className="practice-container pt-16 mb-16 text-center lg:pt-5"
+          id="como-votar"
+        >
+          <HowToVote />
         </Container>
       </Layout>
     </SidebarProvider>
   )
 }
 
-export default withTrans(Practica)
+export default withTrans(HazQueTuVotoCuente)
