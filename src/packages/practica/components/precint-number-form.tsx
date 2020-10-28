@@ -56,7 +56,7 @@ export default function PrecintNumberForm(props: PrecintNumberFormProps) {
   const [selectedTown, setSelectedTown] = useState(precintList[0].value)
 
   return (
-    <div className="mx-auto mt-4 lg:mt-0 lg:w-1/2">
+    <div className="mx-auto mt-4 lg:mt-0 lg:w-3/4">
       <Typography tag="p" variant="h4">
         Busquemos tus papeletas
       </Typography>

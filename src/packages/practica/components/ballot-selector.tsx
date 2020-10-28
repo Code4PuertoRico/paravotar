@@ -9,7 +9,7 @@ type BallotSelectorProps = {
 
 export default function BallotSelector(props: BallotSelectorProps) {
   return (
-    <div className="mx-auto lg:w-1/2">
+    <div className="mx-auto lg:w-3/4">
       <Typography tag="p" variant="h4">
         Escoge por cuál papeleta comenzar
       </Typography>
