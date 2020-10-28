@@ -442,12 +442,12 @@ const StateBallotTour = [
   {
     selector: '[data-tour-id="governor-header"]',
     content:
-      "Tienes derecho a votar por un (1) candidato(a) a governador(a) de cualquier partido, candidatura independiente o nomicación directa.",
+      "Tienes derecho a votar por un (1) candidato(a) a gobernador(a) de cualquier partido, candidatura independiente o nominación directa.",
   },
   {
     selector: '[data-tour-id="commissioner-resident-header"]',
     content:
-      "Tienes derecho a votar un (1) candidato(a) a comisionado(a) residente de cualquier partido, candidatura independiente o nomicación directa.",
+      "Tienes derecho a votar un (1) candidato(a) a comisionado(a) residente de cualquier partido, candidatura independiente o nominación directa.",
   },
 ]
 
@@ -455,12 +455,12 @@ const MunicipalBallotTour = [
   {
     selector: '[data-tour-id="mayor-header"]',
     content:
-      "Tienes derecho a votar por un (1) candidato(a) a alcalde(sa) de cualquier partido, candidatura independiente o nomicación directa.",
+      "Tienes derecho a votar por un (1) candidato(a) a alcalde(sa) de cualquier partido, candidatura independiente o nominación directa.",
   },
   {
     selector: '[data-tour-id="municipal-legislator-header"]',
     content:
-      "Tienes derecho a votar por la cantidad máxima de legisladores(as) municipales en la papeleta de cualquier partido, candidatura independiente o nomicación directa.",
+      "Tienes derecho a votar por la cantidad máxima de legisladores(as) municipales en la papeleta de cualquier partido, candidatura independiente o nominación directa.",
   },
 ]
 
@@ -468,25 +468,25 @@ const LegislativeBallotTour = [
   {
     selector: '[data-tour-id="district-representative-header"]',
     content:
-      "Tienes derecho a votar por un (1) candidato(a) a representante por distrito de cualquier partido, candidatura independiente o nomicación directa.",
+      "Tienes derecho a votar por un (1) candidato(a) a representante por distrito de cualquier partido, candidatura independiente o nominación directa.",
     position: "top",
   },
   {
     selector: '[data-tour-id="district-senator-header"]',
     content:
-      "Tienes derecho a votar por dos (2) candidatos(as) a senador(a) por distrito de cualquier partido, candidatura independiente o nomicación directa.",
+      "Tienes derecho a votar por dos (2) candidatos(as) a senador(a) por distrito de cualquier partido, candidatura independiente o nominación directa.",
     position: "top",
   },
   {
     selector: '[data-tour-id="at-large-representative-header"]',
     content:
-      "Tienes derecho a votar por un (1) candidato(a) a representante por acumulación de cualquier partido, candidatura independiente o nomicación directa.",
+      "Tienes derecho a votar por un (1) candidato(a) a representante por acumulación de cualquier partido, candidatura independiente o nominación directa.",
     position: "top",
   },
   {
     selector: '[data-tour-id="at-large-senator-header"]',
     content:
-      "Tienes derecho a votar por un (1) candidato(a) a senador(a) por acumulación de cualquier partido, candidatura independiente o nomicación directa.",
+      "Tienes derecho a votar por un (1) candidato(a) a senador(a) por acumulación de cualquier partido, candidatura independiente o nominación directa.",
     position: "top",
   },
 ]
