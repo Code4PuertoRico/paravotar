@@ -7,13 +7,11 @@ import Logo from "../assets/images/logo.svg"
 import Inscribete from "../assets/icons/inscribete.svg"
 import Collaborations from "../assets/icons/collaborations.svg"
 import SalAVotar from "../assets/icons/sal-a-votar.svg"
-import NotiUno from "../assets/images/notiuno.png"
 import { useSidebar } from "../context/sidebar-context"
 import { Section, SubSection } from "./section"
 import LanguageMenu from "./language-menu"
 import Arrows from "./arrows"
-import Link from "./link"
-import Typography from "./typography"
+import { NotiUnoPromoSideBar } from "./NotiUnoPromo"
 
 type SidebarProps = {
   pathname: string
@@ -178,12 +176,7 @@ export default function Sidebar({ pathname }: SidebarProps) {
             )
           })}
           <div className="px-4 mt-6">
-            <Typography variant="p" tag="p" className="block">
-              En alianza con:
-            </Typography>
-            <Link to="https://www.notiuno.com/" target="_blank">
-              <img className="h-16" src={NotiUno} alt="NotiUno" />
-            </Link>
+            <NotiUnoPromoSideBar />
           </div>
         </div>
         <button

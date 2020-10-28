@@ -1,29 +1,15 @@
 import React, { ReactNode } from "react"
 import i18next from "i18next"
-import styled from "styled-components"
-
 import { Footer, Sidebar, Navbar } from "../components/index"
 import { withTrans } from "../i18n/withTrans"
 import { useSidebar } from "../context/sidebar-context"
-import NotiUno from "../assets/images/notiuno.png"
 import Arrows from "./arrows"
-import Link from "./link"
-import Typography from "./typography"
+import { NotiUnoPromo } from "./NotiUnoPromo"
 
 type Props = {
   children: ReactNode
   location: Location
 }
-
-const PromoContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  padding: 20px;
-  box-shadow: 0px 6px 10px #cacad9;
-  border: 1px solid #886944;
-  border-radius: 5px;
-`
 
 const Layout = ({ children, location }: Props) => {
   const hash = location?.hash || ""
@@ -69,21 +55,7 @@ const Layout = ({ children, location }: Props) => {
             }`}
           >
             <div className="px-4 mt-6 lg:hidden">
-              <Link to="https://www.notiuno.com/" target="_blank">
-                <PromoContainer>
-                  <img className="h-10" src={NotiUno} alt="NotiUno" />
-                  <span className="ml-6">
-                    <Typography variant="p" tag="span">
-                      En alianza te invita a
-                    </Typography>
-                    <br />
-                    <Typography variant="p" tag="span">
-                      <strong className="text-primary">PRACTICAR</strong> tu
-                      voto.
-                    </Typography>
-                  </span>
-                </PromoContainer>
-              </Link>
+              <NotiUnoPromo />
             </div>
             {children}
           </main>
