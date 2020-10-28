@@ -86,7 +86,7 @@ export default function Navbar({ pathname }: SidebarProps) {
         </div>
         <div className="px-4 mt-6">
           <Link to="https://www.notiuno.com/" target="_blank">
-            <img className="h-24" src={NotiUno} alt="NotiUno" />
+            <img className="h-12" src={NotiUno} alt="NotiUno" />
           </Link>
         </div>
       </div>
