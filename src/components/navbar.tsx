@@ -6,9 +6,11 @@ import { useTranslation } from "react-i18next"
 import Logo from "../assets/images/logo.svg"
 import Close from "../assets/icons/close.svg"
 import Menu from "../assets/icons/menu.svg"
+import NotiUno from "../assets/images/notiuno.png"
 import { Section, SubSection } from "./section"
 import LanguageMenu from "./language-menu"
 import { getSections } from "./sidebar"
+import Link from "./link"
 
 type SidebarProps = {
   pathname: string
@@ -81,6 +83,11 @@ export default function Navbar({ pathname }: SidebarProps) {
               </Section>
             )
           })}
+        </div>
+        <div className="px-4 mt-6">
+          <Link to="https://www.notiuno.com/" target="_blank">
+            <img className="h-24" src={NotiUno} alt="NotiUno" />
+          </Link>
         </div>
       </div>
     </>
