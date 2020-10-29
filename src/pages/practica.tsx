@@ -1,3 +1,4 @@
+import get from "lodash/get"
 import React from "react"
 import "fetch-ponyfill"
 
@@ -12,7 +13,7 @@ type PageProps = {
 }
 
 const Practica = ({ location }: PageProps) => {
-  const params = new URLSearchParams(location.search)
+  const params = new URLSearchParams(get(location, "search", ""))
   const precinto = params.get("precint")
   let ballotType = undefined
 
