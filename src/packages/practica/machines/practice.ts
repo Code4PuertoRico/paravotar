@@ -8,14 +8,26 @@ import { FindByEventParams, PracticeContext } from "../services/types"
 export const practiceMachine = createMachine<PracticeContext>(
   {
     id: "practiceMachine",
-    initial: "mainScreen",
+    initial: "init",
     context: {
       userInput: null,
       findBy: null,
-      ballots: {},
       votes: [],
     },
     states: {
+      init: {
+        on: {
+          start: [
+            {
+              cond: (_, { userInput }) => !isEmpty(userInput),
+              target: "fetchBallots",
+            },
+            {
+              target: "mainScreen",
+            },
+          ],
+        },
+      },
       mainScreen: {
         on: {
           START_PRACTICE: "ballotFinderPicker",
@@ -81,13 +93,26 @@ export const practiceMachine = createMachine<PracticeContext>(
         invoke: {
           id: "fetchBallots",
           src: BallotService.fetchBallots,
-          onDone: {
-            target: "selectBallot",
-            actions: assign({
-              ballots: (_, event) => event.data.ballots,
-              ballotPaths: (_, event) => event.data.ballotPaths,
-            }),
-          },
+          onDone: [
+            {
+              target: "practicing",
+              cond: ({ ballotType }) => !isEmpty(ballotType),
+              actions: assign({
+                ballots: (_, event) => {
+                  console.log(event)
+                  return event.data.ballots
+                },
+                ballotPaths: (_, event) => event.data.ballotPaths,
+              }),
+            },
+            {
+              target: "selectBallot",
+              actions: assign({
+                ballots: (_, event) => event.data.ballots,
+                ballotPaths: (_, event) => event.data.ballotPaths,
+              }),
+            },
+          ],
           onError: {
             target: "noVoterIdFound",
           },

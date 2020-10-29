@@ -55,7 +55,7 @@ export type PracticeContext = {
     municipal: string
     legislativa: string
   }
-  ballots: {
+  ballots?: {
     estatal?: StateBallotConfig
     municipal?: MunicipalBallotConfig
     legislativa?: LegislativeBallotConfig
