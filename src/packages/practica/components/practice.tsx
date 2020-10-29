@@ -41,9 +41,25 @@ import ResultsLegislative from "./results-legislative"
 import BallotSelector from "./ballot-selector"
 import Steps from "./steps"
 import ContinuePracticing from "./continue-practicing"
+import { FindByType } from "../services/ballot-finder-service"
 
-export default function Practice() {
-  const [state, send] = useMachine(practiceMachine)
+export default function Practice({
+  initialPrecint,
+  initialBallotType,
+}: {
+  initialPrecint: string | null
+  initialBallotType?: BallotType
+}) {
+  const [state, send] = useMachine(practiceMachine, {
+    context: {
+      ballotType: initialBallotType,
+    },
+  })
+
+  useEffect(() => {
+    send("start", { userInput: initialPrecint, findBy: FindByType.precint })
+  }, [])
+
   const votes = state.context.votes
   const transformedVotes = useVotesTransform(votes, state)
   // const { ballotStatus, setBallotStatus } = useBallotValidation(
