@@ -20,15 +20,12 @@ const PromoContainer = styled.div`
 
 const PromoContainerColumn = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: space-around;
-  padding: 20px;
-  box-shadow: 0px 6px 10px #cacad9;
-  border: 1px solid #886944;
-  border-radius: 5px;
-  background-color: white;
-  margin: 0 10px;
+  background-color: rgba(255, 255, 255, 0.45);
+  font-size: 12px;
+  padding: 10px;
 `
 
 export const NotiUnoPromo = () => (
@@ -51,8 +48,8 @@ export const NotiUnoPromo = () => (
 export const NotiUnoPromoSideBar = () => (
   <Link to="https://www.notiuno.com/" target="_blank">
     <PromoContainerColumn>
-      <img className="h-10" src={NotiUno} alt="NotiUno" />
-      <span className="mt-4">
+      <img className="h-8" src={NotiUno} alt="NotiUno" />
+      <span>
         <Typography variant="p" tag="span">
           En alianza te invita a
         </Typography>

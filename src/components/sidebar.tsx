@@ -175,7 +175,7 @@ export default function Sidebar({ pathname }: SidebarProps) {
               </Section>
             )
           })}
-          <div className="px-4 mt-6">
+          <div className="px-4 mt-8">
             <NotiUnoPromoSideBar />
           </div>
         </div>
