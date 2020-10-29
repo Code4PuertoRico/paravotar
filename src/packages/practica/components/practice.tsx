@@ -60,8 +60,6 @@ export default function Practice({
     send("start", { userInput: initialPrecint, findBy: FindByType.precint })
   }, [])
 
-  console.log(state.context)
-
   const votes = state.context.votes
   const transformedVotes = useVotesTransform(votes, state)
   // const { ballotStatus, setBallotStatus } = useBallotValidation(

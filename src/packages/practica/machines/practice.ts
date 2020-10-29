@@ -98,10 +98,7 @@ export const practiceMachine = createMachine<PracticeContext>(
               target: "practicing",
               cond: ({ ballotType }) => !isEmpty(ballotType),
               actions: assign({
-                ballots: (_, event) => {
-                  console.log(event)
-                  return event.data.ballots
-                },
+                ballots: (_, event) => event.data.ballots,
                 ballotPaths: (_, event) => event.data.ballotPaths,
               }),
             },
