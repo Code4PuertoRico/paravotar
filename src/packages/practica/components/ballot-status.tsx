@@ -13,7 +13,7 @@ export default function BallotStatus({ children, status }: BallotStatusType) {
 
   if (showFullscreen) {
     return (
-      <div className="fixed bottom-0 left-0 bg-primary w-full h-screen pt-16 lg:pt-10">
+      <div className="fixed bottom-0 left-0 bg-primary w-full h-screen pt-16 lg:pt-20">
         <div className="flex flex-col">
           <div className="w-11/12  mx-auto py-4 overflow-y-auto ballot-summary">
             {children}
@@ -73,7 +73,7 @@ export default function BallotStatus({ children, status }: BallotStatusType) {
         className="flex items-center justify-between text-white text-left lg:1/4 lg:mx-auto"
         onClick={() => setShowFullscreen(true)}
       >
-        Ver más información sobre su papeleta
+        Ver candidatos seleccionados
         <Arrows
           className="ml-4 text-white"
           style={{ transform: "rotate(-180deg)" }}
