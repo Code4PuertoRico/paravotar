@@ -248,6 +248,10 @@ export const precintList = [
     precint: "021",
   },
   {
+    value: "Manati - 022",
+    precint: "022",
+  },
+  {
     value: "Maricao - 050",
     precint: "050",
   },
@@ -266,6 +270,10 @@ export const precintList = [
   {
     value: "Moca - 036",
     precint: "036",
+  },
+  {
+    value: "Moca - 037",
+    precint: "037",
   },
   {
     value: "Morovis - 020",
