@@ -9,7 +9,6 @@ import Menu from "../assets/icons/menu.svg"
 import { Section, SubSection } from "./section"
 import LanguageMenu from "./language-menu"
 import { getSections } from "./sidebar"
-import { NotiUnoPromoSideBar } from "./NotiUnoPromo"
 
 type SidebarProps = {
   pathname: string
@@ -82,9 +81,6 @@ export default function Navbar({ pathname }: SidebarProps) {
               </Section>
             )
           })}
-        </div>
-        <div className="px-4 mt-6">
-          <NotiUnoPromoSideBar />
         </div>
       </div>
     </>

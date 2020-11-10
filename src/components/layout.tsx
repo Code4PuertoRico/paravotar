@@ -5,7 +5,6 @@ import Logo from "../assets/images/logo.svg"
 import { withTrans } from "../i18n/withTrans"
 import { useSidebar } from "../context/sidebar-context"
 import Arrows from "./arrows"
-import { NotiUnoPromo } from "./NotiUnoPromo"
 
 type Props = {
   children: ReactNode
@@ -57,9 +56,6 @@ const Layout = ({ children, location }: Props) => {
               sidebarIsVisible ? "main-content-with-sidebar" : "max-w-full"
             }`}
           >
-            <div className="px-4 mt-6 lg:hidden">
-              <NotiUnoPromo />
-            </div>
             {children}
           </main>
           <Footer />

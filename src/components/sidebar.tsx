@@ -11,7 +11,6 @@ import { useSidebar } from "../context/sidebar-context"
 import { Section, SubSection } from "./section"
 import LanguageMenu from "./language-menu"
 import Arrows from "./arrows"
-import { NotiUnoPromoSideBar } from "./NotiUnoPromo"
 
 type SidebarProps = {
   pathname: string
@@ -175,9 +174,6 @@ export default function Sidebar({ pathname }: SidebarProps) {
               </Section>
             )
           })}
-          <div className="px-4 mt-8">
-            <NotiUnoPromoSideBar />
-          </div>
         </div>
         <button
           className="flex items-center absolute bottom-0 border border-footer border-b-0 border-r-0 border-l-0 py-3 px-4"
