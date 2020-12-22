@@ -13,6 +13,7 @@ module.exports = {
     `.eslintrc.spec.js`,
     `\\.cache`,
     `<rootDir>.*/public`,
+    `cypress`,
   ],
   transformIgnorePatterns: [`node_modules/(?!(gatsby)/)`],
   coverageDirectory: ".coverage",

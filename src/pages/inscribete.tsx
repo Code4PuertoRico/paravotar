@@ -155,7 +155,7 @@ const Inscribete = ({ location }: PageProps) => {
         {/* <Container className="w-11/12 lg:w-10/12 pt-16 mb-16 lg:mb-32 lg:pt-0 lg:pb-0">
           <MakeAppointment />
         </Container> */}
-        <Container className="w-11/12 mb-32 lg:w-10/12">
+        <Container className="w-11/12 mb-32 lg:w-10/12" id="recordatorio">
           <EnrollmentReminder />
         </Container>
         <Container
