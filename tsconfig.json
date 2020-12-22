@@ -4,6 +4,7 @@
       "target": "esnext",
       "jsx": "preserve",
       "lib": ["dom", "esnext"],
+      "types": ["jest"],
       "strict": true,
       "noEmit": true,
       "isolatedModules": true,

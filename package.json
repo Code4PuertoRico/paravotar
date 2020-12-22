@@ -44,6 +44,7 @@
   },
   "devDependencies": {
     "@fullhuman/postcss-purgecss": "^2.0.5",
+    "@testing-library/cypress": "^7.0.2",
     "@testing-library/jest-dom": "^5.1.0",
     "@testing-library/react": "^9.4.0",
     "@types/jest": "^25.1.1",
@@ -59,8 +60,10 @@
     "@typescript-eslint/parser": "^2.18.0",
     "babel-jest": "^25.1.0",
     "babel-preset-gatsby": "^0.2.27",
+    "cypress": "^6.0.1",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-cypress": "^2.11.2",
     "eslint-plugin-import": "^2.20.0",
     "eslint-plugin-jest": "^23.6.0",
     "eslint-plugin-jsx-a11y": "^6.2.3",
@@ -76,6 +79,7 @@
     "lint-staged": "^10.0.7",
     "prettier": "^1.19.1",
     "react-test-renderer": "^16.12.0",
+    "start-server-and-test": "^1.11.6",
     "tailwindcss": "1.4.5",
     "wicg-inert": "^3.0.3"
   },
@@ -93,7 +97,11 @@
     "lint": "eslint --ignore-path .gitignore ./src --ext ts --ext tsx --ext js --ext jsx",
     "test": "jest",
     "coverage": "jest --coverage",
-    "tsc": "tsc"
+    "tsc": "tsc",
+    "cypress:run": "./node_modules/.bin/cypress run",
+    "cypress:open": "./node_modules/.bin/cypress open",
+    "test:integration:run": "start-server-and-test start http://localhost:8000 cypress:run",
+    "test:integration:dev": "start-server-and-test start http://localhost:8000 cypress:open"
   },
   "repository": {
     "type": "git",

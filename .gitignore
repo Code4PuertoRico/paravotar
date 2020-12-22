@@ -69,3 +69,6 @@ yarn-error.log
 .yarn-integrity
 
 .coverage
+
+cypress/screenshots
+cypress/videos
