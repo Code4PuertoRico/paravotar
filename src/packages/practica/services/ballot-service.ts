@@ -8,7 +8,7 @@ import {
   StateBallotConfig,
 } from "./ballot-configs"
 import { ElectiveField } from "./ballot-configs/base"
-import { API_URL, PUBLIC_S3_BUCKET } from "./constants"
+import { API_URL, CDN_URL } from "./constants"
 import { OcrResult, PracticeContext } from "./types"
 import { getExplicitlySelectedVotes, Vote } from "./vote-service"
 import BallotFinder, { FindByType } from "./ballot-finder-service"
@@ -65,7 +65,7 @@ const BallotService = {
       legislativa: LegislativeBallotConfig
     }> = Object.entries(ballotPaths).map(async ([key, value]) => {
       try {
-        const ballotRes = await fetch(`${PUBLIC_S3_BUCKET}/${value}data.json`)
+        const ballotRes = await fetch(`${CDN_URL}/${value}data.json`)
         const ballotJson: OcrResult[][] = await ballotRes.json()
 
         if (key === "estatal") {
