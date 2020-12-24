@@ -57,6 +57,7 @@ export const Practicing: React.FunctionComponent<PracticingProps> = ({
                         state.context.ballots.estatal
                       )
                     }}
+                    data-testid="submit"
                   >
                     Continuar
                   </Button>
@@ -112,6 +113,7 @@ export const Practicing: React.FunctionComponent<PracticingProps> = ({
                         state.context.ballots.legislativa
                       )
                     }}
+                    data-testid="submit"
                   >
                     Continuar
                   </Button>
@@ -167,6 +169,7 @@ export const Practicing: React.FunctionComponent<PracticingProps> = ({
                         state.context.ballots.municipal
                       )
                     }}
+                    data-testid="submit"
                   >
                     Continuar
                   </Button>

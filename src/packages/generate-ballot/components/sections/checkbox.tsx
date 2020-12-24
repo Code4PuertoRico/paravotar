@@ -28,6 +28,7 @@ export default function Checkbox(props: CheckboxProps) {
         onMouseEnter={props.onMouseEnter}
         onMouseLeave={props.onMouseLeave}
         onClick={props.onClick}
+        data-testid={props.id}
       >
         {props.checked ? (
           <img

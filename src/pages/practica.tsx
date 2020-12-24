@@ -13,8 +13,8 @@ type PageProps = {
   location: Location
 }
 
-if (process.env.environment !== "production") {
-  makeServer({ environment: process.env.environment || "development" })
+if (process.env.environment === "development") {
+  makeServer({ environment: "development" })
 }
 
 const Practica = ({ location }: PageProps) => {

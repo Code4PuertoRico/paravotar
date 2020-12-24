@@ -87,7 +87,7 @@ export const Results: React.FunctionComponent<ResultsProps> = ({
   const votes = context.votes
 
   return (
-    <div className="mx-auto lg:w-3/4">
+    <div className="mx-auto lg:w-3/4" data-testid="voting-result">
       {ballotType === BallotType.state && votesCount ? (
         <ResultsState
           votesCount={votesCount as StateVotesCount}

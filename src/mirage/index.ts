@@ -11,6 +11,7 @@ type MakeServerArgs = {
 export default function makeServer({ environment }: MakeServerArgs) {
   const server = createServer({
     environment: environment || "development",
+    logging: true,
 
     serializers: {
       application: Serializer,
@@ -44,7 +45,6 @@ export default function makeServer({ environment }: MakeServerArgs) {
         request: Request
       ) {
         if (request.params.ballot === "estatal") {
-          console.log({ stateBallot })
           return stateBallot
         } else if (request.params.ballot.includes("legislativa")) {
           return legislativeBallot

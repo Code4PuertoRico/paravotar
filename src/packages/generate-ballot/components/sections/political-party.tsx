@@ -21,7 +21,10 @@ export default function PoliticalParty(props: HeaderProps) {
       <img className="mx-auto" src={props.logo} alt={props.ocrResult} />
       <Checkbox
         type="party"
-        id={props.ocrResult.replace(" ", "-").toLowerCase()}
+        id={props.ocrResult
+          .trim()
+          .replace(/\s/gi, "-")
+          .toLowerCase()}
         checked={props.hasVote}
         onClick={props.toggleVote}
         isHighlighted={props.isHighlighted}
