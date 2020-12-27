@@ -34,8 +34,14 @@ jobs:
       - name: Install
         run: yarn install --frozen-lockfile
 
-      - name: Tests
-        run: yarn run test:integration:ci
+      - name: Build
+        run: yarn run build
+
+      - name: Test
+        uses: cypress-io/github-action@v2
+        with:
+          start: yarn run serve
+          wait-on: 'http://localhost:8000'
 
       # - name: Install Cypress
       #   uses: cypress-io/github-action@v2
