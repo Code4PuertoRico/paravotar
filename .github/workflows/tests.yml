@@ -18,5 +18,4 @@ jobs:
 
       - name: Cypress
         uses: cypress-io/github-action@v2
-        run: yarn run test:integration:ci
 
