@@ -16,6 +16,20 @@ jobs:
       - name: Tests
         run: yarn run test
 
-      - name: Cypress
+  cypress:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@main
+
+      - name: Install
+        run: yarn
+
+      - name: Install Cypress
         uses: cypress-io/github-action@v2
+        with:
+          browser: chrome
+          headless: true
+          start: npm run test:integration:ci
+          wait-on: http://localhost:8000
 
