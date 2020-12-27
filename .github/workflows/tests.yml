@@ -16,9 +16,14 @@ jobs:
       - name: Tests
         run: yarn run test
 
+      - name: Cypress
+        uses: cypress-io/github-action@v2
+        run: yarn run test:integration:ci
+
       - name: Percy Test
         uses: percy/snapshot-action@v0.1.0
         with:
           build-directory: "public/"
         env:
           PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+
