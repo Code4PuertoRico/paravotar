@@ -8,7 +8,7 @@ jobs:
         uses: actions/checkout@main
 
       - name: Install
-        run: yarn
+        run: yarn install --frozen-lockfile
 
       - name: Tests
         run: yarn run test
@@ -20,7 +20,7 @@ jobs:
         uses: actions/checkout@main
 
       - name: Install
-        run: yarn
+        run: yarn install --frozen-lockfile
 
       - name: Lint
         run: yarn run lint
@@ -32,13 +32,13 @@ jobs:
         uses: actions/checkout@main
 
       - name: Install
-        run: yarn
+        run: yarn install --frozen-lockfile
 
       - name: Install Cypress
         uses: cypress-io/github-action@v2
         with:
           browser: chrome
           headless: true
-          command: npm run test:integration:ci
+          start: yarn run build && yarn run serve
           wait-on: 'http://localhost:8000'
 
