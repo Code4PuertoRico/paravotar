@@ -40,14 +40,14 @@ jobs:
       - name: Test
         uses: cypress-io/github-action@v2
         with:
+          browser: chrome
+          headless: true
           start: yarn run serve
           wait-on: 'http://localhost:8000'
 
       # - name: Install Cypress
       #   uses: cypress-io/github-action@v2
       #   with:
-      #     browser: chrome
-      #     headless: true
       #     start: yarn run build && yarn run serve
       #     wait-on: 'http://localhost:8000'
 
