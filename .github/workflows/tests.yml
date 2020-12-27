@@ -31,4 +31,5 @@ jobs:
           browser: chrome
           headless: true
           start: npm run test:integration:ci
+          wait-on: 'http://localhost:8000'
 
