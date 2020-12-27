@@ -7,9 +7,6 @@ import "./src/styles/ReactToastify.css"
 
 export const onClientEntry = () => {
   if (window.Cypress) {
-    // If your app makes requests to domains other than / (the current domain), add them
-    // here so that they are also proxied from your app to the handleFromCypress function.
-    // For example: let otherDomains = ["https://my-backend.herokuapp.com/"]
     const otherDomains = [
       "https://cdn.paravotar.org/",
       "https://api.paravotar.org/",

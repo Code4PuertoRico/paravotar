@@ -92,16 +92,17 @@
     "develop": "gatsby develop",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
     "start": "npm run develop",
-    "serve": "gatsby serve",
+    "serve": "gatsby serve --port=8000",
     "clean": "gatsby clean",
     "lint": "eslint --ignore-path .gitignore ./src --ext ts --ext tsx --ext js --ext jsx",
     "test": "jest",
     "coverage": "jest --coverage",
     "tsc": "tsc",
-    "cypress:run": "./node_modules/.bin/cypress run",
+    "cypress:ci": "./node_modules/.bin/cypress run",
     "cypress:open": "./node_modules/.bin/cypress open",
-    "test:integration:run": "start-server-and-test start http://localhost:8000 cypress:run",
-    "test:integration:dev": "start-server-and-test start http://localhost:8000 cypress:open"
+    "pretest:integration:ci": "yarn run build",
+    "test:integration:ci": "start-server-and-test serve http://localhost:9000 cypress:ci",
+    "test:integration:open": "start-server-and-test start http://localhost:8000 cypress:open"
   },
   "repository": {
     "type": "git",

@@ -11,7 +11,6 @@ type MakeServerArgs = {
 export default function makeServer({ environment }: MakeServerArgs) {
   const server = createServer({
     environment: environment || "development",
-    logging: true,
 
     serializers: {
       application: Serializer,

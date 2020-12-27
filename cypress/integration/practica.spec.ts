@@ -36,7 +36,7 @@ describe("Practice - State Ballot", () => {
   })
 
   it("should be able to emit a straight party vote on the state ballot", () => {
-    cy.visit("/")
+    cy.visit("/practica")
 
     cy.findByTestId("start-practice").click()
     cy.findByTestId("find-by-precint").click()
@@ -51,7 +51,7 @@ describe("Practice - State Ballot", () => {
   })
 
   it("should be able to emit a mixed party vote on the state ballot", () => {
-    cy.visit("/")
+    cy.visit("/practica")
 
     cy.findByTestId("start-practice").click()
     cy.findByTestId("find-by-precint").click()
@@ -66,7 +66,7 @@ describe("Practice - State Ballot", () => {
   })
 
   it("should be able to vote for candidates on the state ballot", () => {
-    cy.visit("/")
+    cy.visit("/practica")
 
     cy.findByTestId("start-practice").click()
     cy.findByTestId("find-by-precint").click()
@@ -92,7 +92,7 @@ describe("Practice - Municipal Ballot", () => {
   })
 
   it("should be able to emit a straight party vote", () => {
-    cy.visit("/")
+    cy.visit("/practica")
 
     cy.findByTestId("start-practice").click()
     cy.findByTestId("find-by-precint").click()
@@ -107,7 +107,7 @@ describe("Practice - Municipal Ballot", () => {
   })
 
   it("should be able to emit a mixed party vote", () => {
-    cy.visit("/")
+    cy.visit("/practica")
 
     cy.findByTestId("start-practice").click()
     cy.findByTestId("find-by-precint").click()
@@ -122,7 +122,7 @@ describe("Practice - Municipal Ballot", () => {
   })
 
   it("should be able to emit a mixed party vote on the municipal ballot by chosing a different mayor", () => {
-    cy.visit("/")
+    cy.visit("/practica")
 
     cy.findByTestId("start-practice").click()
     cy.findByTestId("find-by-precint").click()
@@ -136,7 +136,7 @@ describe("Practice - Municipal Ballot", () => {
   })
 
   it("should be able to candidate vote", () => {
-    cy.visit("/")
+    cy.visit("/practica")
 
     cy.findByTestId("start-practice").click()
     cy.findByTestId("find-by-precint").click()
@@ -170,7 +170,7 @@ describe("Practice - Legislative Ballot", () => {
   })
 
   it("should be able to emit a straight party vote", () => {
-    cy.visit("/")
+    cy.visit("/practica")
 
     cy.findByTestId("start-practice").click()
     cy.findByTestId("find-by-precint").click()
@@ -185,7 +185,7 @@ describe("Practice - Legislative Ballot", () => {
   })
 
   it("should be able to emit a mixed party vote", () => {
-    cy.visit("/")
+    cy.visit("/practica")
 
     cy.findByTestId("start-practice").click()
     cy.findByTestId("find-by-precint").click()
@@ -200,7 +200,7 @@ describe("Practice - Legislative Ballot", () => {
   })
 
   it("should be able to emit a mixed party vote", () => {
-    cy.visit("/")
+    cy.visit("/practica")
 
     cy.findByTestId("start-practice").click()
     cy.findByTestId("find-by-precint").click()
