@@ -11,13 +11,18 @@ type HeaderProps = {
   voteOpacity: string
   logo?: string
   toggleVote?: () => void
+  voteType: "explicit-vote" | "implicit-vote" | "no-vote"
 }
 
 export default function PoliticalParty(props: HeaderProps) {
   const { setHighlightedColumn } = useColumnHighlight()
 
   return (
-    <div className="p-2 text-center border border-white" key={props.ocrResult}>
+    <div
+      className="p-2 text-center border border-white"
+      key={props.ocrResult}
+      data-vote-type={props.voteType}
+    >
       <img className="mx-auto" src={props.logo} alt={props.ocrResult} />
       <Checkbox
         type="party"
