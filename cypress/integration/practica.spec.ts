@@ -86,7 +86,7 @@ describe("Practice - State Ballot", () => {
   })
 })
 
-describe.only("Practice - Municipal Ballot", () => {
+describe("Practice - Municipal Ballot", () => {
   let server
 
   beforeEach(() => {
@@ -174,7 +174,7 @@ describe.only("Practice - Municipal Ballot", () => {
   })
 })
 
-describe.only("Practice - Legislative Ballot", () => {
+describe("Practice - Legislative Ballot", () => {
   let server
 
   beforeEach(() => {
