@@ -47,4 +47,3 @@ jobs:
           headless: true
           start: yarn run serve
           wait-on: 'http://localhost:8000'
-          video: false
