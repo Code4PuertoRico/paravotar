@@ -73,6 +73,11 @@ export default function BaseBallot(props: BallotProps) {
                     ? (vote as Vote).wasSelectedImplicitly()
                     : false
                   const isHighlighted = colIndex === highlightedColumn
+                  const voteType = isExplicitVote
+                    ? "explicit-vote"
+                    : isImplicitVote
+                    ? "implicit-vote"
+                    : "no-vote"
                   const voteOpacity = isExplicitVote
                     ? "opacity-100"
                     : isImplicitVote
@@ -83,6 +88,7 @@ export default function BaseBallot(props: BallotProps) {
                     return (
                       <Ballot.PoliticalParty
                         key={col.id}
+                        voteType={voteType}
                         logo={col.insignia}
                         ocrResult={col.name}
                         hasVote={hasVote}
@@ -122,6 +128,7 @@ export default function BaseBallot(props: BallotProps) {
                         img={col.img}
                         name={col.name}
                         hasVote={hasVote}
+                        voteType={voteType}
                         voteOpacity={voteOpacity}
                         accumulationNumber={col.accumulationNumber}
                         isHighlighted={isHighlighted}
@@ -147,6 +154,7 @@ export default function BaseBallot(props: BallotProps) {
                         accumulationNumber={col.accumulationNumber}
                         hasVote={hasVote}
                         voteOpacity={voteOpacity}
+                        voteType={voteType}
                         toggleVote={() =>
                           props.toggleVote(col, {
                             row: rowIndex,

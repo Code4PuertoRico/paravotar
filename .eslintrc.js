@@ -30,6 +30,7 @@ module.exports = {
     "plugin:import/warnings",
     "plugin:import/typescript",
     "plugin:jsx-a11y/strict",
+    "plugin:cypress/recommended",
   ],
   parserOptions: {
     ecmaFeatures: {

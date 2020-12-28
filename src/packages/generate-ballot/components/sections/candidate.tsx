@@ -11,6 +11,7 @@ type CandidateProps = {
   voteOpacity: string
   img?: string
   toggleVote?: () => void
+  voteType: "explicit-vote" | "implicit-vote" | "no-vote"
 }
 
 export default function Candidate(props: CandidateProps) {
@@ -18,7 +19,10 @@ export default function Candidate(props: CandidateProps) {
 
   return (
     <div className="border">
-      <div className="flex items-center mx-auto py-1 px-3">
+      <div
+        className="flex items-center mx-auto py-1 px-3"
+        data-vote-type={props.voteType}
+      >
         {!props.accumulationNumber ? (
           <div className="h-5 w-4"></div>
         ) : (
@@ -26,7 +30,10 @@ export default function Candidate(props: CandidateProps) {
         )}
         <Checkbox
           type="candidate"
-          id={props.name.replace(" ", "-").toLowerCase()}
+          id={props.name
+            .trim()
+            .replace(/\s/gi, "-")
+            .toLowerCase()}
           checked={props.hasVote}
           isHighlighted={props.isPartyHighlighted || isHighlighted}
           voteOpacity={props.voteOpacity}

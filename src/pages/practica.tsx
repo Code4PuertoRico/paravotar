@@ -7,9 +7,14 @@ import { Practice } from "../packages/practica/components/index"
 import { withTrans } from "../i18n/withTrans"
 import { SidebarProvider } from "../context/sidebar-context"
 import { BallotType } from "../ballot-validator/types"
+import makeServer from "../mirage"
 
 type PageProps = {
   location: Location
+}
+
+if (process.env.environment === "development") {
+  makeServer({ environment: "development" })
 }
 
 const Practica = ({ location }: PageProps) => {

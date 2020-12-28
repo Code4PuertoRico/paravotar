@@ -94,7 +94,9 @@ export default function PrecintNumberForm(props: PrecintNumberFormProps) {
           setSelected={(t: string) => setSelectedTown(t)}
           style={style}
         />
-        <Button className="mt-4 block w-full">Continuar</Button>
+        <Button className="mt-4 block w-full" data-testid="confirm-precint">
+          Continuar
+        </Button>
       </form>
     </div>
   )

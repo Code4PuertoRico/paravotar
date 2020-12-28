@@ -5,12 +5,12 @@ import {
   StateBallotConfig,
 } from "../../practica/services/ballot-configs"
 
-import { PUBLIC_S3_BUCKET } from "../../practica/services/constants"
+import { CDN_URL } from "../../practica/services/constants"
 import { BallotMachineContext } from "../types/ballot-machine"
 
 async function fetchBallot(path: string | null) {
   if (path) {
-    const resp = await fetch(`${PUBLIC_S3_BUCKET}${path}/data.json`)
+    const resp = await fetch(`${CDN_URL}${path}/data.json`)
     const data = await resp.json()
 
     return data

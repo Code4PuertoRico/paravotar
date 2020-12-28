@@ -60,7 +60,9 @@ export default function EnterVoterIdForm(props: EnterVoterIdFormProps) {
         ) : (
           <div className="h-4"></div>
         )}
-        <Button className="mt-4 block w-full">Continuar</Button>
+        <Button className="mt-4 block w-full" data-testid="confirm-voter-id">
+          Continuar
+        </Button>
       </form>
     </div>
   )

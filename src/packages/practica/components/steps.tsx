@@ -85,7 +85,12 @@ export default function Steps(props: { onStart: () => void }) {
           </Step.Description>
         </Step>
       </ol>
-      <Button className="mt-8 w-full" variant="primary" onClick={props.onStart}>
+      <Button
+        className="mt-8 w-full"
+        variant="primary"
+        onClick={props.onStart}
+        data-testid="start-practice"
+      >
         Comenzar a practicar
       </Button>
       <Typography className="text-sm mt-6" tag="p" variant="p">

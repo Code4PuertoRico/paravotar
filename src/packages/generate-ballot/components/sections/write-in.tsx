@@ -10,6 +10,7 @@ type WriteInProps = {
   toggleVote?: () => void
   initialTextValue?: string
   updateName: (name: string) => void
+  voteType: "explicit-vote" | "implicit-vote" | "no-vote"
 }
 
 export default function WriteIn(props: WriteInProps) {
@@ -17,7 +18,10 @@ export default function WriteIn(props: WriteInProps) {
 
   return (
     <div className="border">
-      <div className="flex items-center mx-auto py-1 px-3">
+      <div
+        className="flex items-center mx-auto py-1 px-3"
+        data-vote-type={props.voteType}
+      >
         {!props.accumulationNumber ? (
           <div className="h-5 w-4"></div>
         ) : (

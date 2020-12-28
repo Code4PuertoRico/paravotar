@@ -27,12 +27,20 @@ export default function BallotFinderPicker(props: BallotFinderPickerProps) {
       </Typography>
       <div className="grid grid-cols-1 gap-4 mt-6 lg:grid-cols-2">
         <div className="w-full my-1">
-          <Button className="block w-full" onClick={props.selectPrecint}>
+          <Button
+            className="block w-full"
+            onClick={props.selectPrecint}
+            data-testid="find-by-precint"
+          >
             Número de precinto o pueblo
           </Button>
         </div>
         <div className="w-full my-1">
-          <Button className="block w-full" onClick={props.selectVoterId}>
+          <Button
+            className="block w-full"
+            onClick={props.selectVoterId}
+            data-testid="find-by-voter-id"
+          >
             Número de tarjeta electoral
           </Button>
         </div>

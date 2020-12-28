@@ -24,6 +24,7 @@ export default function Container({
       className: `max-w-screen-xl mx-auto ${className}`,
       tabIndex,
       ref,
+      "data-testid": id,
     },
     children
   )

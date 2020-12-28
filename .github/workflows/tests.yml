@@ -1,24 +1,26 @@
-name: CI
+name: Tests
 on: [push, pull_request]
 jobs:
-  build:
+  tests:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@master
+        uses: actions/checkout@main
 
       - name: Install
-        run: yarn
-
-      - name: Lint
-        run: yarn run lint
+        run: yarn install --frozen-lockfile
 
       - name: Tests
         run: yarn run test
 
-      - name: Percy Test
-        uses: percy/snapshot-action@v0.1.2
-        with:
-          build-directory: "public/"
-        env:
-          PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@main
+
+      - name: Install
+        run: yarn install --frozen-lockfile
+
+      - name: Lint
+        run: yarn run lint
