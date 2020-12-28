@@ -27,6 +27,9 @@ jobs:
 
   cypress:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        machines: [1, 2, 3]
     steps:
       - name: Checkout
         uses: actions/checkout@main
@@ -44,10 +47,3 @@ jobs:
           headless: true
           start: yarn run serve
           wait-on: 'http://localhost:8000'
-
-      # - name: Install Cypress
-      #   uses: cypress-io/github-action@v2
-      #   with:
-      #     start: yarn run build && yarn run serve
-      #     wait-on: 'http://localhost:8000'
-
