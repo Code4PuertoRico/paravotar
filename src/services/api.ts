@@ -5,7 +5,7 @@ interface ApiInterface {
   post<T>(endpoint: string, params: any): Promise<T>
 }
 
-class ApiService implements ApiInterface {
+class FetchAdapter implements ApiInterface {
   private baseUrl
 
   constructor(baseUrl: string) {
@@ -40,4 +40,26 @@ class ApiService implements ApiInterface {
   }
 }
 
-export default new ApiService(API_URL)
+class ApiService {
+  private adapter
+
+  constructor(adapter: ApiInterface) {
+    this.adapter = adapter
+  }
+
+  async get<T>(endpoint: string) {
+    const res = await this.adapter.get<T>(endpoint)
+
+    return res
+  }
+
+  async post(endpoint: string, params: any) {
+    const res = await this.adapter.post(endpoint, params)
+
+    return res
+  }
+}
+
+const adapter = new FetchAdapter(API_URL)
+
+export default new ApiService(adapter)
