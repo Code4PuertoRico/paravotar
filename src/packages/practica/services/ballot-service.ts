@@ -8,7 +8,7 @@ import {
   StateBallotConfig,
 } from "./ballot-configs"
 import { ElectiveField } from "./ballot-configs/base"
-import { API_URL, CDN_URL } from "./constants"
+import { CDN_URL } from "./constants"
 import { OcrResult, PracticeContext } from "./types"
 import { getExplicitlySelectedVotes, Vote } from "./vote-service"
 import BallotFinder, { FindByType } from "./ballot-finder-service"
@@ -18,6 +18,7 @@ import {
   PartyVoteStrategy,
   VoteUpdateManager,
 } from "../strategies"
+import api from "../../../services/api"
 
 type FindByEventParams = {
   userInput: string
@@ -195,28 +196,11 @@ const BallotService = {
         }
       }
     )
-    const votes = JSON.stringify(voteCoordinates)
-
-    const res = await fetch(`${API_URL}/createBallotTask`, {
-      method: "POST",
-      body: JSON.stringify({
-        ballotType: event.ballotType,
-        ballotPath: `/${event.ballotPath.substr(
-          0,
-          event.ballotPath.length - 1
-        )}`,
-        votes: votes,
-      }),
-    })
-    const result = await res.json()
-
-    const params = new URLSearchParams({
+    const result = await api.post("/createBallotTask", {
       ballotType: event.ballotType,
       ballotPath: `/${event.ballotPath.substr(0, event.ballotPath.length - 1)}`,
+      votes: JSON.stringify(voteCoordinates),
     })
-
-    params.append("votes", votes)
-    params.toString()
 
     return result.uuid
   },
@@ -224,13 +208,7 @@ const BallotService = {
   async getPdfUrl(context: PracticeContext) {
     const { uuid } = context
     const params = stringify({ uuid })
-    const res = await fetch(`${API_URL}/getPdfUrl?${params}`)
-
-    if (!res.ok) {
-      throw new Error("Something went wrong")
-    }
-
-    const result = await res.json()
+    const result = await api.get(`/getPdfUrl?${params}`)
 
     return result
   },

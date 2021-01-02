@@ -1,17 +1,14 @@
 import { createMachine, assign } from "xstate"
+import api from "../../../services/api"
 import { FindYourCenterContext, FindYourCenterEvent } from "./types"
 
 const isNumberExpr = new RegExp(/^\d+$/)
 
-const getVoterDetails = (voterId?: string) =>
-  fetch(`https://api.paravotar.org/consulta?voterId=${voterId}`).then(
-    response => {
-      if (!response.ok) {
-        throw new Error("HTTP status code: " + response.status)
-      }
-      return response.json()
-    }
-  )
+const getVoterDetails = async (voterId?: string) => {
+  const response = await api.get(`/consulta?voterId=${voterId}`)
+
+  return response
+}
 
 export const findYourCenterMachine = createMachine<
   FindYourCenterContext,
