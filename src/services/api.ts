@@ -13,7 +13,7 @@ class ApiService implements ApiInterface {
   }
 
   async get<T>(endpoint: string) {
-    const res = await fetch(`${this.baseUrl}/${endpoint}`)
+    const res = await fetch(`${this.baseUrl}${endpoint}`)
 
     if (!res.ok) {
       throw Error("Network request failed.")
@@ -25,7 +25,7 @@ class ApiService implements ApiInterface {
   }
 
   async post(endpoint: string, params: any) {
-    const res = await fetch(`${this.baseUrl}/${endpoint}`, {
+    const res = await fetch(`${this.baseUrl}${endpoint}`, {
       method: "POST",
       body: JSON.stringify(params),
     })
