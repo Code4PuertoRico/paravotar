@@ -1,4 +1,5 @@
 import { Machine, assign } from "xstate"
+import api from "../../../services/api"
 import {
   LegislativeBallotConfig,
   MunicipalBallotConfig,
@@ -10,8 +11,7 @@ import { BallotMachineContext } from "../types/ballot-machine"
 
 async function fetchBallot(path: string | null) {
   if (path) {
-    const resp = await fetch(`${CDN_URL}${path}/data.json`)
-    const data = await resp.json()
+    const data = await api.get(`/${path}/data.json`, { baseUrl: CDN_URL })
 
     return data
   }

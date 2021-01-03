@@ -66,8 +66,12 @@ const BallotService = {
       legislativa: LegislativeBallotConfig
     }> = Object.entries(ballotPaths).map(async ([key, value]) => {
       try {
-        const ballotRes = await fetch(`${CDN_URL}/${value}data.json`)
-        const ballotJson: OcrResult[][] = await ballotRes.json()
+        const ballotJson: OcrResult[][] = await api.get<OcrResult[][]>(
+          `/${value}data.json`,
+          {
+            baseUrl: CDN_URL,
+          }
+        )
 
         if (key === "estatal") {
           return {

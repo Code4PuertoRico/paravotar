@@ -1,8 +1,12 @@
 import { API_URL } from "../packages/practica/services/constants"
 
+interface RequestOptions {
+  baseUrl?: string
+}
+
 interface ApiInterface {
-  get<T>(endpoint: string): Promise<T>
-  post<T>(endpoint: string, params: any): Promise<T>
+  get<T>(endpoint: string, options?: RequestOptions): Promise<T>
+  post<T>(endpoint: string, params: any, options?: RequestOptions): Promise<T>
 }
 
 class FetchAdapter implements ApiInterface {
@@ -22,15 +26,25 @@ class FetchAdapter implements ApiInterface {
     return data
   }
 
-  async get<T>(endpoint: string) {
-    const res = await fetch(`${this.baseUrl}${endpoint}`)
+  private getBaseUrl(options?: RequestOptions) {
+    if (options && options.baseUrl) {
+      return options.baseUrl
+    }
+
+    return this.baseUrl
+  }
+
+  async get<T>(endpoint: string, options?: RequestOptions) {
+    const baseUrl = this.getBaseUrl(options)
+    const res = await fetch(`${baseUrl}${endpoint}`)
     const data = await this.processResponse<T>(res)
 
     return data
   }
 
-  async post(endpoint: string, params: any) {
-    const res = await fetch(`${this.baseUrl}${endpoint}`, {
+  async post(endpoint: string, params: any, options?: RequestOptions) {
+    const baseUrl = this.getBaseUrl(options)
+    const res = await fetch(`${baseUrl}${endpoint}`, {
       method: "POST",
       body: JSON.stringify(params),
     })
@@ -47,14 +61,14 @@ class ApiService {
     this.adapter = adapter
   }
 
-  async get<T>(endpoint: string) {
-    const res = await this.adapter.get<T>(endpoint)
+  async get<T>(endpoint: string, options?: RequestOptions) {
+    const res = await this.adapter.get<T>(endpoint, options)
 
     return res
   }
 
-  async post(endpoint: string, params: any) {
-    const res = await this.adapter.post(endpoint, params)
+  async post(endpoint: string, params: any, options?: RequestOptions) {
+    const res = await this.adapter.post(endpoint, params, options)
 
     return res
   }
