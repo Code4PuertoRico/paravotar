@@ -12,9 +12,7 @@ class FetchAdapter implements ApiInterface {
     this.baseUrl = baseUrl
   }
 
-  async get<T>(endpoint: string) {
-    const res = await fetch(`${this.baseUrl}${endpoint}`)
-
+  private async processResponse<T>(res: Response) {
     if (!res.ok) {
       throw Error("Network request failed.")
     }
@@ -24,17 +22,19 @@ class FetchAdapter implements ApiInterface {
     return data
   }
 
+  async get<T>(endpoint: string) {
+    const res = await fetch(`${this.baseUrl}${endpoint}`)
+    const data = await this.processResponse<T>(res)
+
+    return data
+  }
+
   async post(endpoint: string, params: any) {
     const res = await fetch(`${this.baseUrl}${endpoint}`, {
       method: "POST",
       body: JSON.stringify(params),
     })
-
-    if (!res.ok) {
-      throw Error("Network request failed.")
-    }
-
-    const data = await res.json()
+    const data = await this.processResponse<T>(res)
 
     return data
   }
