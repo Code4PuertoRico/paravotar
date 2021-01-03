@@ -1,17 +1,17 @@
 import { Machine, assign } from "xstate"
-import api from "../../../services/api"
+
+import { BallotResource } from "../../practica/resource"
 import {
   LegislativeBallotConfig,
   MunicipalBallotConfig,
   StateBallotConfig,
 } from "../../practica/services/ballot-configs"
 
-import { CDN_URL } from "../../practica/services/constants"
 import { BallotMachineContext } from "../types/ballot-machine"
 
 async function fetchBallot(path: string | null) {
   if (path) {
-    const data = await api.get(`/${path}/data.json`, { baseUrl: CDN_URL })
+    const data = await BallotResource.getBallot(`${path}/`)
 
     return data
   }

@@ -1,11 +1,12 @@
 import { createMachine, assign } from "xstate"
-import api from "../../../services/api"
+
 import { FindYourCenterContext, FindYourCenterEvent } from "./types"
+import { VoterInformationResource } from "../../../packages/practica/resource"
 
 const isNumberExpr = new RegExp(/^\d+$/)
 
 const getVoterDetails = async (voterId?: string) => {
-  const response = await api.get(`/consulta?voterId=${voterId}`)
+  const response = await VoterInformationResource.getVoterInfo(voterId)
 
   return response
 }

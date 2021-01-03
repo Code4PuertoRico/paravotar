@@ -1,6 +1,14 @@
 import { stringify } from "qs"
+
 import { BallotType, Selection } from "../../../ballot-validator/types"
 import { VotesCoordinates } from "../../generate-ballot/types/ballot-machine"
+import {
+  CandidateVoteStrategy,
+  MixedVoteStrategy,
+  PartyVoteStrategy,
+  VoteUpdateManager,
+} from "../strategies"
+import { BallotResource } from "../resource"
 import {
   BallotConfigs,
   LegislativeBallotConfig,
@@ -8,17 +16,9 @@ import {
   StateBallotConfig,
 } from "./ballot-configs"
 import { ElectiveField } from "./ballot-configs/base"
-import { CDN_URL } from "./constants"
 import { OcrResult, PracticeContext } from "./types"
 import { getExplicitlySelectedVotes, Vote } from "./vote-service"
 import BallotFinder, { FindByType } from "./ballot-finder-service"
-import {
-  CandidateVoteStrategy,
-  MixedVoteStrategy,
-  PartyVoteStrategy,
-  VoteUpdateManager,
-} from "../strategies"
-import api from "../../../services/api"
 
 type FindByEventParams = {
   userInput: string
@@ -66,12 +66,7 @@ const BallotService = {
       legislativa: LegislativeBallotConfig
     }> = Object.entries(ballotPaths).map(async ([key, value]) => {
       try {
-        const ballotJson: OcrResult[][] = await api.get<OcrResult[][]>(
-          `/${value}data.json`,
-          {
-            baseUrl: CDN_URL,
-          }
-        )
+        const ballotJson: OcrResult[][] = await BallotResource.getBallot(value)
 
         if (key === "estatal") {
           return {
@@ -200,7 +195,7 @@ const BallotService = {
         }
       }
     )
-    const result = await api.post("/createBallotTask", {
+    const result = await BallotResource.createBallotPdf({
       ballotType: event.ballotType,
       ballotPath: `/${event.ballotPath.substr(0, event.ballotPath.length - 1)}`,
       votes: JSON.stringify(voteCoordinates),
@@ -212,7 +207,7 @@ const BallotService = {
   async getPdfUrl(context: PracticeContext) {
     const { uuid } = context
     const params = stringify({ uuid })
-    const result = await api.get(`/getPdfUrl?${params}`)
+    const result = await BallotResource.getBallotPdf(params)
 
     return result
   },

@@ -1,24 +1,12 @@
-import api from "../../../services/api"
-
-type VoterInfo = {
-  estatus: string
-  numeroElectoral: string
-  precinto: string
-  unidad: string
-}
-
-type BallotsResponse = {
-  estatal: string
-  municipal: string
-  legislative: string
-}
+import { BallotResource, VoterInformationResource } from "../resource"
+import { BallotsResponse, VoterInfo } from "./types"
 
 async function getBallotsByVoterId(voterId: string) {
-  const voterInfo: VoterInfo = await api.get<VoterInfo>(
-    `/consulta?voterId=${voterId}`
+  const voterInfo: VoterInfo = await VoterInformationResource.getVoterInfo(
+    voterId
   )
-  const ballots: BallotsResponse = await api.get<BallotsResponse>(
-    `/ballots/ByPrecint?precintId=${voterInfo.precinto}`
+  const ballots: BallotsResponse = await BallotResource.getBallotsByPrecint(
+    voterInfo.precinto
   )
 
   return ballots
@@ -44,19 +32,17 @@ function prefixPrecint(precint: string) {
 
 async function getBallotsByPrecint(precint: string) {
   const prefixedPrecint = prefixPrecint(precint)
-  const ballots: BallotsResponse = await api.get<BallotsResponse>(
-    `/ballots/ByPrecint?precintId=${prefixedPrecint}`
+  const ballots: BallotsResponse = await BallotResource.getBallotsByPrecint(
+    prefixedPrecint
   )
 
   return ballots
 }
 
 async function getBallotsByTown(town: string) {
-  const ballotsJson: BallotsResponse = await api.get<BallotsResponse>(
-    `/ballots/ByTown?townId=${town}`
-  )
+  const ballots: BallotsResponse = await BallotResource.getBallotsByTown(town)
 
-  return ballotsJson
+  return ballots
 }
 
 export enum FindByType {
