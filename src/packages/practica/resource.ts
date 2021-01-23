@@ -3,52 +3,33 @@ import { BallotsResponse, OcrResult, VoterInfo } from "./services/types"
 import { CDN_URL } from "./services/constants"
 
 export const VoterInformationResource = {
-  async getVoterInfo(voterId?: string) {
-    const data = await api.get<VoterInfo>(`/consulta?voterId=${voterId}`)
-
-    return data
+  getVoterInfo(voterId?: string) {
+    return api.get<VoterInfo>(`/consulta?voterId=${voterId}`)
   },
 }
 
 export const BallotResource = {
-  async getBallotsByPrecint(precint: string) {
-    const ballots: BallotsResponse = await api.get<BallotsResponse>(
-      `/ballots/ByPrecint?precintId=${precint}`
-    )
-
-    return ballots
+  getBallotsByPrecint(precint: string) {
+    return api.get<BallotsResponse>(`/ballots/ByPrecint?precintId=${precint}`)
   },
 
-  async getBallotsByTown(town: string) {
-    const ballots: BallotsResponse = await api.get<BallotsResponse>(
-      `/ballots/ByTown?townId=${town}`
-    )
-
-    return ballots
+  getBallotsByTown(town: string) {
+    return api.get<BallotsResponse>(`/ballots/ByTown?townId=${town}`)
   },
 
   async getBallot(path: string) {
-    const data: OcrResult[][] = await api.get<OcrResult[][]>(
-      `/${path}data.json`,
-      { baseUrl: CDN_URL }
-    )
-
-    return data
+    return api.get<OcrResult[][]>(`/${path}data.json`, { baseUrl: CDN_URL })
   },
 
-  async createBallotPdf(ballot: {
+  createBallotPdf(ballot: {
     ballotType: string
     ballotPath: string
     votes: string
   }) {
-    const data = await api.post("/createBallotTask", ballot)
-
-    return data
+    return api.post("/createBallotTask", ballot)
   },
 
-  async getBallotPdf(params: string) {
-    const result = await api.get(`/getPdfUrl?${params}`)
-
-    return result
+  getBallotPdf(params: string) {
+    api.get(`/getPdfUrl?${params}`)
   },
 }

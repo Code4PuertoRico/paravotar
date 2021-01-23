@@ -5,10 +5,8 @@ import { VoterInformationResource } from "../../../packages/practica/resource"
 
 const isNumberExpr = new RegExp(/^\d+$/)
 
-const getVoterDetails = async (voterId?: string) => {
-  const response = await VoterInformationResource.getVoterInfo(voterId)
-
-  return response
+const getVoterDetails = (voterId?: string) => {
+  return VoterInformationResource.getVoterInfo(voterId)
 }
 
 export const findYourCenterMachine = createMachine<
