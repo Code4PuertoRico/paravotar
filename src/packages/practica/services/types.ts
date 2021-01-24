@@ -72,3 +72,16 @@ export type VoteEvent = {
   ballotType: BallotType
   ballot?: BallotConfigs
 }
+
+export type VoterInfo = {
+  estatus: string
+  numeroElectoral: string
+  precinto: string
+  unidad: string
+}
+
+export type BallotsResponse = {
+  estatal: string
+  municipal: string
+  legislative: string
+}

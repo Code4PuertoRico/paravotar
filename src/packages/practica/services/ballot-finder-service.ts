@@ -1,73 +1,16 @@
-import { API_URL } from "./constants"
-
-type VoterInfo = {
-  estatus: string
-  numeroElectoral: string
-  precinto: string
-  unidad: string
-}
-
-type BallotsResponse = {
-  estatal: string
-  municipal: string
-  legislative: string
-}
+import { BallotResource, VoterInformationResource } from "../resource"
+import { BallotsResponse, VoterInfo } from "./types"
 
 async function getBallotsByVoterId(voterId: string) {
-  const voterInfoRes = await fetch(`${API_URL}/consulta?voterId=${voterId}`)
-  const voterInfoJson: VoterInfo = await voterInfoRes.json()
-  const ballotsRes = await fetch(
-    `${API_URL}/ballots/ByPrecint?precintId=${voterInfoJson.precinto}`
+  const voterInfo: VoterInfo = await VoterInformationResource.getVoterInfo(
+    voterId
   )
-  const ballotsJson: BallotsResponse = await ballotsRes.json()
+  const ballots: BallotsResponse = await BallotResource.getBallotsByPrecint(
+    voterInfo.precinto
+  )
 
-  return ballotsJson
+  return ballots
 }
-
-// // Prefetch ballot data
-// const ballots = Object.entries(ballotsJson).map(async ([key, value]) => {
-//   try {
-//     const ballotRes = await fetch(`${PUBLIC_S3_BUCKET}/${value}data.json`)
-//     const ballotJson: OcrResult[][] = await ballotRes.json()
-
-//     if (key === "estatal") {
-//       return {
-//         [key]: new StateBallotConfig(ballotJson, ballotsJson.estatal),
-//       }
-//     } else if (key === "municipal") {
-//       return {
-//         [key]: new MunicipalBallotConfig(ballotJson, ballotsJson.municipal),
-//       }
-//     } else {
-//       return {
-//         [key]: new LegislativeBallotConfig(
-//           ballotJson,
-//           ballotsJson.legislativa
-//         ),
-//       }
-//     }
-//   } catch (err) {
-//     console.log(err)
-//   }
-// })
-
-// const allBallotsJson = await Promise.all(ballots)
-// const initialValue: {
-//   estatal?: StateBallotConfig
-//   municipal?: MunicipalBallotConfig
-//   legislativa?: LegislativeBallotConfig
-// } = {
-//   estatal: undefined,
-//   municipal: undefined,
-//   legislativa: undefined,
-// }
-
-// return allBallotsJson.reduce((prev, curr) => {
-//   return {
-//     ...prev,
-//     ...curr,
-//   }
-// }, initialValue)
 
 function prefixPrecint(precint: string) {
   let input = precint
@@ -89,21 +32,17 @@ function prefixPrecint(precint: string) {
 
 async function getBallotsByPrecint(precint: string) {
   const prefixedPrecint = prefixPrecint(precint)
-  const ballotsByPrecintRes = await fetch(
-    `${API_URL}/ballots/ByPrecint?precintId=${prefixedPrecint}`
+  const ballots: BallotsResponse = await BallotResource.getBallotsByPrecint(
+    prefixedPrecint
   )
-  const ballotsJson: BallotsResponse = await ballotsByPrecintRes.json()
 
-  return ballotsJson
+  return ballots
 }
 
 async function getBallotsByTown(town: string) {
-  const ballotsByPrecintRes = await fetch(
-    `${API_URL}/ballots/ByTown?townId=${town}`
-  )
-  const ballotsJson: BallotsResponse = await ballotsByPrecintRes.json()
+  const ballots: BallotsResponse = await BallotResource.getBallotsByTown(town)
 
-  return ballotsJson
+  return ballots
 }
 
 export enum FindByType {
