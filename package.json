@@ -13,7 +13,7 @@
     "date-fns": "^2.14.0",
     "fast-levenshtein": "^2.0.6",
     "fetch-ponyfill": "^6.1.0",
-    "gatsby": "^2.19.7",
+    "gatsby": "^4.25.7",
     "gatsby-image": "^2.2.39",
     "gatsby-plugin-lodash": "^3.3.2",
     "gatsby-plugin-manifest": "^2.2.39",
