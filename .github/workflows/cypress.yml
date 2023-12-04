@@ -11,15 +11,15 @@ jobs:
         uses: actions/checkout@main
 
       - name: Install
-        run: yarn install --frozen-lockfile
+        run: npm ci
 
       - name: Build
-        run: yarn run build
+        run: npm run build
 
       - name: Test
         uses: cypress-io/github-action@v2
         with:
           browser: chrome
           headless: true
-          start: yarn run serve
-          wait-on: 'http://localhost:8000'
+          start: npm start
+          wait-on: "http://localhost:5173"

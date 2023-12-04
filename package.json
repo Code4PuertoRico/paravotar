@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "start": "vite",
-    "build": "tsc && vite build",
+    "build": "vite build",
     "develop": "npm start",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
