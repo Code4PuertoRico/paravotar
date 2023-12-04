@@ -1,17 +1,17 @@
-import React, { useState, useEffect, useRef } from "react"
-import i18next from "i18next"
+import { useState, useEffect, useRef } from "react"
 import { useSpring, animated } from "react-spring"
 import useMeasure from "react-use-measure"
 import { ResizeObserver } from "@juggle/resize-observer"
 
-import Download from "../../../assets/icons/download.inline.svg"
-import ButtonDropdown from "../../button-dropdown"
+import Download from "../../../assets/icons/download.svg?url"
+import Dropdown from "../../button-dropdown"
 import Typography from "../../typography"
 import Button from "../../button"
 import Arrows from "../../arrows"
 import Card, { CardRef } from "../../card"
 import Link from "../../link"
 import { AbsenteeAndEarlyVoting } from "../types"
+import { useTranslation } from "react-i18next"
 
 type ReasonProps = {
   summary: string
@@ -70,6 +70,7 @@ type Props = {
 }
 
 export default function SpecialVoterReasons(voter: Props) {
+  const { t } = useTranslation()
   const ref = useRef<CardRef>(null!)
 
   useEffect(() => {
@@ -89,25 +90,25 @@ export default function SpecialVoterReasons(voter: Props) {
         {voter.title}
       </Typography>
       <div className="pt-4">
-        {voter.reasons.map(reason => (
+        {voter.reasons.map((reason) => (
           <Reason
             key={reason.summary}
-            summary={i18next.t(reason.summary)}
-            details={i18next.t(reason.details)}
+            summary={t(reason.summary)}
+            details={t(reason.details)}
           />
         ))}
       </div>
-      {i18next.t(voter.exceptions) ? (
+      {t("voter.exceptions") ? (
         <Typography tag="p" variant="p" className="mt-4">
-          {i18next.t(voter.exceptions)}
+          {t("voter.exceptions")}
         </Typography>
       ) : null}
       <div className="w-full md:w-1/2 md:mx-auto">
         {voter.documents.length > 1 ? (
-          <ButtonDropdown
-            placeholder={i18next.t("site.absentee-voter-dropdown")}
-            options={voter.documents.map(document => ({
-              value: i18next.t(document.title),
+          <Dropdown
+            selectedOption={voter.title}
+            options={voter.documents.map((document) => ({
+              value: t(document.title),
             }))}
             onSelect={(docTitle: string) => {
               if (docTitle == "Voto Adelantado" || docTitle == "Early Vote")
@@ -125,7 +126,7 @@ export default function SpecialVoterReasons(voter: Props) {
               else docTitle = "none"
 
               const document = voter.documents.find(
-                doc => doc.title === docTitle
+                (doc) => doc.title === docTitle
               )
 
               // Open download in a new tab.
@@ -139,8 +140,8 @@ export default function SpecialVoterReasons(voter: Props) {
             variant="primary"
             className="mt-6"
           >
-            <Download className="mr-1 h-5 w-5 inline-block" />
-            {i18next.t("site.early-voter-dropdown")}
+            <img src={Download} className="mr-1 h-5 w-5 inline-block" />
+            {t("site.early-voter-dropdown")}
           </Link>
         )}
         <Button

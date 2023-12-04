@@ -1,7 +1,6 @@
 import { useState } from "react"
-
-import i18next from "i18next"
 import { toast } from "react-toastify"
+import { useTranslation } from "react-i18next"
 
 import coordinatesToSections from "../services/coordinates-to-sections"
 import BallotValidator from "../../../ballot-validator/index"
@@ -14,6 +13,7 @@ import { getExplicitlySelectedVotes } from "../services/vote-service"
 
 export default function useToast(state, dependencies: Array<any>) {
   const [isPristine, setIsPristine] = useState(true)
+  const { t } = useTranslation()
 
   useDeepCompareEffect(() => {
     let ballotType: any = null
@@ -55,13 +55,13 @@ export default function useToast(state, dependencies: Array<any>) {
         ballotType === BallotType.municipality
       ) {
         toast.error(
-          i18next.t(messageId, {
+          t(messageId, {
             maxSelection: (ballot as MunicipalBallotConfig)
               ?.amountOfMunicipalLegislators,
           })
         )
       } else {
-        toast.error(i18next.t(messageId))
+        toast.error(t(messageId))
       }
     })
   }, dependencies)

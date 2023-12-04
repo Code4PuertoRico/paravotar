@@ -1,7 +1,8 @@
-import React, { useRef } from "react"
-import i18next from "i18next"
+import { useRef } from "react"
 import { DoneEventObject } from "xstate"
 import { useMachine } from "@xstate/react"
+import { useTranslation } from "react-i18next"
+
 import Button from "../../button"
 import Typography from "../../typography"
 import { findYourCenterMachine } from "./findYourCenterMachine"
@@ -10,7 +11,8 @@ import Link from "../../link"
 const EMBED_LINK_BASE =
   "https://maps.google.com/maps?t=&z=13&ie=UTF8&iwloc=&output=embed&q="
 
-export const FindYourCenter: React.FunctionComponent = () => {
+export const FindYourCenter = () => {
+  const { t } = useTranslation()
   const [current, send] = useMachine(findYourCenterMachine)
 
   const inputRef = useRef<HTMLInputElement>(null)
@@ -36,7 +38,7 @@ export const FindYourCenter: React.FunctionComponent = () => {
         weight="base"
         className="font-normal mt-4 text-center"
       >
-        {i18next.t("site.enter-voter-id")}
+        {t("site.enter-voter-id")}
       </Typography>
 
       <section className="flex flex-col items-center md:flex-row md:justify-center mt-4 mb-8">
@@ -44,8 +46,8 @@ export const FindYourCenter: React.FunctionComponent = () => {
           type="text"
           ref={inputRef}
           className="h-12 border-primary border-2 rounded-md p-4 md:mr-6 mb-6 md:mb-0"
-          placeholder={i18next.t("site.enter-voter-id-placeholder")}
-          onKeyPress={event => {
+          placeholder={t("site.enter-voter-id-placeholder")}
+          onKeyPress={(event) => {
             if (event.keyCode == 13 || event.which == 13) {
               event.preventDefault()
               send("submit", { voterId: inputRef.current?.value })
@@ -58,7 +60,7 @@ export const FindYourCenter: React.FunctionComponent = () => {
           disabled={current.matches("fetchingVoterDetails")}
           className="uppercase pl-8 pr-8 h-12"
         >
-          {i18next.t("site.voter-id-cta")}
+          {t("site.voter-id-cta")}
         </Button>
       </section>
       <Typography
@@ -87,7 +89,7 @@ export const FindYourCenter: React.FunctionComponent = () => {
             weight="base"
             className="font-normal mt-8 text-red text-center"
           >
-            {i18next.t("site.voter-id-error-1")}
+            {t("site.voter-id-error-1")}
           </Typography>
           <Typography
             tag="h4"
@@ -95,7 +97,7 @@ export const FindYourCenter: React.FunctionComponent = () => {
             weight="base"
             className="font-normal mt-2 text-red text-center"
           >
-            {i18next.t("site.voter-id-error-2")}
+            {t("site.voter-id-error-2")}
           </Typography>
         </>
       ) : null}
@@ -108,7 +110,7 @@ export const FindYourCenter: React.FunctionComponent = () => {
             weight="base"
             className="font-bold mt-2"
           >
-            {i18next.t("site.voter-id-results-address-title")}
+            {t("site.voter-id-results-address-title")}
           </Typography>
           <section className="text-center">
             <Typography
@@ -138,7 +140,7 @@ export const FindYourCenter: React.FunctionComponent = () => {
           </section>
           <iframe
             className="mt-16"
-            title={i18next.t("site.voter-id-results-iframe-title")}
+            title={t("site.voter-id-results-iframe-title")}
             src={embedUrl}
             width="100%"
             height="400"

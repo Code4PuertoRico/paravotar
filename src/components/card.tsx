@@ -1,4 +1,4 @@
-import React, { ReactNode, forwardRef, RefObject, Ref } from "react"
+import { ReactNode, forwardRef, RefObject, Ref } from "react"
 
 export type CardRef = HTMLDivElement
 type Props = {

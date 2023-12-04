@@ -1,5 +1,4 @@
-import React from "react"
-import { useService } from "@xstate/react"
+import { useActor } from "@xstate/react"
 import { SectionActor } from "../types"
 import { Candidate } from "../../types"
 
@@ -7,16 +6,14 @@ interface SectionProps {
   sectionRef: SectionActor
 }
 
-export const Section: React.FunctionComponent<SectionProps> = ({
-  sectionRef,
-}) => {
-  const [current, send] = useService(sectionRef)
+export const Section = ({ sectionRef }: SectionProps) => {
+  const [current, send] = useActor(sectionRef)
 
   const { section, selectedCandidates } = current.context
   const { name, rows } = section
 
   const isSelected = (candidate: Candidate) =>
-    selectedCandidates.some(c => c.id === candidate.id)
+    selectedCandidates.some((c) => c.id === candidate.id)
 
   const handleChange = (candidate: Candidate) => () => {
     if (current.value === "complete") {
@@ -29,7 +26,7 @@ export const Section: React.FunctionComponent<SectionProps> = ({
   return (
     <>
       <tr>
-        <td>Section: {current.value}</td>
+        <td>Section: {current.value as string}</td>
       </tr>
       <tr>
         {new Array(section.maxColumns).fill(0).map((_, idx) => (

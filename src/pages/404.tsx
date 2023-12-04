@@ -1,12 +1,14 @@
-import React from "react"
-
-import { Container, Layout, Link, SEO, Typography } from "../components/index"
-import { SidebarProvider } from "../context/sidebar-context"
+import { useLocation } from "react-router-dom";
+import { Container, Layout, Link, Typography } from "../components/index";
+import { SidebarProvider } from "../context/sidebar-context";
+import SEO from "../components/seo";
 
 export default function NotFoundPage() {
+  const location = useLocation();
+
   return (
     <SidebarProvider>
-      <Layout>
+      <Layout location={location}>
         <SEO title="404: Not found" />
         <Container className="w-11/12 text-center pt-32">
           <Typography tag="h1" variant="h2">
@@ -23,5 +25,5 @@ export default function NotFoundPage() {
         </Container>
       </Layout>
     </SidebarProvider>
-  )
+  );
 }

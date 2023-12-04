@@ -1,9 +1,11 @@
-import { RuleOutcomeType, Selection, MunicipalBallot } from "../../types"
-import NoMoreThanOneMayorSelectedRule from "../NoMoreThanOneMayorSelectedRule"
+import { expect, test, it } from "vitest";
 
-const { selected, notSelected } = Selection
+import { RuleOutcomeType, Selection, MunicipalBallot } from "../../types";
+import NoMoreThanOneMayorSelectedRule from "../NoMoreThanOneMayorSelectedRule";
 
-describe("NoMoreThanOneMayorSelectedRule", () => {
+const { selected, notSelected } = Selection;
+
+test("NoMoreThanOneMayorSelectedRule", () => {
   it("should error on more than 1 selections", () => {
     const municipalBallot: MunicipalBallot = {
       parties: [notSelected, notSelected, notSelected, notSelected],
@@ -15,14 +17,14 @@ describe("NoMoreThanOneMayorSelectedRule", () => {
         [notSelected, notSelected, notSelected, notSelected],
         [notSelected, notSelected, notSelected, notSelected],
       ],
-    }
+    };
 
     expect(
       new NoMoreThanOneMayorSelectedRule().outcome(municipalBallot)
     ).toEqual({
       outcome: RuleOutcomeType.deny,
-    })
-  })
+    });
+  });
 
   it("should not error on 1 selection", () => {
     const municipalBallot: MunicipalBallot = {
@@ -35,12 +37,12 @@ describe("NoMoreThanOneMayorSelectedRule", () => {
         [notSelected, notSelected, notSelected, notSelected],
         [notSelected, notSelected, notSelected, notSelected],
       ],
-    }
+    };
 
     expect(
       new NoMoreThanOneMayorSelectedRule().outcome(municipalBallot)
     ).toEqual({
       outcome: RuleOutcomeType.allow,
-    })
-  })
-})
+    });
+  });
+});

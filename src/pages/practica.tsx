@@ -1,30 +1,30 @@
-import get from "lodash/get"
-import React from "react"
-import "fetch-ponyfill"
+import get from "lodash/get";
+import "fetch-ponyfill";
 
-import { Layout, SEO, Container } from "../components/index"
-import { Practice } from "../packages/practica/components/index"
-import { withTrans } from "../i18n/withTrans"
-import { SidebarProvider } from "../context/sidebar-context"
-import { BallotType } from "../ballot-validator/types"
-import makeServer from "../mirage"
+import { Layout, Container } from "../components/index";
+import { Practice } from "../packages/practica/components/index";
+import { SidebarProvider } from "../context/sidebar-context";
+import { BallotType } from "../ballot-validator/types";
+import makeServer from "../mirage";
+import { useLocation } from "react-router-dom";
+import useScrollIntoView from "../hooks/useScrollIntoView";
+import SEO from "../components/seo";
 
-type PageProps = {
-  location: Location
+if (import.meta.env.DEV) {
+  makeServer({ environment: "development" });
 }
 
-if (process.env.environment === "development") {
-  makeServer({ environment: "development" })
-}
-
-const Practica = ({ location }: PageProps) => {
-  const params = new URLSearchParams(get(location, "search", ""))
-  const precinto = params.get("precint")
-  let ballotType = undefined
+const Practica = () => {
+  const location = useLocation();
+  const params = new URLSearchParams(get(location, "search", ""));
+  const precinto = params.get("precint");
+  let ballotType = undefined;
 
   if (Object.keys(BallotType).includes(params.get("ballotType") || "")) {
-    ballotType = params.get("ballotType") as BallotType
+    ballotType = params.get("ballotType") as BallotType;
   }
+
+  useScrollIntoView(location);
 
   return (
     <SidebarProvider>
@@ -38,7 +38,7 @@ const Practica = ({ location }: PageProps) => {
         </Container>
       </Layout>
     </SidebarProvider>
-  )
-}
+  );
+};
 
-export default withTrans(Practica)
+export default Practica;

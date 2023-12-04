@@ -1,5 +1,3 @@
-import React from "react"
-
 import { Button, Typography, Link } from "../../../components"
 
 type BallotFinderPickerProps = {

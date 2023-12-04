@@ -1,4 +1,3 @@
-import React from "react"
 import { BallotType } from "../../../ballot-validator/types"
 import { Typography } from "../../../components"
 import { LegislativeVotesCount } from "../services/ballot-configs"
@@ -15,8 +14,8 @@ type LegislativeResultProps = {
 }
 
 export default function ResultsLegislative(props: LegislativeResultProps) {
-  const votes = props.votes.filter(vote => vote.position.row !== PARTY_ROW)
-  const districtRepresentativeVotes: Vote[] = votes.filter(vote => {
+  const votes = props.votes.filter((vote) => vote.position.row !== PARTY_ROW)
+  const districtRepresentativeVotes: Vote[] = votes.filter((vote) => {
     const electivePosition = getElectivePositionForVote(
       vote.position,
       BallotType.legislative
@@ -24,7 +23,7 @@ export default function ResultsLegislative(props: LegislativeResultProps) {
 
     return electivePosition === ElectivePosition.districtRepresentative
   }, [])
-  const districtSenatorsVotes: Vote[] = votes.filter(vote => {
+  const districtSenatorsVotes: Vote[] = votes.filter((vote) => {
     const electivePosition = getElectivePositionForVote(
       vote.position,
       BallotType.legislative
@@ -32,7 +31,7 @@ export default function ResultsLegislative(props: LegislativeResultProps) {
 
     return electivePosition === ElectivePosition.districtSenators
   }, [])
-  const atLargeRepresentativeVotes: Vote[] = votes.filter(vote => {
+  const atLargeRepresentativeVotes: Vote[] = votes.filter((vote) => {
     const electivePosition = getElectivePositionForVote(
       vote.position,
       BallotType.legislative
@@ -40,7 +39,7 @@ export default function ResultsLegislative(props: LegislativeResultProps) {
 
     return electivePosition === ElectivePosition.atLargeRepresentative
   }, [])
-  const atLargeSenatorVotes: Vote[] = votes.filter(vote => {
+  const atLargeSenatorVotes: Vote[] = votes.filter((vote) => {
     const electivePosition = getElectivePositionForVote(
       vote.position,
       BallotType.legislative

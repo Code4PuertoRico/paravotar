@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import { useState } from "react"
 
 import Checkbox from "./checkbox"
 
@@ -42,7 +42,7 @@ export default function WriteIn(props: WriteInProps) {
           type="text"
           disabled={!props.hasVote}
           defaultValue={props.initialTextValue}
-          onChange={e => {
+          onChange={(e) => {
             props.updateName(e.target.value)
           }}
         />

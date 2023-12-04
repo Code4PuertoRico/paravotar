@@ -1,4 +1,4 @@
-import React, { useRef } from "react"
+import { useRef } from "react"
 import { Button, Typography } from "../../../components"
 import { FindByType } from "../services/ballot-finder-service"
 import InputErrorMessage from "./input-error-message"
@@ -29,7 +29,7 @@ export default function EnterVoterIdForm(props: EnterVoterIdFormProps) {
       </Typography>
       <form
         className="mt-4"
-        onSubmit={event => {
+        onSubmit={(event) => {
           event.preventDefault()
 
           const input =

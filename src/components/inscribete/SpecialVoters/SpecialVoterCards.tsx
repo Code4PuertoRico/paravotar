@@ -1,7 +1,6 @@
-import React, { useEffect, createRef, useRef } from "react"
+import { useEffect, useRef } from "react"
 import { Machine, assign } from "xstate"
 import { useMachine } from "@xstate/react"
-import i18next from "i18next"
 
 import { AbsenteeVoter, EarlyVoter } from "../constants"
 import Switch from "../../switch"
@@ -9,6 +8,7 @@ import Case from "../../case"
 import Default from "../../default"
 import SpecialVoterCard from "./SpecialVoterCard"
 import SpecialVoterReasons from "./SpecialVoterReasons"
+import { useTranslation } from "react-i18next"
 
 const config = {
   id: "special-voters",
@@ -41,7 +41,7 @@ const config = {
 
 const actions = {
   handlePrevUpdate: assign({
-    previous: context => {
+    previous: (context) => {
       if (context.previous === "idle") {
         return "reasons"
       }
@@ -56,6 +56,7 @@ const SpecialVoterMachine = Machine(config, {
 })
 
 export default function SpecialVoterCards() {
+  const { t } = useTranslation()
   const ref = useRef<HTMLDivElement>()
   const [state, send] = useMachine(SpecialVoterMachine)
 
@@ -71,7 +72,7 @@ export default function SpecialVoterCards() {
         <Case value="absenteeVoter">
           <SpecialVoterReasons
             icon={AbsenteeVoter.icon}
-            title={i18next.t("site.absentee-voter-title")}
+            title={t("site.absentee-voter-title")}
             reasons={AbsenteeVoter.reasons}
             documents={AbsenteeVoter.documents}
             exceptions={AbsenteeVoter.exceptions}
@@ -81,7 +82,7 @@ export default function SpecialVoterCards() {
         <Case value="earlyVoter">
           <SpecialVoterReasons
             icon={EarlyVoter.icon}
-            title={i18next.t("site.early-voter-title")}
+            title={t("site.early-voter-title")}
             reasons={EarlyVoter.reasons}
             documents={EarlyVoter.documents}
             exceptions={EarlyVoter.exceptions}
@@ -92,20 +93,20 @@ export default function SpecialVoterCards() {
           <div className="flex flex-row flex-wrap" ref={ref} tabIndex={-1}>
             <SpecialVoterCard
               icon={EarlyVoter.icon}
-              title={i18next.t("site.early-voter")}
-              summary={i18next.t("site.early-voter-summary")}
-              deadline={i18next.t(EarlyVoter.deadline)}
+              title={t("site.early-voter")}
+              summary={t("site.early-voter-summary")}
+              deadline={t(EarlyVoter.deadline)}
               documents={EarlyVoter.documents}
-              detailsTitle={i18next.t("site.qualified-voters")}
+              detailsTitle={t("site.qualified-voters")}
               onClickRequirements={() => send("EARLY_VOTER_TOGGLED")}
             />
             <SpecialVoterCard
               icon={AbsenteeVoter.icon}
-              title={i18next.t("site.absentee-voter")}
-              summary={i18next.t(AbsenteeVoter.summary)}
-              deadline={i18next.t(AbsenteeVoter.deadline)}
+              title={t("site.absentee-voter")}
+              summary={t(AbsenteeVoter.summary)}
+              deadline={t(AbsenteeVoter.deadline)}
               documents={AbsenteeVoter.documents}
-              detailsTitle={i18next.t("site.certified-reasons")}
+              detailsTitle={t("site.certified-reasons")}
               onClickRequirements={() => send("ABSENTEE_VOTER_TOGGLED")}
             />
           </div>

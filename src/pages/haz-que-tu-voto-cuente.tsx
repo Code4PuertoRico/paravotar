@@ -1,19 +1,20 @@
-import React from "react"
-import "fetch-ponyfill"
+import "fetch-ponyfill";
 
-import { Layout, SEO, Container } from "../components/index"
+import { Layout, Container } from "../components/index";
 import {
   HowToVote,
   MakeYourVoteCount,
-} from "../packages/practica/components/index"
-import { withTrans } from "../i18n/withTrans"
-import { SidebarProvider } from "../context/sidebar-context"
+} from "../packages/practica/components/index";
+import { SidebarProvider } from "../context/sidebar-context";
+import { useLocation } from "react-router-dom";
+import useScrollIntoView from "../hooks/useScrollIntoView";
+import SEO from "../components/seo";
 
-type PageProps = {
-  location: Location
-}
+const HazQueTuVotoCuente = () => {
+  const location = useLocation();
 
-const HazQueTuVotoCuente = ({ location }: PageProps) => {
+  useScrollIntoView(location);
+
   return (
     <SidebarProvider>
       <Layout location={location}>
@@ -32,7 +33,7 @@ const HazQueTuVotoCuente = ({ location }: PageProps) => {
         </Container>
       </Layout>
     </SidebarProvider>
-  )
-}
+  );
+};
 
-export default withTrans(HazQueTuVotoCuente)
+export default HazQueTuVotoCuente;

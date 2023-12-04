@@ -1,4 +1,4 @@
-import { Machine, assign } from "xstate"
+import { Machine, assign, createMachine } from "xstate"
 
 import { BallotResource } from "../../practica/resource"
 import {
@@ -19,7 +19,7 @@ async function fetchBallot(path: string | null) {
   throw Error("Invalid ballot path")
 }
 
-export const BallotMachine = Machine<BallotMachineContext>({
+export const BallotMachine = createMachine<BallotMachineContext>({
   id: "ballotMachine",
   initial: "idle",
   context: {

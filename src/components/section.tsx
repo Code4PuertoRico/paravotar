@@ -1,10 +1,10 @@
-import React, { useState, ReactNode } from "react"
-import { Link } from "gatsby"
+import { useState, ReactNode } from "react"
 
 import Arrows from "./arrows"
 import { ResizeObserver } from "@juggle/resize-observer"
 import useMeasure from "react-use-measure"
 import { useSpring, animated } from "react-spring"
+import { Link } from "react-router-dom"
 
 type SectionProps = {
   name: string

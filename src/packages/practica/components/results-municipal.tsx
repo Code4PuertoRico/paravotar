@@ -1,4 +1,3 @@
-import React from "react"
 import { BallotType } from "../../../ballot-validator/types"
 import { Typography } from "../../../components"
 import { MunicipalVotesCount } from "../services/ballot-configs"
@@ -15,8 +14,8 @@ type StateResultsProps = {
 }
 
 export default function ResultsMunicipal(props: StateResultsProps) {
-  const votes = props.votes.filter(vote => vote.position.row !== PARTY_ROW)
-  const mayorVotes: Vote[] = votes.filter(vote => {
+  const votes = props.votes.filter((vote) => vote.position.row !== PARTY_ROW)
+  const mayorVotes: Vote[] = votes.filter((vote) => {
     const electivePosition = getElectivePositionForVote(
       vote.position,
       BallotType.municipality
@@ -24,7 +23,7 @@ export default function ResultsMunicipal(props: StateResultsProps) {
 
     return electivePosition === ElectivePosition.mayor
   }, [])
-  const municipalLegislatorsVotes: Vote[] = votes.filter(vote => {
+  const municipalLegislatorsVotes: Vote[] = votes.filter((vote) => {
     const electivePosition = getElectivePositionForVote(
       vote.position,
       BallotType.municipality

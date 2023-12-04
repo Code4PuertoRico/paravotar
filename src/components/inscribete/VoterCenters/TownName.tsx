@@ -1,4 +1,4 @@
-import React, { memo } from "react"
+import { memo } from "react"
 import { useSpring, animated } from "react-spring"
 
 import { Town } from "../types"

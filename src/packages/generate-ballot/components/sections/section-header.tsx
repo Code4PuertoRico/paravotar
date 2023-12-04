@@ -1,5 +1,3 @@
-import React from "react"
-
 type SectionHeaderProps = {
   ocrResult: string
   slug: string

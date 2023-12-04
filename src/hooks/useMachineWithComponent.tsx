@@ -1,4 +1,3 @@
-import React from "react"
 import { EventObject, StateMachine, State, Interpreter } from "xstate"
 import { useMachine } from "@xstate/react"
 import get from "lodash/get"
@@ -17,14 +16,13 @@ export function useMachineWithComponent<TContext, TEvent extends EventObject>(
 
   const meta = get(current.meta, `${machine.id}.${last}`, {})
 
-  const defaultComponent =
-    process.env.NODE_ENV !== "production"
-      ? Error(`
+  const defaultComponent = !import.meta.env.PROD
+    ? Error(`
             Missing meta component property.
             Machine: ${machine.id}
             State: ${current.value}
         `)
-      : () => null
+    : () => null
 
   const Component = meta.Component || defaultComponent
 

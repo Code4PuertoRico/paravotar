@@ -1,5 +1,3 @@
-import React, { ReactNode } from "react"
-import i18next from "i18next"
 import { Machine } from "xstate"
 import { useMachine } from "@xstate/react"
 
@@ -8,6 +6,7 @@ import Card from "../../card"
 import Tab from "../../tab"
 import { EarlyVoter, AbsenteeVoter } from "../constants"
 import TabContent from "./TabContent"
+import { useTranslation } from "react-i18next"
 
 const tabsState = {
   absenteeVoter: {
@@ -29,6 +28,7 @@ const SpecialVotersTabsMachine = Machine({
 })
 
 export default function Tabs() {
+  const { t } = useTranslation();
   const [state, send] = useMachine(SpecialVotersTabsMachine)
   const voter = state.value === "earlyVoter" ? EarlyVoter : AbsenteeVoter
   const title =
@@ -49,7 +49,7 @@ export default function Tabs() {
             variant="h4"
             className="text-center uppercase mt-2 tracking-wide"
           >
-            {i18next.t("site.early-voter")}
+            {t("site.early-voter")}
           </Typography>
         </Tab>
         <Tab
@@ -62,18 +62,18 @@ export default function Tabs() {
             variant="h4"
             className="text-center uppercase mt-2 tracking-wide"
           >
-            {i18next.t("site.absentee-voter")}
+            {t("site.absentee-voter")}
           </Typography>
         </Tab>
       </div>
       <TabContent
         key={state.value}
-        title={i18next.t(title)}
-        summary={i18next.t(voter.summary)}
-        deadline={i18next.t(voter.deadline)}
+        title={t(title)}
+        summary={t(voter.summary)}
+        deadline={t(voter.deadline)}
         documents={voter.documents}
         reasons={voter.reasons}
-        exceptions={i18next.t(voter.exceptions)}
+        exceptions={t(voter.exceptions)}
       />
     </Card>
   )

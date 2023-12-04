@@ -1,98 +1,55 @@
-import React, { useState, useRef, useEffect } from "react"
+import { useState, useRef, useEffect } from "react";
 
-import DropdownAria from "react-dropdown-aria"
-import { useTranslation } from "react-i18next"
+// import DropdownAria from "react-dropdown-aria"
+import { useTranslation } from "react-i18next";
 
-import { withTrans } from "../i18n/withTrans"
-import { Container, Layout, SEO, Typography } from "../components"
-import { EnrollmentReminder } from "../components/inscribete/EnrollmentReminder"
-import { VoterCenters } from "../components/inscribete/VoterCenters"
-import { VoterStatus } from "../components/inscribete/VoterStatus"
-import { VoterDocs } from "../components/inscribete/constants"
-import { VoterInfoLeftPanel } from "../components/inscribete/VoterInfo/LeftPanel"
-import { VoterInfoRightPanel } from "../components/inscribete/VoterInfo/RightPanel"
-import { CountDown } from "../components/inscribete/CountDown/index"
-import { SidebarProvider } from "../context/sidebar-context"
+import { Container, Layout, Typography } from "../components";
+import { EnrollmentReminder } from "../components/inscribete/EnrollmentReminder";
+import { VoterCenters } from "../components/inscribete/VoterCenters";
+import { VoterStatus } from "../components/inscribete/VoterStatus";
+import { VoterDocs } from "../components/inscribete/constants";
+import { VoterInfoLeftPanel } from "../components/inscribete/VoterInfo/LeftPanel";
+import { VoterInfoRightPanel } from "../components/inscribete/VoterInfo/RightPanel";
+import { CountDown } from "../components/inscribete/CountDown/index";
+import { SidebarProvider } from "../context/sidebar-context";
+import { useLocation } from "react-router-dom";
+import useScrollIntoView from "../hooks/useScrollIntoView";
+import Dropdown from "../components/button-dropdown";
+import SEO from "../components/seo";
 
-const style: { [key: string]: any } = {
-  DropdownWrapper: (base: any) => ({
-    ...base,
-    height: "60px",
-  }),
-  DropdownButton: (base: any) => ({
-    ...base,
-    backgroundColor: "white",
-    borderColor: "#886944",
-    borderWidth: 2,
-    "&:hover": {
-      borderColor: "#886944",
-      borderWidth: 2,
-    },
-
-    "&:focus": {
-      borderColor: "#886944",
-      borderWidth: 2,
-      outline: "none",
-      boxShadow: "none",
-    },
-  }),
-  OptionContainer: (base: any) => ({
-    ...base,
-    marginTop: 8,
-    backgroundColor: "white",
-    borderColor: "#886944",
-    borderWidth: 1,
-    borderRadius: 6,
-    boxShadow: "0px 3px 10px #cacad9",
-  }),
-  OptionItem: (base: any) => {
-    return {
-      ...base,
-      backgroundColor: "white",
-      color: "#292936",
-      paddingTop: 8,
-      paddingBottom: 8,
-      "&:hover": {
-        backgroundColor: "#ebebff",
-      },
-    }
-  },
-}
-
-type PageProps = {
-  location: Location
-}
-
-const Inscribete = ({ location }: PageProps) => {
-  const { t } = useTranslation()
-  const options = VoterDocs.map(v => ({
+const Inscribete = () => {
+  const location = useLocation();
+  const { t } = useTranslation();
+  const options = VoterDocs.map((v) => ({
     value: t(`${v.description}`),
-  }))
+  }));
   const getVoterMeta = (v: string) => {
     if (
       v === "A foreign country and I reside in Puerto Rico" ||
       v === "Un país extranjero y resido en Puerto Rico"
     ) {
-      v = "site.born-in-other-countries"
-      return VoterDocs.filter(vd => vd.description === v)[0]
+      v = "site.born-in-other-countries";
+      return VoterDocs.filter((vd) => vd.description === v)[0];
     } else if (
       v === "United States, Continentals, Territories or Possessions" ||
       v === "Estados Unidos, Continentales, Territorios o Posesiones"
     ) {
-      v = "site.born-in-territory"
-      return VoterDocs.filter(vd => vd.description === v)[0]
-    } else return VoterDocs.filter(vd => vd.description === v)[0]
-  }
-  const [selectedOption, setSelectedOption] = useState(options[0].value)
-  const containerRef = useRef<HTMLDivElement>(null)
+      v = "site.born-in-territory";
+      return VoterDocs.filter((vd) => vd.description === v)[0];
+    } else return VoterDocs.filter((vd) => vd.description === v)[0];
+  };
+  const [selectedOption, setSelectedOption] = useState(options[0].value);
+  const containerRef = useRef<HTMLDivElement>(null);
 
-  const voterMetadata = getVoterMeta(selectedOption)
+  const voterMetadata = getVoterMeta(selectedOption);
+
+  useScrollIntoView(location);
 
   useEffect(() => {
     if (containerRef && containerRef.current) {
-      containerRef.current.focus()
+      containerRef.current.focus();
     }
-  }, [selectedOption])
+  }, [selectedOption]);
 
   return (
     <SidebarProvider>
@@ -126,14 +83,10 @@ const Inscribete = ({ location }: PageProps) => {
           </Typography>
         </Container>
         <Container className="w-11/12 mt-4 mb-8 lg:w-10/12">
-          <DropdownAria
-            placeholder=""
-            id="voter-info"
-            ariaLabel="Seleccione su situación"
+          <Dropdown
             options={options}
             selectedOption={selectedOption}
-            setSelected={o => setSelectedOption(o)}
-            style={style}
+            onSelect={(o) => setSelectedOption(o)}
           />
         </Container>
         <Container
@@ -166,7 +119,7 @@ const Inscribete = ({ location }: PageProps) => {
         </Container>
       </Layout>
     </SidebarProvider>
-  )
-}
+  );
+};
 
-export default withTrans(Inscribete)
+export default Inscribete;

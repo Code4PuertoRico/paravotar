@@ -7,7 +7,7 @@ class MunicipalMixedVoteSelectionSameColumn extends BaseRule {
 
   outcome(ballotSelections: MunicipalBallot) {
     const hasSelectedParty = ballotSelections.parties.some(
-      p => p === Selection.selected
+      (p) => p === Selection.selected
     )
 
     if (!hasSelectedParty) {
@@ -17,21 +17,24 @@ class MunicipalMixedVoteSelectionSameColumn extends BaseRule {
     }
 
     const partyIndex = ballotSelections.parties.findIndex(
-      p => p === Selection.selected
+      (p) => p === Selection.selected
     )
 
     const mayorIndex = ballotSelections.mayor.findIndex(
-      m => m === Selection.selected
+      (m) => m === Selection.selected
     )
 
     const legislatorIndexes = _.flatten(
       ballotSelections.municipalLegislator.map((row, rowIndex) => {
-        return row.reduce((indexes, cell, colIndex) => {
-          if (cell === Selection.selected) {
-            return [...indexes, { row: rowIndex, col: colIndex }]
-          }
-          return indexes
-        }, [] as { row: number; col: number }[])
+        return row.reduce(
+          (indexes, cell, colIndex) => {
+            if (cell === Selection.selected) {
+              return [...indexes, { row: rowIndex, col: colIndex }]
+            }
+            return indexes
+          },
+          [] as { row: number; col: number }[]
+        )
       })
     )
 
@@ -45,8 +48,6 @@ class MunicipalMixedVoteSelectionSameColumn extends BaseRule {
       },
       [] as { row: number; col: number }[]
     )
-
-    const maxLegislatorVotes = ballotSelections.municipalLegislator.length
 
     if (partyIndex === mayorIndex) {
       return {

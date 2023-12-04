@@ -1,9 +1,11 @@
-import { RuleOutcomeType, Selection, LegislativeBallot } from "../../types"
-import NoMoreThanOneDistrictRepresentativeRule from "../NoMoreThanOneDistrictRepresentativeRule"
+import { expect, test, it } from "vitest";
 
-const { selected, notSelected } = Selection
+import { RuleOutcomeType, Selection, LegislativeBallot } from "../../types";
+import NoMoreThanOneDistrictRepresentativeRule from "../NoMoreThanOneDistrictRepresentativeRule";
 
-describe("NoMoreThanOneDistrictRepresentativeRule", () => {
+const { selected, notSelected } = Selection;
+
+test("NoMoreThanOneDistrictRepresentativeRule", () => {
   it("should error on more than 1 selections", () => {
     const legislativeBallot: LegislativeBallot = {
       parties: [notSelected, notSelected, notSelected, notSelected],
@@ -28,14 +30,14 @@ describe("NoMoreThanOneDistrictRepresentativeRule", () => {
         [notSelected, notSelected, notSelected, notSelected],
         [notSelected, notSelected, notSelected, notSelected],
       ],
-    }
+    };
 
     expect(
       new NoMoreThanOneDistrictRepresentativeRule().outcome(legislativeBallot)
     ).toEqual({
       outcome: RuleOutcomeType.deny,
-    })
-  })
+    });
+  });
 
   it("should not error on 1 selection", () => {
     const legislativeBallot: LegislativeBallot = {
@@ -61,12 +63,12 @@ describe("NoMoreThanOneDistrictRepresentativeRule", () => {
         [notSelected, notSelected, notSelected, notSelected],
         [notSelected, notSelected, notSelected, notSelected],
       ],
-    }
+    };
 
     expect(
       new NoMoreThanOneDistrictRepresentativeRule().outcome(legislativeBallot)
     ).toEqual({
       outcome: RuleOutcomeType.allow,
-    })
-  })
-})
+    });
+  });
+});

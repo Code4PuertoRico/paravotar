@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react"
+import { ReactNode, createElement } from "react"
 
 const Variants = {
   h1: "h1",
@@ -95,7 +95,7 @@ export default function Typography({
 }: Props) {
   const variantStyle = getVariantStyles(variant, weight)
 
-  return React.createElement(
+  return createElement(
     tag,
     {
       id,

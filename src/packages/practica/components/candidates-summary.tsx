@@ -1,7 +1,7 @@
-import React, { ReactNode } from "react"
+import { PropsWithChildren, ReactNode } from "react"
 
 import { Typography } from "../../../components"
-import Avatar from "../../../assets/images/avatar.svg"
+import Avatar from "../../../assets/images/avatar.svg?url"
 
 type CandidateProps = {
   name: string
@@ -49,22 +49,20 @@ function CandidatesSummarySection(props: {
   )
 }
 
-function CandidatesSummary(props: { children: ReactNode }) {
-  const nodes = props.children.length
-
-  if (nodes > 0) {
-    return <div className="grid lg:grid-cols-3 gap-2">{props.children}</div>
+function CandidatesSummary({ children }: PropsWithChildren<{}>) {
+  if (children == null) {
+    return (
+      <div className="grid lg:grid-cols-3 gap-2">
+        <div className="flex items-center px-4 py-2 shadow-md bg-white rounded col-span-3">
+          <Typography tag="p" variant="p" className="text-center">
+            No haz seleccionado un candidato.
+          </Typography>
+        </div>
+      </div>
+    )
   }
 
-  return (
-    <div className="grid lg:grid-cols-3 gap-2">
-      <div className="flex items-center px-4 py-2 shadow-md bg-white rounded col-span-3">
-        <Typography tag="p" variant="p" className="text-center">
-          No haz seleccionado un candidato.
-        </Typography>
-      </div>
-    </div>
-  )
+  return <div className="grid lg:grid-cols-3 gap-2">{children}</div>
 }
 
 CandidatesSummary.Section = CandidatesSummarySection

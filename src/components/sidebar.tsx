@@ -1,22 +1,26 @@
-import React, { useMemo } from "react"
+import { useMemo } from "react"
 
 import { useTranslation } from "react-i18next"
 
-import Practica from "../assets/icons/practica.svg"
-import Logo from "../assets/images/logo.svg"
-import Inscribete from "../assets/icons/inscribete.svg"
-import Collaborations from "../assets/icons/collaborations.svg"
-import SalAVotar from "../assets/icons/sal-a-votar.svg"
+import Practica from "../assets/icons/practica.svg?url"
+import Logo from "../assets/images/logo.svg?url"
+import Inscribete from "../assets/icons/inscribete.svg?url"
+import Collaborations from "../assets/icons/collaborations.svg?url"
+import SalAVotar from "../assets/icons/sal-a-votar.svg?url"
 import { useSidebar } from "../context/sidebar-context"
 import { Section, SubSection } from "./section"
 import LanguageMenu from "./language-menu"
 import Arrows from "./arrows"
+import { TFunction } from "i18next"
 
 type SidebarProps = {
   pathname: string
 }
 
-export const getSections = (pathname = "", t) => [
+export const getSections = (
+  pathname = "",
+  t: TFunction<"translation", null>
+) => [
   {
     name: "Practica",
     icon: Practica,

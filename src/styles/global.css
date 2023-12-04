@@ -5,8 +5,6 @@
 
 @tailwind utilities;
 
-/* purgecss start ignore */
-
 html {
   @apply text-dark;
   font-size: 16px;
@@ -177,7 +175,7 @@ button:focus {
 }
 
 .main {
-  @apply overflow-y-scroll bg-background w-full;
+  @apply overflow-y-scroll w-full bg-background;
 }
 
 .practice-card {

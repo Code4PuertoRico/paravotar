@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import { useEffect } from "react"
 
 import { EventObject } from "xstate"
 import { useMachine } from "@xstate/react"

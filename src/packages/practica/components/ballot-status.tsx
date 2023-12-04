@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from "react"
+import { ReactNode, useState } from "react"
 
 import { ResultStatus } from "../../../ballot-validator/types"
 import Arrows from "../../../components/arrows"

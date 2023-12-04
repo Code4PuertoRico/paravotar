@@ -1,8 +1,8 @@
-import { Machine, assign, sendParent } from "xstate"
+import { assign, createMachine, sendParent } from "xstate"
 import { Party, PartyMachineContext, PartyMachineEvent } from "./types"
 
 export const createPartyMachine = (parties: Party[]) =>
-  Machine<PartyMachineContext, PartyMachineEvent>(
+  createMachine<PartyMachineContext, PartyMachineEvent>(
     {
       id: "partyMachine",
       initial: "unselected",

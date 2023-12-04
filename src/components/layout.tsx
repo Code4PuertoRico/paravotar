@@ -1,20 +1,21 @@
-import React, { ReactNode } from "react"
-import i18next from "i18next"
-import { Footer, Sidebar, Navbar } from "../components/index"
-import Logo from "../assets/images/logo.svg"
-import { withTrans } from "../i18n/withTrans"
-import { useSidebar } from "../context/sidebar-context"
-import Arrows from "./arrows"
+import { ReactNode } from "react";
+import { Footer, Sidebar, Navbar } from "../components/index";
+import Logo from "../assets/images/logo.svg?url";
+import { useSidebar } from "../context/sidebar-context";
+import Arrows from "./arrows";
+import { useTranslation } from "react-i18next";
+import { Location } from "react-router-dom";
 
 type Props = {
-  children: ReactNode
-  location: Location
-}
+  children: ReactNode;
+  location: Location;
+};
 
 const Layout = ({ children, location }: Props) => {
-  const hash = location?.hash || ""
-  const pathname = location?.pathname || ""
-  const { sidebarIsVisible, setSidebarIsVisible } = useSidebar()
+  const hash = location.hash || "";
+  const pathname = location.pathname || "";
+  const { t } = useTranslation();
+  const { sidebarIsVisible, setSidebarIsVisible } = useSidebar();
 
   return (
     <>
@@ -32,7 +33,7 @@ const Layout = ({ children, location }: Props) => {
             onClick={() => setSidebarIsVisible(!sidebarIsVisible)}
           >
             <Arrows className="mr-4" style={{ transform: "rotate(-90deg)" }} />
-            {i18next.t("nav.show-menu")}
+            {t("nav.show-menu")}
           </button>
           <img className="h-12 flex" src={Logo} alt="Para Votar" />
           <div></div>
@@ -62,7 +63,7 @@ const Layout = ({ children, location }: Props) => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default withTrans(Layout)
+export default Layout;

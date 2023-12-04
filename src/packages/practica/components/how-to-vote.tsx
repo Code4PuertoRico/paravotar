@@ -1,9 +1,8 @@
-import React from "react"
-
 import { Machine } from "xstate"
 import { useMachine } from "@xstate/react"
 import { animated, useSpring } from "react-spring"
-import i18next from "i18next"
+import { useTranslation } from "react-i18next"
+import { TFunction } from "i18next"
 
 import { Typography, Tab, Card, Link } from "../../../components"
 import VotoIntegro from "../../../assets/images/voto-integro.png"
@@ -21,97 +20,97 @@ import MunicipalVotoXNominacionDirecta from "../../../assets/images/municipal-vo
 import Switch from "../../../components/switch"
 import Case from "../../../components/case"
 
-const getBallotTypes = () => {
+const getBallotTypes = (t: TFunction<"translation", undefined>) => {
   return [
     {
       id: "estatal",
-      name: i18next.t("practice.governmental"),
-      description: i18next.t("practice.governmental-description"),
+      name: t("practice.governmental"),
+      description: t("practice.governmental-description"),
       votes: [
         {
           id: "integro",
-          name: i18next.t("practice.undivided"),
-          description: i18next.t("practice.undivided-vote-rules"),
+          name: t("practice.undivided"),
+          description: t("practice.undivided-vote-rules"),
           example: VotoIntegro,
         },
         {
           id: "mixto",
-          name: i18next.t("practice.mixed"),
-          description: i18next.t("practice.mixed-vote-rules"),
+          name: t("practice.mixed"),
+          description: t("practice.mixed-vote-rules"),
           example: VotoMixto,
         },
         {
           id: "candidatura",
-          name: i18next.t("practice.candidacy"),
-          description: i18next.t("practice.candidacy-vote-rules"),
+          name: t("practice.candidacy"),
+          description: t("practice.candidacy-vote-rules"),
           example: VotoXCandidatura,
         },
         {
           id: "nominacion",
-          name: i18next.t("practice.write-in"),
-          description: i18next.t("practice.write-in-rules"),
+          name: t("practice.write-in"),
+          description: t("practice.write-in-rules"),
           example: VotoXNomiacionDirecta,
         },
       ],
     },
     {
       id: "legislativa",
-      name: i18next.t("practice.legislative"),
-      description: i18next.t("practice.legislative-description"),
+      name: t("practice.legislative"),
+      description: t("practice.legislative-description"),
       votes: [
         {
           id: "integro",
-          name: i18next.t("practice.undivided"),
-          description: i18next.t("practice.undivided-vote-rules"),
+          name: t("practice.undivided"),
+          description: t("practice.undivided-vote-rules"),
           example: LegislativaVotoIntegro,
         },
         {
           id: "mixto",
-          name: i18next.t("practice.mixed"),
-          description: i18next.t("practice.mixed-vote-rules"),
+          name: t("practice.mixed"),
+          description: t("practice.mixed-vote-rules"),
           example: LegislativaVotoMixto,
         },
         {
           id: "candidatura",
-          name: i18next.t("practice.candidacy"),
-          description: i18next.t("practice.candidacy-vote-rules"),
+          name: t("practice.candidacy"),
+          description: t("practice.candidacy-vote-rules"),
           example: LegislativaVotoXCandidatura,
         },
         {
           id: "nominacion",
-          name: i18next.t("practice.write-in"),
-          description: i18next.t("practice.write-in-rules"),
+          name: t("practice.write-in"),
+          description: t("practice.write-in-rules"),
           example: LegislativaVotoXNominacionDirecta,
         },
       ],
     },
     {
       id: "municipal",
-      name: i18next.t("practice.municipal"),
-      description: i18next.t("practice.municipal-description"),
+      name: t("practice.municipal"),
+      description: t("practice.municipal-description"),
       votes: [
         {
           id: "integro",
-          name: i18next.t("practice.undivided"),
-          description: i18next.t("practice.undivided-vote-rules"),
+          name: t("practice.undivided"),
+          description: t("practice.undivided-vote-rules"),
           example: MunicipalVotoIntegro,
         },
         {
           id: "mixto",
-          name: i18next.t("practice.mixed"),
-          description: i18next.t("practice.mixed-vote-rules"),
+          name: t("practice.mixed"),
+          description: t("practice.mixed-vote-rules"),
           example: MunicipalVotoMixto,
         },
         {
           id: "candidatura",
-          name: i18next.t("practice.candidacy"),
-          description: i18next.t("practice.candidacy-vote-rules"),
+          name: t("practice.candidacy"),
+          description: t("practice.candidacy-vote-rules"),
           example: MunicipalVotoXCandidatura,
         },
         {
           id: "nominacion",
-          name: i18next.t("practice.write-in"),
-          description: i18next.t("practice.write-in-rules"),
+          name: t("practice.write-in"),
+          description: t("practice.write-in-rules"),
           example: MunicipalVotoXNominacionDirecta,
         },
       ],
@@ -193,6 +192,8 @@ function VoteType({
   description: string
   example: string
 }) {
+  const { t } = useTranslation();
+
   return (
     <>
       <Typography className="mt-4 text-left" tag="p" variant="p">
@@ -207,7 +208,7 @@ function VoteType({
       </div>
       <div className="mx-auto w-full lg:w-2/3">
         <Typography className="italic text-xs mt-2" tag="p" variant="p">
-          {i18next.t("practice.ballot-example-disclaimer")}
+          {t("practice.ballot-example-disclaimer")}
         </Typography>
       </div>
     </>
@@ -271,13 +272,14 @@ function VoteTypes({ votes }: { votes: Vote[] }) {
 
 export default function HowToVote() {
   const [state, send] = useMachine(ballotTypeMachine)
-  const ballotTypes = getBallotTypes()
+  const { t } = useTranslation();
+  const ballotTypes = getBallotTypes(t)
   const props = useSpring({ opacity: 1, from: { opacity: 0 } })
 
   return (
     <>
       <Typography tag="h2" variant="h3" className="uppercase">
-        {i18next.t("practice.how-to-vote")}
+        {t("practice.how-to-vote")}
       </Typography>
       <Typography
         tag="h3"
@@ -285,7 +287,7 @@ export default function HowToVote() {
         weight="base"
         className="font-normal mt-4"
       >
-        {i18next.t("practice.type-of-votes")}
+        {t("practice.type-of-votes")}
       </Typography>
       <Card className="pt-5 mt-8 ml-0">
         <div className="border border-separator border-t-0 border-l-0 border-r-0 inline-flex overflow-x-scroll md:justify-center">
@@ -338,22 +340,22 @@ export default function HowToVote() {
       </Card>
       <div className="w-full mx-auto lg:w-2/3">
         <Typography tag="p" variant="p" className="mt-4">
-          {i18next.t("practice.the-information-presented")}{" "}
+          {t("practice.the-information-presented")}{" "}
           <Link
             to="https://aldia.microjuris.com/2020/07/24/como-se-vota-un-resumen-de-los-cambios-tras-el-nuevo-codigo-electoral/"
             target="_blank"
           >
-            {i18next.t("practice.article")}
+            {t("practice.article")}
           </Link>{" "}
-          {i18next.t("practice.published-by")}{" "}
+          {t("practice.published-by")}{" "}
           <Link to="https://aldia.microjuris.com/" target="_blank">
             Microjuris
           </Link>{" "}
-          {i18next.t("practice.with-the")}{" "}
+          {t("practice.with-the")}{" "}
           <Link to="https://www.aclu.org/" target="_blank">
-            {i18next.t("practice.aclu-long")}
+            {t("practice.aclu-long")}
           </Link>{" "}
-          ({i18next.t("practice.aclu-short")}).
+          ({t("practice.aclu-short")}).
         </Typography>
       </div>
     </>

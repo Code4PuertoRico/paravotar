@@ -1,5 +1,3 @@
-import React from "react"
-
 import { useMachine } from "@xstate/react"
 
 import { generatePdfMachine } from "../machines/generatePdf"
@@ -11,11 +9,11 @@ interface GeneratePDFProps {
   votes: any
 }
 
-export const GeneratePDF: React.FunctionComponent<GeneratePDFProps> = ({
+export const GeneratePDF = ({
   ballotType,
   ballotPath,
   votes,
-}) => {
+}: GeneratePDFProps) => {
   const [current, send] = useMachine(generatePdfMachine)
   return (
     <div className="mt-6 lg:mx-auto">

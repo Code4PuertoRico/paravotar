@@ -1,77 +1,48 @@
-import React from "react"
 import Helmet from "react-helmet"
-import { useStaticQuery, graphql } from "gatsby"
 
 import Banner from "../../static/meta/banner.png"
 
-type Meta = {
-  description?: string
-  lang?: string
-  title: string
-}
+const SITE_URL = "https://www.paravotar.org"
+const TITLE = "Para Votar"
+const DESCRIPTION = "Inscríbete, Practica y Sal a Votar"
+const AUTHOR = "@Code4PuertoRico"
 
 type Props = {
+  title: string
   description?: string
   lang?: string
-  title: string
-  meta: Meta[]
 }
 
-export default function SEO({ description, lang, title, meta }: Props) {
-  const { site } =
-    useStaticQuery(
-      graphql`
-        query {
-          site {
-            siteMetadata {
-              title
-              description
-              author
-              siteUrl
-            }
-          }
-        }
-      `
-    ) || {}
-  const metaDescription = description || site.siteMetadata.description
-
+export default function SEO({
+  title = TITLE,
+  description = DESCRIPTION,
+  lang = "es-PR",
+}: Props) {
   return (
     <Helmet
       htmlAttributes={{
         lang,
       }}
       title={title}
-      titleTemplate={`%s | ${site.siteMetadata.title}`}
+      titleTemplate={`%s | ${title}`}
     >
       {/* General tags */}
       <title>{title}</title>
-      <meta name="description" content={metaDescription} />
+      <meta name="description" content={description} />
       <meta name="image" content={Banner} />
 
       {/* OpenGraph tags */}
-      <meta property="og:url" content={site.siteMetadata.siteUrl} />
+      <meta property="og:url" content={SITE_URL} />
       <meta property="og:title" content={title} />
-      <meta property="og:description" content={metaDescription} />
-      <meta
-        property="og:image"
-        content={`${site.siteMetadata.siteUrl}${Banner}`}
-      />
+      <meta property="og:description" content={description} />
+      <meta property="og:image" content={`${SITE_URL}${Banner}`} />
 
       {/* Twitter Card tags */}
       <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:creator" content={site.siteMetadata.author} />
+      <meta name="twitter:creator" content={AUTHOR} />
       <meta name="twitter:title" content={title} />
-      <meta name="twitter:description" content={metaDescription} />
-      <meta
-        name="twitter:image"
-        content={`${site.siteMetadata.siteUrl}${Banner}`}
-      />
+      <meta name="twitter:description" content={description} />
+      <meta name="twitter:image" content={`${SITE_URL}${Banner}`} />
     </Helmet>
   )
-}
-
-SEO.defaultProps = {
-  lang: `es-PR`,
-  meta: [],
-  description: ``,
 }

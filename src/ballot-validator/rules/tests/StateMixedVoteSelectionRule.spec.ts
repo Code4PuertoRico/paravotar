@@ -1,23 +1,25 @@
-import { RuleOutcomeType, StateBallot, Selection } from "../../types"
-import StateMixedVoteSelectionRule from "../StateMixedVoteSelectionRule"
+import { expect, test, it } from "vitest";
 
-const { selected, notSelected } = Selection
+import { RuleOutcomeType, StateBallot, Selection } from "../../types";
+import StateMixedVoteSelectionRule from "../StateMixedVoteSelectionRule";
 
-describe("StateMixedVoteSelectionRule", () => {
+const { selected, notSelected } = Selection;
+
+test("StateMixedVoteSelectionRule", () => {
   it("should error on party selection and different column selections for all sections", () => {
     const stateBallot: StateBallot = {
       parties: [selected, notSelected, notSelected, notSelected],
       governor: [notSelected, notSelected, selected, notSelected],
       residentCommissioner: [notSelected, notSelected, selected, notSelected],
-    }
+    };
 
     expect(new StateMixedVoteSelectionRule().outcome(stateBallot)).toEqual({
       outcome: RuleOutcomeType.deny,
       metadata: {
         section: "all",
       },
-    })
-  })
+    });
+  });
 
   it("should not error on 1 selection", () => {
     const stateBallot: StateBallot = {
@@ -29,10 +31,10 @@ describe("StateMixedVoteSelectionRule", () => {
         notSelected,
         notSelected,
       ],
-    }
+    };
 
     expect(new StateMixedVoteSelectionRule().outcome(stateBallot)).toEqual({
       outcome: RuleOutcomeType.allow,
-    })
-  })
-})
+    });
+  });
+});

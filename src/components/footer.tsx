@@ -1,11 +1,12 @@
-import React from "react"
+import { useTranslation } from "react-i18next"
 
-import Code4PR from "../assets/icons/code-4-pr.svg"
-import Heart from "../assets/icons/heart.svg"
+import Code4PR from "../assets/icons/code-4-pr.svg?url"
+import Heart from "../assets/icons/heart.svg?url"
 import { Container, Link } from "../components/index"
-import i18next from "i18next"
 
 export default function Footer() {
+  const { t } = useTranslation();
+
   return (
     <Container
       tag="footer"
@@ -15,30 +16,30 @@ export default function Footer() {
         to="https://github.com/Code4PuertoRico/papeleta-pr/blob/master/CONTRIBUTING.md"
         target="_blank"
       >
-        {i18next.t("footer.contribute")}
+        {t("footer.contribute")}
       </Link>
       <p className="font-bold mt-4">
-        {i18next.t("footer.contribute-note1")}
+        {t("footer.contribute-note1")}
         <br />
-        {i18next.t("footer.contribute-note2")}
+        {t("footer.contribute-note2")}
       </p>
       <p className="mt-2">
-        {i18next.t("footer.contribute-note3")}
+        {t("footer.contribute-note3")}
         <Link
           to="https://github.com/Code4PuertoRico/papeleta-pr"
           target="_blank"
         >
           <span className="sr-only">
-            {i18next.t("footer.contribute-note5")}
+            {t("footer.contribute-note5")}
           </span>
-          {i18next.t("footer.contribute-note4")}
+          {t("footer.contribute-note4")}
         </Link>
         .
       </p>
       <p className="text-sm mt-10">
-        {i18next.t("site.made-with")}{" "}
+        {t("site.made-with")}{" "}
         <img className="inline-block h-4 w-4" src={Heart} alt="amor" />{" "}
-        {i18next.t("site.from-pr")}{" "}
+        {t("site.from-pr")}{" "}
         <Link to="https://twitter.com/eluciiano" target="_blank">
           Emmanuel Luciano Bernal
         </Link>
@@ -55,17 +56,17 @@ export default function Footer() {
           to="https://github.com/Code4PuertoRico/paravotar/graphs/contributors"
           target="_blank"
         >
-          {i18next.t("site.other-contributors")}
+          {t("site.other-contributors")}
         </Link>
         .
       </p>
-      <p className="text-sm mt-2">{i18next.t("footer.contribute-note6")}</p>
+      <p className="text-sm mt-2">{t("footer.contribute-note6")}</p>
       <p className="text-sm">
-        {i18next.t("footer.support1")}
+        {t("footer.support1")}
         <Link to="https://www.twitter.com/paravotarpr" target="_blank">
           Twitter
         </Link>
-        {i18next.t("footer.support2")}
+        {t("footer.support2")}
         <Link
           to="https://github.com/Code4PuertoRico/papeleta-pr/issues/new"
           target="_blank"

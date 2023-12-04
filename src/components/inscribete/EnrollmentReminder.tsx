@@ -1,11 +1,11 @@
-import React from "react"
-
-import Typography from "../typography"
-import ReminderIllustration from "../../assets/images/reminder-illustration.png"
-import Link from "../link"
-import i18next from "i18next"
+import { useTranslation } from "react-i18next";
+import Typography from "../typography";
+import ReminderIllustration from "../../assets/images/reminder-illustration.png";
+import Link from "../link";
 
 export function EnrollmentReminder() {
+  const { t, i18n } = useTranslation();
+
   return (
     <>
       <div className="text-center">
@@ -15,7 +15,7 @@ export function EnrollmentReminder() {
           variant="h3"
           className="uppercase tracking-wide"
         >
-          {i18next.t("site.enrollment-reminder")}
+          {t("site.enrollment-reminder")}
         </Typography>
         <Typography
           tag="h3"
@@ -23,7 +23,7 @@ export function EnrollmentReminder() {
           weight="base"
           className="font-normal mt-4"
         >
-          {i18next.t("site.enrollment-reminder-guide1")}
+          {t("site.enrollment-reminder-guide1")}
         </Typography>
       </div>
       <div className="flex flex-wrap md:flex-row-reverse items-center mt-12">
@@ -37,19 +37,19 @@ export function EnrollmentReminder() {
         </div>
         <div className="w-full lg:mt-3 lg:w-1/2">
           <Typography tag="p" variant="p" className="mt-4">
-            {i18next.t("site.enrollment-reminder-guide2")}
+            {t("site.enrollment-reminder-guide2")}
           </Typography>
           <Link
             className="mt-6 w-full pt-2 pb-2 md:w-1/2"
             variant="primary"
-            to={`/ics/enroll_${i18next.language || "es"}.ics`}
+            to={`/ics/enroll_${i18n.language || "es"}.ics`}
             download
           >
-            {i18next.t("site.add-to-calendar")}
-            <span className="sr-only">{i18next.t("site.add-to-calendar")}</span>
+            {t("site.add-to-calendar")}
+            <span className="sr-only">{t("site.add-to-calendar")}</span>
           </Link>
         </div>
       </div>
     </>
-  )
+  );
 }

@@ -1,5 +1,3 @@
-import React from "react"
-
 import { useColumnHighlight } from "../../../../context/column-highlight-context"
 import Checkbox from "./checkbox"
 
@@ -26,10 +24,7 @@ export default function PoliticalParty(props: HeaderProps) {
       <img className="mx-auto" src={props.logo} alt={props.ocrResult} />
       <Checkbox
         type="party"
-        id={props.ocrResult
-          .trim()
-          .replace(/\s/gi, "-")
-          .toLowerCase()}
+        id={props.ocrResult.trim().replace(/\s/gi, "-").toLowerCase()}
         checked={props.hasVote}
         onClick={props.toggleVote}
         isHighlighted={props.isHighlighted}

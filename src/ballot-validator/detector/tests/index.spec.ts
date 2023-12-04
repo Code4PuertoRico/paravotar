@@ -1,25 +1,27 @@
-import detector from ".."
+import { expect, test, it } from "vitest";
+
+import detector from "..";
 import {
   StateBallot,
   BallotType,
   Selection,
   MunicipalBallot,
   LegislativeBallot,
-} from "../../types"
+} from "../../types";
 
-const { selected, notSelected } = Selection
+const { selected, notSelected } = Selection;
 
-describe("Ballot Type Detector", () => {
-  describe("State Ballot", () => {
+test("Ballot Type Detector", () => {
+  test("State Ballot", () => {
     it("should be of type empty", () => {
       const stateBallot: StateBallot = {
         parties: [notSelected, notSelected, notSelected],
         governor: [notSelected, notSelected, notSelected],
         residentCommissioner: [notSelected, notSelected, notSelected],
-      }
+      };
 
-      expect(detector(stateBallot, BallotType.state)).toEqual("empty")
-    })
+      expect(detector(stateBallot, BallotType.state)).toEqual("empty");
+    });
 
     it.each([
       {
@@ -28,8 +30,8 @@ describe("Ballot Type Detector", () => {
         residentCommissioner: [notSelected, notSelected, notSelected],
       },
     ])("should be of type integro", (stateBallot: StateBallot) => {
-      expect(detector(stateBallot, BallotType.state)).toEqual("integro")
-    })
+      expect(detector(stateBallot, BallotType.state)).toEqual("integro");
+    });
 
     it.each([
       {
@@ -48,8 +50,8 @@ describe("Ballot Type Detector", () => {
         residentCommissioner: [selected, notSelected, notSelected],
       },
     ])("should be of type candidatura", (stateBallot: StateBallot) => {
-      expect(detector(stateBallot, BallotType.state)).toEqual("candidatura")
-    })
+      expect(detector(stateBallot, BallotType.state)).toEqual("candidatura");
+    });
 
     it.each([
       {
@@ -68,11 +70,11 @@ describe("Ballot Type Detector", () => {
         residentCommissioner: [notSelected, notSelected, notSelected],
       },
     ])("should be of type mixto", (stateBallot: StateBallot) => {
-      expect(detector(stateBallot, BallotType.state)).toEqual("mixto")
-    })
-  })
+      expect(detector(stateBallot, BallotType.state)).toEqual("mixto");
+    });
+  });
 
-  describe("Municipal Ballot", () => {
+  test("Municipal Ballot", () => {
     it("should be of type empty", () => {
       const municipalBallot: MunicipalBallot = {
         parties: [notSelected, notSelected, notSelected],
@@ -82,12 +84,12 @@ describe("Ballot Type Detector", () => {
           [notSelected, notSelected, notSelected],
           [notSelected, notSelected, notSelected],
         ],
-      }
+      };
 
       expect(detector(municipalBallot, BallotType.municipality)).toEqual(
         "empty"
-      )
-    })
+      );
+    });
 
     it.each([
       {
@@ -102,8 +104,8 @@ describe("Ballot Type Detector", () => {
     ])("should be of type integro", (municipalBallot: MunicipalBallot) => {
       expect(detector(municipalBallot, BallotType.municipality)).toEqual(
         "integro"
-      )
-    })
+      );
+    });
 
     it.each([
       {
@@ -136,8 +138,8 @@ describe("Ballot Type Detector", () => {
     ])("should be of type candidatura", (municipalBallot: MunicipalBallot) => {
       expect(detector(municipalBallot, BallotType.municipality)).toEqual(
         "candidatura"
-      )
-    })
+      );
+    });
 
     it.each([
       {
@@ -170,11 +172,11 @@ describe("Ballot Type Detector", () => {
     ])("should be of type mixto", (municipalBallot: MunicipalBallot) => {
       expect(detector(municipalBallot, BallotType.municipality)).toEqual(
         "mixto"
-      )
-    })
-  })
+      );
+    });
+  });
 
-  describe("Legislative Ballot", () => {
+  test("Legislative Ballot", () => {
     it("should be of type empty", () => {
       const legislativeBallot: LegislativeBallot = {
         parties: [notSelected, notSelected, notSelected],
@@ -194,12 +196,12 @@ describe("Ballot Type Detector", () => {
           [notSelected, notSelected, notSelected],
           [notSelected, notSelected, notSelected],
         ],
-      }
+      };
 
       expect(detector(legislativeBallot, BallotType.legislative)).toEqual(
         "empty"
-      )
-    })
+      );
+    });
 
     it.each([
       {
@@ -223,8 +225,8 @@ describe("Ballot Type Detector", () => {
     ])("should be of type integro", (legislativeBallot: LegislativeBallot) => {
       expect(detector(legislativeBallot, BallotType.legislative)).toEqual(
         "integro"
-      )
-    })
+      );
+    });
 
     it.each([
       {
@@ -268,9 +270,9 @@ describe("Ballot Type Detector", () => {
       (legislativeBallot: LegislativeBallot) => {
         expect(detector(legislativeBallot, BallotType.legislative)).toEqual(
           "candidatura"
-        )
+        );
       }
-    )
+    );
 
     it.each([
       {
@@ -312,7 +314,7 @@ describe("Ballot Type Detector", () => {
     ])("should be of type mixto", (legislativeBallot: LegislativeBallot) => {
       expect(detector(legislativeBallot, BallotType.legislative)).toEqual(
         "mixto"
-      )
-    })
-  })
-})
+      );
+    });
+  });
+});

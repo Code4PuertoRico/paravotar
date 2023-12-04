@@ -1,96 +1,92 @@
-import React from "react"
-
-import i18next from "i18next"
 import { animated, useSpring } from "react-spring"
 
 import { Town } from "../types"
 import { Link } from "../../../components/index"
-import Location from "../../../assets/icons/location.inline.svg"
-// import Phone from "../../../assets/icons/phone.inline.svg"
+import Location from "../../../assets/icons/location.svg?url"
+import { useTranslation } from "react-i18next"
+// import Phone from "../../../assets/icons/phone.svg?url"
 
 interface CenterInfoProps {
   town: Town
 }
 
-const TownInfo: React.FunctionComponent<{ town: Required<Town> }> = ({
-  town,
-}) => (
-  <>
-    <div>
-      {/* <div className="text-base md:text-xl">
-        <p className="font-semibold pr-12 align-top">Nombre</p>
-        <p>{town.pueblo}</p>
-      </div> */}
-      {/* <div className="text-base md:text-xl pt-6">
-        <p className="font-semibold pr-12 align-top">{i18next.t('site.address')}</p>
-        <p>{town.direccion}</p>
-      </div> */}
-      <div className="flex text-base md:text-xl">
-        <p className="font-bold pr-12 align-top w-1/4">
-          {i18next.t("site.address")}
-        </p>
-        <p className="w-3/4">{town.direccion}</p>
-      </div>
-      {/* <div className="flex text-base md:text-xl pt-6">
-        <p className="font-bold pr-12 align-top w-1/4">Teléfono</p>
-        <p className="w-3/4">{town.telefono}</p>
-      </div> */}
-      <div className="flex text-base md:text-xl pt-6">
-        <p className="font-bold pr-12 align-top w-1/4">
-          {i18next.t("site.working-hours")}
-        </p>
-        <p className="w-3/4">
-          {i18next.t("site.enrollment-centers-dates")} <br /> 8:00 am - 4:00 pm
-        </p>
-      </div>
-      <div className="flex text-base md:text-xl pt-6">
-        <p className="font-bold pr-12 align-top w-1/4">
-          {i18next.t("site.services")}
-        </p>
-        <p className="w-3/4">
-          {i18next.t("site.enrollment-centers-services")}
-          {/* {town.servicios.map(s => (
-            <span key={s} className="block">
-              {s}
-            </span>
-          ))} */}
-        </p>
-      </div>
-    </div>
-    {/* {town.JIPIsla ? ( */}
-    <p className="mt-4">{i18next.t("site.enrollment-centers-note")}</p>
-    {/* ) : null} */}
-    <div className="mt-8">
-      <Link
-        className="w-full text-center"
-        to={town.googleMapsLink}
-        target="_blank"
-        variant="primary"
-      >
-        <Location className="mr-1 h-5 w-5" /> {i18next.t("site.location")}
-        <span className="sr-only">
-          para esta Junta de Inscripción Permanente
-        </span>
-      </Link>
-    </div>
-    {/* <div className="mt-4">
-      <Link
-        className="w-full text-center"
-        to={`tel:${town.telefono}`}
-        variant="inverse"
-      >
-        <Phone className="mr-1 h-5 w-5" /> Llamar para mas información
-        <span className="sr-only">
-          sobre esta Junta de Inscripción Permanente
-        </span>
-      </Link>
-    </div> */}
-  </>
-)
+const TownInfo = ({ town }: CenterInfoProps) => {
+  const { t } = useTranslation()
 
-export const CenterInfo: React.FunctionComponent<CenterInfoProps> = ({
-  town,
-}) => {
+  return (
+    <>
+      <div>
+        {/* <div className="text-base md:text-xl">
+          <p className="font-semibold pr-12 align-top">Nombre</p>
+          <p>{town.pueblo}</p>
+        </div> */}
+        {/* <div className="text-base md:text-xl pt-6">
+          <p className="font-semibold pr-12 align-top">{t('site.address')}</p>
+          <p>{town.direccion}</p>
+        </div> */}
+        <div className="flex text-base md:text-xl">
+          <p className="font-bold pr-12 align-top w-1/4">{t("site.address")}</p>
+          <p className="w-3/4">{town.direccion}</p>
+        </div>
+        {/* <div className="flex text-base md:text-xl pt-6">
+          <p className="font-bold pr-12 align-top w-1/4">Teléfono</p>
+          <p className="w-3/4">{town.telefono}</p>
+        </div> */}
+        <div className="flex text-base md:text-xl pt-6">
+          <p className="font-bold pr-12 align-top w-1/4">
+            {t("site.working-hours")}
+          </p>
+          <p className="w-3/4">
+            {t("site.enrollment-centers-dates")} <br /> 8:00 am - 4:00 pm
+          </p>
+        </div>
+        <div className="flex text-base md:text-xl pt-6">
+          <p className="font-bold pr-12 align-top w-1/4">
+            {t("site.services")}
+          </p>
+          <p className="w-3/4">
+            {t("site.enrollment-centers-services")}
+            {/* {town.servicios.map(s => (
+              <span key={s} className="block">
+                {s}
+              </span>
+            ))} */}
+          </p>
+        </div>
+      </div>
+      {/* {town.JIPIsla ? ( */}
+      <p className="mt-4">{t("site.enrollment-centers-note")}</p>
+      {/* ) : null} */}
+      <div className="mt-8">
+        <Link
+          className="w-full text-center"
+          to={town.googleMapsLink}
+          target="_blank"
+          variant="primary"
+        >
+          <img src={Location} className="mr-1 h-5 w-5" /> {t("site.location")}
+          <span className="sr-only">
+            para esta Junta de Inscripción Permanente
+          </span>
+        </Link>
+      </div>
+      {/* <div className="mt-4">
+        <Link
+          className="w-full text-center"
+          to={`tel:${town.telefono}`}
+          variant="inverse"
+        >
+          <Phone className="mr-1 h-5 w-5" /> Llamar para mas información
+          <span className="sr-only">
+            sobre esta Junta de Inscripción Permanente
+          </span>
+        </Link>
+      </div> */}
+    </>
+  )
+}
+
+export const CenterInfo = ({ town }: CenterInfoProps) => {
   const props = useSpring({ opacity: 1, from: { opacity: 0 } })
 
   if (!town.locations) {

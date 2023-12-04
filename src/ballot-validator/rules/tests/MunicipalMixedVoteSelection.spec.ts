@@ -1,9 +1,11 @@
-import { RuleOutcomeType, Selection, MunicipalBallot } from "../../types"
-import MunicipalMixedVoteSelection from "../MunicipalMixedVoteSelection"
+import { expect, test, it } from "vitest";
 
-const { selected, notSelected } = Selection
+import { RuleOutcomeType, Selection, MunicipalBallot } from "../../types";
+import MunicipalMixedVoteSelection from "../MunicipalMixedVoteSelection";
 
-describe("MunicipalMixedVoteSelection", () => {
+const { selected, notSelected } = Selection;
+
+test("MunicipalMixedVoteSelection", () => {
   it("should error on different party, mayor & legislator selections", () => {
     const municipalBallot: MunicipalBallot = {
       parties: [selected, notSelected, notSelected, notSelected],
@@ -15,15 +17,15 @@ describe("MunicipalMixedVoteSelection", () => {
         [notSelected, notSelected, selected, notSelected],
         [notSelected, notSelected, notSelected, selected],
       ],
-    }
+    };
 
     expect(new MunicipalMixedVoteSelection().outcome(municipalBallot)).toEqual({
       outcome: RuleOutcomeType.deny,
       metadata: {
         section: "all",
       },
-    })
-  })
+    });
+  });
 
   it("should not error on 1 selection", () => {
     const municipalBallot: MunicipalBallot = {
@@ -36,12 +38,12 @@ describe("MunicipalMixedVoteSelection", () => {
         [notSelected, notSelected, notSelected, notSelected],
         [notSelected, notSelected, notSelected, notSelected],
       ],
-    }
+    };
 
     expect(new MunicipalMixedVoteSelection().outcome(municipalBallot)).toEqual({
       outcome: RuleOutcomeType.allow,
-    })
-  })
+    });
+  });
 
   it("should not error on implicit selection", () => {
     const municipalBallot: MunicipalBallot = {
@@ -54,10 +56,10 @@ describe("MunicipalMixedVoteSelection", () => {
         [notSelected, notSelected, notSelected, notSelected],
         [notSelected, notSelected, notSelected, notSelected],
       ],
-    }
+    };
 
     expect(new MunicipalMixedVoteSelection().outcome(municipalBallot)).toEqual({
       outcome: RuleOutcomeType.allow,
-    })
-  })
-})
+    });
+  });
+});

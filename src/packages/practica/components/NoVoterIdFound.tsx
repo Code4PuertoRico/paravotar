@@ -1,13 +1,10 @@
-import React from "react"
 import { Button, Typography } from "../../../components"
 
 interface NoVoterIdFoundProps {
   send: any
 }
 
-export const NoVoterIdFound: React.FunctionComponent<NoVoterIdFoundProps> = ({
-  send,
-}) => {
+export const NoVoterIdFound = ({ send }: NoVoterIdFoundProps) => {
   return (
     <div>
       <Typography tag="h2" variant="h4" className="font-bold text-red mt-1">

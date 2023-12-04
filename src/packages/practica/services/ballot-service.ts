@@ -1,5 +1,3 @@
-import { stringify } from "qs"
-
 import { BallotType, Selection } from "../../../ballot-validator/types"
 import { VotesCoordinates } from "../../generate-ballot/types/ballot-machine"
 import {
@@ -206,8 +204,12 @@ const BallotService = {
 
   async getPdfUrl(context: PracticeContext) {
     const { uuid } = context
-    const params = stringify({ uuid })
-    const result = await BallotResource.getBallotPdf(params)
+
+    const params = new URLSearchParams()
+
+    params.set('uuid', uuid as string);
+
+    const result = await BallotResource.getBallotPdf(params.toString())
 
     return result
   },
