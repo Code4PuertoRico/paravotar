@@ -1,24 +1,20 @@
 name: Integration
 on: [pull_request]
 jobs:
-  cypress:
+  cypress-run:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         machines: [1, 2, 3]
     steps:
       - name: Checkout
-        uses: actions/checkout@main
+        uses: actions/checkout@v4
 
       - name: Install
         run: npm ci
 
-      - name: Build
-        run: npm run build
-
       - name: Test
-        uses: cypress-io/github-action@v2
+        uses: cypress-io/github-action@v6
         with:
-          browser: chrome
-          headless: true
-          start: npm run test:integration:run
+          build: npm run build
+          start: npm start
