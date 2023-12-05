@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react"
-import { Machine, assign } from "xstate"
+import { assign, createMachine } from "xstate"
 import { useMachine } from "@xstate/react"
 
 import { AbsenteeVoter, EarlyVoter } from "../constants"
@@ -51,7 +51,7 @@ const actions = {
   }),
 }
 
-const SpecialVoterMachine = Machine(config, {
+const SpecialVoterMachine = createMachine(config, {
   actions,
 })
 

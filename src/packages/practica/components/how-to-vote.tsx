@@ -1,4 +1,4 @@
-import { Machine } from "xstate"
+import { createMachine } from "xstate"
 import { useMachine } from "@xstate/react"
 import { animated, useSpring } from "react-spring"
 import { useTranslation } from "react-i18next"
@@ -118,7 +118,7 @@ const getBallotTypes = (t: TFunction<"translation", undefined>) => {
   ]
 }
 
-const ballotTypeMachine = Machine({
+const ballotTypeMachine = createMachine({
   id: "ballotTypeMachine",
   initial: "estatal",
   states: {
@@ -143,7 +143,7 @@ const ballotTypeMachine = Machine({
   },
 })
 
-const voteTypesMachine = Machine({
+const voteTypesMachine = createMachine({
   id: "voteTypesMachine",
   initial: "integro",
   states: {
@@ -192,7 +192,7 @@ function VoteType({
   description: string
   example: string
 }) {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
 
   return (
     <>
@@ -272,7 +272,7 @@ function VoteTypes({ votes }: { votes: Vote[] }) {
 
 export default function HowToVote() {
   const [state, send] = useMachine(ballotTypeMachine)
-  const { t } = useTranslation();
+  const { t } = useTranslation()
   const ballotTypes = getBallotTypes(t)
   const props = useSpring({ opacity: 1, from: { opacity: 0 } })
 

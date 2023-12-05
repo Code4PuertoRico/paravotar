@@ -1,4 +1,4 @@
-import { Machine } from "xstate"
+import { createMachine } from "xstate"
 import { useMachine } from "@xstate/react"
 
 import Typography from "../../typography"
@@ -21,14 +21,14 @@ const tabsState = {
   },
 }
 
-const SpecialVotersTabsMachine = Machine({
+const SpecialVotersTabsMachine = createMachine({
   id: "special-voters-mobile",
   initial: "earlyVoter",
   states: tabsState,
 })
 
 export default function Tabs() {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
   const [state, send] = useMachine(SpecialVotersTabsMachine)
   const voter = state.value === "earlyVoter" ? EarlyVoter : AbsenteeVoter
   const title =

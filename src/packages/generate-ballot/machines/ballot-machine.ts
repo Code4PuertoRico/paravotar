@@ -1,4 +1,4 @@
-import { Machine, assign, createMachine } from "xstate"
+import { assign, createMachine } from "xstate"
 
 import { BallotResource } from "../../practica/resource"
 import {

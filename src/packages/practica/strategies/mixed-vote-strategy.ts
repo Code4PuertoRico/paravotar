@@ -36,7 +36,7 @@ export class MixedVoteStrategy implements VoteUpdateInterface {
       electivePosition
     )
 
-    const implicitVotesForPosition = prevVotes.filter(vote => {
+    const implicitVotesForPosition = prevVotes.filter((vote) => {
       return (
         vote.position.row >= start &&
         vote.position.row <= end &&
@@ -44,7 +44,7 @@ export class MixedVoteStrategy implements VoteUpdateInterface {
       )
     })
 
-    const explicitVotesForPosition = prevVotes.filter(vote => {
+    const explicitVotesForPosition = prevVotes.filter((vote) => {
       return (
         vote.position.row >= start &&
         vote.position.row <= end &&
@@ -52,7 +52,7 @@ export class MixedVoteStrategy implements VoteUpdateInterface {
       )
     })
 
-    const votesOutsideOfThePosition = prevVotes.filter(vote => {
+    const votesOutsideOfThePosition = prevVotes.filter((vote) => {
       return vote.position.row < start || vote.position.row > end
     })
 
@@ -87,7 +87,7 @@ export class MixedVoteStrategy implements VoteUpdateInterface {
 
   removeVote(intendedVote: VoteEvent, prevVotes: Vote[]) {
     // Remove the vote.
-    const filteredVotes = prevVotes.filter(vote => {
+    const filteredVotes = prevVotes.filter((vote) => {
       return !(
         intendedVote.position.row === vote.position.row &&
         intendedVote.position.column === vote.position.column
@@ -107,7 +107,7 @@ export class MixedVoteStrategy implements VoteUpdateInterface {
       electivePosition
     )
 
-    const explicitVotesForPosition = filteredVotes.filter(vote => {
+    const explicitVotesForPosition = filteredVotes.filter((vote) => {
       return (
         vote.position.row >= start &&
         vote.position.row <= end &&
@@ -123,7 +123,7 @@ export class MixedVoteStrategy implements VoteUpdateInterface {
     if (explicitVotesForPosition.length < voteLimit) {
       // Get the sections that have candidates.
       const voteForParty = prevVotes.find(
-        vote =>
+        (vote) =>
           vote.selection === Selection.selected &&
           vote.position.row === PARTY_ROW
       )
@@ -138,14 +138,16 @@ export class MixedVoteStrategy implements VoteUpdateInterface {
           const receivesImplicitVote =
             item instanceof Candidate && item.receivesImpicitVote
           const hasVote = filteredVotes.find(
-            vote =>
+            (vote) =>
               vote.position.row === index &&
               vote.position.column === voteForParty.position.column
           )
 
           return isInElectivePosition && receivesImplicitVote && !hasVote
         }) as Candidate
-        const index = columnForParty.findIndex(item => item.id === candidate.id)
+        const index = columnForParty.findIndex(
+          (item) => item.id === candidate.id
+        )
         const vote = new Vote(
           { column: voteForParty.position.column, row: index },
           Selection.selectedImplicitly,
