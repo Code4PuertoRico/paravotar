@@ -10,6 +10,15 @@ import SpecialVoterCard from "./SpecialVoterCard"
 import SpecialVoterReasons from "./SpecialVoterReasons"
 import { useTranslation } from "react-i18next"
 
+interface SpecialVotersContext {
+  previous: string
+}
+
+type SpecialVotersEvent =
+  | { type: "ABSENTEE_VOTER_TOGGLED" }
+  | { type: "EARLY_VOTER_TOGGLED" }
+  | { type: "CLOSED" }
+
 const config = {
   id: "special-voters",
   initial: "idle",
@@ -40,7 +49,7 @@ const config = {
 }
 
 const actions = {
-  handlePrevUpdate: assign({
+  handlePrevUpdate: assign<SpecialVotersContext, SpecialVotersEvent>({
     previous: (context) => {
       if (context.previous === "idle") {
         return "reasons"
@@ -51,7 +60,10 @@ const actions = {
   }),
 }
 
-const SpecialVoterMachine = createMachine(config, {
+const SpecialVoterMachine = createMachine<
+  SpecialVotersContext,
+  SpecialVotersEvent
+>(config, {
   actions,
 })
 

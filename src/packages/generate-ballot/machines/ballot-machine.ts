@@ -8,6 +8,7 @@ import {
 } from "../../practica/services/ballot-configs"
 
 import { BallotMachineContext } from "../types/ballot-machine"
+import { OcrResult } from "../../practica/services/types"
 
 async function fetchBallot(path: string | null) {
   if (path) {
@@ -19,7 +20,27 @@ async function fetchBallot(path: string | null) {
   throw Error("Invalid ballot path")
 }
 
-export const BallotMachine = createMachine<BallotMachineContext>({
+type FetchEvent = { type: "FETCH" }
+
+type FetchBallotSuccessEvent = {
+  type: "done.invoke.fetchBallot"
+  data: OcrResult[][]
+}
+
+type FetchBallotFailureEvent = {
+  type: "error.platform.fetchBallot"
+  data: any
+}
+
+type BallotMachineEvent =
+  | FetchEvent
+  | FetchBallotSuccessEvent
+  | FetchBallotFailureEvent
+
+export const BallotMachine = createMachine<
+  BallotMachineContext,
+  BallotMachineEvent
+>({
   id: "ballotMachine",
   initial: "idle",
   context: {
@@ -48,9 +69,9 @@ export const BallotMachine = createMachine<BallotMachineContext>({
                 return new StateBallotConfig(event.data, path).structure
               } else if (context.type === "municipal") {
                 return new MunicipalBallotConfig(event.data, path).structure
-              } else {
-                return new LegislativeBallotConfig(event.data, path).structure
               }
+
+              return new LegislativeBallotConfig(event.data, path).structure
             },
           }),
         },

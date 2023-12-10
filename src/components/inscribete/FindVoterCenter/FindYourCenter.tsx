@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next"
 
 import Button from "../../button"
 import Typography from "../../typography"
-import { findYourCenterMachine } from "./findYourCenterMachine"
+import { FindYourCenterMachine } from "./findYourCenterMachine"
 import Link from "../../link"
 
 const EMBED_LINK_BASE =
@@ -13,7 +13,7 @@ const EMBED_LINK_BASE =
 
 export const FindYourCenter = () => {
   const { t } = useTranslation()
-  const [current, send] = useMachine(findYourCenterMachine)
+  const [current, send] = useMachine(FindYourCenterMachine)
 
   const inputRef = useRef<HTMLInputElement>(null)
 

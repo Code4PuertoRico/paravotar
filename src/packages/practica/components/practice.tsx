@@ -25,7 +25,7 @@ import {
 } from "../services/ballot-configs"
 // import useBallotValidation from "../hooks/use-ballot-validation"
 import useVotesTransform from "../hooks/use-votes-transform"
-import { practiceMachine } from "../machines/practice"
+import { PracticeMachine } from "../machines/practice"
 import useVotesCount from "../hooks/use-votes-count"
 import { getExplicitlySelectedVotes, Vote } from "../services/vote-service"
 import BallotFinderPicker from "./ballot-finder-picker"
@@ -111,7 +111,7 @@ export default function Practice({
   initialBallotType?: BallotType
 }) {
   const { t } = useTranslation()
-  const [state, send] = useMachine(practiceMachine, {
+  const [state, send] = useMachine(PracticeMachine, {
     context: {
       ballotType: initialBallotType,
     },
@@ -134,6 +134,8 @@ export default function Practice({
     ballotType: BallotType,
     ballot?: BallotConfigs
   ) => {
+    if (ballot == null) return
+
     const cleanedVotes = getExplicitlySelectedVotes(votes)
     const transformedVotes = coordinatesToSections(
       cleanedVotes,

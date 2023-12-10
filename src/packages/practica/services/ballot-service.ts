@@ -37,7 +37,7 @@ type ExportPdfEvent = {
 const PARTY_ROW = 0
 
 function findPartyVotes(votes: Vote[]) {
-  return votes.filter(vote => vote.position.row === PARTY_ROW)
+  return votes.filter((vote) => vote.position.row === PARTY_ROW)
 }
 
 function getBallot(ballots, ballotType: BallotType): BallotConfigs {
@@ -118,7 +118,7 @@ const BallotService = {
     const ballots = context.ballots
     const prevVotes = context.votes
     const existingVoteAtPosition = prevVotes.find(
-      vote =>
+      (vote) =>
         vote.position.row === position.row &&
         vote.position.column === position.column
     )
@@ -127,7 +127,7 @@ const BallotService = {
     if (existingVoteAtPosition) {
       // Change the vote from an implicity vote to an explict one.
       if (existingVoteAtPosition.selection === Selection.selectedImplicitly) {
-        return prevVotes.map(vote => {
+        return prevVotes.map((vote) => {
           if (
             vote.position.row === position.row &&
             vote.position.column === position.column
@@ -186,7 +186,7 @@ const BallotService = {
 
   async generatePdf(context: PracticeContext, event: ExportPdfEvent) {
     const voteCoordinates = getExplicitlySelectedVotes(context.votes).map(
-      vote => {
+      (vote) => {
         return {
           position: vote.position,
           candidate: vote.candidate,
@@ -207,7 +207,7 @@ const BallotService = {
 
     const params = new URLSearchParams()
 
-    params.set('uuid', uuid as string);
+    params.set("uuid", uuid as string)
 
     const result = await BallotResource.getBallotPdf(params.toString())
 
