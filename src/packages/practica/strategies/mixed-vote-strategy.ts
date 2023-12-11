@@ -128,34 +128,29 @@ export class MixedVoteStrategy implements VoteUpdateInterface {
           vote.position.row === PARTY_ROW
       )
 
-      if (voteForParty) {
-        const columnForParty = getColumnForParty(
-          ballot,
-          voteForParty as VoteEvent
-        )
-        const candidate = columnForParty.find((item, index) => {
-          const isInElectivePosition = index >= start && index <= end
-          const receivesImplicitVote =
-            item instanceof Candidate && item.receivesImpicitVote
-          const hasVote = filteredVotes.find(
-            (vote) =>
-              vote.position.row === index &&
-              vote.position.column === voteForParty.position.column
-          )
+      if (voteForParty == null) return
 
-          return isInElectivePosition && receivesImplicitVote && !hasVote
-        }) as Candidate
-        const index = columnForParty.findIndex(
-          (item) => item.id === candidate.id
-        )
-        const vote = new Vote(
-          { column: voteForParty.position.column, row: index },
-          Selection.selectedImplicitly,
-          candidate
+      const columnForParty = getColumnForParty(ballot, voteForParty)
+      const candidate = columnForParty.find((item, index) => {
+        const isInElectivePosition = index >= start && index <= end
+        const receivesImplicitVote =
+          item instanceof Candidate && item.receivesImpicitVote
+        const hasVote = filteredVotes.find(
+          (vote) =>
+            vote.position.row === index &&
+            vote.position.column === voteForParty.position.column
         )
 
-        return [...filteredVotes, vote]
-      }
+        return isInElectivePosition && receivesImplicitVote && !hasVote
+      }) as Candidate
+      const index = columnForParty.findIndex((item) => item.id === candidate.id)
+      const vote = new Vote(
+        { column: voteForParty.position.column, row: index },
+        Selection.selectedImplicitly,
+        candidate
+      )
+
+      return [...filteredVotes, vote]
     }
 
     return filteredVotes
