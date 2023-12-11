@@ -69,7 +69,7 @@ const SpecialVoterMachine = createMachine<
 
 export default function SpecialVoterCards() {
   const { t } = useTranslation()
-  const ref = useRef<HTMLDivElement>()
+  const ref = useRef<HTMLDivElement>(null!)
   const [state, send] = useMachine(SpecialVoterMachine)
 
   useEffect(() => {

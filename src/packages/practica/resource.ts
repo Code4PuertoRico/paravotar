@@ -26,7 +26,7 @@ export const BallotResource = {
     ballotPath: string
     votes: string
   }) {
-    return api.post("/createBallotTask", ballot)
+    return api.post<{ uuid: string }>("/createBallotTask", ballot)
   },
 
   getBallotPdf(params: string) {

@@ -28,7 +28,7 @@ export type VoterDetailsResponse = {
   }
 }
 
-export type BallotResponse = { ocrResult: string; logoImg?: string }[][]
+export type BallotDetails = { ocrResult: string; logoImg?: string }[][]
 
 export type OcrResult = {
   ocrResult: string
@@ -78,8 +78,8 @@ export type VoterInfo = {
   unidad: string
 }
 
-export type BallotsResponse = {
+export interface BallotsResponse {
   estatal: string
   municipal: string
-  legislative: string
+  legislativa: string
 }

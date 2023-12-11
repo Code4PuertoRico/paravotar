@@ -60,7 +60,7 @@ const TownInfo = ({ town }: CenterInfoProps) => {
       <div className="mt-8">
         <Link
           className="w-full text-center"
-          to={town.googleMapsLink}
+          to={town.googleMapsLink ?? ""}
           target="_blank"
           variant="primary"
         >

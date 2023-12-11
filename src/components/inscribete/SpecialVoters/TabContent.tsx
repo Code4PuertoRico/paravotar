@@ -44,9 +44,11 @@ export default function TabContent(voter: Props) {
           />
         ))}
       </ul>
-      <Typography tag="p" variant="p" className="mt-4">
-        {t(voter.exceptions)}
-      </Typography>
+      {voter.exceptions && (
+        <Typography tag="p" variant="p" className="mt-4">
+          {t(voter.exceptions)}
+        </Typography>
+      )}
       {voter.documents.length > 1 ? (
         <Dropdown
           selectedOption={voter.title}

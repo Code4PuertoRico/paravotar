@@ -3,12 +3,9 @@ import { createMachine, assign } from "xstate"
 import { BallotService } from "../services/ballot-service"
 
 import { MAX_PRECINT_LENGTH } from "../services/constants"
-import {
-  BallotConfigs,
-  BallotsResponse,
-  PracticeContext,
-} from "../services/types"
+import { BallotsResponse, PracticeContext } from "../services/types"
 import { BallotType } from "../../../ballot-validator/types"
+import { BallotConfigs } from "../services/ballot-configs"
 
 type ControlEvent =
   | { type: "start"; userInput: string }

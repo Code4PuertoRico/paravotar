@@ -1,5 +1,5 @@
 import { s3Client } from "../base"
-import { BallotResponse } from "../types"
+import { BallotDetails } from "../types"
 
 export default (path: string) =>
-  s3Client.get<BallotResponse>(`${path}/data.json`)
+  s3Client.get<BallotDetails>(`${path}/data.json`)

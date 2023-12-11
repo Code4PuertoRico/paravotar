@@ -1,9 +1,9 @@
-import { animated } from "react-spring"
+import { SpringValue, animated } from "react-spring"
 
 type Props = {
   className: string
   style: {
-    transform: string
+    transform: SpringValue<string> | string
   }
 }
 

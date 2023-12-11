@@ -21,7 +21,7 @@ function Section(props: SectionProps) {
   const [ref, bounds] = useMeasure({ polyfill: ResizeObserver })
   const springProps = useSpring({
     height: isOpen ? bounds.height || "auto" : 0,
-    visibility: isOpen ? "visible" : "hidden",
+    visibility: isOpen ? ("visible" as const) : ("hidden" as const),
     opacity: isOpen ? 1 : 0,
     transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
   })

@@ -73,7 +73,7 @@ export default function Tabs() {
         deadline={t(voter.deadline)}
         documents={voter.documents}
         reasons={voter.reasons}
-        exceptions={t(voter.exceptions)}
+        exceptions={t(voter.exceptions ?? "")}
       />
     </Card>
   )

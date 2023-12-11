@@ -67,8 +67,8 @@ class ApiService {
     return res
   }
 
-  async post(endpoint: string, params: any, options?: RequestOptions) {
-    const res = await this.adapter.post(endpoint, params, options)
+  async post<T>(endpoint: string, params: any, options?: RequestOptions) {
+    const res = await this.adapter.post<T>(endpoint, params, options)
 
     return res
   }
