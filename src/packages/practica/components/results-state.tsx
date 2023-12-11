@@ -3,7 +3,7 @@ import { Typography } from "../../../components"
 import { StateVotesCount } from "../services/ballot-configs"
 import { ElectivePosition } from "../services/ballot-configs/types"
 import { PARTY_ROW } from "../services/constants"
-import { Vote } from "../services/vote-service"
+import { CandidateVote, Vote } from "../services/vote-service"
 import { getElectivePositionForVote } from "../strategies/utils"
 import CandidatesSummary from "./candidates-summary"
 
@@ -14,8 +14,10 @@ type StateResultsProps = {
 }
 
 export default function ResultsState(props: StateResultsProps) {
-  const votes = props.votes.filter((vote) => vote.position.row !== PARTY_ROW)
-  const governorVotes: Vote[] = votes.filter((vote) => {
+  const votes = props.votes.filter(
+    (vote): vote is CandidateVote => vote.position.row !== PARTY_ROW
+  )
+  const governorVotes = votes.filter((vote) => {
     const electivePosition = getElectivePositionForVote(
       vote.position,
       BallotType.state
@@ -23,7 +25,7 @@ export default function ResultsState(props: StateResultsProps) {
 
     return electivePosition === ElectivePosition.governor
   }, [])
-  const commissionerResidentVotes: Vote[] = votes.filter((vote) => {
+  const commissionerResidentVotes = votes.filter((vote) => {
     const electivePosition = getElectivePositionForVote(
       vote.position,
       BallotType.state
@@ -45,12 +47,12 @@ export default function ResultsState(props: StateResultsProps) {
         {props.votesCount.governor} candidato(a) a Gobernador(a)
       </CandidatesSummary.Section>
       <CandidatesSummary>
-        {governorVotes.map((vote: Vote) => {
+        {governorVotes.map((vote) => {
           return (
             <CandidatesSummary.Card
               key={vote.candidate.id}
-              img={vote.candidate.img}
-              name={vote.candidate.name}
+              img={"img" in vote.candidate ? vote.candidate.img : undefined}
+              name={vote.candidate.name ?? ""}
             />
           )
         })}
@@ -60,12 +62,12 @@ export default function ResultsState(props: StateResultsProps) {
         Residente
       </CandidatesSummary.Section>
       <CandidatesSummary>
-        {commissionerResidentVotes.map((vote: Vote) => {
+        {commissionerResidentVotes.map((vote) => {
           return (
             <CandidatesSummary.Card
               key={vote.candidate.id}
-              img={vote.candidate.img}
-              name={vote.candidate.name}
+              img={"img" in vote.candidate ? vote.candidate.img : undefined}
+              name={vote.candidate.name ?? ""}
             />
           )
         })}

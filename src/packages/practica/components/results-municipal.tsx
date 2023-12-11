@@ -3,7 +3,7 @@ import { Typography } from "../../../components"
 import { MunicipalVotesCount } from "../services/ballot-configs"
 import { ElectivePosition } from "../services/ballot-configs/types"
 import { PARTY_ROW } from "../services/constants"
-import { Vote } from "../services/vote-service"
+import { CandidateVote, Vote } from "../services/vote-service"
 import { getElectivePositionForVote } from "../strategies/utils"
 import CandidatesSummary from "./candidates-summary"
 
@@ -14,8 +14,10 @@ type StateResultsProps = {
 }
 
 export default function ResultsMunicipal(props: StateResultsProps) {
-  const votes = props.votes.filter((vote) => vote.position.row !== PARTY_ROW)
-  const mayorVotes: Vote[] = votes.filter((vote) => {
+  const votes = props.votes.filter(
+    (vote): vote is CandidateVote => vote.position.row !== PARTY_ROW
+  )
+  const mayorVotes = votes.filter((vote) => {
     const electivePosition = getElectivePositionForVote(
       vote.position,
       BallotType.municipality
@@ -23,7 +25,7 @@ export default function ResultsMunicipal(props: StateResultsProps) {
 
     return electivePosition === ElectivePosition.mayor
   }, [])
-  const municipalLegislatorsVotes: Vote[] = votes.filter((vote) => {
+  const municipalLegislatorsVotes = votes.filter((vote) => {
     const electivePosition = getElectivePositionForVote(
       vote.position,
       BallotType.municipality
@@ -45,12 +47,12 @@ export default function ResultsMunicipal(props: StateResultsProps) {
         {props.votesCount.mayor} a Alcalde(sa)
       </CandidatesSummary.Section>
       <CandidatesSummary>
-        {mayorVotes.map((vote: Vote) => {
+        {mayorVotes.map((vote) => {
           return (
             <CandidatesSummary.Card
               key={vote.candidate.id}
-              img={vote.candidate.img}
-              name={vote.candidate.name}
+              img={"img" in vote.candidate ? vote.candidate.img : undefined}
+              name={vote.candidate.name ?? ""}
             />
           )
         })}
@@ -60,12 +62,12 @@ export default function ResultsMunicipal(props: StateResultsProps) {
         municipales
       </CandidatesSummary.Section>
       <CandidatesSummary>
-        {municipalLegislatorsVotes.map((vote: Vote) => {
+        {municipalLegislatorsVotes.map((vote) => {
           return (
             <CandidatesSummary.Card
               key={vote.candidate.id}
-              img={vote.candidate.img}
-              name={vote.candidate.name}
+              img={"img" in vote.candidate ? vote.candidate.img : undefined}
+              name={vote.candidate.name ?? ""}
             />
           )
         })}

@@ -3,7 +3,7 @@ import { Typography } from "../../../components"
 import { LegislativeVotesCount } from "../services/ballot-configs"
 import { ElectivePosition } from "../services/ballot-configs/types"
 import { PARTY_ROW } from "../services/constants"
-import { Vote } from "../services/vote-service"
+import { CandidateVote, Vote } from "../services/vote-service"
 import { getElectivePositionForVote } from "../strategies/utils"
 import CandidatesSummary from "./candidates-summary"
 
@@ -14,8 +14,10 @@ type LegislativeResultProps = {
 }
 
 export default function ResultsLegislative(props: LegislativeResultProps) {
-  const votes = props.votes.filter((vote) => vote.position.row !== PARTY_ROW)
-  const districtRepresentativeVotes: Vote[] = votes.filter((vote) => {
+  const votes = props.votes.filter(
+    (vote): vote is CandidateVote => vote.position.row !== PARTY_ROW
+  )
+  const districtRepresentativeVotes = votes.filter((vote) => {
     const electivePosition = getElectivePositionForVote(
       vote.position,
       BallotType.legislative
@@ -23,7 +25,7 @@ export default function ResultsLegislative(props: LegislativeResultProps) {
 
     return electivePosition === ElectivePosition.districtRepresentative
   }, [])
-  const districtSenatorsVotes: Vote[] = votes.filter((vote) => {
+  const districtSenatorsVotes = votes.filter((vote) => {
     const electivePosition = getElectivePositionForVote(
       vote.position,
       BallotType.legislative
@@ -31,7 +33,7 @@ export default function ResultsLegislative(props: LegislativeResultProps) {
 
     return electivePosition === ElectivePosition.districtSenators
   }, [])
-  const atLargeRepresentativeVotes: Vote[] = votes.filter((vote) => {
+  const atLargeRepresentativeVotes = votes.filter((vote) => {
     const electivePosition = getElectivePositionForVote(
       vote.position,
       BallotType.legislative
@@ -39,7 +41,7 @@ export default function ResultsLegislative(props: LegislativeResultProps) {
 
     return electivePosition === ElectivePosition.atLargeRepresentative
   }, [])
-  const atLargeSenatorVotes: Vote[] = votes.filter((vote) => {
+  const atLargeSenatorVotes = votes.filter((vote) => {
     const electivePosition = getElectivePositionForVote(
       vote.position,
       BallotType.legislative
@@ -62,12 +64,12 @@ export default function ResultsLegislative(props: LegislativeResultProps) {
         por Distrito
       </CandidatesSummary.Section>
       <CandidatesSummary>
-        {districtRepresentativeVotes.map((vote: Vote) => {
+        {districtRepresentativeVotes.map((vote) => {
           return (
             <CandidatesSummary.Card
               key={vote.candidate.id}
-              img={vote.candidate.img}
-              name={vote.candidate.name}
+              img={"img" in vote.candidate ? vote.candidate.img : undefined}
+              name={vote.candidate.name ?? ""}
             />
           )
         })}
@@ -76,12 +78,12 @@ export default function ResultsLegislative(props: LegislativeResultProps) {
         {props.votesCount.districtSenators} candidato(a) a Senador por Distrito
       </CandidatesSummary.Section>
       <CandidatesSummary>
-        {districtSenatorsVotes.map((vote: Vote) => {
+        {districtSenatorsVotes.map((vote) => {
           return (
             <CandidatesSummary.Card
               key={vote.candidate.id}
-              img={vote.candidate.img}
-              name={vote.candidate.name}
+              img={"img" in vote.candidate ? vote.candidate.img : undefined}
+              name={vote.candidate.name ?? ""}
             />
           )
         })}
@@ -91,12 +93,12 @@ export default function ResultsLegislative(props: LegislativeResultProps) {
         por Acumulación
       </CandidatesSummary.Section>
       <CandidatesSummary>
-        {atLargeRepresentativeVotes.map((vote: Vote) => {
+        {atLargeRepresentativeVotes.map((vote) => {
           return (
             <CandidatesSummary.Card
               key={vote.candidate.id}
-              img={vote.candidate.img}
-              name={vote.candidate.name}
+              img={"img" in vote.candidate ? vote.candidate.img : undefined}
+              name={vote.candidate.name ?? ""}
             />
           )
         })}
@@ -105,12 +107,12 @@ export default function ResultsLegislative(props: LegislativeResultProps) {
         {props.votesCount.atLargeSenator} candidato(a) a Senador por Acumulación
       </CandidatesSummary.Section>
       <CandidatesSummary>
-        {atLargeSenatorVotes.map((vote: Vote) => {
+        {atLargeSenatorVotes.map((vote) => {
           return (
             <CandidatesSummary.Card
               key={vote.candidate.id}
-              img={vote.candidate.img}
-              name={vote.candidate.name}
+              img={"img" in vote.candidate ? vote.candidate.img : undefined}
+              name={vote.candidate.name ?? ""}
             />
           )
         })}
