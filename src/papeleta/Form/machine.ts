@@ -62,12 +62,14 @@ export const createBallotMachine = (
           const actors: { [key: string]: AllowedActors } = {}
 
           sections.forEach((s) => {
+            // @ts-ignore xstate magic
             actors[`section-${s.id}`] = spawn(
               createSectionMachine(s),
               `section-${s.id}`
             )
           })
 
+          // @ts-ignore xstate magic
           actors.parties = spawn(createPartyMachine(parties))
 
           return { actors }

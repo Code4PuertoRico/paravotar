@@ -84,7 +84,7 @@ export class MixedVoteStrategy implements VoteUpdateInterface {
     return [...prevVotes, vote]
   }
 
-  removeVote(intendedVote: VoteEvent, prevVotes: Vote[]) {
+  removeVote(intendedVote: VoteEvent, prevVotes: Vote[]): Vote[] {
     // Remove the vote.
     const filteredVotes = prevVotes.filter((vote) => {
       return !(
@@ -126,7 +126,7 @@ export class MixedVoteStrategy implements VoteUpdateInterface {
           vote.position.row === PARTY_ROW
       )
 
-      if (voteForParty == null) return
+      if (voteForParty == null) throw new Error("Vote for party not found")
 
       const columnForParty = getColumnForParty(ballot, voteForParty)
       const candidate = columnForParty.find((item, index) => {

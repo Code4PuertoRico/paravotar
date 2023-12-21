@@ -92,7 +92,7 @@ export function getStartAndEndPositionsForBallot(
 
 export function getColumnForParty(
   ballot: BallotConfigs,
-  intendedVote: VoteEvent
+  intendedVote: Pick<VoteEvent, "position">
 ) {
   const columnForParty = ballot.structure.reduce((accum, currentRow) => {
     const colForParty = currentRow.filter((column, columnIndex) => {

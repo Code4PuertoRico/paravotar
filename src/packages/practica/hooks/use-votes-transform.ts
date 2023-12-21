@@ -1,12 +1,12 @@
 import { useState } from "react"
 import { BallotType } from "../../../ballot-validator/types"
 
-import { VotesCoordinates } from "../../generate-ballot/types/ballot-machine"
 import coordinatesToSections from "../services/coordinates-to-sections"
 import { TransformedVotes } from "../services/types"
 import { Vote } from "../services/vote-service"
 import useDeepCompareEffect from "./use-deep-compare-effect"
 
+// @ts-ignore
 function getBallot(state) {
   const { ballots, ballotType: contextBallotType } = state.context
 
@@ -30,11 +30,12 @@ function getBallot(state) {
   }
 }
 
+// @ts-ignore
 export default function useVotesTransform(votes: Vote[], state) {
   const [transformedVotes, setTransformedVotes] =
     useState<TransformedVotes | null>(null)
 
-  useDeepCompareEffect<VotesCoordinates[]>(() => {
+  useDeepCompareEffect<Vote[]>(() => {
     const res = getBallot(state)
 
     if (res) {

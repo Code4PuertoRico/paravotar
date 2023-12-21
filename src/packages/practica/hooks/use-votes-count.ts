@@ -12,6 +12,7 @@ export default function useVotesCount(
   useDeepCompareEffect(() => {
     if (transformedVotes) {
       const { ballotConfig, votes } = transformedVotes
+      // @ts-ignore this should have better classes
       const votesCount: VoteCounts = ballotConfig.countVotes(votes)
 
       setVotesCount(votesCount)
