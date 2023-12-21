@@ -21,7 +21,11 @@ const tabsState = {
   },
 }
 
-const SpecialVotersTabsMachine = createMachine({
+type SpecialVotersTabsEvent =
+  | { type: "EARLY_VOTER_TOGGLED" }
+  | { type: "ABSENTEE_VOTER_TOGGLED" }
+
+const SpecialVotersTabsMachine = createMachine<{}, SpecialVotersTabsEvent>({
   id: "special-voters-mobile",
   initial: "earlyVoter",
   states: tabsState,
@@ -67,7 +71,7 @@ export default function Tabs() {
         </Tab>
       </div>
       <TabContent
-        key={state.value}
+        key={title}
         title={t(title)}
         summary={t(voter.summary)}
         deadline={t(voter.deadline)}

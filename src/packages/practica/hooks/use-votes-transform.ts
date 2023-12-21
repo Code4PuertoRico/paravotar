@@ -31,10 +31,8 @@ function getBallot(state) {
 }
 
 export default function useVotesTransform(votes: Vote[], state) {
-  const [
-    transformedVotes,
-    setTransformedVotes,
-  ] = useState<TransformedVotes | null>(null)
+  const [transformedVotes, setTransformedVotes] =
+    useState<TransformedVotes | null>(null)
 
   useDeepCompareEffect<VotesCoordinates[]>(() => {
     const res = getBallot(state)

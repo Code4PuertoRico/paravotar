@@ -10,7 +10,7 @@ import BallotContainer from "./ballot-container"
 interface PracticingProps {
   state: any
   send: any
-  handleSubmit: any
+  handleSubmit: VoidFunction
 }
 
 export const Practicing = ({ state, send, handleSubmit }: PracticingProps) => {
@@ -19,10 +19,12 @@ export const Practicing = ({ state, send, handleSubmit }: PracticingProps) => {
     state,
     state.value,
     state.context.votes,
-    state.context.ballots.estatal,
-    state.context.ballots.legislativa,
-    state.context.ballots.municipal,
+    state.context.ballots?.estatal,
+    state.context.ballots?.legislativa,
+    state.context.ballots?.municipal,
   ])
+
+  if (state.context.ballots == null) return
 
   return (
     <div>

@@ -57,3 +57,18 @@ export const ValidMarkLimits = {
     [ElectivePosition.atLargeSenator]: 1,
   },
 }
+
+export function getElectivePositionLimit(
+  ballotType: BallotType,
+  position: ElectivePosition
+) {
+  if (!(ballotType in ValidMarkLimits)) throw new Error("Ballot type not found")
+
+  const limitsByBallotType = ValidMarkLimits[ballotType]
+
+  if (!(position in limitsByBallotType))
+    throw new Error("Position not found in ballot.")
+
+  // @ts-ignore
+  return limitsByBallotType[position]
+}

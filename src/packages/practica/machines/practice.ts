@@ -16,13 +16,15 @@ type ControlEvent =
   | { type: "ENTER_VOTING_CENTER" }
   | { type: "START_PRACTICE" }
 
-type SelectionEvent =
+export type BallotSelectionEvent =
+  | { type: "SELECTED_GOVERNMENTAL"; ballotType: BallotType }
+  | { type: "SELECTED_LEGISLATIVE"; ballotType: BallotType }
+  | { type: "SELECTED_MUNICIPAL"; ballotType: BallotType }
+  | { type: "BALLOT_SELECTION"; ballotType: BallotType }
+
+export type SelectionEvent =
   | { type: "SELECTED_VOTER_ID" }
   | { type: "SELECTED_PRECINT" }
-  | { type: "SELECTED_GOVERNMENTAL" }
-  | { type: "SELECTED_LEGISLATIVE" }
-  | { type: "SELECTED_MUNICIPAL" }
-  | { type: "BALLOT_SELECTION"; ballotType: BallotType }
 
 type DataEntryEvent =
   | { type: "ADDED_VOTER_ID"; userInput: string }
@@ -38,11 +40,20 @@ type FetchBallotsEvent =
       data: { ballots: BallotConfigs; ballotPaths: BallotsResponse }
     }
 
-type PracticeEvent =
+type FindingVotingCenterInfoEvent =
+  | { type: "FINDING_VOTING_CENTER_INFO" }
+  | {
+      type: "done.invoke.findingVotingCenterInfo"
+      data: { ballotType: BallotType }
+    }
+
+export type PracticeEvent =
   | ControlEvent
+  | BallotSelectionEvent
   | SelectionEvent
   | DataEntryEvent
   | FetchBallotsEvent
+  | FindingVotingCenterInfoEvent
 
 export const PracticeMachine = createMachine<PracticeContext, PracticeEvent>(
   {
@@ -129,6 +140,7 @@ export const PracticeMachine = createMachine<PracticeContext, PracticeEvent>(
         },
       },
       fetchBallots: {
+        // @ts-ignore
         invoke: {
           id: "fetchBallots",
           src: BallotService.fetchBallots,
@@ -164,6 +176,7 @@ export const PracticeMachine = createMachine<PracticeContext, PracticeEvent>(
         },
       },
       findingVotingCenterInfo: {
+        // @ts-ignore
         invoke: {
           id: "findingVotingCenterInfo",
           src: BallotService.fetchBallots,
@@ -225,9 +238,11 @@ export const PracticeMachine = createMachine<PracticeContext, PracticeEvent>(
   },
   {
     actions: {
-      saveActiveBallotType: assign((_, { ballotType }) => ({
-        ballotType,
-      })),
+      saveActiveBallotType: assign(
+        (_, { ballotType }: BallotSelectionEvent) => ({
+          ballotType,
+        })
+      ),
     },
   }
 )

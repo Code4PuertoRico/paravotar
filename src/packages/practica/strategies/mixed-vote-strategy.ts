@@ -4,7 +4,7 @@ import {
   MunicipalBallotConfig,
 } from "../services/ballot-configs"
 import { Candidate } from "../services/ballot-configs/base"
-import { ValidMarkLimits } from "../services/ballot-configs/constants"
+import { getElectivePositionLimit } from "../services/ballot-configs/constants"
 import { ElectivePosition } from "../services/ballot-configs/types"
 import {
   getColumnForParty,
@@ -24,7 +24,6 @@ export class MixedVoteStrategy implements VoteUpdateInterface {
       Selection.selected,
       intendedVote.candidate
     )
-    const validMarkLimitsOnBallot = ValidMarkLimits[intendedVote.ballotType]
 
     const electivePosition = getElectivePositionForVote(
       vote.position,
@@ -62,7 +61,7 @@ export class MixedVoteStrategy implements VoteUpdateInterface {
     const voteLimit =
       electivePosition === ElectivePosition.municipalLegislators
         ? (ballot as MunicipalBallotConfig).amountOfMunicipalLegislators
-        : validMarkLimitsOnBallot[electivePosition]
+        : getElectivePositionLimit(intendedVote.ballotType, electivePosition)
 
     // Get the section of the vote to determine how we should were we should subtract an implicit vote
     if (totalVotesForPosition > voteLimit) {
@@ -96,7 +95,6 @@ export class MixedVoteStrategy implements VoteUpdateInterface {
 
     // Go through every elective position and make sure it has an explict vote for the position or an implicit vote.
     const ballot = intendedVote.ballot as BallotConfigs
-    const validMarkLimitsOnBallot = ValidMarkLimits[intendedVote.ballotType]
     const electivePosition = getElectivePositionForVote(
       intendedVote.position,
       intendedVote.ballotType
@@ -117,7 +115,7 @@ export class MixedVoteStrategy implements VoteUpdateInterface {
     const voteLimit =
       electivePosition === ElectivePosition.municipalLegislators
         ? (ballot as MunicipalBallotConfig).amountOfMunicipalLegislators
-        : validMarkLimitsOnBallot[electivePosition]
+        : getElectivePositionLimit(intendedVote.ballotType, electivePosition)
 
     // Add an implicit vote when it's removed.
     if (explicitVotesForPosition.length < voteLimit) {

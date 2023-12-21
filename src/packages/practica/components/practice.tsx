@@ -25,7 +25,7 @@ import {
 } from "../services/ballot-configs"
 // import useBallotValidation from "../hooks/use-ballot-validation"
 import useVotesTransform from "../hooks/use-votes-transform"
-import { PracticeMachine } from "../machines/practice"
+import { BallotSelectionEvent, PracticeMachine } from "../machines/practice"
 import useVotesCount from "../hooks/use-votes-count"
 import { getExplicitlySelectedVotes, Vote } from "../services/vote-service"
 import BallotFinderPicker from "./ballot-finder-picker"
@@ -194,7 +194,10 @@ export default function Practice({
     }
   }, [state.value])
 
-  const selectBallot = (selectedBallot: string, eventData: any) => {
+  const selectBallot = (
+    selectedBallot: BallotSelectionEvent["type"],
+    eventData: any
+  ) => {
     setSidebarIsVisible(false)
     // setBallotStatus(null)
     setVotesCount(null)
@@ -243,7 +246,7 @@ export default function Practice({
         handleSubmit(
           state.context.votes,
           BallotType.municipality,
-          state.context.ballots.municipal
+          state.context.ballots?.municipal
         ),
     }
   }, [
@@ -391,7 +394,7 @@ export default function Practice({
         pauseOnHover
       />
       {votesCount && state.matches("practicing") && (
-        <BallotStatus status={null}>
+        <BallotStatus>
           {ballotType === BallotType.state ? (
             <ResultsState
               votesCount={votesCount as StateVotesCount}

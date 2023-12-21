@@ -5,7 +5,7 @@ import {
   legislativeParties,
   legislativeSections,
 } from "./data"
-import { interpret, StateMachine, Interpreter } from "xstate"
+import { interpret } from "xstate"
 
 const stateBallotMachine = createBallotMachine(stateParties, stateSections)
 const legislativeBallotMachine = createBallotMachine(
@@ -14,9 +14,9 @@ const legislativeBallotMachine = createBallotMachine(
 )
 
 class Ballot {
-  protected service: Interpreter<any, any, any>
+  protected service
 
-  constructor(machine: StateMachine<any, any, any>) {
+  constructor(machine: typeof stateBallotMachine) {
     this.service = interpret(machine, { devTools: true }).start()
   }
 

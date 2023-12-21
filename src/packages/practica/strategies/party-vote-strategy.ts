@@ -8,7 +8,7 @@ import {
   BallotConfigs,
   MunicipalBallotConfig,
 } from "../services/ballot-configs"
-import { ValidMarkLimits } from "../services/ballot-configs/constants"
+import { getElectivePositionLimit } from "../services/ballot-configs/constants"
 import {
   getColumnForParty,
   getElectivePositionForVote,
@@ -30,7 +30,6 @@ export class PartyVoteStrategy implements VoteUpdateInterface {
         intendedVote.candidate
       ),
     ]
-    const validMarkLimitsOnBallot = ValidMarkLimits[intendedVote.ballotType]
 
     // Create a vote for every section that can receive an implicit vote.
     columnForParty.forEach((item, rowIndex) => {
@@ -42,7 +41,7 @@ export class PartyVoteStrategy implements VoteUpdateInterface {
       if (item instanceof Candidate) {
         // If the candidate that we're verifying already has an explicit vote, don't try to add any implicit votes.
         const candidateHasExplicitVote = votes.filter(
-          vote =>
+          (vote) =>
             vote.selection === Selection.selected &&
             vote.position.column === intendedVote.position.column &&
             vote.position.row === rowIndex
@@ -53,7 +52,7 @@ export class PartyVoteStrategy implements VoteUpdateInterface {
         }
 
         // Add implicit votes for candidates in the column
-        const votesForElectivePosition = votes.filter(vote => {
+        const votesForElectivePosition = votes.filter((vote) => {
           const { start, end } = getStartAndEndPositionsForBallot(
             ballot,
             intendedVote.ballotType,
@@ -65,7 +64,10 @@ export class PartyVoteStrategy implements VoteUpdateInterface {
         const voteLimit =
           electivePosition === ElectivePosition.municipalLegislators
             ? (ballot as MunicipalBallotConfig).amountOfMunicipalLegislators
-            : validMarkLimitsOnBallot[electivePosition]
+            : getElectivePositionLimit(
+                intendedVote.ballotType,
+                electivePosition
+              )
 
         if (
           votesForElectivePosition.length < voteLimit &&
@@ -86,7 +88,7 @@ export class PartyVoteStrategy implements VoteUpdateInterface {
   }
 
   removeVote(intendedVote: VoteEvent, prevVotes: Vote[]) {
-    return prevVotes.filter(vote => {
+    return prevVotes.filter((vote) => {
       if (vote.position.column === intendedVote.position.column) {
         // Remove the party vote.
         if (vote.position.row === PARTY_ROW) {
