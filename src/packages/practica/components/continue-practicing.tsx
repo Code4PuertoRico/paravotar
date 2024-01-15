@@ -1,4 +1,3 @@
-import React from "react"
 import { BallotType } from "../../../ballot-validator/types"
 import { Button, Typography } from "../../../components"
 
@@ -27,7 +26,7 @@ export default function ContinuePracticing(props: BallotSelectorProps) {
       <Typography tag="h2" variant="h4">
         Escoge la papeleta que quieres practicar:
       </Typography>
-      {nextBallots.map(ballot => (
+      {nextBallots.map((ballot) => (
         <Button
           key={ballot.name}
           className="w-full mt-4"

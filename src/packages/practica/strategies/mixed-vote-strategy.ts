@@ -4,7 +4,7 @@ import {
   MunicipalBallotConfig,
 } from "../services/ballot-configs"
 import { Candidate } from "../services/ballot-configs/base"
-import { ValidMarkLimits } from "../services/ballot-configs/constants"
+import { getElectivePositionLimit } from "../services/ballot-configs/constants"
 import { ElectivePosition } from "../services/ballot-configs/types"
 import {
   getColumnForParty,
@@ -24,7 +24,6 @@ export class MixedVoteStrategy implements VoteUpdateInterface {
       Selection.selected,
       intendedVote.candidate
     )
-    const validMarkLimitsOnBallot = ValidMarkLimits[intendedVote.ballotType]
 
     const electivePosition = getElectivePositionForVote(
       vote.position,
@@ -36,7 +35,7 @@ export class MixedVoteStrategy implements VoteUpdateInterface {
       electivePosition
     )
 
-    const implicitVotesForPosition = prevVotes.filter(vote => {
+    const implicitVotesForPosition = prevVotes.filter((vote) => {
       return (
         vote.position.row >= start &&
         vote.position.row <= end &&
@@ -44,7 +43,7 @@ export class MixedVoteStrategy implements VoteUpdateInterface {
       )
     })
 
-    const explicitVotesForPosition = prevVotes.filter(vote => {
+    const explicitVotesForPosition = prevVotes.filter((vote) => {
       return (
         vote.position.row >= start &&
         vote.position.row <= end &&
@@ -52,7 +51,7 @@ export class MixedVoteStrategy implements VoteUpdateInterface {
       )
     })
 
-    const votesOutsideOfThePosition = prevVotes.filter(vote => {
+    const votesOutsideOfThePosition = prevVotes.filter((vote) => {
       return vote.position.row < start || vote.position.row > end
     })
 
@@ -62,7 +61,7 @@ export class MixedVoteStrategy implements VoteUpdateInterface {
     const voteLimit =
       electivePosition === ElectivePosition.municipalLegislators
         ? (ballot as MunicipalBallotConfig).amountOfMunicipalLegislators
-        : validMarkLimitsOnBallot[electivePosition]
+        : getElectivePositionLimit(intendedVote.ballotType, electivePosition)
 
     // Get the section of the vote to determine how we should were we should subtract an implicit vote
     if (totalVotesForPosition > voteLimit) {
@@ -85,9 +84,9 @@ export class MixedVoteStrategy implements VoteUpdateInterface {
     return [...prevVotes, vote]
   }
 
-  removeVote(intendedVote: VoteEvent, prevVotes: Vote[]) {
+  removeVote(intendedVote: VoteEvent, prevVotes: Vote[]): Vote[] {
     // Remove the vote.
-    const filteredVotes = prevVotes.filter(vote => {
+    const filteredVotes = prevVotes.filter((vote) => {
       return !(
         intendedVote.position.row === vote.position.row &&
         intendedVote.position.column === vote.position.column
@@ -96,7 +95,6 @@ export class MixedVoteStrategy implements VoteUpdateInterface {
 
     // Go through every elective position and make sure it has an explict vote for the position or an implicit vote.
     const ballot = intendedVote.ballot as BallotConfigs
-    const validMarkLimitsOnBallot = ValidMarkLimits[intendedVote.ballotType]
     const electivePosition = getElectivePositionForVote(
       intendedVote.position,
       intendedVote.ballotType
@@ -107,7 +105,7 @@ export class MixedVoteStrategy implements VoteUpdateInterface {
       electivePosition
     )
 
-    const explicitVotesForPosition = filteredVotes.filter(vote => {
+    const explicitVotesForPosition = filteredVotes.filter((vote) => {
       return (
         vote.position.row >= start &&
         vote.position.row <= end &&
@@ -117,43 +115,40 @@ export class MixedVoteStrategy implements VoteUpdateInterface {
     const voteLimit =
       electivePosition === ElectivePosition.municipalLegislators
         ? (ballot as MunicipalBallotConfig).amountOfMunicipalLegislators
-        : validMarkLimitsOnBallot[electivePosition]
+        : getElectivePositionLimit(intendedVote.ballotType, electivePosition)
 
     // Add an implicit vote when it's removed.
     if (explicitVotesForPosition.length < voteLimit) {
       // Get the sections that have candidates.
       const voteForParty = prevVotes.find(
-        vote =>
+        (vote) =>
           vote.selection === Selection.selected &&
           vote.position.row === PARTY_ROW
       )
 
-      if (voteForParty) {
-        const columnForParty = getColumnForParty(
-          ballot,
-          voteForParty as VoteEvent
-        )
-        const candidate = columnForParty.find((item, index) => {
-          const isInElectivePosition = index >= start && index <= end
-          const receivesImplicitVote =
-            item instanceof Candidate && item.receivesImpicitVote
-          const hasVote = filteredVotes.find(
-            vote =>
-              vote.position.row === index &&
-              vote.position.column === voteForParty.position.column
-          )
+      if (voteForParty == null) throw new Error("Vote for party not found")
 
-          return isInElectivePosition && receivesImplicitVote && !hasVote
-        }) as Candidate
-        const index = columnForParty.findIndex(item => item.id === candidate.id)
-        const vote = new Vote(
-          { column: voteForParty.position.column, row: index },
-          Selection.selectedImplicitly,
-          candidate
+      const columnForParty = getColumnForParty(ballot, voteForParty)
+      const candidate = columnForParty.find((item, index) => {
+        const isInElectivePosition = index >= start && index <= end
+        const receivesImplicitVote =
+          item instanceof Candidate && item.receivesImpicitVote
+        const hasVote = filteredVotes.find(
+          (vote) =>
+            vote.position.row === index &&
+            vote.position.column === voteForParty.position.column
         )
 
-        return [...filteredVotes, vote]
-      }
+        return isInElectivePosition && receivesImplicitVote && !hasVote
+      }) as Candidate
+      const index = columnForParty.findIndex((item) => item.id === candidate.id)
+      const vote = new Vote(
+        { column: voteForParty.position.column, row: index },
+        Selection.selectedImplicitly,
+        candidate
+      )
+
+      return [...filteredVotes, vote]
     }
 
     return filteredVotes

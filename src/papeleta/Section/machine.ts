@@ -1,4 +1,4 @@
-import { Machine, assign, sendParent, send } from "xstate"
+import { assign, sendParent, send, createMachine } from "xstate"
 import {
   SectionData,
   SectionMachineContext,
@@ -7,7 +7,7 @@ import {
 import { Candidate } from "../types"
 
 export const createSectionMachine = (section: SectionData) =>
-  Machine<SectionMachineContext, SectionMachineEvent>(
+  createMachine<SectionMachineContext, SectionMachineEvent>(
     {
       id: `sectionMachine-${section.id}`,
       initial: "notComplete",
@@ -63,11 +63,13 @@ export const createSectionMachine = (section: SectionData) =>
           selectedCandidates: [],
         })),
         handleSelection: assign(({ selectedCandidates }, { selected }) => {
-          const isSelected = selectedCandidates.some(c => c.id === selected.id)
+          const isSelected = selectedCandidates.some(
+            (c) => c.id === selected.id
+          )
 
           if (isSelected) {
             const newCandidates = selectedCandidates.filter(
-              c => c.id !== selected.id
+              (c) => c.id !== selected.id
             )
 
             return { selectedCandidates: newCandidates }
@@ -76,11 +78,13 @@ export const createSectionMachine = (section: SectionData) =>
           return { selectedCandidates: [...selectedCandidates, selected] }
         }),
         handleDeselection: assign(({ selectedCandidates }, { selected }) => {
-          const isSelected = selectedCandidates.some(c => c.id === selected.id)
+          const isSelected = selectedCandidates.some(
+            (c) => c.id === selected.id
+          )
 
           if (isSelected) {
             const newCandidates = selectedCandidates.filter(
-              c => c.id !== selected.id
+              (c) => c.id !== selected.id
             )
 
             return { selectedCandidates: newCandidates }
@@ -90,8 +94,8 @@ export const createSectionMachine = (section: SectionData) =>
         }),
         applyPartyOverride: assign(({ section, limit }, { party }) => {
           const partyCandidates: Candidate[] = []
-          section.rows.forEach(candidates => {
-            candidates.forEach(c => {
+          section.rows.forEach((candidates) => {
+            candidates.forEach((c) => {
               if (partyCandidates.length < limit && c.party === party.id) {
                 partyCandidates.push(c)
               }
@@ -112,7 +116,7 @@ export const createSectionMachine = (section: SectionData) =>
         isNotComplete: ({ limit, selectedCandidates }) =>
           selectedCandidates.length < limit,
         isValidDeselection: ({ selectedCandidates }, { selected }) =>
-          selectedCandidates.map(c => c.id).indexOf(selected.id) > -1,
+          selectedCandidates.map((c) => c.id).indexOf(selected.id) > -1,
       },
     }
   )

@@ -1,11 +1,61 @@
 import { isEmpty, isNil } from "lodash"
-import { createMachine, assign, AnyEventObject } from "xstate"
+import { createMachine, assign } from "xstate"
 import { BallotService } from "../services/ballot-service"
 
 import { MAX_PRECINT_LENGTH } from "../services/constants"
-import { FindByEventParams, PracticeContext } from "../services/types"
+import { BallotsResponse, PracticeContext } from "../services/types"
+import { BallotType } from "../../../ballot-validator/types"
+import { BallotConfigs } from "../services/ballot-configs"
 
-export const practiceMachine = createMachine<PracticeContext>(
+type ControlEvent =
+  | { type: "start"; userInput: string }
+  | { type: "BACK" }
+  | { type: "RETRY" }
+  | { type: "SUBMIT" }
+  | { type: "CONTINUE_PRACTICE" }
+  | { type: "ENTER_VOTING_CENTER" }
+  | { type: "START_PRACTICE" }
+
+export type BallotSelectionEvent =
+  | { type: "SELECTED_GOVERNMENTAL"; ballotType: BallotType }
+  | { type: "SELECTED_LEGISLATIVE"; ballotType: BallotType }
+  | { type: "SELECTED_MUNICIPAL"; ballotType: BallotType }
+  | { type: "BALLOT_SELECTION"; ballotType: BallotType }
+
+export type SelectionEvent =
+  | { type: "SELECTED_VOTER_ID" }
+  | { type: "SELECTED_PRECINT" }
+
+type DataEntryEvent =
+  | { type: "ADDED_VOTER_ID"; userInput: string }
+  | { type: "ADDED_PRECINT"; userInput: string }
+  | { type: "SELECTED_ELECTIVE_FIELD" }
+
+type FetchBallotsEvent =
+  | {
+      type: "FETCH_BALLOTS"
+    }
+  | {
+      type: "done.invoke.fetchBallots"
+      data: { ballots: BallotConfigs; ballotPaths: BallotsResponse }
+    }
+
+type FindingVotingCenterInfoEvent =
+  | { type: "FINDING_VOTING_CENTER_INFO" }
+  | {
+      type: "done.invoke.findingVotingCenterInfo"
+      data: { ballotType: BallotType }
+    }
+
+export type PracticeEvent =
+  | ControlEvent
+  | BallotSelectionEvent
+  | SelectionEvent
+  | DataEntryEvent
+  | FetchBallotsEvent
+  | FindingVotingCenterInfoEvent
+
+export const PracticeMachine = createMachine<PracticeContext, PracticeEvent>(
   {
     id: "practiceMachine",
     initial: "init",
@@ -47,7 +97,7 @@ export const practiceMachine = createMachine<PracticeContext>(
           ADDED_VOTER_ID: [
             {
               target: ".empty",
-              cond: (_, event: FindByEventParams) => {
+              cond: (_, event) => {
                 return isEmpty(event.userInput) || isNil(event.userInput)
               },
             },
@@ -68,13 +118,13 @@ export const practiceMachine = createMachine<PracticeContext>(
           ADDED_PRECINT: [
             {
               target: ".empty",
-              cond: (_, event: FindByEventParams) => {
+              cond: (_, event) => {
                 return isEmpty(event.userInput) || isNil(event.userInput)
               },
             },
             {
               target: ".invalidLength",
-              cond: (_, event: FindByEventParams) => {
+              cond: (_, event) => {
                 return event.userInput.length > MAX_PRECINT_LENGTH
               },
             },
@@ -90,6 +140,7 @@ export const practiceMachine = createMachine<PracticeContext>(
         },
       },
       fetchBallots: {
+        // @ts-ignore
         invoke: {
           id: "fetchBallots",
           src: BallotService.fetchBallots,
@@ -125,6 +176,7 @@ export const practiceMachine = createMachine<PracticeContext>(
         },
       },
       findingVotingCenterInfo: {
+        // @ts-ignore
         invoke: {
           id: "findingVotingCenterInfo",
           src: BallotService.fetchBallots,
@@ -157,7 +209,7 @@ export const practiceMachine = createMachine<PracticeContext>(
         entry: assign({ votes: [] }),
         on: {
           SELECTED_ELECTIVE_FIELD: {
-            actions: assign<PracticeContext>({
+            actions: assign({
               votes: BallotService.updateVotes as any,
             }),
           },
@@ -175,7 +227,7 @@ export const practiceMachine = createMachine<PracticeContext>(
           BACK: "showResults",
           BALLOT_SELECTION: {
             target: "practicing",
-            actions: assign<PracticeContext>({
+            actions: assign({
               votes: [],
               ballotType: (_, event) => event.ballotType,
             }),
@@ -186,9 +238,11 @@ export const practiceMachine = createMachine<PracticeContext>(
   },
   {
     actions: {
-      saveActiveBallotType: assign((_, { ballotType }: AnyEventObject) => ({
-        ballotType,
-      })),
+      saveActiveBallotType: assign(
+        (_, { ballotType }: BallotSelectionEvent) => ({
+          ballotType,
+        })
+      ),
     },
   }
 )

@@ -1,18 +1,18 @@
-Cypress.on("window:before:load", win => {
-  win.handleFromCypress = request => {
+Cypress.on("window:before:load", (win) => {
+  win.handleFromCypress = (request) => {
     return fetch(request.url, {
       method: request.method,
       headers: request.requestHeaders,
       body: request.requestBody,
-    }).then(res => {
+    }).then((res) => {
       const content = res.headers
         .get("content-type")
         .includes("application/json")
         ? res.json()
         : res.text()
 
-      return new Promise(resolve => {
-        content.then(body => {
+      return new Promise((resolve) => {
+        content.then((body) => {
           return resolve([res.status, res.headers, body])
         })
       })

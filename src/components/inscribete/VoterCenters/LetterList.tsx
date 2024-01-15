@@ -1,4 +1,4 @@
-import React, { useMemo } from "react"
+import { useMemo } from "react"
 import { voterCenters } from "./constants"
 // import { AvailableCentersDirectory } from "../MakeAppointment/constants"
 
@@ -30,7 +30,7 @@ export function LetterList({ onSelect, letter }: LetterListProps) {
 
   return (
     <ul className="flex overflow-x-auto items-start mx-4 pt-4 pb-5 lg:flex-no-wrap">
-      {Object.keys(letterList).map(l => (
+      {Object.keys(letterList).map((l) => (
         <li className="mx-1" key={l}>
           <button
             onClick={handleSelect(l)}

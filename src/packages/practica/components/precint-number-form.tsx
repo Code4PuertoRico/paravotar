@@ -1,59 +1,23 @@
-import React, { useRef, useState } from "react"
-import Dropdown from "react-dropdown-aria"
+import { useState } from "react";
 
-import { Button, Link, Typography } from "../../../components"
-import { precintList } from "../constants"
-import { FindByType } from "../services/ballot-finder-service"
-
-const style: { [key: string]: any } = {
-  DropdownButton: (base: any, { open }: any) => ({
-    ...base,
-    backgroundColor: "white",
-    borderColor: open ? "#292936" : "#cacad9",
-    "&:hover": {
-      borderColor: open ? "#292936" : "#cacad9",
-    },
-
-    "&:focus": {
-      borderColor: open ? "#292936" : "#cacad9",
-    },
-  }),
-  OptionContainer: (base: any) => ({
-    ...base,
-    marginTop: 8,
-    backgroundColor: "white",
-    borderColor: "#cacad9",
-    borderWidth: 1,
-    borderRadius: 6,
-    boxShadow: "0px 3px 10px #cacad9",
-  }),
-  OptionItem: (base: any) => {
-    return {
-      ...base,
-      backgroundColor: "white",
-      color: "#292936",
-      paddingTop: 8,
-      paddingBottom: 8,
-      "&:hover": {
-        backgroundColor: "#ebebff",
-      },
-    }
-  },
-}
+import { Button, Link, Typography } from "../../../components";
+import { precintList } from "../constants";
+import { FindByType } from "../services/ballot-finder-service";
+import Dropdown from "../../../components/button-dropdown";
 
 type PrecintNumberFormProps = {
-  errorMessage: string | null
+  errorMessage: string | null;
   onSubmit: ({
     userInput,
     findBy,
   }: {
-    userInput: string
-    findBy: FindByType.precint
-  }) => void
-}
+    userInput: string;
+    findBy: FindByType.precint;
+  }) => void;
+};
 
 export default function PrecintNumberForm(props: PrecintNumberFormProps) {
-  const [selectedTown, setSelectedTown] = useState(precintList[0].value)
+  const [selectedTown, setSelectedTown] = useState(precintList[0].value);
 
   return (
     <div className="mx-auto mt-4 lg:mt-0 lg:w-3/4">
@@ -71,33 +35,29 @@ export default function PrecintNumberForm(props: PrecintNumberFormProps) {
       </Typography>
       <form
         className="mt-4"
-        onSubmit={event => {
-          event.preventDefault()
+        onSubmit={(event) => {
+          event.preventDefault();
 
-          const result = precintList.find(p => p.value === selectedTown)
+          const result = precintList.find((p) => p.value === selectedTown);
 
           props.onSubmit({
             userInput: (result && result.precint) || "",
             findBy: FindByType.precint,
-          })
+          });
         }}
       >
         <div className="font-bold text-left mb-2 block">
           Pueblo y número de precinto
         </div>
         <Dropdown
-          placeholder="Pueblo"
-          id="dropdown"
-          searchable={true}
           options={precintList}
           selectedOption={selectedTown}
-          setSelected={(t: string) => setSelectedTown(t)}
-          style={style}
+          onSelect={(option) => setSelectedTown(option)}
         />
         <Button className="mt-4 block w-full" data-testid="confirm-precint">
           Continuar
         </Button>
       </form>
     </div>
-  )
+  );
 }

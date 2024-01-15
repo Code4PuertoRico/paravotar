@@ -1,5 +1,3 @@
-import React from "react"
-
 type Props = {
   esTitle: string
   esRules: string

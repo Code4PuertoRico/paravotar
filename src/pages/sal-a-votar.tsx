@@ -1,16 +1,15 @@
-import React from "react"
+import { useLocation } from "react-router-dom";
+import { Container, Layout } from "../components";
+import { SpecialVoters } from "../components/inscribete/SpecialVoters";
+import { SidebarProvider } from "../context/sidebar-context";
+import useScrollIntoView from "../hooks/useScrollIntoView";
+import SEO from "../components/seo";
 
-import { Container, Layout, SEO } from "../components"
-import { SpecialVoters } from "../components/inscribete/SpecialVoters"
-import { SidebarProvider } from "../context/sidebar-context"
-import { withTrans } from "../i18n/withTrans"
-// import { FindVoterCenter } from "../components/inscribete/FindVoterCenter"
+const SalAVotar = () => {
+  const location = useLocation();
 
-type PageProps = {
-  location: Location
-}
+  useScrollIntoView(location);
 
-const SalAVotar = ({ location }: PageProps) => {
   return (
     <SidebarProvider>
       <Layout location={location}>
@@ -29,7 +28,7 @@ const SalAVotar = ({ location }: PageProps) => {
         </Container> */}
       </Layout>
     </SidebarProvider>
-  )
-}
+  );
+};
 
-export default withTrans(SalAVotar)
+export default SalAVotar;

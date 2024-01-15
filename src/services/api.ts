@@ -42,7 +42,7 @@ class FetchAdapter implements ApiInterface {
     return data
   }
 
-  async post(endpoint: string, params: any, options?: RequestOptions) {
+  async post<T>(endpoint: string, params: any, options?: RequestOptions) {
     const baseUrl = this.getBaseUrl(options)
     const res = await fetch(`${baseUrl}${endpoint}`, {
       method: "POST",
@@ -67,8 +67,8 @@ class ApiService {
     return res
   }
 
-  async post(endpoint: string, params: any, options?: RequestOptions) {
-    const res = await this.adapter.post(endpoint, params, options)
+  async post<T>(endpoint: string, params: any, options?: RequestOptions) {
+    const res = await this.adapter.post<T>(endpoint, params, options)
 
     return res
   }

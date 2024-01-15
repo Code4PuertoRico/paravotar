@@ -1,14 +1,15 @@
+import { expect, test, it } from "vitest";
 import {
   Selection,
   BallotType,
   ResultStatus,
   LegislativeBallot,
-} from "../types"
-import ballotValidator from "../index"
+} from "../types";
+import ballotValidator from "../index";
 
-const { selected, notSelected } = Selection
+const { selected, notSelected } = Selection;
 
-describe("Legislative Ballot", () => {
+test("Legislative Ballot", () => {
   it.each([
     [
       "empty selections",
@@ -425,9 +426,9 @@ describe("Legislative Ballot", () => {
         expect.objectContaining({
           status: ResultStatus.failure,
         })
-      )
+      );
     }
-  )
+  );
 
   it.each([
     [
@@ -791,7 +792,7 @@ describe("Legislative Ballot", () => {
         expect.objectContaining({
           status: ResultStatus.success,
         })
-      )
+      );
     }
-  )
-})
+  );
+});

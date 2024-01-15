@@ -1,9 +1,10 @@
-import React, { useEffect } from "react"
+import { useEffect, useMemo } from "react"
 import _ from "lodash"
 
 import { useMachine } from "@xstate/react"
 import { ToastContainer, toast } from "react-toastify"
-import i18next from "i18next"
+import { useTranslation } from "react-i18next"
+import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock"
 
 import { toFriendlyErrorMessages } from "../../../ballot-validator/helpers/messages"
 import { Card, Spinner, Typography } from "../../../components/index"
@@ -24,7 +25,7 @@ import {
 } from "../services/ballot-configs"
 // import useBallotValidation from "../hooks/use-ballot-validation"
 import useVotesTransform from "../hooks/use-votes-transform"
-import { practiceMachine } from "../machines/practice"
+import { BallotSelectionEvent, PracticeMachine } from "../machines/practice"
 import useVotesCount from "../hooks/use-votes-count"
 import { getExplicitlySelectedVotes, Vote } from "../services/vote-service"
 import BallotFinderPicker from "./ballot-finder-picker"
@@ -42,6 +43,65 @@ import BallotSelector from "./ballot-selector"
 import Steps from "./steps"
 import ContinuePracticing from "./continue-practicing"
 import { FindByType } from "../services/ballot-finder-service"
+import "react-toastify/dist/ReactToastify.css"
+import { TourProvider } from "@reactour/tour"
+import { Tours } from "../constants"
+
+const disableBody = (target: Element | null) => {
+  if (document == null || target == null) return
+
+  disableBodyScroll(target)
+
+  const mainContainer: HTMLElement | null =
+    document.querySelector("#main-container")
+
+  if (mainContainer) {
+    mainContainer.style.overflowY = "hidden"
+    mainContainer.style.overflowX = "hidden"
+  }
+
+  const ballotContainer: HTMLElement | null =
+    document.querySelector("#ballot-container")
+
+  if (ballotContainer) {
+    ballotContainer.style.overflowY = "hidden"
+    ballotContainer.style.overflowX = "hidden"
+  }
+
+  const htmlContainer: HTMLElement | null = document.querySelector("html")
+
+  if (htmlContainer) {
+    htmlContainer.style.scrollBehavior = "auto"
+  }
+}
+
+const enableBody = (target: Element | null) => {
+  if (document == null || target == null) return
+
+  enableBodyScroll(target)
+
+  const mainContainer: HTMLElement | null =
+    document.querySelector("#main-container")
+
+  if (mainContainer) {
+    mainContainer.style.overflowY = "scroll"
+    mainContainer.style.overflowX = "autoscroll-behavior: smooth;"
+  }
+
+  const ballotContainer: HTMLElement | null =
+    document.querySelector("#ballot-container")
+
+  if (ballotContainer) {
+    ballotContainer.style.overflowY = "hidden"
+    ballotContainer.style.overflowX = "scroll"
+  }
+
+  const htmlContainer: HTMLElement | null = document.querySelector("html")
+
+  if (htmlContainer) {
+    htmlContainer.style.scrollBehavior = "smooth"
+  }
+}
 
 export default function Practice({
   initialPrecint,
@@ -50,7 +110,8 @@ export default function Practice({
   initialPrecint: string | null
   initialBallotType?: BallotType
 }) {
-  const [state, send] = useMachine(practiceMachine, {
+  const { t } = useTranslation()
+  const [state, send] = useMachine(PracticeMachine, {
     context: {
       ballotType: initialBallotType,
     },
@@ -73,6 +134,8 @@ export default function Practice({
     ballotType: BallotType,
     ballot?: BallotConfigs
   ) => {
+    if (ballot == null) return
+
     const cleanedVotes = getExplicitlySelectedVotes(votes)
     const transformedVotes = coordinatesToSections(
       cleanedVotes,
@@ -85,13 +148,13 @@ export default function Practice({
     toast.dismiss()
 
     const writeInMissingNames = votes
-      .map(v => {
+      .map((v) => {
         if (v.candidate && _.isEmpty(v.candidate.name)) {
           return v
         }
         return null
       })
-      .filter(v => v !== null)
+      .filter((v) => v !== null)
 
     if (
       validationResult.outcomes.denied.length === 0 &&
@@ -99,19 +162,19 @@ export default function Practice({
     ) {
       send("SUBMIT")
     } else {
-      toFriendlyErrorMessages(validationResult)?.map(messageId => {
+      toFriendlyErrorMessages(validationResult)?.map((messageId) => {
         if (
           messageId.includes("MunicipalLegislatorDynamicSelectionRule") &&
           ballotType === BallotType.municipality
         ) {
           toast.error(
-            i18next.t(messageId, {
+            t(messageId, {
               maxSelection: (ballot as MunicipalBallotConfig)
                 ?.amountOfMunicipalLegislators,
             })
           )
         } else {
-          toast.error(i18next.t(messageId))
+          toast.error(t(messageId))
         }
       })
 
@@ -131,7 +194,10 @@ export default function Practice({
     }
   }, [state.value])
 
-  const selectBallot = (selectedBallot: string, eventData: any) => {
+  const selectBallot = (
+    selectedBallot: BallotSelectionEvent["type"],
+    eventData: any
+  ) => {
     setSidebarIsVisible(false)
     // setBallotStatus(null)
     setVotesCount(null)
@@ -140,6 +206,55 @@ export default function Practice({
   }
 
   const ballotType = state.context.ballotType || null
+
+  const practice = useMemo(() => {
+    if (state.context.ballots == null) return { tour: [], onSubmit: () => {} }
+
+    if (
+      state.context.ballotType === BallotType.state &&
+      state.context.ballots.estatal
+    ) {
+      return {
+        tour: Tours.state,
+        onSubmit: () =>
+          handleSubmit(
+            state.context.votes,
+            BallotType.state,
+            state.context.ballots?.estatal
+          ),
+      }
+    }
+
+    if (
+      state.context.ballotType === BallotType.legislative &&
+      state.context.ballots.legislativa
+    ) {
+      return {
+        tour: Tours.legislative,
+        onSubmit: () =>
+          handleSubmit(
+            state.context.votes,
+            BallotType.legislative,
+            state.context.ballots?.legislativa
+          ),
+      }
+    }
+
+    return {
+      tour: Tours.municipal,
+      onSubmit: () =>
+        handleSubmit(
+          state.context.votes,
+          BallotType.municipality,
+          state.context.ballots?.municipal
+        ),
+    }
+  }, [
+    handleSubmit,
+    state.context.ballotType,
+    state.context.ballots,
+    state.context.votes,
+  ])
 
   return (
     <div className="relative w-full">
@@ -200,8 +315,8 @@ export default function Practice({
                 state.matches({ enterPrecint: "empty" })
                   ? "Favor un número de precinto."
                   : state.matches({ enterPrecint: "invalidLength" })
-                  ? "Su precinto debe tener 3 caracteres o menos."
-                  : null
+                    ? "Su precinto debe tener 3 caracteres o menos."
+                    : null
               }
               onSubmit={({ userInput, findBy }) =>
                 send("ADDED_PRECINT", {
@@ -239,7 +354,22 @@ export default function Practice({
             />
           </Case>
           <Case value="practicing">
-            <Practicing state={state} send={send} handleSubmit={handleSubmit} />
+            <TourProvider
+              steps={practice.tour}
+              afterOpen={disableBody}
+              beforeClose={enableBody}
+              onClickClose={({ setIsOpen }) => {
+                setIsOpen(false)
+              }}
+              inViewThreshold={64}
+              showCloseButton
+            >
+              <Practicing
+                state={state}
+                send={send}
+                handleSubmit={practice.onSubmit}
+              />
+            </TourProvider>
           </Case>
           <Case value="showResults">
             <Results state={state} send={send} />
@@ -264,7 +394,7 @@ export default function Practice({
         pauseOnHover
       />
       {votesCount && state.matches("practicing") && (
-        <BallotStatus status={null}>
+        <BallotStatus>
           {ballotType === BallotType.state ? (
             <ResultsState
               votesCount={votesCount as StateVotesCount}

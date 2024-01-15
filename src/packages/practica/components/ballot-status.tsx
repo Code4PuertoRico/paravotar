@@ -1,14 +1,12 @@
-import React, { ReactNode, useState } from "react"
+import { ReactNode, useState } from "react"
 
-import { ResultStatus } from "../../../ballot-validator/types"
 import Arrows from "../../../components/arrows"
 
 type BallotStatusType = {
   children: ReactNode
-  status: ResultStatus | null
 }
 
-export default function BallotStatus({ children, status }: BallotStatusType) {
+export default function BallotStatus({ children }: BallotStatusType) {
   const [showFullscreen, setShowFullscreen] = useState(false)
 
   if (showFullscreen) {

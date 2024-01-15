@@ -1,12 +1,11 @@
-import React from "react"
 import { animated, useSpring } from "react-spring"
-import i18next from "i18next"
+import { useTranslation } from "react-i18next"
 
 import { Reason } from "./SpecialVoterReasons"
 import Typography from "../../typography"
-import ButtonDropdown from "../../button-dropdown"
 import Link from "../../link"
-import Download from "../../../assets/icons/download.inline.svg"
+import Download from "../../../assets/icons/download.svg?url"
+import Dropdown from "../../button-dropdown"
 
 type Props = {
   title: string
@@ -18,6 +17,7 @@ type Props = {
 }
 
 export default function TabContent(voter: Props) {
+  const { t } = useTranslation()
   const props = useSpring({ opacity: 1, from: { opacity: 0 } })
 
   return (
@@ -26,7 +26,7 @@ export default function TabContent(voter: Props) {
         {voter.summary}
       </Typography>
       <Typography tag="p" variant="p" className="mt-4" weight="semibold">
-        {i18next.t("site.special-voters-deadline-text")}
+        {t("site.special-voters-deadline-text")}
         <br />
         <span className="text-primary">
           <time>{voter.deadline}</time>
@@ -36,22 +36,24 @@ export default function TabContent(voter: Props) {
         {voter.title}
       </Typography>
       <ul className="pt-2">
-        {voter.reasons.map(reason => (
+        {voter.reasons.map((reason) => (
           <Reason
             key={reason.summary}
-            summary={i18next.t(reason.summary)}
-            details={i18next.t(reason.details)}
+            summary={t(reason.summary)}
+            details={t(reason.details)}
           />
         ))}
       </ul>
-      <Typography tag="p" variant="p" className="mt-4">
-        {i18next.t(voter.exceptions)}
-      </Typography>
+      {voter.exceptions && (
+        <Typography tag="p" variant="p" className="mt-4">
+          {t(voter.exceptions)}
+        </Typography>
+      )}
       {voter.documents.length > 1 ? (
-        <ButtonDropdown
-          placeholder={i18next.t("site.absentee-voter-dropdown")}
-          options={voter.documents.map(document => ({
-            value: i18next.t(document.title),
+        <Dropdown
+          selectedOption={voter.title}
+          options={voter.documents.map((document) => ({
+            value: t(document.title),
           }))}
           onSelect={(docTitle: string) => {
             if (docTitle == "Voto Adelantado" || docTitle == "Early Vote")
@@ -68,7 +70,9 @@ export default function TabContent(voter: Props) {
               docTitle = "site.absentee-voter-dropdown-03"
             else docTitle = "none"
 
-            const document = voter.documents.find(doc => doc.title === docTitle)
+            const document = voter.documents.find(
+              (doc) => doc.title === docTitle
+            )
 
             // Open download in a new tab.
             window.open(document?.link, "_blank")
@@ -81,8 +85,8 @@ export default function TabContent(voter: Props) {
           variant="primary"
           className="mt-6"
         >
-          <Download className="mr-1 h-5 w-5 inline-block" />
-          {i18next.t("site.early-voter-dropdown")}
+          <img src={Download} className="mr-1 h-5 w-5 inline-block" />
+          {t("site.early-voter-dropdown")}
         </Link>
       )}
     </animated.div>

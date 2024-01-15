@@ -1,11 +1,11 @@
-import React, { useRef, useState, useEffect, useMemo } from "react"
+import { useRef, useState, useEffect, useMemo } from "react"
 
 import { useTranslation } from "react-i18next"
 
-// import Practica from "../assets/icons/practica.svg"
-import Logo from "../assets/images/logo.svg"
-import Close from "../assets/icons/close.svg"
-import Menu from "../assets/icons/menu.svg"
+// import Practica from "../assets/icons/practica.svg?url"
+import Logo from "../assets/images/logo.svg?url"
+import Close from "../assets/icons/close.svg?url"
+import Menu from "../assets/icons/menu.svg?url"
 import { Section, SubSection } from "./section"
 import LanguageMenu from "./language-menu"
 import { getSections } from "./sidebar"
@@ -40,7 +40,7 @@ export default function Navbar({ pathname }: SidebarProps) {
         <div className="h-6 w-6"></div>
       </nav>
       <div
-        className={`fixed top-0 bg-navbar h-screen w-screen z-50 pt-12 transform ease-linear duration-300 ${
+        className={`fixed bg-navbar h-screen w-screen z-50 pt-12 transform ease-linear duration-300 ${
           isOpen ? "top-0" : "-top-h-screen"
         }`}
         ref={menuRef}

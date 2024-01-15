@@ -1,5 +1,3 @@
-import React from "react"
-
 export default function EmptyCandidacy() {
   return (
     <div className="border">

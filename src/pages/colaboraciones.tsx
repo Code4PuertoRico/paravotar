@@ -1,15 +1,16 @@
-import React from "react"
+import { useLocation } from "react-router-dom";
 
-import { withTrans } from "../i18n/withTrans"
-import { Container, Layout, SEO } from "../components"
-import Collabs from "../packages/colaboraciones/components/collabs"
-import { SidebarProvider } from "../context/sidebar-context"
+import { Container, Layout } from "../components";
+import Collabs from "../packages/colaboraciones/components/collabs";
+import { SidebarProvider } from "../context/sidebar-context";
+import useScrollIntoView from "../hooks/useScrollIntoView";
+import SEO from "../components/seo";
 
-type PageProps = {
-  location: Location
-}
+const Inscribete = () => {
+  const location = useLocation();
 
-const Inscribete = ({ location }: PageProps) => {
+  useScrollIntoView(location);
+
   return (
     <SidebarProvider>
       <Layout location={location}>
@@ -19,7 +20,7 @@ const Inscribete = ({ location }: PageProps) => {
         </Container>
       </Layout>
     </SidebarProvider>
-  )
-}
+  );
+};
 
-export default withTrans(Inscribete)
+export default Inscribete;

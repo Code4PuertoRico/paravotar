@@ -1,12 +1,13 @@
-import React from "react"
+import { useTranslation } from "react-i18next"
 
 import { ActiveCenters } from "./constants"
 import Typography from "../../typography"
 import { Link } from "../../../components/index"
-import Location from "../../../assets/icons/location.inline.svg"
-import i18next from "i18next"
+import Location from "../../../assets/icons/location.svg?url"
 
 export default function MakeAppointment() {
+  const { t } = useTranslation();
+
   return (
     <>
       <div className="mx-auto text-center">
@@ -16,7 +17,7 @@ export default function MakeAppointment() {
           variant="h3"
           className="uppercase tracking-wide"
         >
-          {i18next.t("site.where-voter-card")}
+          {t("site.where-voter-card")}
         </Typography>
         <Typography
           tag="h3"
@@ -24,7 +25,7 @@ export default function MakeAppointment() {
           weight="base"
           className="font-normal mt-4"
         >
-          {i18next.t("site.where-voter-card-guide")}
+          {t("site.where-voter-card-guide")}
         </Typography>
       </div>
       <div className="mt-12 mb-32">
@@ -57,7 +58,7 @@ export default function MakeAppointment() {
                 target="_blank"
                 variant="primary"
               >
-                <Location className="mr-1 h-5 w-5" />
+                <img src={Location} className="mr-1 h-5 w-5" />
                 Direcciones
                 <span className="sr-only">
                   para esta Junta de Inscripción Permanente

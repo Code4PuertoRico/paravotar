@@ -1,6 +1,10 @@
 import { Selection } from "../../../ballot-validator/types"
 import { VotesCoordinates } from "../../generate-ballot/types/ballot-machine"
-import { ElectiveField } from "./ballot-configs/base"
+import {
+  Candidate,
+  ElectiveField,
+  WriteInCandidate,
+} from "./ballot-configs/base"
 
 export class Vote {
   position: VotesCoordinates
@@ -26,6 +30,10 @@ export class Vote {
   }
 }
 
+export interface CandidateVote extends Vote {
+  candidate: Candidate | WriteInCandidate
+}
+
 export function getExplicitlySelectedVotes(votes: Vote[]) {
-  return votes.filter(vote => vote.selection === Selection.selected)
+  return votes.filter((vote) => vote.selection === Selection.selected)
 }

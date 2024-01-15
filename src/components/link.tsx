@@ -1,5 +1,5 @@
-import React, { ReactNode } from "react"
-import { Link as GatsbyLink } from "gatsby"
+import { ReactNode } from "react"
+import { Link as RRLink } from "react-router-dom"
 
 type Props = {
   variant: "primary" | "inverse" | "link" | "danger"
@@ -47,9 +47,9 @@ export default function Link({
   }
 
   return (
-    <GatsbyLink to={to} className={`${style} ${className}`}>
+    <RRLink to={to} className={`${style} ${className}`}>
       {children}
-    </GatsbyLink>
+    </RRLink>
   )
 }
 

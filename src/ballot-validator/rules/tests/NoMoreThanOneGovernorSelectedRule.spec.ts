@@ -1,9 +1,11 @@
-import { RuleOutcomeType, StateBallot, Selection } from "../../types"
-import NoMoreThanOneGovernorSelectedRule from "../NoMoreThanOneGovernorSelectedRule"
+import { expect, test, it } from "vitest";
 
-const { selected, notSelected } = Selection
+import { RuleOutcomeType, StateBallot, Selection } from "../../types";
+import NoMoreThanOneGovernorSelectedRule from "../NoMoreThanOneGovernorSelectedRule";
 
-describe("NoMoreThanOneGovernorSelectedRule", () => {
+const { selected, notSelected } = Selection;
+
+test("NoMoreThanOneGovernorSelectedRule", () => {
   it("should error on more than 1 selections", () => {
     const stateBallot: StateBallot = {
       parties: [notSelected, notSelected, notSelected, notSelected],
@@ -14,14 +16,14 @@ describe("NoMoreThanOneGovernorSelectedRule", () => {
         notSelected,
         notSelected,
       ],
-    }
+    };
 
     expect(
       new NoMoreThanOneGovernorSelectedRule().outcome(stateBallot)
     ).toEqual({
       outcome: RuleOutcomeType.deny,
-    })
-  })
+    });
+  });
 
   it("should not error on 1 selection", () => {
     const stateBallot: StateBallot = {
@@ -33,12 +35,12 @@ describe("NoMoreThanOneGovernorSelectedRule", () => {
         notSelected,
         notSelected,
       ],
-    }
+    };
 
     expect(
       new NoMoreThanOneGovernorSelectedRule().outcome(stateBallot)
     ).toEqual({
       outcome: RuleOutcomeType.allow,
-    })
-  })
-})
+    });
+  });
+});

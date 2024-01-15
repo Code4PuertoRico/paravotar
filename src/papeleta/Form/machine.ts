@@ -1,4 +1,4 @@
-import { Machine, assign, spawn } from "xstate"
+import { assign, createMachine, spawn } from "xstate"
 import { createSectionMachine } from "../Section/machine"
 import { createPartyMachine } from "../Party/machine"
 import { Party } from "../Party/types"
@@ -13,7 +13,7 @@ export const createBallotMachine = (
   parties: Party[],
   papeletaSections: SectionData[]
 ) =>
-  Machine<BallotMachineContext, BallotMachineEvent>(
+  createMachine<BallotMachineContext, BallotMachineEvent>(
     {
       id: "papeletaMachine",
       initial: "init",
@@ -57,27 +57,29 @@ export const createBallotMachine = (
     },
     {
       actions: {
-        spawnActorPerSelectionRow: assign(context => {
+        spawnActorPerSelectionRow: assign((context) => {
           const { parties, sections } = context
           const actors: { [key: string]: AllowedActors } = {}
 
-          sections.forEach(s => {
+          sections.forEach((s) => {
+            // @ts-ignore xstate magic
             actors[`section-${s.id}`] = spawn(
               createSectionMachine(s),
               `section-${s.id}`
             )
           })
 
+          // @ts-ignore xstate magic
           actors.parties = spawn(createPartyMachine(parties))
 
           return { actors }
         }),
         broadcastSelectedParty: ({ actors }, { selectedParty }) => {
-          const sections = Object.keys(actors).filter(k =>
+          const sections = Object.keys(actors).filter((k) =>
             k.startsWith("section")
           )
 
-          sections.forEach(actor => {
+          sections.forEach((actor) => {
             actors[actor].send("partySelected", {
               party: selectedParty,
               partyOverride: true,
@@ -85,11 +87,11 @@ export const createBallotMachine = (
           })
         },
         broadcastUnSelectedParty: ({ actors }, { selectedParty }) => {
-          const sections = Object.keys(actors).filter(k =>
+          const sections = Object.keys(actors).filter((k) =>
             k.startsWith("section")
           )
 
-          sections.forEach(actor => {
+          sections.forEach((actor) => {
             actors[actor].send("partyUnSelected", {
               party: selectedParty,
               partyOverride: true,
@@ -99,20 +101,20 @@ export const createBallotMachine = (
       },
       guards: {
         isComplete: ({ actors }) => {
-          const sections = Object.keys(actors).filter(k =>
+          const sections = Object.keys(actors).filter((k) =>
             k.startsWith("section")
           )
 
-          return sections.every(s => {
+          return sections.every((s) => {
             return actors[s].state.value === "complete"
           })
         },
         isNotComplete: ({ actors }) => {
-          const sections = Object.keys(actors).filter(k =>
+          const sections = Object.keys(actors).filter((k) =>
             k.startsWith("section")
           )
 
-          return !sections.every(s => {
+          return !sections.every((s) => {
             return actors[s].state.value === "complete"
           })
         },

@@ -1,15 +1,12 @@
-import React from "react"
-import { useService } from "@xstate/react"
+import { useActor } from "@xstate/react"
 import { PartyActor, Party } from "../types"
 
 interface PartyHeaderProps {
   partiesRef: PartyActor
 }
 
-export const PartyHeader: React.FunctionComponent<PartyHeaderProps> = ({
-  partiesRef,
-}) => {
-  const [current, send] = useService(partiesRef)
+export const PartyHeader = ({ partiesRef }: PartyHeaderProps) => {
+  const [current, send] = useActor(partiesRef)
 
   const { parties, selectedParty } = current.context
 
@@ -28,10 +25,10 @@ export const PartyHeader: React.FunctionComponent<PartyHeaderProps> = ({
     <>
       <thead>
         <tr>
-          <td>Party: {current.value}</td>
+          <td>Party: {current.value as string}</td>
         </tr>
         <tr>
-          {parties.map(p => (
+          {parties.map((p) => (
             <th key={p.id}>
               <p>{p.description}</p>
               <input

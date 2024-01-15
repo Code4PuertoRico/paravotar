@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react"
+import { useState, useRef } from "react"
 import { useSpring, animated } from "react-spring"
 import useMeasure from "react-use-measure"
 import { ResizeObserver } from "@juggle/resize-observer"
@@ -19,7 +19,7 @@ export function VoterCard(voter: Voter) {
   const [ref, bounds] = useMeasure({ polyfill: ResizeObserver })
   const props = useSpring({
     height: isOpen ? bounds.height || "auto" : 0,
-    visibility: isOpen ? "visible" : "hidden",
+    visibility: isOpen ? ("visible" as const) : ("hidden" as const),
     opacity: isOpen ? 1 : 0,
     transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
   })

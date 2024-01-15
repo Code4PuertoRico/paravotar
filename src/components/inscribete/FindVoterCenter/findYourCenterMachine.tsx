@@ -9,7 +9,7 @@ const getVoterDetails = (voterId?: string) => {
   return VoterInformationResource.getVoterInfo(voterId)
 }
 
-export const findYourCenterMachine = createMachine<
+export const FindYourCenterMachine = createMachine<
   FindYourCenterContext,
   FindYourCenterEvent
 >(

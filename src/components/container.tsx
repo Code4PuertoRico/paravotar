@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react"
+import { ReactNode, createElement } from "react"
 
 type Props = {
   children: ReactNode
@@ -17,7 +17,7 @@ export default function Container({
   ref,
   id,
 }: Props) {
-  return React.createElement(
+  return createElement(
     tag,
     {
       id,

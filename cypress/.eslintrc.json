@@ -1,0 +1,14 @@
+{
+  "root": true,
+  "parser": "@typescript-eslint/parser", // Specifies the ESLint parser
+  "env": {
+    "cypress/globals": true
+  },
+  "plugins": ["@typescript-eslint", "cypress"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:cypress/recommended",
+    "prettier"
+  ]
+}

@@ -1,10 +1,10 @@
-import React, { useState, ReactNode } from "react"
-import { Link } from "gatsby"
+import { useState, ReactNode } from "react"
 
 import Arrows from "./arrows"
 import { ResizeObserver } from "@juggle/resize-observer"
 import useMeasure from "react-use-measure"
 import { useSpring, animated } from "react-spring"
+import { Link } from "react-router-dom"
 
 type SectionProps = {
   name: string
@@ -21,7 +21,7 @@ function Section(props: SectionProps) {
   const [ref, bounds] = useMeasure({ polyfill: ResizeObserver })
   const springProps = useSpring({
     height: isOpen ? bounds.height || "auto" : 0,
-    visibility: isOpen ? "visible" : "hidden",
+    visibility: isOpen ? ("visible" as const) : ("hidden" as const),
     opacity: isOpen ? 1 : 0,
     transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
   })

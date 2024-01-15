@@ -1,9 +1,11 @@
-import { RuleOutcomeType, StateBallot, Selection } from "../../types"
-import NoMoreThanOnePartySelectedRule from "../NoMoreThanOnePartySelectedRule"
+import { expect, test, it } from "vitest";
 
-const { selected, notSelected } = Selection
+import { RuleOutcomeType, StateBallot, Selection } from "../../types";
+import NoMoreThanOnePartySelectedRule from "../NoMoreThanOnePartySelectedRule";
 
-describe("NoMoreThanOnePartySelectedRule", () => {
+const { selected, notSelected } = Selection;
+
+test("NoMoreThanOnePartySelectedRule", () => {
   it("should error on more than 1 selections", () => {
     const stateBallot: StateBallot = {
       parties: [selected, selected, notSelected, notSelected],
@@ -14,12 +16,12 @@ describe("NoMoreThanOnePartySelectedRule", () => {
         notSelected,
         notSelected,
       ],
-    }
+    };
 
     expect(new NoMoreThanOnePartySelectedRule().outcome(stateBallot)).toEqual({
       outcome: RuleOutcomeType.deny,
-    })
-  })
+    });
+  });
 
   it("should not error on empty selection", () => {
     const stateBallot: StateBallot = {
@@ -31,12 +33,12 @@ describe("NoMoreThanOnePartySelectedRule", () => {
         notSelected,
         notSelected,
       ],
-    }
+    };
 
     expect(new NoMoreThanOnePartySelectedRule().outcome(stateBallot)).toEqual({
       outcome: RuleOutcomeType.allow,
-    })
-  })
+    });
+  });
 
   it("should not error on 1 selection", () => {
     const stateBallot: StateBallot = {
@@ -48,10 +50,10 @@ describe("NoMoreThanOnePartySelectedRule", () => {
         notSelected,
         notSelected,
       ],
-    }
+    };
 
     expect(new NoMoreThanOnePartySelectedRule().outcome(stateBallot)).toEqual({
       outcome: RuleOutcomeType.allow,
-    })
-  })
-})
+    });
+  });
+});

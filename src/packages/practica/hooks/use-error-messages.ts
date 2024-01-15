@@ -1,19 +1,24 @@
 import { useState } from "react"
-
-import i18next from "i18next"
 import { toast } from "react-toastify"
+import { useTranslation } from "react-i18next"
+import { State } from "xstate"
 
 import coordinatesToSections from "../services/coordinates-to-sections"
 import BallotValidator from "../../../ballot-validator/index"
-
 import useDeepCompareEffect from "./use-deep-compare-effect"
 import { BallotType } from "../../../ballot-validator/types"
 import { toFriendlyErrorMessages } from "../../../ballot-validator/helpers/messages"
 import { MunicipalBallotConfig } from "../services/ballot-configs"
 import { getExplicitlySelectedVotes } from "../services/vote-service"
+import { PracticeContext } from "../services/types"
+import { PracticeEvent } from "../machines/practice"
 
-export default function useToast(state, dependencies: Array<any>) {
+export default function useToast(
+  state: State<PracticeContext, PracticeEvent>,
+  dependencies: Array<any>
+) {
   const [isPristine, setIsPristine] = useState(true)
+  const { t } = useTranslation()
 
   useDeepCompareEffect(() => {
     let ballotType: any = null
@@ -21,13 +26,13 @@ export default function useToast(state, dependencies: Array<any>) {
 
     if (state.context.ballotType === BallotType.state) {
       ballotType = BallotType.state
-      ballot = state.context.ballots.estatal
+      ballot = state.context.ballots?.estatal
     } else if (state.context.ballotType === BallotType.legislative) {
       ballotType = BallotType.legislative
-      ballot = state.context.ballots.legislativa
+      ballot = state.context.ballots?.legislativa
     } else if (state.context.ballotType === BallotType.municipality) {
       ballotType = BallotType.municipality
-      ballot = state.context.ballots.municipal
+      ballot = state.context.ballots?.municipal
     }
 
     if (!ballotType) {
@@ -49,19 +54,19 @@ export default function useToast(state, dependencies: Array<any>) {
 
     toast.dismiss()
 
-    toFriendlyErrorMessages(validationResult)?.map(messageId => {
+    toFriendlyErrorMessages(validationResult)?.map((messageId) => {
       if (
         messageId.includes("MunicipalLegislatorDynamicSelectionRule") &&
         ballotType === BallotType.municipality
       ) {
         toast.error(
-          i18next.t(messageId, {
+          t(messageId, {
             maxSelection: (ballot as MunicipalBallotConfig)
               ?.amountOfMunicipalLegislators,
           })
         )
       } else {
-        toast.error(i18next.t(messageId))
+        toast.error(t(messageId))
       }
     })
   }, dependencies)

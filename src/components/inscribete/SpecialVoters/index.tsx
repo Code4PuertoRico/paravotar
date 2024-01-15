@@ -1,16 +1,16 @@
-import React from "react"
-import i18next from "i18next"
-
 import Typography from "../../typography"
 import Tabs from "./Tabs"
 import SpecialVoterCards from "./SpecialVoterCards"
+import { useTranslation } from "react-i18next"
 
 export function SpecialVoters() {
+  const { t } = useTranslation();
+
   return (
     <>
       <div className="mx-auto text-center">
         <Typography tag="h2" variant="h3" className="uppercase tracking-wide">
-          {i18next.t("site.special-voters-title")}
+          {t("site.special-voters-title")}
         </Typography>
         <Typography
           tag="h3"
@@ -18,7 +18,7 @@ export function SpecialVoters() {
           weight="base"
           className="font-normal mt-4"
         >
-          {i18next.t("site.special-voters-guide")}
+          {t("site.special-voters-guide")}
         </Typography>
       </div>
       <div className="mt-12 mb-16 lg:mb-32">

@@ -1,78 +1,41 @@
-import React, { useMemo, useState, useEffect } from "react"
+import { useMemo, useState, useEffect } from "react";
+import { animated, useSpring } from "react-spring";
+import useMeasure from "react-use-measure";
+import { ResizeObserver } from "@juggle/resize-observer";
+import { useTranslation } from "react-i18next";
 
-import i18next from "i18next"
-import { animated, useSpring } from "react-spring"
-import useMeasure from "react-use-measure"
-import { ResizeObserver } from "@juggle/resize-observer"
-import Dropdown from "react-dropdown-aria"
-
-import { LetterList } from "./LetterList"
-import { TownList } from "./TownList"
-import { voterCenters } from "./constants"
+import { LetterList } from "./LetterList";
+import { TownList } from "./TownList";
+import { voterCenters } from "./constants";
 // import { AvailableCentersDirectory } from "../MakeAppointment/constants"
-import { CenterInfo } from "./CenterInfo"
-import Typography from "../../typography"
+import { CenterInfo } from "./CenterInfo";
+import Typography from "../../typography";
+import Dropdown from "../../button-dropdown";
 
-const style: { [key: string]: any } = {
-  DropdownButton: (base: any, { open }: any) => ({
-    ...base,
-    backgroundColor: "white",
-    borderColor: open ? "#292936" : "#cacad9",
-    "&:hover": {
-      borderColor: open ? "#292936" : "#cacad9",
-    },
-
-    "&:focus": {
-      borderColor: open ? "#292936" : "#cacad9",
-    },
-  }),
-  OptionContainer: (base: any) => ({
-    ...base,
-    marginTop: 8,
-    backgroundColor: "white",
-    borderColor: "#cacad9",
-    borderWidth: 1,
-    borderRadius: 6,
-    boxShadow: "0px 3px 10px #cacad9",
-  }),
-  OptionItem: (base: any) => {
-    return {
-      ...base,
-      backgroundColor: "white",
-      color: "#292936",
-      paddingTop: 8,
-      paddingBottom: 8,
-      "&:hover": {
-        backgroundColor: "#ebebff",
-      },
-    }
-  },
-}
-
-const dropdownOptions = voterCenters.map(({ pueblo, JIPIsla }) => ({
+const dropdownOptions = voterCenters.map(({ pueblo }) => ({
   value: `${pueblo} (Isla)`,
-  // value: `${pueblo}${JIPIsla ? " (Isla)" : ""}`,
-}))
+}));
 
 export function VoterCenters() {
-  const [selectedLetter, setSelectedLetter] = useState("A")
+  const { t } = useTranslation();
+  const [selectedLetter, setSelectedLetter] = useState("A");
 
   const townList = useMemo(
     () =>
       voterCenters.filter(({ pueblo }) => pueblo.startsWith(selectedLetter)),
     [selectedLetter]
-  )
+  );
 
-  const [selectedTown, setSelectedTown] = useState(townList[0])
+  const [selectedTown, setSelectedTown] = useState(townList[0]);
 
   useEffect(() => {
-    setSelectedTown(townList[0])
-  }, [selectedLetter, townList])
+    setSelectedTown(townList[0]);
+  }, [selectedLetter, townList]);
 
-  const [ref, bounds] = useMeasure({ polyfill: ResizeObserver })
+  const [ref, bounds] = useMeasure({ polyfill: ResizeObserver });
   const props = useSpring({
     height: bounds.height || "auto",
-  })
+  });
 
   return (
     <>
@@ -81,7 +44,7 @@ export function VoterCenters() {
         variant="h3"
         className="uppercase text-center tracking-wide"
       >
-        {i18next.t("site.where-voter-card")}
+        {t("site.where-voter-card")}
       </Typography>
       <Typography
         tag="h3"
@@ -89,30 +52,21 @@ export function VoterCenters() {
         weight="base"
         className="text-center mt-3"
       >
-        {i18next.t("site.where-voter-card-guide")}
+        {t("site.where-voter-card-guide")}
       </Typography>
       <div className="mt-12 bg-white shadow-md rounded">
         <section>
           <div className="md:hidden">
             <Dropdown
-              placeholder="Pueblo"
-              id="dropdown"
-              searchable={true}
               options={dropdownOptions}
-              selectedOption={
-                `${selectedTown.pueblo} (Isla)`
-                // selectedTown.JIPIsla
-                //   ? `${selectedTown.pueblo} (Isla)`
-                //   : selectedTown.pueblo
-              }
-              setSelected={(t: string) => {
-                const selection = t.replace(" (Isla)", "")
+              selectedOption={`${selectedTown.pueblo} (Isla)`}
+              onSelect={(t: string) => {
+                const selection = t.replace(" (Isla)", "");
 
                 setSelectedTown(
                   voterCenters.filter(({ pueblo }) => pueblo === selection)[0]
-                )
+                );
               }}
-              style={style}
             />
             <CenterInfo key={selectedTown.pueblo} town={selectedTown} />
           </div>
@@ -139,5 +93,5 @@ export function VoterCenters() {
         </section>
       </div>
     </>
-  )
+  );
 }

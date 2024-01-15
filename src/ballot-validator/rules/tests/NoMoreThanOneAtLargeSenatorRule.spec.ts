@@ -1,9 +1,11 @@
-import { RuleOutcomeType, Selection, LegislativeBallot } from "../../types"
-import NoMoreThanOneAtLargeSenatorRule from "../NoMoreThanOneAtLargeSenatorRule"
+import { expect, test, it } from "vitest";
 
-const { selected, notSelected } = Selection
+import { RuleOutcomeType, Selection, LegislativeBallot } from "../../types";
+import NoMoreThanOneAtLargeSenatorRule from "../NoMoreThanOneAtLargeSenatorRule";
 
-describe("NoMoreThanOneAtLargeSenatorRule", () => {
+const { selected, notSelected } = Selection;
+
+test("NoMoreThanOneAtLargeSenatorRule", () => {
   it("should error on more than 1 selections", () => {
     const legislativeBallot: LegislativeBallot = {
       parties: [notSelected, notSelected, notSelected, notSelected],
@@ -33,14 +35,14 @@ describe("NoMoreThanOneAtLargeSenatorRule", () => {
         [notSelected, notSelected, notSelected, notSelected],
         [notSelected, notSelected, notSelected, notSelected],
       ],
-    }
+    };
 
     expect(
       new NoMoreThanOneAtLargeSenatorRule().outcome(legislativeBallot)
     ).toEqual({
       outcome: RuleOutcomeType.deny,
-    })
-  })
+    });
+  });
 
   it("should not error on 1 selection", () => {
     const legislativeBallot: LegislativeBallot = {
@@ -71,12 +73,12 @@ describe("NoMoreThanOneAtLargeSenatorRule", () => {
         [notSelected, notSelected, notSelected, notSelected],
         [notSelected, notSelected, notSelected, notSelected],
       ],
-    }
+    };
 
     expect(
       new NoMoreThanOneAtLargeSenatorRule().outcome(legislativeBallot)
     ).toEqual({
       outcome: RuleOutcomeType.allow,
-    })
-  })
-})
+    });
+  });
+});

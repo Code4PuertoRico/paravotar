@@ -28,7 +28,7 @@ export type VoterDetailsResponse = {
   }
 }
 
-export type BallotResponse = { ocrResult: string; logoImg?: string }[][]
+export type BallotDetails = { ocrResult: string; logoImg?: string }[][]
 
 export type OcrResult = {
   ocrResult: string
@@ -46,20 +46,18 @@ export type FindByEventParams = {
   findBy: FindByType
 }
 
+export type Ballots = {
+  estatal: StateBallotConfig
+  municipal: MunicipalBallotConfig
+  legislativa: LegislativeBallotConfig
+}
+
 export type PracticeContext = {
   userInput: string | null
   findBy: FindByType | null
   uuid?: string
-  ballotPaths?: {
-    estatal: string
-    municipal: string
-    legislativa: string
-  }
-  ballots?: {
-    estatal?: StateBallotConfig
-    municipal?: MunicipalBallotConfig
-    legislativa?: LegislativeBallotConfig
-  }
+  ballotPaths?: BallotsResponse
+  ballots?: Partial<Ballots>
   votes: Vote[]
   transformedVotes?: TransformedVotes[]
   ballotType?: BallotType
@@ -80,8 +78,8 @@ export type VoterInfo = {
   unidad: string
 }
 
-export type BallotsResponse = {
+export interface BallotsResponse {
   estatal: string
   municipal: string
-  legislative: string
+  legislativa: string
 }

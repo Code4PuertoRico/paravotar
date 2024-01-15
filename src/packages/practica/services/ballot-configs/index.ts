@@ -367,3 +367,9 @@ export type BallotConfigs =
   | StateBallotConfig
   | MunicipalBallotConfig
   | LegislativeBallotConfig
+
+export type BallotConfigByType = {
+  estatal: StateBallotConfig
+  municipal: MunicipalBallotConfig
+  legislativa: LegislativeBallotConfig
+}

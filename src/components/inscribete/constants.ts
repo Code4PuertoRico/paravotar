@@ -1,8 +1,8 @@
-import EighteenPlus from "../../assets/icons/eighteen-plus.svg"
-import BornInTerritory from "../../assets/icons/born-in-territory.svg"
-import BornInOtherCountries from "../../assets/icons/born-in-other-countries.svg"
-import AbsenteeVoterIcon from "../../assets/icons/absentee-voter.svg"
-import EarlyVoterIcon from "../../assets/icons/early-voter.svg"
+import EighteenPlus from "../../assets/icons/eighteen-plus.svg?url"
+import BornInTerritory from "../../assets/icons/born-in-territory.svg?url"
+import BornInOtherCountries from "../../assets/icons/born-in-other-countries.svg?url"
+import AbsenteeVoterIcon from "../../assets/icons/absentee-voter.svg?url"
+import EarlyVoterIcon from "../../assets/icons/early-voter.svg?url"
 import { Voter, SpecialVoter, AbsenteeAndEarlyVoting } from "./types"
 
 export const VoterDocs: Voter[] = [

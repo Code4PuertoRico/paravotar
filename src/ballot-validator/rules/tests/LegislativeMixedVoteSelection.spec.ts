@@ -1,9 +1,11 @@
-import { RuleOutcomeType, LegislativeBallot, Selection } from "../../types"
-import LegislativeMixedVoteSelection from "../LegislativeMixedVoteSelection"
+import { expect, test, it } from "vitest";
 
-const { selected, notSelected } = Selection
+import { RuleOutcomeType, LegislativeBallot, Selection } from "../../types";
+import LegislativeMixedVoteSelection from "../LegislativeMixedVoteSelection";
 
-describe("LegislativeMixedVoteSelection", () => {
+const { selected, notSelected } = Selection;
+
+test("LegislativeMixedVoteSelection", () => {
   it("should error on party selection and different column selections for all sections", () => {
     const legislativeBallot: LegislativeBallot = {
       parties: [selected, notSelected, notSelected, notSelected],
@@ -28,7 +30,7 @@ describe("LegislativeMixedVoteSelection", () => {
         [notSelected, notSelected, notSelected, notSelected],
         [notSelected, notSelected, notSelected, notSelected],
       ],
-    }
+    };
 
     expect(
       new LegislativeMixedVoteSelection().outcome(legislativeBallot)
@@ -37,8 +39,8 @@ describe("LegislativeMixedVoteSelection", () => {
       metadata: {
         section: "all",
       },
-    })
-  })
+    });
+  });
 
   it("should not error on 1 selection", () => {
     const legislativeBallot: LegislativeBallot = {
@@ -69,14 +71,14 @@ describe("LegislativeMixedVoteSelection", () => {
         [notSelected, notSelected, notSelected, notSelected],
         [notSelected, notSelected, notSelected, notSelected],
       ],
-    }
+    };
 
     expect(
       new LegislativeMixedVoteSelection().outcome(legislativeBallot)
     ).toEqual({
       outcome: RuleOutcomeType.allow,
-    })
-  })
+    });
+  });
 
   it("should not error on implicit selection", () => {
     const legislativeBallot: LegislativeBallot = {
@@ -102,12 +104,12 @@ describe("LegislativeMixedVoteSelection", () => {
         [notSelected, notSelected, notSelected, notSelected],
         [notSelected, notSelected, notSelected, notSelected],
       ],
-    }
+    };
 
     expect(
       new LegislativeMixedVoteSelection().outcome(legislativeBallot)
     ).toEqual({
       outcome: RuleOutcomeType.allow,
-    })
-  })
-})
+    });
+  });
+});

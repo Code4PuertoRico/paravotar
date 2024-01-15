@@ -1,9 +1,11 @@
-import { RuleOutcomeType, StateBallot, Selection } from "../../types"
-import NoEmptyBallotRule from "../NoEmptyBallotRule"
+import { expect, test, it } from "vitest";
 
-const { selected, notSelected } = Selection
+import { RuleOutcomeType, StateBallot, Selection } from "../../types";
+import NoEmptyBallotRule from "../NoEmptyBallotRule";
 
-describe("NoEmptyBallotRule", () => {
+const { selected, notSelected } = Selection;
+
+test("NoEmptyBallotRule", () => {
   it("should error on empty selections", () => {
     const stateBallot: StateBallot = {
       parties: [notSelected, notSelected, notSelected, notSelected],
@@ -14,12 +16,12 @@ describe("NoEmptyBallotRule", () => {
         notSelected,
         notSelected,
       ],
-    }
+    };
 
     expect(new NoEmptyBallotRule().outcome(stateBallot)).toEqual({
       outcome: RuleOutcomeType.deny,
-    })
-  })
+    });
+  });
 
   it("should not error on 1 selection", () => {
     const stateBallot: StateBallot = {
@@ -31,10 +33,10 @@ describe("NoEmptyBallotRule", () => {
         notSelected,
         notSelected,
       ],
-    }
+    };
 
     expect(new NoEmptyBallotRule().outcome(stateBallot)).toEqual({
       outcome: RuleOutcomeType.allow,
-    })
-  })
-})
+    });
+  });
+});

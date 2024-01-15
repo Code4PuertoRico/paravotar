@@ -47,15 +47,37 @@ export function getElectivePositionForVote(
   return ElectivePosition.atLargeSenator
 }
 
+function getStatePositions(position: string) {
+  if (
+    position !== ElectivePosition.governor &&
+    position !== ElectivePosition.commissionerResident
+  )
+    throw Error("Unsuppported elective position")
+
+  return BallotPositions.state[position]
+}
+
+function getLegislativePositions(position: string) {
+  if (
+    position !== ElectivePosition.atLargeRepresentative &&
+    position !== ElectivePosition.atLargeSenator &&
+    position !== ElectivePosition.districtRepresentative &&
+    position !== ElectivePosition.districtSenators
+  )
+    throw Error("Unsuppported elective position")
+
+  return BallotPositions.legislative[position]
+}
+
 export function getStartAndEndPositionsForBallot(
   ballot: BallotConfigs,
   ballotType: BallotType,
   electivePosition: ElectivePosition
 ) {
   if (ballotType === BallotType.state) {
-    return BallotPositions.state[electivePosition]
+    return getStatePositions(electivePosition)
   } else if (ballotType === BallotType.legislative) {
-    return BallotPositions.legislative[electivePosition]
+    return getLegislativePositions(electivePosition)
   }
 
   if (electivePosition === ElectivePosition.mayor) {
@@ -70,7 +92,7 @@ export function getStartAndEndPositionsForBallot(
 
 export function getColumnForParty(
   ballot: BallotConfigs,
-  intendedVote: VoteEvent
+  intendedVote: Pick<VoteEvent, "position">
 ) {
   const columnForParty = ballot.structure.reduce((accum, currentRow) => {
     const colForParty = currentRow.filter((column, columnIndex) => {
