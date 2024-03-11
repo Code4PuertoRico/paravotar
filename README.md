@@ -2,6 +2,12 @@
 
 ![CI](https://github.com/Code4PuertoRico/paravotar/workflows/CI/badge.svg)
 
+> [!IMPORTANT]
+> El desarrollow y mantenimiento de este repository a sido transferido a la organización [Para-Votar](https://github.com/Para-Votar).
+> Este repositorio sera archivado y se mantendra accesible. Para cualquier pregunta y colaboración por favor vaya a
+> - [Para Votar Issues](https://github.com/Para-Votar/paravotar/issues)
+> - [Para Votar Discussions](https://github.com/Para-Votar/paravotar/discussions)
+
 ## Development
 
 ```shell
